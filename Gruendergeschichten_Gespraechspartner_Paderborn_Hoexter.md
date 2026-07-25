@@ -97,7 +97,7 @@ Pressestellen → langsamer). Empfehlung: mit 🟢 starten, 🔴 parallel & frü
 - **Sozialen Beweis mitschicken:** „Bei uns waren u. a. schon Christoph Plass (UNITY) und Mladen Milicevic (Unchained Robotics)."
 - **Aufwand kleinreden:** ~32 Min., Aufnahme **vor Ort im Unternehmen**, Termin nach ihrer Verfügbarkeit.
 - **Nutzen für den Gast benennen:** Reichweite in der regionalen Unternehmer-Community, Employer Branding, O-Ton für eigene Kanäle (Clip zum Teilen anbieten).
-- **Höxter aktiv über Clara Bickmann** (WJ-Stv. Kreis Höxter) anbahnen – kürzeste Wege vor Ort.
+- **Kreis Höxter aktiv anbahnen** über die WJ-Kontakte vor Ort (z. B. Raphael Rosenstein/BAW, Warburg) und die GfW Kreis Höxter – kürzeste Wege in den zweiten Kreis.
 
 ---
 
@@ -194,17 +194,13 @@ oder übernommen**. Fast durchweg 🟢 hohe Zusage-Wahrscheinlichkeit.
 | Person | WJ/Club-Rolle | Firma | Story | Säule |
 |---|---|---|---|---|
 | **Thomas Sprehe** | Wirtschaftsclub (früherer Vorsitzender) | **NSI CAD/CAM Technik**, Salzkotten | 🏆 **1993 „aus dem Kinderzimmer" gegründet** (mit Paul Nöltker), heute etabliert (Fraunhofer-IEM-Zukunftsmeile). Lehrbuch-Gründerstory. | 🚀→🏛️ |
-| **Raphael Rosenstein** | WJ Immediate Past President | **BAW Baumaschinen-Vertrieb**, **Warburg (Kreis Höxter)** | Next-Gen im Familienunternehmen (Vater Dr. Herbert Rosenstein). Bonus: Auftaktfolge zum Relaunch. | 🔁 |
-| **Annalen Unterhalt** | WJ stv. Vorsitzende | **Kotzenberg Textilservice**, Hövelhof | GF-Familie eines **1874 gegründeten** Traditionsbetriebs (DBL-Verbund). Frau, Next-Gen, Tradition. | 🔁🏛️ |
-| **Anja Pötz** | Wirtschaftsclub-Vorstand | **Hotel zur Mühle**, Paderborn | Inhaberin – Gastgewerbe/Familienbetrieb führen. | 🔁 |
+| **Raphael Rosenstein** | WJ Immediate Past President | **BAW Baumaschinen-Vertrieb**, **Warburg (Kreis Höxter)** | Next-Gen im Familienunternehmen (Vater Dr. Herbert Rosenstein). Bonus: Auftaktfolge zum Relaunch. | 🔁 || **Anja Pötz** | Wirtschaftsclub-Vorstand | **Hotel zur Mühle**, Paderborn | Inhaberin – Gastgewerbe/Familienbetrieb führen. | 🔁 |
 | **Anke Zillmann** | Wirtschaftsclub-Vorsitzende | **Grothus van Koten Mittelstandsmarketing**, Paderborn | Unternehmerin/Agentur – Marketing-Blickwinkel. | 🏛️ |
 
 ### Ideale Gastgeber:innen / Türöffner (ohne eigene Gründung, aber Schlüsselrollen)
 
 | Person | Rolle | Firma | Wert für den Podcast |
-|---|---|---|---|
-| **Clara Bickmann** | WJ-**Vorsitzende** (aus Kreis Höxter) | Bausparkasse Schwäbisch Hall | Ideale **Auftakt-/Rahmenfolge** & wichtigste Türöffnerin für den Kreis Höxter. |
-| **Martin Holzhausen** | WJ stv. Vorsitzender | UNITY (Innovation Alliance) | Brücke zur UNITY-Gründungsgeschichte (Christoph Plass). |
+|---|---|---|---|| **Martin Holzhausen** | WJ stv. Vorsitzender | UNITY (Innovation Alliance) | Brücke zur UNITY-Gründungsgeschichte (Christoph Plass). |
 | **Marie-Luise Helfgerdt** | WJ-Schatzmeisterin | Sparkasse Paderborn-Detmold-Höxter | Perfekt für Finanzierungs-/Nachfolge-Themen + Vermittlung. |
 | **Patrick Obornik** | WJ-Beisitzer | Hegemann OHG | Evtl. Familienbetrieb/Nachfolge – vor Ansprache prüfen. |
 | **Daniel Beermann** | WJ-Geschäftsführer | IHK Ostwestfalen | Organisatorischer Türöffner ins gesamte WJ-Netzwerk. |
