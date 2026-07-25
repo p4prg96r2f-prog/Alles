@@ -1,139 +1,144 @@
-# Gründergeschichten – Potenzielle Gesprächspartner im Kreis Paderborn & Höxter
+# Gründergeschichten – Gästeliste für „Auf eine Tasse mit …"
 
-> Recherche-Grundlage für das umgebaute Podcast-Format **„Gründergeschichten"**.
-> Fokus: Menschen mit einer erzählbaren Gründungs-, Aufbau- oder Nachfolgegeschichte
-> aus dem Kreis Paderborn und dem Kreis Höxter (Ostwestfalen-Lippe).
+> Podcast der **Wirtschaftsjunioren Paderborn + Höxter e. V.** · Format-Umbau auf
+> **Gründergeschichten**.
 >
-> Stand: Juli 2026 · Zusammengestellt aus öffentlicher Web-Recherche.
-> **Wichtig:** Namen, Rollen und Erreichbarkeit vor der Ansprache noch einmal
-> verifizieren (Personen wechseln, Firmen werden verkauft o. Ä.).
+> Der Podcast läuft unter dem Motto „von Unternehmern für Unternehmer", ~35 Folgen,
+> neue Folge etwa alle 4 Wochen, ~32 Min. Gastgeber sind WJ-Mitglieder.
+> Zielgruppe/Community: junge Unternehmer:innen & Führungskräfte **unter 40**
+> (~100 aktive WJ-Mitglieder, 200+ Wirtschaftsclub-Mitglieder).
+> Kontakt-Postfach: **wj.podcast.paderborn@gmail.com**
+>
+> Stand: Juli 2026 · Aus öffentlicher Web-Recherche. **Namen/Rollen vor Ansprache verifizieren.**
 
 ---
 
-## Wie diese Liste aufgebaut ist
+## Ausrichtung auf das Format
 
-Die Gesprächspartner sind nach **Story-Typ** gruppiert – so kannst du eine
-abwechslungsreiche Staffel planen (junge Szene, etablierte Macher, Nachfolge,
-Handwerk, Impact). Für jeden Eintrag steht, **warum die Geschichte trägt**.
+Weil „Auf eine Tasse mit …" von und für **junge** Unternehmer:innen (WJ, <40)
+gemacht wird, priorisiert diese Liste **erzählbare, nahbare Gründungsgeschichten**
+– junge Gründer:innen, Next-Gen-Nachfolger:innen und WJ-Mitglieder mit eigener
+Firma – statt der ganz großen, älteren Konzernnamen. Die „Legenden" (dSPACE,
+Benteler …) stehen unten als Ideen für **Sonderfolgen**.
 
-Legende der Story-Winkel:
-🚀 Junge/aktuelle Gründung · 🏛️ Aufbau über Jahrzehnte · 🔁 Nachfolge/Generationenwechsel · 🌱 Impact/Nachhaltigkeit · 🏭 Hidden Champion / Weltmarktführer
+Story-Winkel: 🚀 junge Gründung · 🔁 Next-Gen-Nachfolge · 🌱 Impact · 🏭 Weltmarktführer · ⭐ WJ-intern
 
 ---
 
-## A) Kreis Paderborn – Junge Gründerszene (garage33 / Uni Paderborn) 🚀
+## ⚠️ Bereits im Podcast gewesen (nicht doppeln – nur als Referenz / für Follow-ups)
 
-Die aktivste Quelle für frische Geschichten: das Gründungszentrum **garage33**
-der Universität Paderborn hat seit 2019 rund **100 Mio. €** an Kapital für seine
-Start-ups eingeworben.
+| Gast | Unternehmen | Winkel |
+|---|---|---|
+| **Christoph Plass** | Mitgründer **UNITY** (Innovations-/Managementberatung); Beiratsvors. skyhub PAD | 🏛️ bereits Gast |
+| **Mladen Milicevic** | Gründer **Unchained Robotics** (Robotik-Marktplatz, Uni-PB-Spin-off) | 🚀 bereits Gast |
+| **Dr. Yvonne Groening** | Gründerin **myconsult GmbH** (Uni-PB-Spin-off) | 🚀 bereits Gast |
+| **Christian Hake** | Gründer/GF **CAT marketing GmbH**, Past President WJ | ⭐ bereits Gast |
+| Uwe Friebe | GF Artist MesseService und -Bau | (kein Gründer-Fokus) |
 
-| Gesprächspartner:in | Unternehmen | Ort | Warum spannend fürs Format |
+*(Diese Gründer sind ideale „Follow-up"-Gäste, z. B. für eine Update-Folge „X Jahre später".)*
+
+---
+
+## A) Priorität 1 – Junge Gründer:innen aus der Region (WJ-Zielgruppe, noch nicht Gast) 🚀
+
+Beste Quelle: das Gründungszentrum **garage33** der Uni Paderborn (seit 2019 ~100 Mio. € Kapital eingeworben).
+
+| Gesprächspartner:in | Unternehmen | Ort | Warum die Story trägt |
 |---|---|---|---|
-| **Leon Beier & Leo Wiegand** | ONE WARE GmbH | Paderborn / TH OWL | KI-Plattform für Automatisierung („PLC ONE"); 2,5 Mio. € von Cusp Capital eingesammelt. Zwei junge Gründer, klassische „vom Studium zur Millionenrunde"-Story. 🚀 |
-| **Ramona Schrör & Harald Bärhold** | conwerk | Paderborn | Modulares Mehrweg-/Recycling-Haus (Zero-Waste-Bau). Ausgezeichnet von „Grüne Gründungen.NRW". Nachhaltigkeit + Bauen. 🌱🚀 |
-| **Gründerteam** | Tentris | Paderborn | KI-Datenbank, DSGVO-konform; Gesamtsieger Businessplan-Wettbewerb „startklar OWL" 2023/24. Deep-Tech aus der Uni. 🚀 |
-| **Gründerteam** | PALPRINT | Paderborn | Maßgeschneiderte Verpackungen aus Recyclingkunststoff; Preisträger „startklar OWL". 🌱 |
-| **Gründerteam** | Excellence Coatings | Paderborn | Nachhaltige Beschichtungen; Impact-Start-up der garage33. 🌱 |
-| **Gründerteam** | assemblean | Paderborn | Plattform-/Fertigungs-Start-up, Preisträger „startklar OWL" 2022. 🚀 |
-| **Gründerteam** | Steets | Paderborn | Preisträger „startklar OWL" 2022 – gute „aus einer Alltagsidee wird ein Produkt"-Geschichte. 🚀 |
-| **Gründerteam** | Cellgo | Paderborn | Biotech/Life-Science-Ausgründung, Preisträger 2022. 🚀 |
-| **Ovidiu Ursachi** | masernet GmbH | Paderborn | Unternehmer & IT-Security-Experte – Nischen-/Cybersecurity-Winkel. 🚀 |
-
-**Türöffner:** garage33 / TecUP und die Wirtschaftsförderung Paderborn (WFG)
-können weitere aktuelle Teams vermitteln und wissen, wer gerade „erzählbar" ist.
+| **Leon Beier & Leo Wiegand** | **ONE WARE** | Paderborn / TH OWL | Zwei sehr junge Gründer, KI-Automatisierung („PLC ONE"), 2,5 Mio. € von Cusp Capital. Perfekte „vom Studium zur Millionenrunde"-Story. 🚀 |
+| **Ramona Schrör & Harald Bärhold** | **conwerk** | Paderborn | Modulares Mehrweg-/Recycling-Haus, Zero-Waste-Bau; ausgezeichnet von „Grüne Gründungen.NRW". Nachhaltigkeit trifft Handwerk. 🌱🚀 |
+| **Gründerteam** | **Tentris** | Paderborn | KI-Datenbank, DSGVO-konform; Gesamtsieger „startklar OWL" 2023/24. Deep-Tech, gut für Tech-affine Hörer. 🚀 |
+| **Gründerteam** | **PALPRINT** | Paderborn | Verpackungen aus Recyclingkunststoff; Preisträger „startklar OWL". Greifbares Produkt + Kreislaufwirtschaft. 🌱 |
+| **Gründerteam** | **Excellence Coatings** | Paderborn | Nachhaltige Beschichtungen; Impact-Start-up der garage33. 🌱 |
+| **Gründerteam** | **assemblean** | Paderborn | Fertigungs-/Plattform-Start-up, Preisträger „startklar OWL" 2022. 🚀 |
+| **Gründerteam** | **Steets** | Paderborn | „Aus einer Alltagsidee wird ein Produkt"; Preisträger 2022. Sehr nahbar. 🚀 |
+| **Gründerteam** | **Cellgo** | Paderborn | Biotech/Life-Science-Ausgründung; Preisträger 2022. 🚀 |
+| **Ovidiu Ursachi** | **masernet GmbH** | Paderborn | Unternehmer & IT-Security-Experte – Cybersecurity-Nische. 🚀 |
 
 ---
 
-## B) Kreis Paderborn – Etablierte Tech-Pioniere & IT-Erbe 🏛️
+## B) Priorität 2 – Next-Gen: Junge Nachfolger:innen von Familienunternehmen 🔁
 
-Paderborn ist ein IT-Hotspot: über **300 IT-Firmen** mit mehr als 10.000
-Beschäftigten – viele gegründet von ehemaligen **Nixdorf**-Mitarbeitern.
+Besonders WJ-passend: die Generation, die **gerade übernimmt**. Story „ins gemachte
+Nest? Von wegen" – Erwartungsdruck, Modernisierung, Digitalisierung.
 
-| Gesprächspartner:in | Unternehmen | Ort | Warum spannend fürs Format |
+| Gesprächspartner:in | Unternehmen | Ort | Warum die Story trägt |
 |---|---|---|---|
-| **Dr. Herbert Hanselmann** | dSPACE | Paderborn | Gab 1988 den Beamtenstatus auf, gründete mit drei Uni-Kollegen dSPACE – heute Weltmarktführer (HIL-Simulation), ~2.900 Mitarbeitende, 460 Mio. € Umsatz. Gerade Generationenwechsel an die drei Kinder. **Absolute Vorzeige-Gründerstory.** 🏛️🔁 |
-| **Nixdorf-Ökosystem** | z. B. ehem. Nixdorf-/Wincor-Gründer:innen | Paderborn | Nach dem Nixdorf-Ende gründeten viele Mitarbeiter eigene IT-Firmen. Ein:e „Nixdorf-Schüler:in" als Gast erzählt ein Stück Wirtschaftsgeschichte. 🏛️ |
-| **Gründer / Geschäftsführung** | Unity AG (Innovations-/Managementberatung) | Büren / Paderborn | Aus der Region gewachsene Beratung – guter „vom Ingenieur zum Unternehmer"-Winkel. (Namen verifizieren.) 🏛️ |
-| **Gründer / Geschäftsführung** | Connext Communication (Pflegesoftware „Vivendi") | Paderborn | Softwarehaus für die Sozialwirtschaft – Nischen-Marktführer mit Bodenständigkeit. 🏛️ |
-| **Diebold Nixdorf (ehem. Wincor Nixdorf)** | Führungspersönlichkeiten | Paderborn | Weltmarktführer Bank-/Handelsautomatisierung – „Hidden Champion" mit direkter Nixdorf-Linie. 🏭 |
+| **Nachfolge-Generation Arntz** | **Arntz Optibelt Gruppe** | Höxter | 1872 gegründet, familiengeführter Weltmarktführer für Antriebsriemen (~2.300 MA). Junge Familienmitglieder in Verantwortung = starke Next-Gen-Story. 🏭🔁 |
+| **Jan Peters** | Glasmalerei-Familienunternehmen (100+ Jahre) | Paderborn | GF eines Traditionsbetriebs mit über 100 Jahren Geschichte – Handwerk + Erbe + Moderne. 🔁 |
+| **Junge GF / Inhaberfamilie** | **Rico Design** | Brakel | Führender europäischer Kreativ-/Handarbeits-Großhändler – „vom Handel zur Marke". 🔁 |
+| **Junge GF / Inhaberfamilie** | **ALVI** | Höxter | 50+ Jahre Familienbetrieb (Babyschlaf) – Markenführung über Generationen. 🔁 |
+| **Familie Engel** | **Dein Bäcker Engel** | Weserbergland / Kreis Höxter | Vor 85+ Jahren von **Bernhardine Engel** gegründet, heute großer Arbeitgeber. Frauen-Gründung + Handwerk + Generationen. 🔁 |
 
 ---
 
-## C) Kreis Paderborn – Familienunternehmen & Nachfolge 🔁
+## C) Priorität 3 – WJ-intern: eigene Mitglieder & Vorstand mit eigener Firma ⭐
 
-| Gesprächspartner:in | Unternehmen | Ort | Warum spannend fürs Format |
+Naheliegend, schnell zu buchen und „authentisch von innen". (Aktueller WJ-Vorstand & Wirtschaftsclub.)
+
+| Gesprächspartner:in | Rolle / Firma | Warum spannend |
+|---|---|---|
+| **Raphael Rosenstein** | WJ-Kreissprecher / Vorsitzender | Führt die WJ – gute Auftakt-/Rahmenfolge zum neuen Format. ⭐ |
+| **Melanie Beutelspacher** | Stv. Vorsitzende (Kreis Paderborn) | Junge Führungskraft/Unternehmerin aus PB. ⭐ |
+| **Clara Bickmann** | Stv. Vorsitzende (Kreis Höxter) | Wichtiger Türöffner & Stimme für den Kreis Höxter. ⭐ |
+| **Marie-Luise Piel** | Schatzmeisterin | ⭐ |
+| **Thomas Menne / Martin Holzhausen** | Beisitzer | ⭐ |
+| **Maren Fischer** | Agentur „Freshworks" (Wirtschaftsclub-Vorstand) | Agenturgründerin/-führung – Kreativwirtschaft. ⭐ |
+| **Anja Pötz** | Inhaberin „Hotel zur Mühle" | Gastgewerbe/Unternehmerin – Nachfolge/Betrieb führen. 🔁⭐ |
+| **Anke Zillmann** | Vorsitzende Wirtschaftsclub | Brücke zur „Ü40"-Erfahrung. ⭐ |
+
+> Tipp: Bei WJ-Mitgliedern gezielt die fragen, die **selbst gegründet** haben – das
+> Netzwerk kennt seine eigenen Gründer:innen am besten. Kurzer Aufruf im
+> WJ-Verteiler/LinkedIn („Wer hat eine Gründungsgeschichte für den Podcast?").
+
+---
+
+## D) Ideen für Sonderfolgen – die „großen Namen" (eher Ü40, aber starke Reichweite) 🏛️
+
+| Gesprächspartner:in | Unternehmen | Ort | Winkel |
 |---|---|---|---|
-| **Familie Benteler** | Benteler-Gruppe | Paderborn (Wurzeln) | 1876 von Carl Benteler gegründet, 150 Jahre Firmengeschichte, weiter in Familienbesitz (~20.000 Beschäftigte). Vom Eisenwarenhandel zum globalen Autozulieferer. Sitz heute Salzburg, aber Paderborner Herz. 🏛️🔁 |
-| **Wolfgang Bremer** | Bau-/Immobilienunternehmen (Bremer AG) | Paderborn | Bauunternehmer, Mitgesellschafter des Technologieparks Paderborn. Klassische „Selfmade"-Aufbaugeschichte. 🏛️ |
+| **Dr. Herbert Hanselmann** | dSPACE (1988 gegründet, Weltmarktführer HIL-Simulation, ~2.900 MA) | Paderborn | „Beamter → Weltmarktführer", gerade Generationenwechsel. 🏛️🔁 |
+| **Nixdorf-Ökosystem** | ehem. Nixdorf-/Wincor-Gründer:innen (>300 IT-Firmen aus dem Erbe) | Paderborn | Ein Stück deutsche IT-Geschichte. 🏛️ |
+| **Familie Benteler** | Benteler (Carl Benteler, 1876; 150 Jahre) | Paderborn | Heritage-Story, weiter in Familienbesitz. 🏛️ |
+| **Inhaber / GF** | PRG Rührtechnik (Weltmarktführer) | Warburg | Unbekannter Weltmarktführer vom Land. 🏭 |
 
 ---
 
-## D) Kreis Höxter – Familienunternehmen & Hidden Champions 🏭
+## E) Türöffner & Multiplikatoren (Gäste-Nachschub + Vermittlung)
 
-| Gesprächspartner:in | Unternehmen | Ort | Warum spannend fürs Format |
-|---|---|---|---|
-| **Familie / Nachfolge Arntz** | Arntz Optibelt Gruppe | Höxter | 1872 von Emil Arntz als „Höxtersche Gummifädenfabrik" mit 10 Mitarbeitern gegründet – heute Weltmarktführer für Antriebsriemen, ~2.300 Mitarbeitende, familiengeführt. Eine der ältesten Firmen OWLs. **Top-Nachfolge-Story.** 🏭🔁 |
-| **Inhaber / Geschäftsführung** | PRG Precision Machines / Rührtechnik | Warburg | Weltweit führender Anbieter von Rührtechnik für Kosmetik, Chemie, Food & Pharma – klassischer unbekannter Weltmarktführer vom Land. 🏭 |
-| **Inhaberfamilie** | ALVI | Höxter | Seit 50+ Jahren familiengeführt, Spezialist für Babyschlaf-Umgebung – Nischenmarke mit Substanz. 🏛️ |
-| **Inhaber / Geschäftsführung** | Getränke Waldhoff GmbH | Kreis Höxter | Zweitgrößtes Unternehmen im Kreis (~263 Mio. € Umsatz) – Handels-/Logistik-Aufbaugeschichte. 🏛️ |
+**Kreis Paderborn:** garage33 / TecUP (Uni Paderborn) · Wirtschaftsförderung Paderborn (WFG, wfg-pb.de) · Gründungsoffensive Paderborn (go-paderborn.de) · Technologiepark Paderborn
+**Kreis Höxter:** GfW – Gesellschaft für Wirtschaftsförderung Kreis Höxter (gfwhoexter.de) – begleitet Gründung, Ansiedlung & Nachfolge
+**Regional:** IHK Ostwestfalen zu Bielefeld (WJ-Trägerin) · Businessplan-Wettbewerb „startklar OWL" (jährliche Preisträger = frische Gäste) · Founders Foundation (OWL) – Milicevic ist Alumnus
 
 ---
 
-## E) Kreis Höxter – Handwerk, Handel & Food 🌱🏛️
+## F) Vorschlag: erste „Gründergeschichten"-Staffel (8 Folgen)
 
-| Gesprächspartner:in | Unternehmen | Ort | Warum spannend fürs Format |
-|---|---|---|---|
-| **Familie Engel** | Dein Bäcker Engel | Weserbergland / Kreis Höxter | Vor 85+ Jahren von **Bernhardine Engel** gegründet, zu einem der größten regionalen Arbeitgeber gewachsen. Handwerk + Frauen-Gründerin + Generationen. 🏛️🔁 |
-| **Inhaberfamilie** | Rico Design | Brakel | Einer der führenden europäischen Großhändler für Hobby, Kreativ & Handarbeit – „vom Handel zur Marke". 🏛️ |
-
----
-
-## F) Türöffner & Multiplikatoren (für Recherche und Vermittlung)
-
-Diese Stellen liefern laufend neue Gäste, Kontakte und O-Töne – ideal auch für
-eine wiederkehrende „Wirtschaftsförderer:in erklärt die Szene"-Rubrik.
-
-**Kreis Paderborn**
-- **garage33 / TecUP** – Gründungszentrum der Uni Paderborn (vermittelt aktuelle Start-ups)
-- **Wirtschaftsförderung Paderborn (WFG)** – wfg-pb.de
-- **Gründungsoffensive Paderborn** – go-paderborn.de
-- **Technologiepark Paderborn** – ~100 Tech-Firmen, viele Gründungsstorys
-
-**Kreis Höxter**
-- **GfW – Gesellschaft für Wirtschaftsförderung im Kreis Höxter mbH** – gfwhoexter.de (begleitet Gründung, Ansiedlung & Nachfolge)
-
-**Regional / OWL-weit**
-- **IHK Ostwestfalen zu Bielefeld** – Ansprechpartner Existenzgründung
-- **Businessplan-Wettbewerb „startklar OWL"** – jährliche Preisträger = frische Gäste
-- **OWL GmbH / OstWestfalenLippe** – Netzwerk & Kontakte
-
----
-
-## Vorschlag: So könntest du eine erste Staffel takten
-
-1. **Der Weltmarktführer vom Land** – Arntz Optibelt (Höxter) 🏭
-2. **Vom Beamten zum Weltmarktführer** – Herbert Hanselmann, dSPACE 🏛️
-3. **Die Millennials mit der Millionenrunde** – ONE WARE 🚀
+1. **Auftakt/Rahmen** – Raphael Rosenstein (WJ): „Warum wir jetzt Gründergeschichten erzählen" ⭐
+2. **Die Millennials mit der Millionenrunde** – ONE WARE 🚀
+3. **Ins gemachte Nest? Von wegen** – Next-Gen Arntz Optibelt (Höxter) 🔁🏭
 4. **Nachhaltig bauen** – conwerk 🌱
-5. **150 Jahre Familie** – Benteler 🔁
-6. **Die Bäckerin, die zum Konzern wurde** – Dein Bäcker Engel 🏛️
-7. **Nixdorf-Erbe** – ein:e Gründer:in aus dem IT-Ökosystem 🏛️
-8. **Der unbekannte Weltmarktführer** – PRG Rührtechnik, Warburg 🏭
+5. **Handwerk seit 100 Jahren** – Jan Peters, Glasmalerei 🔁
+6. **Die Bäckerei, die zum Arbeitgeber wurde** – Dein Bäcker Engel (Höxter) 🔁
+7. **KI aus Paderborn** – Tentris 🚀
+8. **Sonderfolge / Legende** – Dr. Herbert Hanselmann, dSPACE 🏛️
 
-Diese Mischung deckt beide Kreise, mehrere Branchen, Alt & Jung sowie
-Männer & Frauen ab – gut für Reichweite und Wiedererkennbarkeit.
+> Deckt beide Kreise, Tech + Handwerk + Impact, jung + erfahren, Frauen + Männer ab
+> – gut für Reichweite und Wiedererkennbarkeit. Für Kreis Höxter bewusst je Staffel
+> mind. 2 Gäste einplanen (dünnere Startup-Dichte, dafür starke Familienbetriebe).
 
 ---
 
 ## Quellen (Auswahl)
 
-- Wirtschaftsförderung Paderborn (WFG): https://wfg-pb.de/
-- garage33 / TecUP News: https://www.tecup.de/
-- Uni Paderborn – Start-up-Kapital OWL: https://www.uni-paderborn.de/nachricht/149076
-- Campus Start-ups NRW (ONE WARE u. a.): https://www.campus-start-ups.nrw/
-- dSPACE / Herbert Hanselmann: https://mintzukunftschaffen.de/dr-herbert-hanselmann-dspace-geschaeftsfuehrer/
+- WJ Paderborn + Höxter – Podcast: https://www.wj-pb-hx.de/podcast/
+- WJ Paderborn + Höxter – Verein/Vorstand: https://www.wj-pb-hx.de/
+- IHK Ostwestfalen – WJ Paderborn+Höxter: https://www.ihk.de/ostwestfalen/ihre-ihk/netzwerke/wirtschaftsjunioren-paderborn-hoexter-6676992
+- garage33 / TecUP: https://www.tecup.de/
+- Campus Start-ups NRW (ONE WARE, Unchained Robotics): https://www.campus-start-ups.nrw/
+- Unchained Robotics / Milicevic: https://foundersfoundation.de/content-library/unchained-robotics-founders-foundation-alumni/
+- dSPACE / Hanselmann: https://mintzukunftschaffen.de/dr-herbert-hanselmann-dspace-geschaeftsfuehrer/
 - Benteler (Wikipedia): https://de.wikipedia.org/wiki/Benteler_(Unternehmen)
 - Optibelt Historie: https://de.wikipedia.org/wiki/Optibelt
 - Die wichtigsten Unternehmen im Kreis Höxter: https://die-deutsche-wirtschaft.de/firmenlisten/die-wichtigsten-unternehmen-im-kreis-hoexter/
 - GfW Kreis Höxter: https://www.gfwhoexter.de/
-- startklar OWL (Businessplan-Wettbewerb): https://www.ostwestfalenlippe.de/projekte/startklar-businessplanwettbewerb/
