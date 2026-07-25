@@ -183,12 +183,17 @@ Schnell zu buchen, authentisch „von innen" – und mehrere haben **selbst gegr
 oder übernommen**. Fast durchweg 🟢 hohe Zusage-Wahrscheinlichkeit.
 (Aktueller Stand Vorstand; Verwandtschafts-/Rollen­details vor Ansprache kurz prüfen.)
 
+> **Host/Team:** Sebastian Hund (Gründer & GF **WERK.E Energie-Effizienz-Beratung**,
+> WJ-Beisitzer) gehört zum Podcast-Team – daher hier **nicht als Gast**, sondern als
+> Gastgeber & Türöffner mit warmem Draht ins gesamte WJ-Netzwerk. *(Option: die
+> eigene WERK.E-Gründungsstory in einer Folge von einem Co-Host aufgreifen lassen –
+> guter Aufhänger für den Format-Relaunch.)*
+
 ### Eigene Gründer- & Nachfolge-Storys (die stärksten – gehören fast in die Top-Riege)
 
 | Person | WJ/Club-Rolle | Firma | Story | Säule |
 |---|---|---|---|---|
 | **Thomas Sprehe** | Wirtschaftsclub (früherer Vorsitzender) | **NSI CAD/CAM Technik**, Salzkotten | 🏆 **1993 „aus dem Kinderzimmer" gegründet** (mit Paul Nöltker), heute etabliert (Fraunhofer-IEM-Zukunftsmeile). Lehrbuch-Gründerstory. | 🚀→🏛️ |
-| **Sebastian Hund** | WJ-Beisitzer | **WERK.E Energie-Effizienz-Beratung**, Paderborn | **Gründer & GF**; hochaktuelles Thema energetische Sanierung/Förderung. | 🚀🌱 |
 | **Raphael Rosenstein** | WJ Immediate Past President | **BAW Baumaschinen-Vertrieb**, **Warburg (Kreis Höxter)** | Next-Gen im Familienunternehmen (Vater Dr. Herbert Rosenstein). Bonus: Auftaktfolge zum Relaunch. | 🔁 |
 | **Annalen Unterhalt** | WJ stv. Vorsitzende | **Kotzenberg Textilservice**, Hövelhof | GF-Familie eines **1874 gegründeten** Traditionsbetriebs (DBL-Verbund). Frau, Next-Gen, Tradition. | 🔁🏛️ |
 | **Anja Pötz** | Wirtschaftsclub-Vorstand | **Hotel zur Mühle**, Paderborn | Inhaberin – Gastgewerbe/Familienbetrieb führen. | 🔁 |
