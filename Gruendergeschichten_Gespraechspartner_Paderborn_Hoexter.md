@@ -26,28 +26,31 @@ Ergänzende Winkel: 🌱 Impact/Nachhaltigkeit · 🏭 Weltmarktführer/Hidden C
 
 ## 🏆 Top 12 – empfohlene Gäste (Wunschliste, priorisiert)
 
-Kuratiert nach Story-Stärke & Reichweite, bewusst gemischt über beide Kreise und
-alle drei Säulen. (Bereits interviewte Gründer sind hier absichtlich nicht dabei.)
+Kuratiert nach Story-Stärke **und** Zusage-Wahrscheinlichkeit, gemischt über beide
+Kreise, alle drei Säulen und die eigenen Reihen. Zusage-Ampel: 🟢 direkt anfragen ·
+🟡 mit warmem Kontakt · 🔴 über Pressestelle. (Bereits interviewte Gründer bewusst
+nicht dabei; Sebastian Hund/WERK.E ist Host, kein Gast.)
 
-| # | Gast | Unternehmen | Kreis | Säule | Aufhänger / warum |
-|---|---|---|---|---|---|
-| 1 | **Dr. Herbert Hanselmann** | dSPACE | Paderborn | 🏛️🔁 | Die stärkste Gründerstory der Region: Beamter → Weltmarktführer (~2.900 MA), jetzt Generationenwechsel. Reichweite + Substanz. |
-| 2 | **Leon Beier & Leo Wiegand** | ONE WARE | Paderborn | 🚀 | Junge Gründer, KI-Automatisierung, 2,5-Mio.-Runde. WJ-Zielgruppe pur, perfekter Kontrast zu #1. |
-| 3 | **Next-Gen Arntz** | Arntz Optibelt | Höxter | 🔁🏭 | Höxter-Flaggschiff, 1872 gegründet, Weltmarktführer Antriebsriemen – „150 Jahre, jetzt meine Verantwortung". |
-| 4 | **Ramona Schrör & Harald Bärhold** | conwerk | Paderborn | 🌱 | Nachhaltiges, recycelbares Modul-Bauen; ausgezeichnet. Deckt Impact/Zukunft ab. |
-| 5 | **Familie Glaskoch** | LEONARDO | Bad Driburg (HX) | 🏛️ | Deutscher Marktführer Geschenk-/Glasartikel, „Marke des Jahrhunderts". Starke Konsumentenmarke aus Höxter. |
-| 6 | **Familie Engel** | Dein Bäcker Engel | Kreis Höxter | 🔁 | Von **Bernhardine Engel** gegründet → großer Arbeitgeber. Frauen-Gründung, Handwerk, Generationen. Emotional. |
-| 7 | **Familie Schneider** | FSB – Franz Schneider Brakel | Brakel (HX) | 🏭 | Weltbekannte Türgriffe/Beschläge, Design „made in Brakel" – Hidden Champion mit Ästhetik. |
-| 8 | **Gründerteam** | Tentris | Paderborn | 🚀 | KI-Datenbank, Gesamtsieger „startklar OWL" 2023/24. Deep-Tech aus der Uni. |
-| 9 | **Inhaberfamilie** | Schlossbrauerei Brakel-Rheder | Brakel (HX) | 🏛️ | Über 300 Jahre – die älteste Gründungsgeschichte der Liste. Sympathisches Genussthema. |
-| 10 | **Jan Peters** | Glasmalerei (100+ Jahre) | Paderborn | 🔁 | Seltenes Kunsthandwerk + Erbe + Moderne. Ungewöhnliches, bildstarkes Gewerk. |
-| 11 | **Inhaberfamilie** | Brauns-Heitmann | Warburg (HX) | 🏛️ | Eierfarben seit dem 19. Jh. – Saison-/Konsumprodukt (Ostern!), charmante Nischen-Story. |
-| 12 | **Ovidiu Ursachi** | masernet GmbH | Paderborn | 🚀 | Unternehmer & IT-Security-Experte – hochaktuelles Cybersecurity-Thema. |
+| # | Gast | Unternehmen | Kreis | Säule | Zusage | Aufhänger / warum |
+|---|---|---|---|---|---|---|
+| 1 | **Thomas Sprehe** | NSI CAD/CAM Technik, Salzkotten | Paderborn | 🏛️ | 🟢 | WJ/Club-intern, warmer Draht. **1993 „aus dem Kinderzimmer" gegründet** → heute etabliert. Lehrbuch-Gründerstory. |
+| 2 | **Dr. Herbert Hanselmann** | dSPACE | Paderborn | 🏛️🔁 | 🟡 | Die stärkste Story der Region: Beamter → Weltmarktführer (~2.900 MA), jetzt Generationenwechsel. Reichweite. |
+| 3 | **Leon Beier & Leo Wiegand** | ONE WARE | Paderborn | 🚀 | 🟢 | Junge Gründer, KI-Automatisierung, 2,5-Mio.-Runde. WJ-Zielgruppe pur, perfekter Kontrast zu #2. |
+| 4 | **Raphael Rosenstein** | BAW Baumaschinen-Vertrieb | Warburg (HX) | 🔁 | 🟢 | WJ-intern (Past President), Next-Gen im Familienunternehmen. Deckt Kreis Höxter ab. |
+| 5 | **Next-Gen Arntz** | Arntz Optibelt | Höxter | 🔁🏭 | 🔴 | Höxter-Flaggschiff, 1872, Weltmarktführer Antriebsriemen – „150 Jahre, jetzt meine Verantwortung". |
+| 6 | **Ramona Schrör & Harald Bärhold** | conwerk | Paderborn | 🌱 | 🟢 | Nachhaltiges, recycelbares Modul-Bauen; ausgezeichnet. Deckt Impact/Zukunft ab. |
+| 7 | **Familie Engel** | Dein Bäcker Engel | Kreis Höxter | 🔁 | 🟡 | Von **Bernhardine Engel** gegründet → großer Arbeitgeber. Frauen-Gründung, Handwerk, Generationen. Emotional. |
+| 8 | **Familie Glaskoch** | LEONARDO | Bad Driburg (HX) | 🏛️ | 🔴 | Deutscher Marktführer Geschenk-/Glasartikel, „Marke des Jahrhunderts". Starke Konsumentenmarke aus Höxter. |
+| 9 | **Gründerteam** | Tentris | Paderborn | 🚀 | 🟢 | KI-Datenbank, Gesamtsieger „startklar OWL" 2023/24. Deep-Tech aus der Uni. |
+| 10 | **Anja Pötz** | Hotel zur Mühle | Paderborn | 🔁 | 🟢 | WJ/Club-intern, warmer Draht. Inhaberin – Gastgewerbe/Familienbetrieb führen. |
+| 11 | **Familie Schneider** | FSB – Franz Schneider Brakel | Brakel (HX) | 🏭 | 🔴 | Weltbekannte Türgriffe/Beschläge, Design „made in Brakel" – Hidden Champion mit Ästhetik. |
+| 12 | **Inhaberfamilie** | Schlossbrauerei Brakel-Rheder | Brakel (HX) | 🏛️ | 🔴 | Über 300 Jahre – älteste Gründungsgeschichte der Liste. Sympathisches Genussthema. |
 
-> **Balance:** 6× Kreis Paderborn / 6× Kreis Höxter · alle drei Säulen vertreten ·
-> Tech, Industrie, Handwerk, Konsum, Food · junge + traditionsreiche Gründungen.
-> **Bonus-Auftakt (außer Konkurrenz):** eine Rahmenfolge mit **Raphael Rosenstein**
-> (WJ-Vorsitzender) zum Format-Relaunch.
+> **Balance:** 6× Kreis Paderborn / 6× Kreis Höxter · alle drei Säulen · 3 WJ-intern
+> (Sprehe, Rosenstein, Pötz) mit warmem Draht = schnelle Zusagen · Zusage-Mix
+> 6×🟢 / 2×🟡 / 4×🔴 (die 🔴 früh & parallel anfragen).
+> **Reserve/Nachrücker:** Ovidiu Ursachi (masernet, IT-Security) · Jan Peters
+> (Glasmalerei, 100+ J.) · Brauns-Heitmann (Warburg, Oster-Story) · PALPRINT.
 >
 > Details zu jedem Gast in den Säulen weiter unten.
 
@@ -195,8 +198,6 @@ oder übernommen**. Fast durchweg 🟢 hohe Zusage-Wahrscheinlichkeit.
 |---|---|---|---|---|
 | **Thomas Sprehe** | Wirtschaftsclub (früherer Vorsitzender) | **NSI CAD/CAM Technik**, Salzkotten | 🏆 **1993 „aus dem Kinderzimmer" gegründet** (mit Paul Nöltker), heute etabliert (Fraunhofer-IEM-Zukunftsmeile). Lehrbuch-Gründerstory. | 🚀→🏛️ |
 | **Raphael Rosenstein** | WJ Immediate Past President | **BAW Baumaschinen-Vertrieb**, **Warburg (Kreis Höxter)** | Next-Gen im Familienunternehmen (Vater Dr. Herbert Rosenstein). Bonus: Auftaktfolge zum Relaunch. | 🔁 || **Anja Pötz** | Wirtschaftsclub-Vorstand | **Hotel zur Mühle**, Paderborn | Inhaberin – Gastgewerbe/Familienbetrieb führen. | 🔁 |
-| **Anke Zillmann** | Wirtschaftsclub-Vorsitzende | **Grothus van Koten Mittelstandsmarketing**, Paderborn | Unternehmerin/Agentur – Marketing-Blickwinkel. | 🏛️ |
-
 ### Ideale Gastgeber:innen / Türöffner (ohne eigene Gründung, aber Schlüsselrollen)
 
 | Person | Rolle | Firma | Wert für den Podcast |
