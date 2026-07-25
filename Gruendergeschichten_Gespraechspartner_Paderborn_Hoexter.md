@@ -53,6 +53,54 @@ alle drei Säulen. (Bereits interviewte Gründer sind hier absichtlich nicht dab
 
 ---
 
+## 🎯 Sortiert nach Zusage-Wahrscheinlichkeit (fürs Booking)
+
+Begründete Einschätzung nach drei Faktoren: **Nähe zum WJ-Netzwerk**, **eigenes
+Interesse an Sichtbarkeit/PR** und **Gatekeeper ja/nein** (große Firmen haben
+Pressestellen → langsamer). Empfehlung: mit 🟢 starten, 🔴 parallel & früh anfragen.
+
+### 🟢 Hohe Zusage-Wahrscheinlichkeit – hier zuerst anfragen
+*WJ-nah oder aktiv auf Sichtbarkeit aus; kurze Wege, oft direktes „Ja".*
+
+| Gast | Unternehmen | Warum wahrscheinlich zusagt |
+|---|---|---|
+| **Raphael Rosenstein** (+ WJ-Vorstand) | WJ Paderborn+Höxter | Eigenes Netzwerk, kennt & trägt den Podcast. Faktisch sichere Zusage – ideale Auftaktfolge. |
+| **Leon Beier & Leo Wiegand** | ONE WARE | Junge Gründer im Wachstum, brauchen Reichweite; garage33-Präzedenz (andere Teams waren schon da). |
+| **Ovidiu Ursachi** | masernet | Unternehmer *und* Fachexperte – öffentliche Auftritte zahlen direkt aufs Geschäft ein. |
+| **Ramona Schrör & Harald Bärhold** | conwerk | Award-Gewinner, PR-affin, „Mission"-Thema – erzählen gern. |
+| **Gründerteam** | Tentris | Wettbewerbssieger, sichtbarkeitsorientiert, Uni-nah. |
+| **Anja Pötz** | Hotel zur Mühle | Wirtschaftsclub-Mitglied → WJ-nah, kollegiale Zusage. |
+| *(Reserve)* | PALPRINT · Steets · assemblean · Cellgo | Weitere garage33-Teams, gleiche Logik – schneller Nachschub. |
+
+### 🟡 Mittel – mit warmem Kontakt / gutem Pitch sehr machbar
+*Grundsätzlich offen, aber beschäftigt oder braucht einen Anlass/Türöffner.*
+
+| Gast | Unternehmen | Hinweis zum „Ja" |
+|---|---|---|
+| **Jan Peters** | Glasmalerei (100+ J.) | Lokaler Traditionsbetrieb, mag regionale Sichtbarkeit; kleiner Betrieb → Termin früh anfragen. |
+| **Dr. Herbert Hanselmann** | dSPACE | Hält bereits Gründervorträge (z. B. Uni Paderborn) → grundsätzlich offen. Aber sehr gefragt + mitten im Generationswechsel: **warmen Draht über Uni/WFG/garage33 nutzen.** Hoher Wert, lohnt den Aufwand. |
+| **Familie Engel** | Dein Bäcker Engel | Employer-Branding-Interesse (Fachkräfte!) – Anfrage über Marketing/Personal gut platzierbar. |
+| **Inhaberfamilie** | Getränke Waldhoff · Rico Design · ALVI | Mittelgroße Familienbetriebe – über persönlichen/WJ-Kontakt am ehesten. |
+
+### 🔴 Anspruchsvoller – lohnend, aber formaler Weg über Pressestelle
+*Große Marken mit Gatekeeper: früh, schriftlich und über Unternehmenskommunikation anfragen.*
+
+| Gast | Unternehmen | Hinweis |
+|---|---|---|
+| **Next-Gen Arntz** | Arntz Optibelt | Weltmarktführer mit Comms-Abteilung; Next-Gen-Interview braucht formale Anfrage – aber starkes Höxter-Aushängeschild. |
+| **Familie Glaskoch** | LEONARDO | Etablierte Konsumentenmarke, PR-Abteilung. |
+| **Familie Schneider** | FSB Brakel | Design-Marke mit Comms – aber imagebewusst, daher nicht chancenlos. |
+| **Inhaberfamilie** | Brauns-Heitmann · Spier | Traditionsfirmen, eher medienzurückhaltend – konkreter Aufhänger hilft (z. B. Ostern bei Brauns-Heitmann). |
+
+### So erhöht ihr die Zusage-Quote (unabhängig vom Gast)
+- **Warmer Kontakt schlägt Kaltakquise:** über ein WJ-Mitglied vorstellen lassen, das die Person kennt.
+- **Sozialen Beweis mitschicken:** „Bei uns waren u. a. schon Christoph Plass (UNITY) und Mladen Milicevic (Unchained Robotics)."
+- **Aufwand kleinreden:** ~32 Min., Aufnahme **vor Ort im Unternehmen**, Termin nach ihrer Verfügbarkeit.
+- **Nutzen für den Gast benennen:** Reichweite in der regionalen Unternehmer-Community, Employer Branding, O-Ton für eigene Kanäle (Clip zum Teilen anbieten).
+- **Höxter aktiv über Clara Bickmann** (WJ-Stv. Kreis Höxter) anbahnen – kürzeste Wege vor Ort.
+
+---
+
 ## ⚠️ Bereits im Podcast gewesen (nicht doppeln – gut für „X Jahre später"-Follow-ups)
 
 | Gast | Unternehmen | |
