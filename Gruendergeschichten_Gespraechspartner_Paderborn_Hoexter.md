@@ -24,6 +24,35 @@ Ergänzende Winkel: 🌱 Impact/Nachhaltigkeit · 🏭 Weltmarktführer/Hidden C
 
 ---
 
+## 🏆 Top 12 – empfohlene Gäste (Wunschliste, priorisiert)
+
+Kuratiert nach Story-Stärke & Reichweite, bewusst gemischt über beide Kreise und
+alle drei Säulen. (Bereits interviewte Gründer sind hier absichtlich nicht dabei.)
+
+| # | Gast | Unternehmen | Kreis | Säule | Aufhänger / warum |
+|---|---|---|---|---|---|
+| 1 | **Dr. Herbert Hanselmann** | dSPACE | Paderborn | 🏛️🔁 | Die stärkste Gründerstory der Region: Beamter → Weltmarktführer (~2.900 MA), jetzt Generationenwechsel. Reichweite + Substanz. |
+| 2 | **Leon Beier & Leo Wiegand** | ONE WARE | Paderborn | 🚀 | Junge Gründer, KI-Automatisierung, 2,5-Mio.-Runde. WJ-Zielgruppe pur, perfekter Kontrast zu #1. |
+| 3 | **Next-Gen Arntz** | Arntz Optibelt | Höxter | 🔁🏭 | Höxter-Flaggschiff, 1872 gegründet, Weltmarktführer Antriebsriemen – „150 Jahre, jetzt meine Verantwortung". |
+| 4 | **Ramona Schrör & Harald Bärhold** | conwerk | Paderborn | 🌱 | Nachhaltiges, recycelbares Modul-Bauen; ausgezeichnet. Deckt Impact/Zukunft ab. |
+| 5 | **Familie Glaskoch** | LEONARDO | Bad Driburg (HX) | 🏛️ | Deutscher Marktführer Geschenk-/Glasartikel, „Marke des Jahrhunderts". Starke Konsumentenmarke aus Höxter. |
+| 6 | **Familie Engel** | Dein Bäcker Engel | Kreis Höxter | 🔁 | Von **Bernhardine Engel** gegründet → großer Arbeitgeber. Frauen-Gründung, Handwerk, Generationen. Emotional. |
+| 7 | **Familie Schneider** | FSB – Franz Schneider Brakel | Brakel (HX) | 🏭 | Weltbekannte Türgriffe/Beschläge, Design „made in Brakel" – Hidden Champion mit Ästhetik. |
+| 8 | **Gründerteam** | Tentris | Paderborn | 🚀 | KI-Datenbank, Gesamtsieger „startklar OWL" 2023/24. Deep-Tech aus der Uni. |
+| 9 | **Inhaberfamilie** | Schlossbrauerei Brakel-Rheder | Brakel (HX) | 🏛️ | Über 300 Jahre – die älteste Gründungsgeschichte der Liste. Sympathisches Genussthema. |
+| 10 | **Jan Peters** | Glasmalerei (100+ Jahre) | Paderborn | 🔁 | Seltenes Kunsthandwerk + Erbe + Moderne. Ungewöhnliches, bildstarkes Gewerk. |
+| 11 | **Inhaberfamilie** | Brauns-Heitmann | Warburg (HX) | 🏛️ | Eierfarben seit dem 19. Jh. – Saison-/Konsumprodukt (Ostern!), charmante Nischen-Story. |
+| 12 | **Ovidiu Ursachi** | masernet GmbH | Paderborn | 🚀 | Unternehmer & IT-Security-Experte – hochaktuelles Cybersecurity-Thema. |
+
+> **Balance:** 6× Kreis Paderborn / 6× Kreis Höxter · alle drei Säulen vertreten ·
+> Tech, Industrie, Handwerk, Konsum, Food · junge + traditionsreiche Gründungen.
+> **Bonus-Auftakt (außer Konkurrenz):** eine Rahmenfolge mit **Raphael Rosenstein**
+> (WJ-Vorsitzender) zum Format-Relaunch.
+>
+> Details zu jedem Gast in den Säulen weiter unten.
+
+---
+
 ## ⚠️ Bereits im Podcast gewesen (nicht doppeln – gut für „X Jahre später"-Follow-ups)
 
 | Gast | Unternehmen | |
