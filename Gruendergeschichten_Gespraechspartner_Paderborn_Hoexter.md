@@ -177,22 +177,36 @@ spannend wie neu gründen. Für WJ-Hörer:innen (viele stehen selbst davor) beso
 
 ---
 
-## Säule 4 · ⭐ WJ-intern – eigene Mitglieder & Vorstand mit eigener Firma
+## Säule 4 · ⭐ Aus den eigenen Reihen – WJ & Wirtschaftsclub
 
-Schnell zu buchen, authentisch „von innen". (Aktueller WJ-Vorstand & Wirtschaftsclub.)
+Schnell zu buchen, authentisch „von innen" – und mehrere haben **selbst gegründet
+oder übernommen**. Fast durchweg 🟢 hohe Zusage-Wahrscheinlichkeit.
+(Aktueller Stand Vorstand; Verwandtschafts-/Rollen­details vor Ansprache kurz prüfen.)
 
-| Gesprächspartner:in | Rolle / Firma |
-|---|---|
-| **Raphael Rosenstein** | WJ-Vorsitzender – ideale Auftaktfolge zum neuen Format |
-| **Melanie Beutelspacher** | Stv. Vorsitzende (Kreis Paderborn) |
-| **Clara Bickmann** | Stv. Vorsitzende (Kreis Höxter) – wichtigster Türöffner für den Kreis Höxter |
-| **Marie-Luise Piel** | Schatzmeisterin |
-| **Thomas Menne / Martin Holzhausen** | Beisitzer |
-| **Maren Fischer** | Agentur „Freshworks" – Agenturgründung/Kreativwirtschaft |
-| **Anke Zillmann** | Vorsitzende Wirtschaftsclub – Brücke zur „Ü40"-Erfahrung |
+### Eigene Gründer- & Nachfolge-Storys (die stärksten – gehören fast in die Top-Riege)
+
+| Person | WJ/Club-Rolle | Firma | Story | Säule |
+|---|---|---|---|---|
+| **Thomas Sprehe** | Wirtschaftsclub (früherer Vorsitzender) | **NSI CAD/CAM Technik**, Salzkotten | 🏆 **1993 „aus dem Kinderzimmer" gegründet** (mit Paul Nöltker), heute etabliert (Fraunhofer-IEM-Zukunftsmeile). Lehrbuch-Gründerstory. | 🚀→🏛️ |
+| **Sebastian Hund** | WJ-Beisitzer | **WERK.E Energie-Effizienz-Beratung**, Paderborn | **Gründer & GF**; hochaktuelles Thema energetische Sanierung/Förderung. | 🚀🌱 |
+| **Raphael Rosenstein** | WJ Immediate Past President | **BAW Baumaschinen-Vertrieb**, **Warburg (Kreis Höxter)** | Next-Gen im Familienunternehmen (Vater Dr. Herbert Rosenstein). Bonus: Auftaktfolge zum Relaunch. | 🔁 |
+| **Annalen Unterhalt** | WJ stv. Vorsitzende | **Kotzenberg Textilservice**, Hövelhof | GF-Familie eines **1874 gegründeten** Traditionsbetriebs (DBL-Verbund). Frau, Next-Gen, Tradition. | 🔁🏛️ |
+| **Anja Pötz** | Wirtschaftsclub-Vorstand | **Hotel zur Mühle**, Paderborn | Inhaberin – Gastgewerbe/Familienbetrieb führen. | 🔁 |
+| **Anke Zillmann** | Wirtschaftsclub-Vorsitzende | **Grothus van Koten Mittelstandsmarketing**, Paderborn | Unternehmerin/Agentur – Marketing-Blickwinkel. | 🏛️ |
+
+### Ideale Gastgeber:innen / Türöffner (ohne eigene Gründung, aber Schlüsselrollen)
+
+| Person | Rolle | Firma | Wert für den Podcast |
+|---|---|---|---|
+| **Clara Bickmann** | WJ-**Vorsitzende** (aus Kreis Höxter) | Bausparkasse Schwäbisch Hall | Ideale **Auftakt-/Rahmenfolge** & wichtigste Türöffnerin für den Kreis Höxter. |
+| **Martin Holzhausen** | WJ stv. Vorsitzender | UNITY (Innovation Alliance) | Brücke zur UNITY-Gründungsgeschichte (Christoph Plass). |
+| **Marie-Luise Helfgerdt** | WJ-Schatzmeisterin | Sparkasse Paderborn-Detmold-Höxter | Perfekt für Finanzierungs-/Nachfolge-Themen + Vermittlung. |
+| **Patrick Obornik** | WJ-Beisitzer | Hegemann OHG | Evtl. Familienbetrieb/Nachfolge – vor Ansprache prüfen. |
+| **Daniel Beermann** | WJ-Geschäftsführer | IHK Ostwestfalen | Organisatorischer Türöffner ins gesamte WJ-Netzwerk. |
 
 > Schnellster Gäste-Nachschub: Aufruf im **WJ-Verteiler / auf LinkedIn** –
-> „Wer hat eine Gründungs- oder Nachfolgegeschichte für den Podcast?"
+> „Wer hat eine Gründungs- oder Nachfolgegeschichte für den Podcast?" Und die
+> **Ressorts „Unternehmertum" bzw. „Marketing"** direkt einbinden.
 
 ---
 
