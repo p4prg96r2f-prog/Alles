@@ -1,0 +1,504 @@
+ticker;name;sektor;land;waehrung;marktkap_mrd;roce_prozent;roce_schnitt_prozent;gewinnrendite_prozent;fcf_rendite_prozent;umsatz_cagr_prozent;bruttomarge_prozent;schulden_zu_ebitda;kgv;rang_qualitaet;rang_bewertung;magic_rang;kandidat;verletzte_kriterien;ausschluss
+DECK;Deckers Outdoor Corporation;Consumer Cyclical;United States;USD;13.2;46.1;40.9;11.4;8.3;14.7;57.7;0.0;13.8;12;15;27;JA;;
+ADBE;Adobe Inc.;Technology;United States;USD;99.5;46.6;36.7;9.0;9.9;10.5;89.3;0.0;14.3;11;30;41;JA;;
+LULU;lululemon athletica inc.;Consumer Cyclical;Canada;USD;13.5;33.7;39.9;16.4;6.8;11.0;56.6;0.0;9.6;38;3;41;JA;;
+NVR;NVR, Inc.;Consumer Cyclical;United States;USD;16.5;36.4;41.1;11.5;6.7;-0.6;23.1;0.0;16.0;30;12;42;nein;Umsatz schrumpft;
+MO;Altria Group, Inc.;Consumer Defensive;United States;USD;114.1;40.9;42.8;7.8;8.0;-0.9;72.2;2.0;14.4;21;45;66;nein;Umsatz schrumpft;
+AOS;A.O. Smith Corporation;Industrials;United States;USD;8.2;32.0;26.2;8.9;6.7;0.7;38.8;0.0;16.7;46;32;78;JA;;
+QCOM;QUALCOMM Incorporated;Technology;United States;USD;155.0;32.5;29.6;8.3;8.3;0.1;55.4;0.3;16.9;41;37;78;JA;;
+CLX;Clorox Company (The);Consumer Defensive;United States;USD;11.6;32.0;17.0;8.2;6.6;-0.0;45.2;2.0;15.5;45;41;86;nein;Umsatz schrumpft;
+MAS;Masco Corporation;Industrials;United States;USD;14.1;34.1;36.7;7.4;6.1;-4.5;35.4;1.9;16.5;36;50;86;nein;Umsatz schrumpft;
+OTIS;Otis Worldwide Corporation;Industrials;United States;USD;27.4;74.0;65.7;6.4;5.3;1.8;30.3;3.1;18.5;5;82;87;nein;Nettoschulden > 3x EBITDA;
+IT;Gartner, Inc.;Technology;United States;USD;10.1;27.2;30.8;9.3;11.6;5.9;68.4;1.3;14.9;60;28;88;JA;;
+INCY;Incyte Corporation;Healthcare;United States;USD;24.2;30.6;16.4;8.1;5.5;14.8;92.8;0.0;15.2;48;42;90;JA;;
+ACN;Accenture plc;Technology;Ireland;USD;101.5;24.1;28.1;11.0;10.7;4.2;31.9;0.0;13.2;74;17;91;JA;;
+ZTS;Zoetis Inc.;Healthcare;United States;USD;32.4;27.1;27.0;9.1;7.0;5.4;71.8;1.7;12.7;62;29;91;JA;;
+HCA;HCA Healthcare, Inc.;Healthcare;United States;USD;87.2;27.2;24.4;9.0;8.8;7.9;41.5;3.1;13.5;61;31;92;nein;Nettoschulden > 3x EBITDA;
+HPQ;HP Inc.;Technology;United States;USD;24.9;25.8;31.8;10.0;11.2;-4.2;20.6;1.7;10.1;70;23;93;nein;Umsatz schrumpft;
+NEM;Newmont Corporation;Basic Materials;United States;USD;98.7;22.5;7.4;12.0;7.4;23.9;53.2;0.0;11.8;86;11;97;JA;;
+CTSH;Cognizant Technology Solutions ;Technology;United States;USD;24.9;20.6;19.6;14.5;10.4;2.8;33.7;0.0;11.9;98;4;102;JA;;
+APA;APA Corporation;Energy;United States;USD;13.2;20.2;29.0;17.8;13.5;-7.0;40.6;0.8;8.7;103;1;104;nein;Umsatz schrumpft;
+DPZ;Domino's Pizza Inc;Consumer Cyclical;United States;USD;11.5;82.3;241.8;5.9;5.8;2.9;40.0;4.7;19.7;3;102;105;nein;Nettoschulden > 3x EBITDA;
+LII;Lennox International, Inc.;Industrials;United States;USD;14.4;36.1;48.3;6.5;4.4;3.3;33.4;1.5;18.5;31;75;106;JA;;
+MCK;McKesson Corporation;Healthcare;United States;USD;100.2;42.1;34.3;6.1;5.4;13.4;3.6;0.6;22.3;17;89;106;JA;;
+GDDY;GoDaddy Inc.;Technology;United States;USD;11.0;23.2;15.7;8.5;14.4;6.6;63.6;2.2;12.3;79;35;114;JA;;
+ULTA;Ulta Beauty, Inc.;Consumer Cyclical;United States;USD;22.0;32.4;39.0;6.5;4.8;6.7;;0.9;19.2;42;72;114;JA;;
+BKNG;Booking Holdings Inc. Common St;Consumer Cyclical;United States;USD;149.5;67.2;55.5;5.6;6.1;16.3;;0.2;25.4;8;113;121;JA;;
+LDOS;Leidos Holdings, Inc.;Technology;United States;USD;14.5;19.8;14.4;11.3;11.2;6.1;18.0;1.7;10.6;106;16;122;JA;;
+AZO;AutoZone, Inc.;Consumer Cyclical;United States;USD;49.2;36.8;44.3;5.9;3.6;5.2;52.6;2.8;20.7;29;101;130;JA;;
+ADP;Automatic Data Processing, Inc.;Technology;United States;USD;106.0;47.7;52.6;5.4;4.1;7.6;46.0;0.2;24.3;10;121;131;JA;;
+LOW;Lowe's Companies, Inc.;Consumer Cyclical;United States;USD;116.5;29.6;40.0;6.4;6.6;-3.8;33.5;3.5;17.6;51;80;131;nein;Umsatz schrumpft | Nettoschulden > 3x EBITDA;
+SOLV;Solventum Corporation;Healthcare;United States;USD;14.8;18.5;13.5;10.9;-0.1;0.8;53.5;1.6;10.5;118;18;136;nein;FCF-Rendite < 3 %;
+CF;CF Industries Holdings, Inc.;Basic Materials;United States;USD;19.2;18.1;23.7;11.4;9.4;-14.1;38.5;0.5;11.3;125;14;139;nein;Umsatz schrumpft;
+ELV;Elevance Health, Inc.;Healthcare;United States;USD;81.5;18.4;21.5;10.4;3.9;8.3;;0.0;16.6;119;20;139;JA;;
+UHS;Universal Health Services, Inc.;Healthcare;United States;USD;10.2;17.3;12.3;14.0;8.1;9.0;90.4;1.8;6.9;134;6;140;JA;;
+FOX;Fox Corporation;Communication Services;United States;USD;21.8;17.1;13.0;14.5;13.7;5.3;;0.5;13.7;136;5;141;JA;;
+PHM;PulteGroup, Inc.;Consumer Cyclical;United States;USD;24.1;17.5;23.1;12.2;7.3;2.7;26.4;0.0;12.9;132;9;141;JA;;
+FOXA;Fox Corporation;Communication Services;United States;USD;24.5;17.1;13.0;13.0;12.2;5.3;;0.5;15.3;137;7;144;JA;;
+TTD;The Trade Desk, Inc.;Communication Services;United States;USD;8.5;20.4;11.7;7.7;9.2;22.4;78.6;0.0;20.5;99;46;145;JA;;
+BBY;Best Buy Co., Inc.;Consumer Cyclical;United States;USD;18.2;20.8;22.8;7.1;6.9;-3.4;22.5;1.0;16.0;96;55;151;nein;Umsatz schrumpft;
+META;Meta Platforms, Inc.;Communication Services;United States;USD;1418.2;26.9;24.7;6.1;3.3;19.9;82.0;0.0;21.0;64;90;154;JA;;
+WSM;Williams-Sonoma, Inc.;Consumer Cyclical;United States;USD;26.9;40.9;42.3;5.2;3.9;-3.5;46.2;0.3;25.6;20;134;154;nein;Umsatz schrumpft;
+PAYX;Paychex, Inc.;Technology;United States;USD;41.6;27.6;35.0;5.7;5.6;9.2;74.3;1.2;23.8;56;108;164;JA;;
+EME;EMCOR Group, Inc.;Industrials;United States;USD;35.2;39.2;31.8;5.0;3.4;15.3;19.3;0.0;24.8;23;143;166;JA;;
+FDXF;FedEx Freight Holding Company, ;Industrials;United States;USD;20.9;24.6;34.2;6.0;5.2;-6.1;31.1;0.8;30.9;72;95;167;nein;Umsatz schrumpft;
+CPRT;Copart, Inc.;Industrials;United States;USD;27.0;18.0;22.6;7.6;4.6;9.9;45.2;0.0;18.1;126;48;174;JA;;
+EXPD;Expeditors International of Was;Industrials;United States;USD;22.0;37.3;40.2;5.0;4.3;-13.4;12.9;0.0;27.1;28;146;174;nein;Gewinnrendite < 5 % | Umsatz schrumpft;
+GILD;Gilead Sciences, Inc.;Healthcare;United States;USD;161.7;22.9;13.7;6.1;5.8;2.6;78.8;1.1;17.7;83;91;174;JA;;
+CDW;CDW Corporation;Technology;United States;USD;18.9;18.8;19.8;6.9;5.8;-1.9;21.7;2.7;18.0;115;60;175;nein;Umsatz schrumpft;
+HD;Home Depot, Inc. (The);Consumer Cyclical;United States;USD;331.0;28.9;36.6;5.3;3.8;1.5;33.3;2.5;23.6;52;124;176;JA;;
+MRK;Merck & Company, Inc.;Healthcare;United States;USD;321.6;20.7;17.2;6.3;3.8;3.1;74.8;1.2;36.7;97;83;180;JA;;
+YUM;Yum! Brands, Inc.;Consumer Cyclical;United States;USD;41.8;38.6;45.4;4.7;3.9;6.3;46.2;4.5;19.3;25;158;183;nein;Gewinnrendite < 5 % | Nettoschulden > 3x EBITDA;
+GEN;Gen Digital Inc.;Technology;United States;USD;16.4;16.2;11.6;8.6;9.3;14.7;78.5;3.1;17.5;150;34;184;nein;Nettoschulden > 3x EBITDA;
+ITW;Illinois Tool Works Inc.;Industrials;United States;USD;82.6;38.6;39.2;4.7;3.3;0.2;44.1;1.8;26.0;24;162;186;nein;Gewinnrendite < 5 %;
+SNA;Snap-On Incorporated;Industrials;United States;USD;21.2;18.5;20.2;6.6;4.7;2.1;51.7;0.0;20.9;117;69;186;JA;;
+RMD;ResMed Inc.;Healthcare;United States;USD;30.6;23.6;22.1;5.6;5.4;12.9;59.4;0.0;20.3;77;112;189;JA;;
+VRSK;Verisk Analytics, Inc.;Industrials;United States;USD;25.4;34.5;35.3;4.8;4.7;7.2;69.9;1.6;29.9;35;156;191;nein;Gewinnrendite < 5 %;
+JKHY;Jack Henry & Associates, Inc.;Technology;United States;USD;10.9;23.8;23.2;5.5;3.7;6.9;42.7;0.0;21.5;76;116;192;JA;;
+TSCO;Tractor Supply Company;Consumer Cyclical;United States;USD;16.1;17.6;20.5;6.7;4.6;3.0;36.4;2.9;16.0;129;66;195;JA;;
+VRSN;VeriSign, Inc.;Technology;United States;USD;26.2;187.7;171.3;4.2;4.1;5.2;88.2;1.0;31.5;1;194;195;nein;Gewinnrendite < 5 %;
+KMB;Kimberly-Clark Corporation;Consumer Defensive;United States;USD;36.3;23.1;23.5;5.4;4.5;-6.6;36.0;2.1;21.1;81;119;200;nein;Umsatz schrumpft;
+MSFT;Microsoft Corporation;Technology;United States;USD;3450.8;28.7;28.3;4.9;1.9;16.1;67.9;0.0;25.9;53;148;201;nein;Gewinnrendite < 5 % | FCF-Rendite < 3 %;
+EXPE;Expedia Group, Inc.;Consumer Cyclical;United States;USD;35.4;24.2;16.2;5.2;8.8;8.1;90.1;0.2;26.0;73;129;202;JA;;
+CMCSA;Comcast Corporation;Communication Services;United States;USD;85.0;12.6;9.8;17.3;22.6;0.6;71.7;1.9;7.7;201;2;203;nein;ROCE < 15 %;
+ORLY;O'Reilly Automotive, Inc.;Consumer Cyclical;United States;USD;72.9;44.8;49.7;4.3;2.2;7.3;51.6;2.1;28.4;13;190;203;nein;Gewinnrendite < 5 % | FCF-Rendite < 3 %;
+NTAP;NetApp, Inc.;Technology;United States;USD;35.0;26.1;22.6;5.1;5.3;2.9;70.7;0.0;28.1;67;137;204;JA;;
+FSLR;First Solar, Inc.;Technology;United States;USD;22.7;14.7;9.8;7.9;5.2;25.8;40.6;0.0;21.6;162;43;205;nein;ROCE < 15 % | FCF mehrfach negativ;
+PM;Philip Morris International Inc;Consumer Defensive;United States;USD;297.4;35.3;34.5;4.5;3.6;8.6;67.1;2.5;26.2;33;172;205;nein;Gewinnrendite < 5 %;
+LVS;Las Vegas Sands Corp.;Consumer Cyclical;United States;USD;31.7;16.7;11.5;6.8;5.6;46.9;49.8;2.7;18.9;143;64;207;JA;;
+VLTO;Veralto Corp;Industrials;United States;USD;23.0;22.5;25.3;5.3;4.4;4.2;59.9;0.6;23.7;85;123;208;JA;;
+HONA;Honeywell Aerospace Inc.;Industrials;United States;USD;65.5;28.6;30.2;4.8;4.9;12.3;34.8;0.0;43.4;54;155;209;nein;Gewinnrendite < 5 %;
+STZ;Constellation Brands, Inc.;Consumer Defensive;United States;USD;22.2;14.3;7.9;8.2;8.1;-1.1;51.6;3.5;12.4;170;39;209;nein;ROCE < 15 % | Umsatz schrumpft | Nettoschulden > 3x EBITDA;
+BMY;Bristol-Myers Squibb Company;Healthcare;United States;USD;133.4;16.8;8.2;6.6;9.6;1.4;71.1;2.4;14.4;140;71;211;JA;;
+ALLE;Allegion plc;Industrials;Ireland;USD;13.4;19.5;20.1;5.8;5.1;7.5;45.2;1.6;20.7;108;105;213;JA;;
+DHI;D.R. Horton, Inc.;Consumer Cyclical;United States;USD;40.0;13.2;19.4;10.3;8.2;0.8;23.7;0.7;13.6;192;21;213;nein;ROCE < 15 %;
+AVY;Avery Dennison Corporation;Consumer Cyclical;United States;USD;13.0;17.2;18.1;6.4;5.2;-0.7;28.8;2.5;18.5;135;79;214;nein;Umsatz schrumpft;
+JNJ;Johnson & Johnson;Healthcare;United States;USD;617.8;23.1;16.1;5.2;3.1;5.6;67.9;0.7;29.8;82;133;215;JA;;
+REGN;Regeneron Pharmaceuticals, Inc.;Healthcare;United States;USD;78.5;14.6;15.5;7.3;4.8;5.6;85.4;0.0;18.9;165;52;217;nein;ROCE < 15 %;
+EOG;EOG Resources, Inc.;Energy;United States;USD;79.2;14.0;21.7;7.8;4.4;-8.5;63.4;0.5;14.6;175;44;219;nein;ROCE < 15 % | Umsatz schrumpft;
+INTU;Intuit Inc.;Technology;United States;USD;86.5;19.1;14.7;5.7;7.0;14.0;79.6;0.4;19.3;112;107;219;JA;;
+PTC;PTC Inc.;Technology;United States;USD;15.8;18.5;13.2;5.9;5.4;12.3;83.8;1.0;13.3;116;104;220;JA;;
+UPS;United Parcel Service, Inc.;Industrials;United States;USD;88.6;14.2;19.2;7.4;5.4;-4.0;18.1;1.9;19.4;171;51;222;nein;ROCE < 15 % | Umsatz schrumpft;
+NFLX;Netflix, Inc.;Communication Services;United States;USD;298.6;30.3;21.8;4.4;3.2;12.6;48.5;0.2;22.6;49;174;223;nein;Gewinnrendite < 5 %;
+MCD;McDonald's Corporation;Consumer Cyclical;United States;USD;192.3;22.6;22.3;5.1;3.7;5.1;57.4;3.7;22.3;84;140;224;nein;Nettoschulden > 3x EBITDA;
+DAL;Delta Air Lines, Inc.;Industrials;United States;USD;57.5;12.8;11.0;9.3;6.7;7.8;24.2;1.7;14.5;198;27;225;nein;ROCE < 15 %;
+RL;Ralph Lauren Corporation;Consumer Cyclical;United States;USD;22.6;20.8;17.7;5.2;3.1;8.0;69.9;0.6;25.2;95;132;227;JA;;
+CL;Colgate-Palmolive Company;Consumer Defensive;United States;USD;73.1;35.1;33.0;4.1;5.0;4.3;60.1;1.8;35.9;34;196;230;nein;Gewinnrendite < 5 %;
+BR;Broadridge Financial Solutions,;Technology;United States;USD;17.8;17.9;15.0;5.8;5.9;6.5;31.0;1.9;16.5;128;106;234;JA;;
+SYY;Sysco Corporation;Consumer Defensive;United States;USD;40.8;18.1;18.9;5.6;3.9;5.8;18.4;3.2;23.7;124;110;234;nein;Nettoschulden > 3x EBITDA;
+COP;ConocoPhillips;Energy;United States;USD;146.8;12.6;20.6;8.5;4.9;-9.1;25.1;0.6;20.4;200;36;236;nein;ROCE < 15 % | Umsatz schrumpft;
+DVN;Devon Energy Corporation;Energy;United States;USD;52.1;14.4;23.1;6.7;5.4;-3.6;25.5;0.9;12.6;168;68;236;nein;ROCE < 15 % | Umsatz schrumpft;
+BF-B;Brown Forman Inc;Consumer Defensive;United States;USD;13.2;14.8;17.5;6.4;6.8;-2.4;60.5;2.0;18.8;161;77;238;nein;ROCE < 15 % | Umsatz schrumpft;
+NOC;Northrop Grumman Corporation;Industrials;United States;USD;77.1;15.3;14.8;6.4;4.3;4.7;19.8;1.8;17.2;157;81;238;JA;;
+PPG;PPG Industries, Inc.;Basic Materials;United States;USD;24.6;13.3;12.2;7.6;4.7;0.6;41.3;2.0;15.9;190;49;239;nein;ROCE < 15 %;
+PNR;Pentair plc.;Industrials;United Kingdom;USD;10.4;14.0;13.3;6.8;7.1;0.4;40.5;1.8;16.9;177;63;240;nein;ROCE < 15 %;
+TJX;TJX Companies, Inc. (The);Consumer Cyclical;United States;USD;173.8;32.9;30.5;4.1;2.8;6.5;31.0;0.8;30.6;40;201;241;nein;Gewinnrendite < 5 % | FCF-Rendite < 3 %;
+GEHC;GE HealthCare Technologies Inc.;Healthcare;United States;USD;30.7;11.5;12.4;8.7;4.9;4.0;40.0;1.6;15.7;211;33;244;nein;ROCE < 15 %;
+DVA;DaVita Inc.;Healthcare;United States;USD;15.4;13.4;11.9;7.0;8.5;5.5;32.2;4.6;23.2;188;57;245;nein;ROCE < 15 % | Nettoschulden > 3x EBITDA;
+MMM;3M Company;Industrials;United States;USD;90.9;18.3;5.7;5.3;1.5;-1.6;39.9;1.0;31.4;120;125;245;nein;FCF-Rendite < 3 % | Umsatz schrumpft;
+FICO;Fair Isaac Corporation;Technology;United States;USD;24.3;91.9;62.5;3.4;3.0;13.1;82.2;3.1;32.5;2;244;246;nein;Gewinnrendite < 5 % | Nettoschulden > 3x EBITDA;
+MTD;Mettler-Toledo International, I;Healthcare;Switzerland;USD;28.6;44.4;48.6;3.6;3.0;0.9;59.4;1.7;31.9;14;233;247;nein;Gewinnrendite < 5 % | FCF-Rendite < 3 %;
+HON;Honeywell International Inc.;Industrials;United States;USD;77.0;13.6;14.8;6.8;7.0;1.8;36.9;2.8;9.3;186;62;248;nein;ROCE < 15 %;
+CPAY;Corpay, Inc.;Technology;United States;USD;25.0;16.1;18.1;6.0;5.2;9.7;78.6;3.2;22.9;152;99;251;nein;Nettoschulden > 3x EBITDA;
+UAL;United Airlines Holdings, Inc.;Industrials;United States;USD;39.4;10.9;9.5;9.4;6.5;9.5;28.8;2.2;11.4;227;26;253;nein;ROCE < 15 %;
+FCX;Freeport-McMoRan, Inc.;Basic Materials;United States;USD;90.0;12.9;14.4;7.0;1.2;4.4;28.2;0.7;30.7;195;59;254;nein;ROCE < 15 % | FCF-Rendite < 3 %;
+MPC;Marathon Petroleum Corporation;Energy;United States;USD;92.4;13.1;20.0;6.8;5.2;-9.2;7.5;2.6;20.8;193;61;254;nein;ROCE < 15 % | Umsatz schrumpft;
+TGT;Target Corporation;Consumer Defensive;United States;USD;65.6;13.6;14.1;6.5;4.3;-1.3;27.9;1.8;19.1;181;74;255;nein;ROCE < 15 % | Umsatz schrumpft;
+DLTR;Dollar Tree, Inc.;Consumer Defensive;United States;USD;24.4;16.8;13.2;5.6;5.7;8.0;36.4;2.7;20.4;142;114;256;JA;;
+GWW;W.W. Grainger, Inc.;Industrials;United States;USD;65.3;35.8;39.4;3.7;2.0;5.6;39.1;0.8;37.2;32;226;258;nein;Gewinnrendite < 5 % | FCF-Rendite < 3 %;
+CHRW;C.H. Robinson Worldwide, Inc.;Industrials;United States;USD;17.4;24.6;27.9;4.3;4.8;-13.1;8.4;1.4;28.2;71;191;262;nein;Gewinnrendite < 5 % | Umsatz schrumpft;
+FISV;Fiserv, Inc.;;;USD;28.8;10.3;8.9;10.2;14.9;6.1;59.4;3.2;9.1;241;22;263;nein;ROCE < 15 % | Nettoschulden > 3x EBITDA;
+NKE;Nike, Inc.;Consumer Cyclical;United States;USD;61.9;14.7;18.2;5.9;3.5;-3.2;42.9;0.4;19.9;163;100;263;nein;ROCE < 15 % | Umsatz schrumpft;
+RCL;Royal Caribbean Cruises Ltd.;Consumer Cyclical;United States;USD;85.1;18.1;10.9;5.0;1.5;26.6;49.4;3.0;19.6;123;141;264;nein;FCF-Rendite < 3 %;
+ROL;Rollins, Inc.;Consumer Cyclical;United States;USD;18.3;31.0;30.5;3.8;3.6;11.7;52.8;1.1;34.5;47;221;268;nein;Gewinnrendite < 5 %;
+APP;Applovin Corporation;Communication Services;United States;USD;133.0;70.2;31.8;3.1;3.0;24.8;87.9;0.2;34.5;6;263;269;nein;Gewinnrendite < 5 % | FCF-Rendite < 3 %;
+GOOGL;Alphabet Inc.;Communication Services;United States;USD;4355.4;32.4;29.2;3.7;1.7;12.5;59.7;0.0;17.9;44;225;269;nein;Gewinnrendite < 5 % | FCF-Rendite < 3 %;
+T;AT&T Inc.;Communication Services;United States;USD;159.3;9.2;6.1;11.4;12.2;1.3;59.6;2.5;7.7;256;13;269;nein;ROCE < 15 %;
+GOOG;Alphabet Inc.;Communication Services;United States;USD;4361.8;32.4;29.2;3.7;1.7;12.5;59.7;0.0;17.9;43;227;270;nein;Gewinnrendite < 5 % | FCF-Rendite < 3 %;
+CRH;CRH PLC;Basic Materials;Ireland;USD;63.2;11.3;11.6;7.1;4.6;4.6;36.1;2.0;16.8;218;53;271;nein;ROCE < 15 %;
+DRI;Darden Restaurants, Inc.;Consumer Cyclical;United States;USD;23.3;16.1;14.6;5.4;4.7;8.0;21.7;2.8;19.5;151;120;271;JA;;
+EXE;Expand Energy Corporation;Energy;United States;USD;21.8;9.9;15.4;9.6;7.6;2.1;50.8;0.8;8.1;248;24;272;nein;ROCE < 15 %;
+EBAY;eBay Inc.;Consumer Cyclical;United States;USD;50.6;19.7;13.4;4.7;2.8;4.3;71.5;1.4;26.3;107;167;274;nein;Gewinnrendite < 5 % | FCF-Rendite < 3 %;
+IDXX;IDEXX Laboratories, Inc.;Healthcare;United States;USD;44.1;61.9;55.1;3.0;2.4;8.5;61.8;0.5;41.1;9;267;276;nein;Gewinnrendite < 5 % | FCF-Rendite < 3 %;
+KO;Coca-Cola Company (The);Consumer Defensive;United States;USD;376.9;21.1;19.4;4.3;1.4;3.7;61.6;1.6;26.3;94;184;278;nein;Gewinnrendite < 5 % | FCF-Rendite < 3 %;
+SMCI;Super Micro Computer, Inc.;Technology;United States;USD;18.4;10.9;20.1;7.1;8.3;61.7;11.1;0.0;14.9;225;54;279;nein;ROCE < 15 % | FCF mehrfach negativ;
+LMT;Lockheed Martin Corporation;Industrials;United States;USD;134.5;19.3;21.1;4.6;5.1;4.4;10.2;2.0;21.5;110;170;280;nein;Gewinnrendite < 5 %;
+CMG;Chipotle Mexican Grill, Inc.;Consumer Cyclical;United States;USD;47.2;25.8;23.5;3.9;3.1;11.4;25.4;1.7;34.5;69;212;281;nein;Gewinnrendite < 5 %;
+LEN;Lennar Corporation;Consumer Cyclical;United States;USD;19.8;8.4;13.5;12.5;0.1;0.5;9.9;0.7;12.9;274;8;282;nein;ROCE < 15 % | FCF-Rendite < 3 %;
+CHTR;Charter Communications, Inc.;Communication Services;United States;USD;19.5;8.9;9.1;10.8;22.6;0.5;56.5;4.6;3.8;264;19;283;nein;ROCE < 15 % | Nettoschulden > 3x EBITDA;
+NVDA;NVIDIA Corporation;Technology;United States;USD;4862.4;81.1;61.5;2.9;2.0;100.0;71.1;0.0;30.8;4;280;284;nein;Gewinnrendite < 5 % | FCF-Rendite < 3 %;
+TEL;TE Connectivity plc;Technology;Ireland;USD;59.6;16.4;15.8;5.1;5.4;2.0;35.2;1.1;20.2;146;139;285;JA;;
+CI;The Cigna Group;Healthcare;United States;USD;73.7;9.0;8.0;9.5;11.4;15.1;9.0;1.9;11.5;261;25;286;nein;ROCE < 15 %;
+UNP;Union Pacific Corporation;Industrials;United States;USD;173.5;16.2;16.2;5.1;3.2;-0.5;45.8;2.4;23.6;149;138;287;nein;Umsatz schrumpft;
+AAPL;Apple Inc.;Technology;United States;USD;4537.1;68.7;62.3;2.9;2.2;1.8;46.9;0.3;35.5;7;281;288;nein;Gewinnrendite < 5 % | FCF-Rendite < 3 %;
+MSI;Motorola Solutions, Inc.;Technology;United States;USD;72.3;23.8;25.1;3.9;3.6;8.6;51.7;2.4;35.1;75;213;288;nein;Gewinnrendite < 5 %;
+TDG;Transdigm Group Incorporated;Industrials;United States;USD;70.2;20.3;16.8;4.3;2.6;17.6;60.1;6.0;39.2;101;187;288;nein;Gewinnrendite < 5 % | FCF-Rendite < 3 % | Nettoschulden > 3x EBITDA;
+TT;Trane Technologies plc;Industrials;Ireland;USD;100.1;25.8;22.7;3.8;2.8;10.1;36.2;0.7;33.9;68;222;290;nein;Gewinnrendite < 5 % | FCF-Rendite < 3 %;
+CMI;Cummins Inc.;Industrials;United States;USD;87.5;17.6;17.5;4.7;2.7;6.2;25.3;0.8;32.9;131;164;295;nein;Gewinnrendite < 5 % | FCF-Rendite < 3 %;
+AMGN;Amgen Inc.;Healthcare;United States;USD;207.9;18.0;15.2;4.6;3.9;11.8;67.2;2.7;26.8;127;169;296;nein;Gewinnrendite < 5 %;
+FAST;Fastenal Company;Industrials;United States;USD;54.7;38.3;38.8;3.0;1.9;5.5;45.0;0.1;40.8;27;269;296;nein;Gewinnrendite < 5 % | FCF-Rendite < 3 %;
+OKE;ONEOK, Inc.;Energy;United States;USD;57.2;10.4;11.0;7.0;4.3;14.5;26.0;4.2;16.2;238;58;296;nein;ROCE < 15 % | Nettoschulden > 3x EBITDA;
+HUM;Humana Inc.;Healthcare;United States;USD;43.7;12.3;19.1;6.0;0.9;11.8;;0.0;34.4;205;92;297;nein;ROCE < 15 % | FCF-Rendite < 3 %;
+VRTX;Vertex Pharmaceuticals Incorpor;Healthcare;United States;USD;121.1;21.4;18.4;4.0;2.6;10.4;86.2;0.0;28.3;92;205;297;nein;Gewinnrendite < 5 % | FCF-Rendite < 3 %;
+ADSK;Autodesk, Inc.;Technology;United States;USD;49.5;26.9;22.5;3.6;4.8;12.9;91.0;0.1;34.2;63;235;298;nein;Gewinnrendite < 5 %;
+HAL;Halliburton Company;Energy;United States;USD;26.9;10.9;15.9;6.5;6.2;3.0;15.7;1.8;16.9;224;76;300;nein;ROCE < 15 %;
+XYZ;Block, Inc.;Technology;United States;USD;48.4;10.4;4.5;6.7;5.0;11.3;42.8;0.0;63.5;236;65;301;nein;ROCE < 15 %;
+CTAS;Cintas Corporation;Industrials;United States;USD;81.9;33.3;28.8;3.1;2.3;8.5;50.7;0.8;41.7;39;264;303;nein;Gewinnrendite < 5 % | FCF-Rendite < 3 %;
+ROST;Ross Stores, Inc.;Consumer Cyclical;United States;USD;80.5;26.9;25.2;3.5;2.7;6.8;27.7;0.2;35.1;65;238;303;nein;Gewinnrendite < 5 % | FCF-Rendite < 3 %;
+SLB;SLB Limited;Energy;United States;USD;73.6;12.1;15.3;6.0;6.2;8.3;18.2;1.1;24.2;206;97;303;nein;ROCE < 15 %;
+URI;United Rentals, Inc.;Industrials;United States;USD;67.2;15.6;16.1;4.9;1.0;11.4;38.2;2.1;26.0;155;149;304;nein;Gewinnrendite < 5 % | FCF-Rendite < 3 %;
+EQT;EQT Corporation;Energy;United States;USD;33.3;8.7;8.6;8.3;8.5;-11.7;45.9;1.3;12.4;267;38;305;nein;ROCE < 15 % | Umsatz schrumpft;
+MOS;Mosaic Company (The);Basic Materials;United States;USD;7.0;7.1;11.2;12.1;-7.6;-14.3;15.8;2.0;158.0;295;10;305;nein;ROCE < 15 % | FCF-Rendite < 3 % | Umsatz schrumpft;
+TXT;Textron Inc.;Industrials;United States;USD;14.7;9.2;8.9;7.6;6.3;4.8;18.2;1.1;16.1;258;47;305;nein;ROCE < 15 %;
+MKC;McCormick & Company, Incorporat;Consumer Defensive;United States;USD;13.7;10.9;10.5;6.2;5.4;2.5;37.9;3.0;8.5;222;85;307;nein;ROCE < 15 % | Nettoschulden > 3x EBITDA;
+XOM;ExxonMobil Holdings Corporation;Energy;United States;USD;644.3;11.1;16.9;6.2;3.7;-6.7;22.0;0.5;26.2;219;88;307;nein;ROCE < 15 % | Umsatz schrumpft;
+DXCM;DexCom, Inc.;Healthcare;United States;USD;31.5;26.4;18.5;3.5;3.4;17.0;60.1;0.3;33.0;66;242;308;nein;Gewinnrendite < 5 %;
+PEP;Pepsico, Inc.;Consumer Defensive;United States;USD;190.6;15.2;17.4;4.9;4.0;2.8;54.1;2.6;18.3;158;150;308;nein;Gewinnrendite < 5 %;
+HUBB;Hubbell Inc;Industrials;United States;USD;25.0;17.6;17.9;4.4;3.5;5.7;35.3;1.4;28.0;130;179;309;nein;Gewinnrendite < 5 %;
+VZ;Verizon Communications Inc.;Communication Services;United States;USD;195.5;8.6;8.6;8.2;10.1;0.3;58.9;3.4;12.2;269;40;309;nein;ROCE < 15 % | Nettoschulden > 3x EBITDA;
+ABNB;Airbnb, Inc.;Consumer Cyclical;United States;USD;89.9;29.7;22.8;3.1;5.2;13.4;83.0;0.0;37.4;50;260;310;nein;Gewinnrendite < 5 %;
+LLY;Eli Lilly and Company;Healthcare;United States;USD;1024.5;38.4;30.6;2.8;0.6;31.7;83.0;1.1;40.8;26;284;310;nein;Gewinnrendite < 5 % | FCF-Rendite < 3 %;
+SHW;Sherwin-Williams Company (The);Basic Materials;United States;USD;82.7;20.0;20.6;4.0;3.2;2.1;48.8;2.8;31.4;104;206;310;nein;Gewinnrendite < 5 %;
+CCL;Carnival Corporation Ltd.;Consumer Cyclical;United States;USD;38.1;10.7;3.7;6.4;6.8;29.8;40.1;3.8;12.5;234;78;312;nein;ROCE < 15 % | Nettoschulden > 3x EBITDA;
+ALGN;Align Technology, Inc.;Healthcare;United States;USD;12.1;13.6;15.6;5.3;4.1;2.6;67.2;0.0;29.3;185;128;313;nein;ROCE < 15 %;
+PSX;Phillips 66;Energy;United States;USD;84.9;10.8;14.9;6.3;3.2;-8.0;9.8;1.9;20.9;229;84;313;nein;ROCE < 15 % | Umsatz schrumpft;
+CRM;Salesforce, Inc.;Technology;United States;USD;150.7;11.9;8.2;5.6;9.6;9.8;77.7;0.6;21.3;208;109;317;nein;ROCE < 15 %;
+FIX;Comfort Systems USA, Inc.;Industrials;United States;USD;60.9;42.7;29.2;2.2;1.7;30.0;24.1;0.0;42.6;16;301;317;nein;Gewinnrendite < 5 % | FCF-Rendite < 3 %;
+MAR;Marriott International;Consumer Cyclical;United States;USD;98.3;22.0;21.5;3.7;2.7;8.0;19.9;3.5;39.1;87;231;318;nein;Gewinnrendite < 5 % | FCF-Rendite < 3 % | Nettoschulden > 3x EBITDA;
+TPL;Texas Pacific Land Corporation;Energy;United States;USD;27.8;39.4;49.5;2.2;0.1;6.1;85.5;0.0;55.2;22;299;321;nein;Gewinnrendite < 5 % | FCF-Rendite < 3 %;
+DOV;Dover Corporation;Industrials;United States;USD;27.6;13.6;15.5;5.0;4.0;1.0;39.8;1.0;24.7;182;142;324;nein;ROCE < 15 %;
+ODFL;Old Dominion Freight Line, Inc.;Industrials;United States;USD;44.1;27.3;33.7;3.1;2.2;-4.2;33.0;0.0;40.8;59;265;324;nein;Gewinnrendite < 5 % | FCF-Rendite < 3 % | Umsatz schrumpft;
+FTNT;Fortinet, Inc.;Technology;United States;USD;118.8;43.0;37.2;2.0;1.9;15.5;80.5;0.0;57.2;15;312;327;nein;Gewinnrendite < 5 % | FCF-Rendite < 3 %;
+BALL;Ball Corporation;Consumer Cyclical;United States;USD;17.3;10.3;8.2;6.2;4.6;-0.5;19.6;2.8;18.9;242;86;328;nein;ROCE < 15 % | Umsatz schrumpft | FCF mehrfach negativ;
+KLAC;KLA Corporation;Technology;United States;USD;238.8;41.3;37.7;2.1;1.6;9.7;60.9;0.3;50.0;19;309;328;nein;Gewinnrendite < 5 % | FCF-Rendite < 3 %;
+GD;General Dynamics Corporation;Industrials;United States;USD;103.7;13.6;12.6;5.0;3.8;10.1;15.1;1.2;23.4;183;147;330;nein;ROCE < 15 % | Gewinnrendite < 5 %;
+KVUE;Kenvue Inc.;Consumer Defensive;United States;USD;36.9;11.5;10.9;5.5;4.7;0.4;58.1;2.5;22.9;212;118;330;nein;ROCE < 15 %;
+TRGP;Targa Resources, Inc.;Energy;United States;USD;58.0;15.4;14.2;4.4;1.0;-6.6;29.4;3.6;27.6;156;175;331;nein;Gewinnrendite < 5 % | FCF-Rendite < 3 % | Umsatz schrumpft | Nettoschulden > 3x EBITDA;
+AMAT;Applied Materials, Inc.;Technology;United States;USD;403.1;33.7;35.1;2.4;1.4;3.2;48.7;0.0;47.8;37;297;334;nein;Gewinnrendite < 5 % | FCF-Rendite < 3 %;
+DIS;Walt Disney Company (The);Communication Services;United States;USD;167.0;8.5;5.6;6.7;6.0;4.5;37.8;2.0;15.4;272;67;339;nein;ROCE < 15 %;
+LRCX;Lam Research Corporation;Technology;United States;USD;366.6;41.5;38.0;1.7;1.5;2.3;48.7;0.0;50.8;18;322;340;nein;Gewinnrendite < 5 % | FCF-Rendite < 3 %;
+DELL;Dell Technologies Inc.;Technology;United States;USD;261.9;23.2;17.8;3.1;3.3;3.5;20.0;1.7;32.2;80;261;341;nein;Gewinnrendite < 5 %;
+FDX;FedEx Corporation;Industrials;United States;USD;72.7;8.5;8.6;6.6;7.0;1.7;21.8;2.7;16.6;273;70;343;nein;ROCE < 15 %;
+GRMN;Garmin Ltd.;Technology;Switzerland;USD;56.7;20.2;17.6;3.5;2.4;14.2;58.7;0.0;30.3;102;241;343;nein;Gewinnrendite < 5 % | FCF-Rendite < 3 %;
+MNST;Monster Beverage Corporation;Consumer Defensive;United States;USD;94.3;28.3;25.5;2.6;2.1;9.5;55.8;0.0;46.6;55;288;343;nein;Gewinnrendite < 5 % | FCF-Rendite < 3 %;
+NXPI;NXP Semiconductors N.V.;Technology;Netherlands;USD;57.8;13.8;17.0;4.7;4.0;-2.4;54.7;2.4;45.6;179;165;344;nein;ROCE < 15 % | Gewinnrendite < 5 % | Umsatz schrumpft;
+COST;Costco Wholesale Corporation;Consumer Defensive;United States;USD;422.1;27.4;26.4;2.6;1.9;6.6;12.8;0.0;47.9;57;289;346;nein;Gewinnrendite < 5 % | FCF-Rendite < 3 %;
+HLT;Hilton Worldwide Holdings Inc.;Consumer Cyclical;United States;USD;72.1;21.9;19.5;3.2;2.7;11.1;28.2;4.2;47.2;88;259;347;nein;Gewinnrendite < 5 % | FCF-Rendite < 3 % | Nettoschulden > 3x EBITDA;
+BLDR;Builders FirstSource, Inc.;Industrials;United States;USD;7.1;8.1;23.6;6.5;11.9;-12.6;30.4;3.6;72.2;279;73;352;nein;ROCE < 15 % | Umsatz schrumpft | Nettoschulden > 3x EBITDA;
+APTV;Aptiv PLC;Consumer Cyclical;Switzerland;USD;12.0;7.0;9.0;7.0;12.8;5.3;19.1;2.7;33.6;297;56;353;nein;ROCE < 15 %;
+TMUS;T-Mobile US, Inc.;Communication Services;United States;USD;185.3;9.3;7.5;6.0;8.3;3.5;62.9;3.7;18.0;255;98;353;nein;ROCE < 15 % | Nettoschulden > 3x EBITDA;
+ABT;Abbott Laboratories;Healthcare;United States;USD;182.9;12.8;12.8;4.8;4.0;0.5;56.4;0.4;34.2;199;157;356;nein;ROCE < 15 % | Gewinnrendite < 5 %;
+BKR;Baker Hughes Company;Energy;United States;USD;60.0;11.5;9.6;5.0;4.2;9.4;23.6;0.6;19.5;213;145;358;nein;ROCE < 15 % | Gewinnrendite < 5 %;
+CAH;Cardinal Health, Inc.;Healthcare;United States;USD;53.9;16.3;8.1;4.0;3.4;7.1;3.7;1.5;35.1;147;211;358;nein;Gewinnrendite < 5 %;
+DGX;Quest Diagnostics Incorporated;Healthcare;United States;USD;25.7;11.4;11.1;5.0;5.3;3.7;33.2;2.8;24.8;214;144;358;nein;ROCE < 15 %;
+WYNN;Wynn Resorts, Limited;Consumer Cyclical;United States;USD;10.3;9.9;7.5;5.6;6.7;23.9;41.4;5.7;28.5;247;111;358;nein;ROCE < 15 % | Nettoschulden > 3x EBITDA;
+JBL;Jabil Inc.;Technology;United States;USD;33.0;21.5;25.2;3.0;3.6;-3.8;8.9;0.8;39.4;89;270;359;nein;Gewinnrendite < 5 % | Umsatz schrumpft;
+PH;Parker-Hannifin Corporation;Industrials;United States;USD;123.1;19.1;15.4;3.4;2.7;7.8;36.9;1.6;36.0;113;247;360;nein;Gewinnrendite < 5 % | FCF-Rendite < 3 %;
+COR;Cencora, Inc.;Healthcare;United States;USD;60.6;14.3;16.9;4.2;5.3;10.4;3.6;0.9;23.9;169;193;362;nein;ROCE < 15 % | Gewinnrendite < 5 %;
+HII;Huntington Ingalls Industries, ;Industrials;United States;USD;12.9;9.1;9.8;5.9;6.2;5.4;12.7;1.8;19.5;260;103;363;nein;ROCE < 15 %;
+WMT;Walmart Inc.;Consumer Defensive;United States;USD;884.9;18.2;16.0;3.4;1.7;5.3;24.9;1.2;39.2;122;246;368;nein;Gewinnrendite < 5 % | FCF-Rendite < 3 %;
+CHD;Church & Dwight Company, Inc.;Consumer Defensive;United States;USD;23.4;14.2;12.3;4.2;4.7;4.9;44.7;1.4;31.7;174;195;369;nein;ROCE < 15 % | Gewinnrendite < 5 %;
+SWKS;Skyworks Solutions, Inc.;Technology;United States;USD;9.4;8.4;13.1;6.0;11.5;-9.3;41.2;0.0;32.3;276;94;370;nein;ROCE < 15 % | Umsatz schrumpft;
+DE;Deere & Company;Industrials;United States;USD;160.0;12.8;17.7;4.4;2.0;-4.5;36.5;4.7;33.6;196;178;374;nein;ROCE < 15 % | Gewinnrendite < 5 % | FCF-Rendite < 3 % | Umsatz schrumpft | Nettoschulden > 3x EBITDA;
+ORCL;Oracle Corporation;Technology;United States;USD;374.1;11.0;12.3;4.8;-6.3;10.5;65.8;3.7;22.3;220;154;374;nein;ROCE < 15 % | Gewinnrendite < 5 % | FCF-Rendite < 3 % | Nettoschulden > 3x EBITDA | FCF mehrfach negativ;
+FFIV;F5, Inc.;Technology;United States;USD;22.9;16.8;14.8;3.6;4.0;4.6;81.4;0.0;32.1;141;234;375;nein;Gewinnrendite < 5 %;
+NCLH;Norwegian Cruise Line Holdings ;Consumer Cyclical;United States;USD;8.5;8.1;3.6;6.0;-13.7;26.6;42.6;5.7;11.2;282;93;375;nein;ROCE < 15 % | FCF-Rendite < 3 % | Nettoschulden > 3x EBITDA | FCF mehrfach negativ;
+ANET;Arista Networks, Inc.;Technology;United States;USD;227.1;27.4;27.3;1.8;1.9;27.1;64.1;0.0;62.2;58;318;376;nein;Gewinnrendite < 5 % | FCF-Rendite < 3 %;
+APH;Amphenol Corporation;Technology;United States;USD;197.7;20.3;19.7;3.0;2.2;22.3;36.9;0.6;40.2;100;276;376;nein;Gewinnrendite < 5 % | FCF-Rendite < 3 %;
+NWSA;News Corporation;Communication Services;United States;USD;14.9;7.4;6.2;6.2;3.8;-6.6;;0.4;34.9;289;87;376;nein;ROCE < 15 % | Umsatz schrumpft;
+STE;STERIS plc (Ireland);Healthcare;United States;USD;22.3;11.6;9.4;4.6;4.4;9.4;44.2;1.0;28.8;210;168;378;nein;ROCE < 15 % | Gewinnrendite < 5 %;
+A;Agilent Technologies, Inc.;Healthcare;United States;USD;39.1;14.9;16.3;3.8;2.9;0.5;52.4;0.9;27.8;159;220;379;nein;ROCE < 15 % | Gewinnrendite < 5 % | FCF-Rendite < 3 %;
+NSC;Norfolk Southern Corporation;Industrials;United States;USD;75.4;10.7;10.5;4.9;2.9;-1.5;36.3;2.7;28.6;231;152;383;nein;ROCE < 15 % | Gewinnrendite < 5 % | FCF-Rendite < 3 % | Umsatz schrumpft;
+EFX;Equifax, Inc.;Industrials;United States;USD;20.3;11.6;10.8;4.4;5.6;5.8;56.4;2.7;30.3;209;177;386;nein;ROCE < 15 % | Gewinnrendite < 5 %;
+CAT;Caterpillar, Inc.;Industrials;United States;USD;375.3;19.4;22.1;2.9;2.0;4.4;31.8;2.3;40.7;109;279;388;nein;Gewinnrendite < 5 % | FCF-Rendite < 3 %;
+KDP;Keurig Dr Pepper Inc.;Consumer Defensive;United States;USD;42.3;7.3;6.5;6.0;3.5;5.7;54.2;3.6;23.1;292;96;388;nein;ROCE < 15 % | Nettoschulden > 3x EBITDA;
+IBM;International Business Machines;Technology;United States;USD;210.7;10.8;7.7;4.7;5.4;3.7;58.2;2.9;19.9;228;161;389;nein;ROCE < 15 % | Gewinnrendite < 5 %;
+VRT;Vertiv Holdings, LLC;Industrials;United States;USD;93.0;23.4;14.3;1.9;2.0;21.6;36.3;0.7;54.7;78;313;391;nein;Gewinnrendite < 5 % | FCF-Rendite < 3 %;
+WAT;Waters Corporation;Healthcare;United States;USD;37.0;21.5;25.3;2.2;1.5;2.1;59.3;0.9;48.1;91;300;391;nein;Gewinnrendite < 5 % | FCF-Rendite < 3 %;
+AMZN;Amazon.com, Inc.;Consumer Cyclical;United States;USD;2921.4;16.6;10.7;3.4;0.3;11.7;50.3;0.2;21.8;145;249;394;nein;Gewinnrendite < 5 % | FCF-Rendite < 3 %;
+UBER;Uber Technologies, Inc.;Technology;United States;USD;143.2;12.6;-0.9;4.2;6.8;17.7;39.8;0.6;17.5;202;192;394;nein;ROCE < 15 % | Gewinnrendite < 5 %;
+DG;Dollar General Corporation;Consumer Defensive;United States;USD;28.0;9.1;10.2;5.2;8.5;4.1;30.7;4.5;18.0;259;136;395;nein;ROCE < 15 % | Nettoschulden > 3x EBITDA;
+MDT;Medtronic plc.;Healthcare;Ireland;USD;109.3;8.4;7.7;5.4;5.0;5.2;65.0;1.9;22.9;275;122;397;nein;ROCE < 15 %;
+TXN;Texas Instruments Incorporated;Technology;United States;USD;251.8;19.9;26.9;2.4;1.0;-4.1;57.0;1.1;41.8;105;295;400;nein;Gewinnrendite < 5 % | FCF-Rendite < 3 % | Umsatz schrumpft;
+HSIC;Henry Schein, Inc.;Healthcare;United States;USD;9.8;8.6;9.3;5.2;5.3;1.4;31.1;3.4;25.9;271;130;401;nein;ROCE < 15 % | Nettoschulden > 3x EBITDA;
+PODD;Insulet Corporation;Healthcare;United States;USD;11.5;15.9;10.9;3.4;3.1;27.5;71.6;0.5;38.6;154;248;402;nein;Gewinnrendite < 5 %;
+PKG;Packaging Corporation of Americ;Consumer Cyclical;United States;USD;21.9;11.4;15.0;4.3;3.3;2.0;21.0;2.1;32.0;215;188;403;nein;ROCE < 15 % | Gewinnrendite < 5 %;
+NWS;News Corporation;Communication Services;United States;USD;16.9;7.4;6.2;5.5;3.4;-6.6;;0.4;39.6;288;117;405;nein;ROCE < 15 % | Umsatz schrumpft;
+NDSN;Nordson Corporation;Industrials;United States;USD;16.6;13.6;15.7;3.8;4.0;2.5;55.2;2.3;31.8;184;223;407;nein;ROCE < 15 % | Gewinnrendite < 5 %;
+BSX;Boston Scientific Corporation;Healthcare;United States;USD;69.5;9.8;7.7;4.7;4.9;16.5;69.0;1.9;18.9;249;159;408;nein;ROCE < 15 % | Gewinnrendite < 5 %;
+IQV;IQVIA Holdings, Inc.;Healthcare;United States;USD;38.7;10.7;10.5;4.4;5.3;4.2;33.3;4.0;29.2;233;176;409;nein;ROCE < 15 % | Gewinnrendite < 5 % | Nettoschulden > 3x EBITDA;
+BIIB;Biogen Inc.;Healthcare;United States;USD;30.0;7.0;10.3;5.6;6.6;-0.9;75.7;1.1;36.1;296;115;411;nein;ROCE < 15 % | Umsatz schrumpft;
+LIN;Linde plc;Basic Materials;United Kingdom;USD;221.2;13.1;12.2;3.8;2.3;0.6;48.8;1.8;30.9;194;217;411;nein;ROCE < 15 % | Gewinnrendite < 5 % | FCF-Rendite < 3 %;
+ECL;Ecolab Inc.;Basic Materials;United States;USD;78.1;14.9;13.2;3.3;2.4;4.3;44.5;2.2;37.3;160;253;413;nein;ROCE < 15 % | Gewinnrendite < 5 % | FCF-Rendite < 3 %;
+HWM;Howmet Aerospace Inc.;Industrials;United States;USD;112.9;21.2;15.5;1.7;1.3;13.4;34.2;1.1;65.3;93;320;413;nein;Gewinnrendite < 5 % | FCF-Rendite < 3 %;
+CSX;CSX Corporation;Industrials;United States;USD;93.4;11.4;13.7;4.1;1.8;-1.7;33.2;3.0;29.3;216;198;414;nein;ROCE < 15 % | Gewinnrendite < 5 % | FCF-Rendite < 3 % | Umsatz schrumpft;
+ETN;Eaton Corporation, PLC;Industrials;Ireland;USD;161.2;16.2;13.8;3.0;2.2;9.8;37.6;1.6;40.7;148;268;416;nein;Gewinnrendite < 5 % | FCF-Rendite < 3 %;
+TER;Teradyne, Inc.;Technology;United States;USD;57.6;21.5;22.7;1.1;0.8;0.4;58.2;0.0;50.5;90;327;417;nein;Gewinnrendite < 5 % | FCF-Rendite < 3 %;
+SYK;Stryker Corporation;Healthcare;United States;USD;124.9;12.8;11.7;3.7;3.4;10.8;64.0;1.9;37.7;197;224;421;nein;ROCE < 15 % | Gewinnrendite < 5 %;
+HSY;The Hershey Company;Consumer Defensive;United States;USD;35.2;13.4;23.9;3.6;5.0;3.9;33.5;2.5;23.9;189;236;425;nein;ROCE < 15 % | Gewinnrendite < 5 %;
+JBHT;J.B. Hunt Transport Services, I;Industrials;United States;USD;25.5;14.5;15.7;3.2;3.7;-6.8;13.3;0.9;38.6;167;258;425;nein;ROCE < 15 % | Gewinnrendite < 5 % | Umsatz schrumpft;
+AME;AMETEK, Inc.;Industrials;United States;USD;55.4;14.2;14.0;3.3;3.0;6.4;36.0;0.8;36.5;172;255;427;nein;ROCE < 15 % | Gewinnrendite < 5 %;
+CDNS;Cadence Design Systems, Inc.;Technology;United States;USD;93.6;19.2;24.8;1.8;1.7;14.1;86.4;0.0;67.6;111;319;430;nein;Gewinnrendite < 5 % | FCF-Rendite < 3 %;
+UNH;UnitedHealth Group Incorporated;Healthcare;United States;USD;376.3;9.6;14.7;4.4;4.3;11.4;18.5;2.2;31.3;251;180;431;nein;ROCE < 15 % | Gewinnrendite < 5 %;
+STLD;Steel Dynamics, Inc.;Basic Materials;United States;USD;36.0;10.9;23.8;4.0;1.4;-6.5;13.2;1.6;22.8;223;209;432;nein;ROCE < 15 % | Gewinnrendite < 5 % | FCF-Rendite < 3 % | Umsatz schrumpft;
+WST;West Pharmaceutical Services, I;Healthcare;United States;USD;24.0;16.6;20.1;2.6;2.0;2.1;35.9;0.0;43.7;144;291;435;nein;Gewinnrendite < 5 % | FCF-Rendite < 3 %;
+PFE;Pfizer, Inc.;Healthcare;United States;USD;142.5;6.0;9.4;5.3;6.4;-14.8;74.3;3.0;19.1;309;127;436;nein;ROCE < 15 % | Umsatz schrumpft | Nettoschulden > 3x EBITDA;
+VMC;Vulcan Materials Company (Holdi;Basic Materials;United States;USD;34.8;10.4;9.2;4.1;3.3;2.8;27.4;2.0;31.6;239;197;436;nein;ROCE < 15 % | Gewinnrendite < 5 %;
+WMB;Williams Companies, Inc. (The);Energy;United States;USD;87.5;9.7;9.8;4.3;1.0;2.9;62.0;4.0;31.4;250;186;436;nein;ROCE < 15 % | Gewinnrendite < 5 % | FCF-Rendite < 3 % | Nettoschulden > 3x EBITDA;
+IEX;IDEX Corporation;Industrials;United States;USD;17.0;11.0;13.3;3.8;3.6;2.8;44.5;1.4;33.1;221;219;440;nein;ROCE < 15 % | Gewinnrendite < 5 %;
+RSG;Republic Services, Inc.;Industrials;United States;USD;64.8;10.4;9.9;4.0;3.7;7.1;42.0;2.7;30.2;237;203;440;nein;ROCE < 15 % | Gewinnrendite < 5 %;
+OXY;Occidental Petroleum Corporatio;Energy;United States;USD;56.8;5.5;10.7;5.3;7.2;-16.2;34.9;1.8;77.1;316;126;442;nein;ROCE < 15 % | Umsatz schrumpft;
+BG;Bunge Limited;Consumer Defensive;United States;USD;20.4;6.0;13.5;5.2;-4.3;1.5;4.8;5.5;22.9;308;135;443;nein;ROCE < 15 % | FCF-Rendite < 3 % | Nettoschulden > 3x EBITDA | FCF mehrfach negativ;
+MPWR;Monolithic Power Systems, Inc.;Technology;United States;USD;70.1;19.1;21.8;1.1;0.9;15.9;55.2;0.0;87.0;114;330;444;nein;Gewinnrendite < 5 % | FCF-Rendite < 3 %;
+CVX;Chevron Corporation;Energy;United States;USD;392.0;7.2;13.9;4.9;4.2;-7.9;30.4;0.8;18.9;294;151;445;nein;ROCE < 15 % | Gewinnrendite < 5 % | Umsatz schrumpft;
+ISRG;Intuitive Surgical, Inc.;Healthcare;United States;USD;126.6;16.0;14.1;2.4;2.0;17.4;66.0;0.0;40.5;153;293;446;nein;Gewinnrendite < 5 % | FCF-Rendite < 3 %;
+NUE;Nucor Corporation;Basic Materials;United States;USD;58.6;8.8;19.5;4.3;-0.3;-7.8;11.9;1.0;20.5;265;183;448;nein;ROCE < 15 % | Gewinnrendite < 5 % | FCF-Rendite < 3 % | Umsatz schrumpft;
+VEEV;Veeva Systems Inc.;Healthcare;United States;USD;33.1;12.5;11.3;3.4;4.3;14.0;75.5;0.0;36.1;203;245;448;nein;ROCE < 15 % | Gewinnrendite < 5 %;
+WM;Waste Management, Inc.;Industrials;United States;USD;90.6;10.8;11.5;3.8;3.1;8.6;40.4;3.2;59.5;230;218;448;nein;ROCE < 15 % | Gewinnrendite < 5 % | Nettoschulden > 3x EBITDA;
+FLEX;Flex Ltd.;Technology;United States;USD;41.7;13.5;11.7;3.1;2.5;-0.7;9.2;1.0;43.9;187;262;449;nein;ROCE < 15 % | Gewinnrendite < 5 % | FCF-Rendite < 3 % | Umsatz schrumpft;
+ROP;Roper Technologies, Inc.;Technology;United States;USD;38.8;7.3;7.3;4.7;6.3;13.7;69.2;2.9;16.3;290;160;450;nein;ROCE < 15 % | Gewinnrendite < 5 %;
+ZBRA;Zebra Technologies Corporation;Technology;United States;USD;14.0;10.0;12.0;4.0;5.9;-2.3;48.1;3.0;35.4;246;204;450;nein;ROCE < 15 % | Gewinnrendite < 5 % | Umsatz schrumpft | Nettoschulden > 3x EBITDA;
+MRVL;Marvell Technology, Inc.;Technology;United States;USD;168.3;17.0;2.9;1.9;0.8;11.4;51.0;0.5;64.5;138;314;452;nein;Gewinnrendite < 5 % | FCF-Rendite < 3 %;
+CASY;Caseys General Stores, Inc.;Consumer Cyclical;United States;USD;32.2;13.6;12.7;3.0;2.2;5.2;24.6;1.6;45.5;180;273;453;nein;ROCE < 15 % | Gewinnrendite < 5 % | FCF-Rendite < 3 %;
+CSCO;Cisco Systems, Inc.;Technology;United States;USD;457.2;14.6;18.6;2.7;2.9;3.2;64.9;0.8;38.7;166;287;453;nein;ROCE < 15 % | Gewinnrendite < 5 % | FCF-Rendite < 3 %;
+GPN;Global Payments Inc.;Industrials;United States;USD;23.0;4.2;3.6;5.2;8.9;-5.0;72.6;4.1;30.9;326;131;457;nein;ROCE < 15 % | Umsatz schrumpft | Nettoschulden > 3x EBITDA;
+LH;Labcorp Holdings Inc.;Healthcare;United States;USD;25.0;8.6;7.6;4.3;4.8;5.6;28.8;3.0;25.6;270;189;459;nein;ROCE < 15 % | Gewinnrendite < 5 %;
+XYL;Xylem Inc.;Industrials;United States;USD;27.3;8.2;7.2;4.3;3.3;17.8;38.5;0.3;27.9;277;185;462;nein;ROCE < 15 % | Gewinnrendite < 5 %;
+PLTR;Palantir Technologies Inc.;Technology;United States;USD;295.0;18.3;5.4;0.5;0.7;32.9;82.4;0.0;138.3;121;342;463;nein;Gewinnrendite < 5 % | FCF-Rendite < 3 %;
+AVGO;Broadcom Inc.;Technology;United States;USD;1852.0;17.0;18.3;1.4;1.5;24.4;67.8;1.4;65.0;139;326;465;nein;Gewinnrendite < 5 % | FCF-Rendite < 3 %;
+WDC;Western Digital Corporation;Technology;United States;USD;187.8;17.3;6.1;0.8;0.7;-20.3;38.8;1.3;32.6;133;335;468;nein;Gewinnrendite < 5 % | FCF-Rendite < 3 % | Umsatz schrumpft | FCF mehrfach negativ;
+HRL;Hormel Foods Corporation;Consumer Defensive;United States;USD;13.8;6.2;9.1;4.7;3.9;-1.0;15.6;2.1;29.4;303;166;469;nein;ROCE < 15 % | Gewinnrendite < 5 % | Umsatz schrumpft;
+KMI;Kinder Morgan, Inc.;Energy;United States;USD;71.7;6.9;6.7;4.6;4.0;-4.1;52.9;4.4;20.8;298;171;469;nein;ROCE < 15 % | Gewinnrendite < 5 % | Umsatz schrumpft | Nettoschulden > 3x EBITDA;
+NOW;ServiceNow, Inc.;Technology;United States;USD;115.0;14.6;10.4;2.1;3.9;22.4;77.5;0.0;69.5;164;310;474;nein;ROCE < 15 % | Gewinnrendite < 5 %;
+SW;Smurfit WestRock plc;Consumer Cyclical;Ireland;USD;24.1;4.7;8.8;4.9;5.0;32.2;19.4;3.0;48.9;322;153;475;nein;ROCE < 15 % | Gewinnrendite < 5 %;
+J;Jacobs Solutions Inc.;Industrials;United States;USD;15.9;8.7;8.1;4.0;3.8;7.1;24.8;1.6;39.8;266;210;476;nein;ROCE < 15 % | Gewinnrendite < 5 %;
+SWK;Stanley Black & Decker, Inc.;Industrials;United States;USD;14.3;5.8;3.3;4.7;4.8;-3.7;30.3;4.0;23.1;313;163;476;nein;ROCE < 15 % | Gewinnrendite < 5 % | Umsatz schrumpft | Nettoschulden > 3x EBITDA;
+PCAR;PACCAR Inc.;Industrials;United States;USD;69.8;8.9;15.4;3.9;4.3;-0.4;16.7;1.6;27.9;263;215;478;nein;ROCE < 15 % | Gewinnrendite < 5 % | Umsatz schrumpft;
+SBUX;Starbucks Corporation;Consumer Cyclical;United States;USD;120.0;14.0;23.4;2.1;2.0;4.9;22.8;4.8;60.8;176;304;480;nein;ROCE < 15 % | Gewinnrendite < 5 % | FCF-Rendite < 3 % | Nettoschulden > 3x EBITDA;
+WAB;Westinghouse Air Brake Technolo;Industrials;United States;USD;49.1;10.7;9.3;3.4;3.1;10.1;34.1;2.1;39.2;232;250;482;nein;ROCE < 15 % | Gewinnrendite < 5 %;
+EMR;Emerson Electric Company;Industrials;United States;USD;83.9;10.3;8.6;3.5;3.2;9.3;52.8;2.5;34.8;240;243;483;nein;ROCE < 15 % | Gewinnrendite < 5 %;
+LYV;Live Nation Entertainment, Inc.;Communication Services;United States;USD;40.6;11.3;11.3;3.1;0.8;14.7;25.5;1.7;;217;266;483;nein;ROCE < 15 % | Gewinnrendite < 5 % | FCF-Rendite < 3 %;
+FIS;Fidelity National Information S;Technology;United States;USD;23.1;6.1;4.6;4.4;7.9;3.2;36.9;3.7;8.7;305;181;486;nein;ROCE < 15 % | Gewinnrendite < 5 % | Nettoschulden > 3x EBITDA;
+LHX;L3Harris Technologies, Inc.;Industrials;United States;USD;51.6;7.4;6.2;4.1;5.2;8.6;25.7;2.7;28.0;287;199;486;nein;ROCE < 15 % | Gewinnrendite < 5 %;
+TRMB;Trimble Inc.;Technology;United States;USD;13.2;7.5;13.1;4.1;2.7;-0.8;69.1;1.5;29.6;286;200;486;nein;ROCE < 15 % | Gewinnrendite < 5 % | FCF-Rendite < 3 % | Umsatz schrumpft;
+EA;Electronic Arts Inc.;Communication Services;United States;USD;53.0;13.2;15.4;2.4;4.4;0.5;79.0;0.0;60.0;191;296;487;nein;ROCE < 15 % | Gewinnrendite < 5 %;
+GE;GE Aerospace;Industrials;United States;USD;373.6;11.9;7.9;2.8;1.9;16.3;31.5;0.7;42.4;207;282;489;nein;ROCE < 15 % | Gewinnrendite < 5 % | FCF-Rendite < 3 %;
+ZBH;Zimmer Biomet Holdings, Inc.;Healthcare;United States;USD;18.2;5.5;5.5;4.5;7.8;5.9;69.7;3.1;24.3;317;173;490;nein;ROCE < 15 % | Gewinnrendite < 5 % | Nettoschulden > 3x EBITDA;
+MLM;Martin Marietta Materials, Inc.;Basic Materials;United States;USD;31.5;8.2;10.6;3.9;3.1;-0.1;30.7;2.7;34.1;278;214;492;nein;ROCE < 15 % | Gewinnrendite < 5 % | Umsatz schrumpft;
+ROK;Rockwell Automation, Inc.;Industrials;United States;USD;53.4;13.8;17.2;1.9;2.5;2.4;48.1;2.3;49.7;178;315;493;nein;ROCE < 15 % | Gewinnrendite < 5 % | FCF-Rendite < 3 %;
+TMO;Thermo Fisher Scientific Inc;Healthcare;United States;USD;213.4;9.2;9.7;3.6;2.9;-0.3;40.9;2.5;30.9;257;237;494;nein;ROCE < 15 % | Gewinnrendite < 5 % | FCF-Rendite < 3 % | Umsatz schrumpft;
+MU;Micron Technology, Inc.;Technology;United States;USD;929.5;14.2;6.2;1.1;0.2;6.7;39.8;0.3;18.6;173;328;501;nein;ROCE < 15 % | Gewinnrendite < 5 % | FCF-Rendite < 3 %;
+TYL;Tyler Technologies, Inc.;Technology;United States;USD;12.7;10.2;7.4;3.2;4.9;8.0;46.5;0.0;40.6;245;257;502;nein;ROCE < 15 % | Gewinnrendite < 5 %;
+TDY;Teledyne Technologies Incorpora;Technology;United States;USD;30.4;8.6;8.0;3.5;3.5;3.9;42.8;1.5;31.7;268;239;507;nein;ROCE < 15 % | Gewinnrendite < 5 %;
+EW;Edwards Lifesciences Corporatio;Healthcare;United States;USD;49.6;10.9;15.7;2.8;2.7;10.8;78.0;0.0;51.2;226;283;509;nein;ROCE < 15 % | Gewinnrendite < 5 % | FCF-Rendite < 3 %;
+KEYS;Keysight Technologies Inc.;Technology;United States;USD;54.5;12.5;16.6;2.1;2.3;-0.3;62.1;0.6;51.3;204;306;510;nein;ROCE < 15 % | Gewinnrendite < 5 % | FCF-Rendite < 3 % | Umsatz schrumpft;
+RTX;RTX Corporation;Industrials;United States;USD;290.1;9.4;6.9;3.3;2.6;9.7;20.1;2.1;37.9;254;256;510;nein;ROCE < 15 % | Gewinnrendite < 5 % | FCF-Rendite < 3 %;
+TSN;Tyson Foods, Inc.;Consumer Defensive;United States;USD;20.4;4.0;5.5;4.3;5.8;0.7;6.5;2.9;45.6;328;182;510;nein;ROCE < 15 % | Gewinnrendite < 5 %;
+VLO;Valero Energy Corporation;Energy;United States;USD;90.1;8.1;20.2;3.7;5.6;-11.4;4.4;1.0;13.1;281;229;510;nein;ROCE < 15 % | Gewinnrendite < 5 % | Umsatz schrumpft;
+COO;The Cooper Companies, Inc.;Healthcare;United States;USD;14.1;5.9;5.5;4.0;3.1;7.3;65.5;2.3;61.3;311;202;513;nein;ROCE < 15 % | Gewinnrendite < 5 %;
+CARR;Carrier Global Corporation;Industrials;United States;USD;51.0;7.5;8.9;3.7;4.2;7.9;25.9;3.0;44.1;285;230;515;nein;ROCE < 15 % | Gewinnrendite < 5 % | Nettoschulden > 3x EBITDA;
+ADM;Archer-Daniels-Midland Company;Consumer Defensive;United States;USD;38.2;5.7;11.0;4.0;11.0;-7.5;6.3;2.9;35.4;315;207;522;nein;ROCE < 15 % | Gewinnrendite < 5 % | Umsatz schrumpft;
+FTV;Fortive Corporation;Technology;United States;USD;17.9;7.6;5.8;3.5;6.1;-10.6;63.5;2.5;31.3;284;240;524;nein;ROCE < 15 % | Gewinnrendite < 5 % | Umsatz schrumpft;
+MDLZ;Mondelez International, Inc.;Consumer Defensive;United States;USD;79.5;7.3;10.0;3.6;4.1;7.0;28.4;4.0;38.0;293;232;525;nein;ROCE < 15 % | Gewinnrendite < 5 % | Nettoschulden > 3x EBITDA;
+WDAY;Workday, Inc.;Technology;United States;USD;39.6;9.6;4.5;3.0;7.0;15.4;75.7;0.0;50.0;252;277;529;nein;ROCE < 15 % | Gewinnrendite < 5 %;
+CTVA;Corteva, Inc.;Basic Materials;United States;USD;52.6;6.1;5.0;3.7;5.3;-0.1;47.3;0.0;47.7;304;228;532;nein;ROCE < 15 % | Gewinnrendite < 5 % | Umsatz schrumpft;
+WBD;Warner Bros. Discovery, Inc. - ;Communication Services;United States;USD;65.9;4.3;-3.5;4.0;4.7;3.3;44.0;1.3;;324;208;532;nein;ROCE < 15 % | Gewinnrendite < 5 %;
+Q;Qnity Electronics, Inc.;Technology;United States;USD;27.5;8.1;7.1;3.4;3.6;-0.0;46.2;2.2;42.2;283;251;534;nein;ROCE < 15 % | Gewinnrendite < 5 % | Umsatz schrumpft;
+BDX;Becton, Dickinson and Company;Healthcare;United States;USD;45.6;5.3;5.0;3.9;5.9;5.0;45.4;3.7;28.9;320;216;536;nein;ROCE < 15 % | Gewinnrendite < 5 % | Nettoschulden > 3x EBITDA;
+IR;Ingersoll Rand Inc.;Industrials;United States;USD;32.6;7.3;7.7;3.3;3.7;8.9;43.6;2.1;34.5;291;254;545;nein;ROCE < 15 % | Gewinnrendite < 5 %;
+BA;Boeing Company (The);Industrials;United States;USD;170.8;9.0;-2.8;2.8;-1.1;10.3;4.8;3.4;77.5;262;285;547;nein;ROCE < 15 % | Gewinnrendite < 5 % | FCF-Rendite < 3 % | Nettoschulden > 3x EBITDA | FCF mehrfach negativ;
+ABBV;AbbVie Inc.;Healthcare;United States;USD;443.4;10.5;10.1;1.9;4.0;1.8;70.2;3.5;70.9;235;317;552;nein;ROCE < 15 % | Gewinnrendite < 5 % | Nettoschulden > 3x EBITDA;
+KR;Kroger Company (The);Consumer Defensive;United States;USD;35.4;5.8;9.1;3.3;9.8;-0.1;23.3;3.5;33.8;314;252;566;nein;ROCE < 15 % | Gewinnrendite < 5 % | Umsatz schrumpft | Nettoschulden > 3x EBITDA;
+GLW;Corning Incorporated;Technology;United States;USD;118.8;9.4;6.9;1.9;1.2;3.3;36.0;2.1;63.7;253;316;569;nein;ROCE < 15 % | Gewinnrendite < 5 % | FCF-Rendite < 3 %;
+PWR;Quanta Services, Inc.;Industrials;United States;USD;100.3;10.2;10.0;1.6;1.6;18.6;15.0;2.3;76.4;244;325;569;nein;ROCE < 15 % | Gewinnrendite < 5 % | FCF-Rendite < 3 %;
+JCI;Johnson Controls International ;Industrials;Ireland;USD;88.8;8.1;5.8;2.2;1.1;4.6;36.4;3.1;41.3;280;298;578;nein;ROCE < 15 % | Gewinnrendite < 5 % | FCF-Rendite < 3 % | Nettoschulden > 3x EBITDA;
+AKAM;Akamai Technologies, Inc.;Technology;United States;USD;16.7;6.0;7.4;3.0;4.2;5.2;58.9;3.3;38.9;306;274;580;nein;ROCE < 15 % | Gewinnrendite < 5 % | Nettoschulden > 3x EBITDA;
+PANW;Palo Alto Networks, Inc.;Technology;United States;USD;270.4;10.2;5.6;0.6;1.3;18.8;73.4;0.0;286.1;243;338;581;nein;ROCE < 15 % | Gewinnrendite < 5 % | FCF-Rendite < 3 %;
+DHR;Danaher Corporation;Healthcare;United States;USD;137.1;5.9;7.4;3.0;3.8;-2.7;59.1;2.2;34.7;312;278;590;nein;ROCE < 15 % | Gewinnrendite < 5 % | Umsatz schrumpft;
+GIS;General Mills, Inc.;Consumer Defensive;United States;USD;19.1;4.2;11.7;3.0;8.5;-2.9;33.6;8.8;;325;272;597;nein;ROCE < 15 % | Gewinnrendite < 5 % | Umsatz schrumpft | Nettoschulden > 3x EBITDA;
+AMCR;Amcor plc;Consumer Cyclical;Switzerland;USD;20.8;3.5;9.1;3.0;3.9;1.1;18.9;8.0;36.2;331;271;602;nein;ROCE < 15 % | Gewinnrendite < 5 % | Nettoschulden > 3x EBITDA;
+FANG;Diamondback Energy, Inc.;Energy;United States;USD;57.1;3.2;12.8;3.0;-1.2;16.0;35.0;2.1;209.2;333;275;608;nein;ROCE < 15 % | Gewinnrendite < 5 % | FCF-Rendite < 3 % | FCF mehrfach negativ;
+GNRC;Generac Holdlings Inc.;Industrials;United States;USD;11.6;6.2;10.3;2.1;2.3;-2.7;38.3;2.5;45.2;302;307;609;nein;ROCE < 15 % | Gewinnrendite < 5 % | FCF-Rendite < 3 % | Umsatz schrumpft;
+TKO;TKO Group Holdings, Inc.;Communication Services;United States;USD;34.7;5.9;6.4;2.1;3.3;60.7;59.8;2.4;67.6;310;303;613;nein;ROCE < 15 % | Gewinnrendite < 5 %;
+LUV;Southwest Airlines Company;Industrials;United States;USD;22.0;3.7;3.8;2.7;-3.8;5.6;17.4;1.2;28.1;329;286;615;nein;ROCE < 15 % | Gewinnrendite < 5 % | FCF-Rendite < 3 % | FCF mehrfach negativ;
+ADI;Analog Devices, Inc.;Technology;United States;USD;179.0;6.8;6.7;1.6;2.4;-2.8;61.5;1.0;54.7;299;323;622;nein;ROCE < 15 % | Gewinnrendite < 5 % | FCF-Rendite < 3 % | Umsatz schrumpft;
+CVS;CVS Health Corporation;Healthcare;United States;USD;133.2;3.2;5.5;2.6;5.9;7.6;13.8;7.0;45.8;335;290;625;nein;ROCE < 15 % | Gewinnrendite < 5 % | Nettoschulden > 3x EBITDA;
+RVTY;Revvity, Inc.;Healthcare;United States;USD;12.6;3.3;3.8;2.4;4.1;-4.8;54.8;3.2;54.1;332;294;626;nein;ROCE < 15 % | Gewinnrendite < 5 % | Umsatz schrumpft | Nettoschulden > 3x EBITDA;
+DD;DuPont de Nemours, Inc.;Basic Materials;United States;USD;18.5;2.7;2.4;2.4;0.9;-19.3;34.5;2.1;120.2;337;292;629;nein;ROCE < 15 % | Gewinnrendite < 5 % | FCF-Rendite < 3 % | Umsatz schrumpft;
+SNPS;Synopsys, Inc.;Technology;United States;USD;74.4;4.1;13.4;2.1;1.8;15.2;77.0;4.5;89.4;327;302;629;nein;ROCE < 15 % | Gewinnrendite < 5 % | FCF-Rendite < 3 % | Nettoschulden > 3x EBITDA;
+AMD;Advanced Micro Devices, Inc.;Technology;United States;USD;776.4;6.3;3.2;0.6;0.9;13.6;49.5;0.0;158.7;300;340;640;nein;ROCE < 15 % | Gewinnrendite < 5 % | FCF-Rendite < 3 %;
+TPR;Tapestry, Inc.;Consumer Cyclical;United States;USD;30.8;6.0;13.7;0.9;3.6;1.6;75.4;5.3;46.5;307;333;640;nein;ROCE < 15 % | Gewinnrendite < 5 % | Nettoschulden > 3x EBITDA;
+GEV;GE Vernova Inc.;Industrials;United States;USD;263.7;6.3;-1.0;0.5;1.4;8.7;19.8;0.0;28.4;301;341;642;nein;ROCE < 15 % | Gewinnrendite < 5 % | FCF-Rendite < 3 %;
+HPE;Hewlett Packard Enterprise Comp;Technology;United States;USD;63.4;3.2;5.5;2.0;1.0;6.4;30.3;4.2;44.8;334;311;645;nein;ROCE < 15 % | Gewinnrendite < 5 % | FCF-Rendite < 3 % | Nettoschulden > 3x EBITDA;
+OMC;Omnicom Group Inc.;Communication Services;United States;USD;21.6;2.2;14.2;2.1;12.9;6.5;8.5;4.7;212.7;340;305;645;nein;ROCE < 15 % | Gewinnrendite < 5 % | Nettoschulden > 3x EBITDA;
+GM;General Motors Company;Consumer Cyclical;United States;USD;80.4;2.0;5.2;2.1;2.2;5.7;6.3;5.6;39.7;342;308;650;nein;ROCE < 15 % | Gewinnrendite < 5 % | FCF-Rendite < 3 % | Nettoschulden > 3x EBITDA | FCF mehrfach negativ;
+DASH;DoorDash, Inc.;Consumer Cyclical;United States;USD;85.5;5.4;-4.3;0.9;2.1;27.7;50.9;0.0;92.5;319;334;653;nein;ROCE < 15 % | Gewinnrendite < 5 % | FCF-Rendite < 3 %;
+TECH;Bio-Techne Corp;Healthcare;United States;USD;11.2;4.5;10.3;0.9;2.3;3.3;64.8;1.3;103.0;323;332;655;nein;ROCE < 15 % | Gewinnrendite < 5 % | FCF-Rendite < 3 %;
+MCHP;Microchip Technology Incorporat;Technology;United States;USD;40.3;3.7;12.1;1.1;2.2;-17.6;57.7;4.5;337.7;330;329;659;nein;ROCE < 15 % | Gewinnrendite < 5 % | FCF-Rendite < 3 % | Umsatz schrumpft | Nettoschulden > 3x EBITDA;
+CIEN;Ciena Corporation;Technology;United States;USD;53.4;5.4;6.2;0.5;1.2;9.5;42.0;0.8;124.9;318;344;662;nein;ROCE < 15 % | Gewinnrendite < 5 % | FCF-Rendite < 3 %;
+SJM;The J.M. Smucker Company;Consumer Defensive;United States;USD;12.7;2.3;1.7;1.6;9.1;2.0;33.5;8.0;;339;324;663;nein;ROCE < 15 % | Gewinnrendite < 5 % | Nettoschulden > 3x EBITDA;
+TSLA;Tesla, Inc.;Consumer Cyclical;United States;USD;1229.1;5.3;13.3;0.5;0.5;5.2;18.0;0.0;285.5;321;343;664;nein;ROCE < 15 % | Gewinnrendite < 5 % | FCF-Rendite < 3 %;
+MGM;MGM Resorts International;Consumer Cyclical;United States;USD;11.4;1.8;3.6;1.7;12.8;10.1;44.4;17.1;27.0;344;321;665;nein;ROCE < 15 % | Gewinnrendite < 5 % | Nettoschulden > 3x EBITDA;
+GPC;Genuine Parts Company;Consumer Cyclical;United States;USD;17.1;2.0;12.6;0.9;2.5;3.2;36.8;8.0;497.5;343;331;674;nein;ROCE < 15 % | Gewinnrendite < 5 % | FCF-Rendite < 3 % | Nettoschulden > 3x EBITDA;
+COHR;Coherent Corp.;Technology;United States;USD;51.4;2.6;2.3;0.6;0.4;20.5;35.2;3.3;125.2;338;337;675;nein;ROCE < 15 % | Gewinnrendite < 5 % | FCF-Rendite < 3 % | Nettoschulden > 3x EBITDA;
+ON;ON Semiconductor Corporation;Technology;United States;USD;31.8;1.8;16.3;0.6;4.5;-10.4;33.1;0.5;60.0;345;336;681;nein;ROCE < 15 % | Gewinnrendite < 5 % | Umsatz schrumpft;
+DDOG;Datadog, Inc.;Technology;United States;USD;95.4;2.7;2.4;0.1;1.0;26.9;80.0;0.0;669.9;336;347;683;nein;ROCE < 15 % | Gewinnrendite < 5 % | FCF-Rendite < 3 %;
+INTC;Intel Corporation;Technology;United States;USD;455.0;1.5;0.4;0.6;-1.1;-5.7;34.8;0.6;;347;339;686;nein;ROCE < 15 % | Gewinnrendite < 5 % | FCF-Rendite < 3 % | Umsatz schrumpft | FCF mehrfach negativ;
+AXON;Axon Enterprise, Inc.;Industrials;United States;USD;42.5;2.0;6.6;0.3;0.2;32.8;61.2;0.9;212.8;341;346;687;nein;ROCE < 15 % | Gewinnrendite < 5 % | FCF-Rendite < 3 %;
+HAS;Hasbro, Inc.;Consumer Cyclical;United States;USD;13.2;1.7;-3.2;0.4;5.2;-7.1;64.6;10.4;16.7;346;345;691;nein;ROCE < 15 % | Gewinnrendite < 5 % | Umsatz schrumpft | Nettoschulden > 3x EBITDA;
+CRL;Charles River Laboratories Inte;Healthcare;United States;USD;11.2;0.1;6.0;0.1;4.6;0.3;33.0;5.7;;348;348;696;nein;ROCE < 15 % | Gewinnrendite < 5 % | Nettoschulden > 3x EBITDA;
+TTWO;Take-Two Interactive Software, ;Communication Services;United States;USD;45.4;-0.5;-31.1;-0.1;1.0;7.6;57.2;0.8;;349;350;699;nein;ROCE < 15 % | Gewinnrendite < 5 % | FCF-Rendite < 3 % | FCF mehrfach negativ;
+APD;Air Products and Chemicals, Inc;Basic Materials;United States;USD;65.7;-0.6;9.2;-0.3;-5.7;-1.8;31.4;12.4;;350;352;702;nein;ROCE < 15 % | Gewinnrendite < 5 % | FCF-Rendite < 3 % | Umsatz schrumpft | Nettoschulden > 3x EBITDA | FCF mehrfach negativ;
+CRWD;CrowdStrike Holdings, Inc.;Technology;United States;USD;194.3;-1.4;-0.3;-0.1;0.6;29.0;74.7;0.0;;354;349;703;nein;ROCE < 15 % | Gewinnrendite < 5 % | FCF-Rendite < 3 %;
+IFF;International Flavors & Fragran;Basic Materials;United States;USD;20.2;-0.8;-2.6;-0.7;1.3;-4.3;36.2;7.7;24.5;352;354;706;nein;ROCE < 15 % | Gewinnrendite < 5 % | FCF-Rendite < 3 % | Umsatz schrumpft | Nettoschulden > 3x EBITDA;
+LYB;LyondellBasell Industries NV;Basic Materials;Netherlands;USD;20.0;-0.8;8.3;-0.7;1.9;-15.8;8.5;9.6;;351;355;706;nein;ROCE < 15 % | Gewinnrendite < 5 % | FCF-Rendite < 3 % | Umsatz schrumpft | Nettoschulden > 3x EBITDA;
+CVNA;Carvana Co.;Consumer Cyclical;United States;USD;92.8;-3.3;-3.4;-0.4;1.0;14.3;20.6;;33.0;356;353;709;nein;ROCE < 15 % | Gewinnrendite < 5 % | FCF-Rendite < 3 % | Nettoschulden > 3x EBITDA: keine Daten;
+LITE;Lumentum Holdings Inc.;Technology;United States;USD;55.5;-3.9;-1.6;-0.3;-0.2;-1.3;28.0;16.2;125.0;358;351;709;nein;ROCE < 15 % | Gewinnrendite < 5 % | FCF-Rendite < 3 % | Umsatz schrumpft | Nettoschulden > 3x EBITDA | FCF mehrfach negativ;
+BAX;Baxter International Inc.;Healthcare;United States;USD;13.5;-1.3;-2.3;-1.0;2.4;3.8;30.1;10.2;;353;357;710;nein;ROCE < 15 % | Gewinnrendite < 5 % | FCF-Rendite < 3 % | Nettoschulden > 3x EBITDA;
+ALB;Albemarle Corporation;Basic Materials;United States;USD;13.9;-2.4;2.3;-2.2;5.0;-11.1;13.0;5.3;;355;359;714;nein;ROCE < 15 % | Gewinnrendite < 5 % | Umsatz schrumpft | Nettoschulden > 3x EBITDA | FCF mehrfach negativ;
+DOW;Dow Inc.;Basic Materials;United States;USD;21.9;-3.3;4.6;-4.4;-6.6;-11.1;6.3;13.3;;357;360;717;nein;ROCE < 15 % | Gewinnrendite < 5 % | FCF-Rendite < 3 % | Umsatz schrumpft | Nettoschulden > 3x EBITDA | FCF mehrfach negativ;
+EL;Estee Lauder Companies, Inc. (T;Consumer Defensive;United States;USD;30.4;-4.7;8.3;-1.9;2.2;-6.9;74.0;44.8;;359;358;717;nein;ROCE < 15 % | Gewinnrendite < 5 % | FCF-Rendite < 3 % | Umsatz schrumpft | Nettoschulden > 3x EBITDA;
+SNDK;Sandisk Corporation;Technology;United States;USD;179.9;-12.3;-8.2;-0.8;-0.1;9.9;30.1;;41.5;364;356;720;nein;ROCE < 15 % | Gewinnrendite < 5 % | FCF-Rendite < 3 % | Nettoschulden > 3x EBITDA: keine Daten | FCF mehrfach negativ;
+F;Ford Motor Company;Consumer Cyclical;United States;USD;58.5;-6.0;0.2;-5.6;21.3;5.8;0.9;35.0;;360;361;721;nein;ROCE < 15 % | Gewinnrendite < 5 % | Nettoschulden > 3x EBITDA;
+IP;International Paper Company;Consumer Cyclical;United States;USD;21.6;-9.4;2.3;-9.1;-0.7;3.8;29.6;141.1;;362;362;724;nein;ROCE < 15 % | Gewinnrendite < 5 % | FCF-Rendite < 3 % | Nettoschulden > 3x EBITDA;
+KHC;The Kraft Heinz Company;Consumer Defensive;United States;USD;30.7;-6.2;1.6;-9.3;11.9;-2.0;33.3;;;361;363;724;nein;ROCE < 15 % | Gewinnrendite < 5 % | Umsatz schrumpft | Nettoschulden > 3x EBITDA: keine Daten;
+VTRS;Viatris Inc.;Healthcare;United States;USD;20.4;-10.6;-0.3;-9.5;9.1;-4.2;35.1;;;363;364;727;nein;ROCE < 15 % | Gewinnrendite < 5 % | Umsatz schrumpft | Nettoschulden > 3x EBITDA: keine Daten;
+TAP;Molson Coors Beverage Company;Consumer Defensive;United States;USD;7.8;-13.0;0.6;-17.1;13.7;1.4;38.4;;;365;366;731;nein;ROCE < 15 % | Gewinnrendite < 5 % | Nettoschulden > 3x EBITDA: keine Daten;
+CNC;Centene Corporation;Healthcare;United States;USD;30.7;-15.1;2.4;-21.2;14.1;10.5;7.1;;;366;367;733;nein;ROCE < 15 % | Gewinnrendite < 5 % | Nettoschulden > 3x EBITDA: keine Daten;
+MRNA;Moderna, Inc.;Healthcare;United States;USD;21.8;-26.6;-9.8;-16.0;-9.5;-53.3;54.8;;;368;365;733;nein;ROCE < 15 % | Gewinnrendite < 5 % | FCF-Rendite < 3 % | Umsatz schrumpft | Nettoschulden > 3x EBITDA: keine Daten | FCF mehrfach negativ;
+PSKY;Paramount Skydance Corporation;Communication Services;United States;USD;8.9;-16.2;0.2;-26.0;5.5;0.7;29.6;;398.0;367;368;735;nein;ROCE < 15 % | Gewinnrendite < 5 % | Nettoschulden > 3x EBITDA: keine Daten;
+ECHO;EchoStar Corporation;Communication Services;United States;USD;24.4;-56.7;-13.3;-33.7;-7.1;-7.0;25.8;;;369;369;738;nein;ROCE < 15 % | Gewinnrendite < 5 % | FCF-Rendite < 3 % | Umsatz schrumpft | Nettoschulden > 3x EBITDA: keine Daten | FCF mehrfach negativ;
+ACGL;Arch Capital Group Ltd.;Financial Services;Bermuda;USD;34.3;;;;;;;;7.9;;;;nein;;Sektor Financial Services (Kennzahlen nicht vergleichbar)
+AEE;Ameren Corporation;Utilities;United States;USD;30.3;;;;;;;;19.3;;;;nein;;Sektor Utilities (Kennzahlen nicht vergleichbar)
+AEP;American Electric Power Company;Utilities;United States;USD;69.6;;;;;;;;22.2;;;;nein;;Sektor Utilities (Kennzahlen nicht vergleichbar)
+AES;The AES Corporation;Utilities;United States;USD;10.5;;;;;;;;7.6;;;;nein;;Sektor Utilities (Kennzahlen nicht vergleichbar)
+AFL;AFLAC Incorporated;Financial Services;United States;USD;64.9;;;;;;;;14.6;;;;nein;;Sektor Financial Services (Kennzahlen nicht vergleichbar)
+AIG;American International Group, I;Financial Services;United States;USD;41.7;;;;;;;;13.8;;;;nein;;Sektor Financial Services (Kennzahlen nicht vergleichbar)
+AIZ;Assurant, Inc.;Financial Services;United States;USD;13.8;;;;;;;;14.3;;;;nein;;Sektor Financial Services (Kennzahlen nicht vergleichbar)
+AJG;Arthur J. Gallagher & Co.;Financial Services;United States;USD;64.1;;;;;;;;41.3;;;;nein;;Sektor Financial Services (Kennzahlen nicht vergleichbar)
+ALL;Allstate Corporation (The);Financial Services;United States;USD;68.0;;;;;;;;5.8;;;;nein;;Sektor Financial Services (Kennzahlen nicht vergleichbar)
+AMP;Ameriprise Financial, Inc.;Financial Services;United States;USD;48.3;;;;;;;;13.6;;;;nein;;Sektor Financial Services (Kennzahlen nicht vergleichbar)
+AMT;American Tower Corporation (REI;Real Estate;United States;USD;80.8;;;;;;;;27.9;;;;nein;;Sektor Real Estate (Kennzahlen nicht vergleichbar)
+AON;Aon plc;Financial Services;Ireland;USD;76.5;;;;;;;;19.9;;;;nein;;Sektor Financial Services (Kennzahlen nicht vergleichbar)
+APO;Apollo Global Management, Inc. ;Financial Services;United States;USD;72.4;;;;;;;;79.0;;;;nein;;Sektor Financial Services (Kennzahlen nicht vergleichbar)
+ARE;Alexandria Real Estate Equities;Real Estate;United States;USD;9.0;;;;;;;;;;;;nein;;Sektor Real Estate (Kennzahlen nicht vergleichbar)
+ARES;Ares Management Corporation;Financial Services;United States;USD;42.3;;;;;;;;59.3;;;;nein;;Sektor Financial Services (Kennzahlen nicht vergleichbar)
+ATO;Atmos Energy Corporation;Utilities;United States;USD;28.8;;;;;;;;21.3;;;;nein;;Sektor Utilities (Kennzahlen nicht vergleichbar)
+AVB;AvalonBay Communities, Inc.;Real Estate;United States;USD;26.5;;;;;;;;25.5;;;;nein;;Sektor Real Estate (Kennzahlen nicht vergleichbar)
+AWK;American Water Works Company, I;Utilities;United States;USD;26.7;;;;;;;;23.3;;;;nein;;Sektor Utilities (Kennzahlen nicht vergleichbar)
+AXP;American Express Company;Financial Services;United States;USD;227.1;;;;;;;;20.4;;;;nein;;Sektor Financial Services (Kennzahlen nicht vergleichbar)
+BAC;Bank of America Corporation;Financial Services;United States;USD;434.8;;;;;;;;14.3;;;;nein;;Sektor Financial Services (Kennzahlen nicht vergleichbar)
+BEN;Franklin Resources, Inc.;Financial Services;United States;USD;17.6;;;;;;;;23.0;;;;nein;;Sektor Financial Services (Kennzahlen nicht vergleichbar)
+BLK;BlackRock, Inc.;Financial Services;United States;USD;169.0;;;;;;;;26.1;;;;nein;;Sektor Financial Services (Kennzahlen nicht vergleichbar)
+BNY;The Bank of New York Mellon Cor;Financial Services;United States;USD;106.1;;;;;;;;18.2;;;;nein;;Sektor Financial Services (Kennzahlen nicht vergleichbar)
+BRK-B;Berkshire Hathaway Inc. New;Financial Services;United States;USD;1103.3;;;;;;;;15.2;;;;nein;;Sektor Financial Services (Kennzahlen nicht vergleichbar)
+BRO;Brown & Brown, Inc.;Financial Services;United States;USD;23.6;;;;;;;;22.5;;;;nein;;Sektor Financial Services (Kennzahlen nicht vergleichbar)
+BX;Blackstone Inc.;Financial Services;United States;USD;159.0;;;;;;;;28.6;;;;nein;;Sektor Financial Services (Kennzahlen nicht vergleichbar)
+BXP;BXP, Inc.;Real Estate;United States;USD;12.5;;;;;;;;37.7;;;;nein;;Sektor Real Estate (Kennzahlen nicht vergleichbar)
+C;Citigroup, Inc.;Financial Services;United States;USD;222.2;;;;;;;;14.3;;;;nein;;Sektor Financial Services (Kennzahlen nicht vergleichbar)
+CB;Chubb Limited;Financial Services;Switzerland;USD;135.3;;;;;;;;12.4;;;;nein;;Sektor Financial Services (Kennzahlen nicht vergleichbar)
+CBOE;Cboe Global Markets, Inc.;Financial Services;United States;USD;32.5;;;;;;;;24.2;;;;nein;;Sektor Financial Services (Kennzahlen nicht vergleichbar)
+CBRE;CBRE Group Inc;Real Estate;United States;USD;42.5;;;;;;;;33.6;;;;nein;;Sektor Real Estate (Kennzahlen nicht vergleichbar)
+CCI;Crown Castle Inc.;Real Estate;United States;USD;33.3;;;;;;;;31.1;;;;nein;;Sektor Real Estate (Kennzahlen nicht vergleichbar)
+CEG;Constellation Energy Corporatio;Utilities;United States;USD;93.8;;;;;;;;22.8;;;;nein;;Sektor Utilities (Kennzahlen nicht vergleichbar)
+CFG;Citizens Financial Group, Inc.;Financial Services;United States;USD;30.3;;;;;;;;15.6;;;;nein;;Sektor Financial Services (Kennzahlen nicht vergleichbar)
+CINF;Cincinnati Financial Corporatio;Financial Services;United States;USD;27.3;;;;;;;;8.4;;;;nein;;Sektor Financial Services (Kennzahlen nicht vergleichbar)
+CME;CME Group Inc.;Financial Services;United States;USD;96.3;;;;;;;;22.7;;;;nein;;Sektor Financial Services (Kennzahlen nicht vergleichbar)
+CMS;CMS Energy Corporation;Utilities;United States;USD;22.6;;;;;;;;21.6;;;;nein;;Sektor Utilities (Kennzahlen nicht vergleichbar)
+CNP;CenterPoint Energy, Inc (Holdin;Utilities;United States;USD;27.7;;;;;;;;25.0;;;;nein;;Sektor Utilities (Kennzahlen nicht vergleichbar)
+COF;Capital One Financial Corporati;Financial Services;United States;USD;128.2;;;;;;;;11.5;;;;nein;;Sektor Financial Services (Kennzahlen nicht vergleichbar)
+COIN;Coinbase Global, Inc.;Financial Services;United States;USD;38.6;;;;;;;;;;;;nein;;Sektor Financial Services (Kennzahlen nicht vergleichbar)
+CPT;Camden Property Trust;Real Estate;United States;USD;11.0;;;;;;;;36.6;;;;nein;;Sektor Real Estate (Kennzahlen nicht vergleichbar)
+CSGP;CoStar Group, Inc.;Real Estate;United States;USD;11.7;;;;;;;;159.8;;;;nein;;Sektor Real Estate (Kennzahlen nicht vergleichbar)
+D;Dominion Energy, Inc.;Utilities;United States;USD;60.8;;;;;;;;23.9;;;;nein;;Sektor Utilities (Kennzahlen nicht vergleichbar)
+DLR;Digital Realty Trust, Inc.;Real Estate;United States;USD;70.9;;;;;;;;238.6;;;;nein;;Sektor Real Estate (Kennzahlen nicht vergleichbar)
+DOC;Healthpeak Properties, Inc.;Real Estate;United States;USD;15.1;;;;;;;;68.2;;;;nein;;Sektor Real Estate (Kennzahlen nicht vergleichbar)
+DTE;DTE Energy Company;Utilities;United States;USD;29.5;;;;;;;;22.5;;;;nein;;Sektor Utilities (Kennzahlen nicht vergleichbar)
+DUK;Duke Energy Corporation (Holdin;Utilities;United States;USD;97.8;;;;;;;;19.3;;;;nein;;Sektor Utilities (Kennzahlen nicht vergleichbar)
+ED;Consolidated Edison, Inc.;Utilities;United States;USD;40.1;;;;;;;;18.4;;;;nein;;Sektor Utilities (Kennzahlen nicht vergleichbar)
+EG;Everest Group, Ltd.;Financial Services;Bermuda;USD;14.5;;;;;;;;7.9;;;;nein;;Sektor Financial Services (Kennzahlen nicht vergleichbar)
+EIX;Edison International;Utilities;United States;USD;28.2;;;;;;;;7.6;;;;nein;;Sektor Utilities (Kennzahlen nicht vergleichbar)
+EQIX;Equinix, Inc.;Real Estate;United States;USD;100.6;;;;;;;;65.8;;;;nein;;Sektor Real Estate (Kennzahlen nicht vergleichbar)
+EQR;Equity Residential;Real Estate;United States;USD;24.9;;;;;;;;28.9;;;;nein;;Sektor Real Estate (Kennzahlen nicht vergleichbar)
+ERIE;Erie Indemnity Company;Financial Services;United States;USD;12.7;;;;;;;;22.0;;;;nein;;Sektor Financial Services (Kennzahlen nicht vergleichbar)
+ES;Eversource Energy (D/B/A);Utilities;United States;USD;26.9;;;;;;;;15.3;;;;nein;;Sektor Utilities (Kennzahlen nicht vergleichbar)
+ESS;Essex Property Trust, Inc.;Real Estate;United States;USD;19.6;;;;;;;;44.3;;;;nein;;Sektor Real Estate (Kennzahlen nicht vergleichbar)
+ETR;Entergy Corporation;Utilities;United States;USD;50.2;;;;;;;;27.5;;;;nein;;Sektor Utilities (Kennzahlen nicht vergleichbar)
+EVRG;Evergy, Inc.;Utilities;United States;USD;19.1;;;;;;;;22.1;;;;nein;;Sektor Utilities (Kennzahlen nicht vergleichbar)
+EXC;Exelon Corporation;Utilities;United States;USD;47.2;;;;;;;;16.8;;;;nein;;Sektor Utilities (Kennzahlen nicht vergleichbar)
+EXR;Extra Space Storage Inc;Real Estate;United States;USD;32.7;;;;;;;;32.7;;;;nein;;Sektor Real Estate (Kennzahlen nicht vergleichbar)
+FDS;FactSet Research Systems Inc.;Financial Services;United States;USD;9.4;;;;;;;;17.3;;;;nein;;Sektor Financial Services (Kennzahlen nicht vergleichbar)
+FE;FirstEnergy Corp.;Utilities;United States;USD;28.0;;;;;;;;25.8;;;;nein;;Sektor Utilities (Kennzahlen nicht vergleichbar)
+FITB;Fifth Third Bancorp;Financial Services;United States;USD;51.2;;;;;;;;19.0;;;;nein;;Sektor Financial Services (Kennzahlen nicht vergleichbar)
+FRT;Federal Realty Investment Trust;Real Estate;United States;USD;10.8;;;;;;;;25.1;;;;nein;;Sektor Real Estate (Kennzahlen nicht vergleichbar)
+GL;Globe Life Inc.;Financial Services;United States;USD;14.2;;;;;;;;12.1;;;;nein;;Sektor Financial Services (Kennzahlen nicht vergleichbar)
+GS;Goldman Sachs Group, Inc. (The);Financial Services;United States;USD;300.4;;;;;;;;15.7;;;;nein;;Sektor Financial Services (Kennzahlen nicht vergleichbar)
+HBAN;Huntington Bancshares Incorpora;Financial Services;United States;USD;34.4;;;;;;;;13.1;;;;nein;;Sektor Financial Services (Kennzahlen nicht vergleichbar)
+HIG;The Hartford Insurance Group, I;Financial Services;United States;USD;38.9;;;;;;;;9.8;;;;nein;;Sektor Financial Services (Kennzahlen nicht vergleichbar)
+HOOD;Robinhood Markets, Inc.;Financial Services;United States;USD;77.8;;;;;;;;38.3;;;;nein;;Sektor Financial Services (Kennzahlen nicht vergleichbar)
+HST;Host Hotels & Resorts, Inc.;Real Estate;United States;USD;17.2;;;;;;;;17.1;;;;nein;;Sektor Real Estate (Kennzahlen nicht vergleichbar)
+IBKR;Interactive Brokers Group, Inc.;Financial Services;United States;USD;149.3;;;;;;;;34.9;;;;nein;;Sektor Financial Services (Kennzahlen nicht vergleichbar)
+ICE;Intercontinental Exchange Inc.;Financial Services;United States;USD;85.6;;;;;;;;21.5;;;;nein;;Sektor Financial Services (Kennzahlen nicht vergleichbar)
+INVH;Invitation Homes Inc.;Real Estate;United States;USD;17.7;;;;;;;;27.3;;;;nein;;Sektor Real Estate (Kennzahlen nicht vergleichbar)
+IRM;Iron Mountain Incorporated (Del;Real Estate;United States;USD;36.4;;;;;;;;133.0;;;;nein;;Sektor Real Estate (Kennzahlen nicht vergleichbar)
+IVZ;Invesco Ltd;Financial Services;United States;USD;13.1;;;;;;;;;;;;nein;;Sektor Financial Services (Kennzahlen nicht vergleichbar)
+JPM;JP Morgan Chase & Co.;Financial Services;United States;USD;935.1;;;;;;;;15.1;;;;nein;;Sektor Financial Services (Kennzahlen nicht vergleichbar)
+KEY;KeyCorp;Financial Services;United States;USD;24.2;;;;;;;;13.2;;;;nein;;Sektor Financial Services (Kennzahlen nicht vergleichbar)
+KIM;Kimco Realty Corporation (HC);Real Estate;United States;USD;17.2;;;;;;;;29.3;;;;nein;;Sektor Real Estate (Kennzahlen nicht vergleichbar)
+KKR;KKR & Co. Inc.;Financial Services;United States;USD;94.6;;;;;;;;34.5;;;;nein;;Sektor Financial Services (Kennzahlen nicht vergleichbar)
+L;Loews Corporation;Financial Services;United States;USD;23.9;;;;;;;;14.7;;;;nein;;Sektor Financial Services (Kennzahlen nicht vergleichbar)
+LNT;Alliant Energy Corporation;Utilities;United States;USD;18.3;;;;;;;;22.3;;;;nein;;Sektor Utilities (Kennzahlen nicht vergleichbar)
+MA;Mastercard Incorporated;Financial Services;United States;USD;502.0;;;;;;;;31.5;;;;nein;;Sektor Financial Services (Kennzahlen nicht vergleichbar)
+MAA;Mid-America Apartment Communiti;Real Estate;United States;USD;15.8;;;;;;;;38.8;;;;nein;;Sektor Real Estate (Kennzahlen nicht vergleichbar)
+MCO;Moody's Corporation;Financial Services;United States;USD;82.8;;;;;;;;30.4;;;;nein;;Sektor Financial Services (Kennzahlen nicht vergleichbar)
+MET;MetLife, Inc.;Financial Services;United States;USD;61.9;;;;;;;;18.6;;;;nein;;Sektor Financial Services (Kennzahlen nicht vergleichbar)
+MRSH;Marsh;Financial Services;United States;USD;90.5;;;;;;;;23.2;;;;nein;;Sektor Financial Services (Kennzahlen nicht vergleichbar)
+MS;Morgan Stanley;Financial Services;United States;USD;330.8;;;;;;;;17.0;;;;nein;;Sektor Financial Services (Kennzahlen nicht vergleichbar)
+MSCI;MSCI Inc.;Financial Services;United States;USD;41.6;;;;;;;;31.3;;;;nein;;Sektor Financial Services (Kennzahlen nicht vergleichbar)
+MTB;M&T Bank Corporation;Financial Services;United States;USD;35.7;;;;;;;;13.0;;;;nein;;Sektor Financial Services (Kennzahlen nicht vergleichbar)
+NDAQ;Nasdaq, Inc.;Financial Services;United States;USD;52.7;;;;;;;;27.5;;;;nein;;Sektor Financial Services (Kennzahlen nicht vergleichbar)
+NEE;NextEra Energy, Inc.;Utilities;United States;USD;181.3;;;;;;;;19.5;;;;nein;;Sektor Utilities (Kennzahlen nicht vergleichbar)
+NI;NiSource Inc;Utilities;United States;USD;21.3;;;;;;;;22.1;;;;nein;;Sektor Utilities (Kennzahlen nicht vergleichbar)
+NRG;NRG Energy, Inc.;Utilities;United States;USD;28.3;;;;;;;;147.6;;;;nein;;Sektor Utilities (Kennzahlen nicht vergleichbar)
+NTRS;Northern Trust Corporation;Financial Services;United States;USD;33.3;;;;;;;;15.7;;;;nein;;Sektor Financial Services (Kennzahlen nicht vergleichbar)
+O;Realty Income Corporation;Real Estate;United States;USD;59.6;;;;;;;;52.4;;;;nein;;Sektor Real Estate (Kennzahlen nicht vergleichbar)
+PCG;Pacific Gas & Electric Co.;Utilities;United States;USD;38.3;;;;;;;;12.5;;;;nein;;Sektor Utilities (Kennzahlen nicht vergleichbar)
+PEG;Public Service Enterprise Group;Utilities;United States;USD;38.2;;;;;;;;17.0;;;;nein;;Sektor Utilities (Kennzahlen nicht vergleichbar)
+PFG;Principal Financial Group Inc;Financial Services;United States;USD;24.3;;;;;;;;16.2;;;;nein;;Sektor Financial Services (Kennzahlen nicht vergleichbar)
+PG;Procter & Gamble Company (The);Consumer Defensive;United States;USD;336.5;;;;;;;;21.8;;;;nein;;EBIT oder Marktkapitalisierung fehlt
+PGR;Progressive Corporation (The);Financial Services;United States;USD;122.9;;;;;;;;10.6;;;;nein;;Sektor Financial Services (Kennzahlen nicht vergleichbar)
+PLD;Prologis, Inc.;Real Estate;United States;USD;138.1;;;;;;;;32.3;;;;nein;;Sektor Real Estate (Kennzahlen nicht vergleichbar)
+PNC;PNC Financial Services Group, I;Financial Services;United States;USD;99.7;;;;;;;;13.8;;;;nein;;Sektor Financial Services (Kennzahlen nicht vergleichbar)
+PNW;Pinnacle West Capital Corporati;Utilities;United States;USD;12.2;;;;;;;;18.8;;;;nein;;Sektor Utilities (Kennzahlen nicht vergleichbar)
+PPL;PPL Corporation;Utilities;United States;USD;26.5;;;;;;;;21.6;;;;nein;;Sektor Utilities (Kennzahlen nicht vergleichbar)
+PRU;Prudential Financial, Inc.;Financial Services;United States;USD;42.4;;;;;;;;12.6;;;;nein;;Sektor Financial Services (Kennzahlen nicht vergleichbar)
+PSA;Public Storage;Real Estate;United States;USD;60.5;;;;;;;;31.0;;;;nein;;Sektor Real Estate (Kennzahlen nicht vergleichbar)
+PYPL;PayPal Holdings, Inc.;Financial Services;United States;USD;48.9;;;;;;;;10.8;;;;nein;;Sektor Financial Services (Kennzahlen nicht vergleichbar)
+REG;Regency Centers Corporation;Real Estate;United States;USD;14.7;;;;;;;;27.0;;;;nein;;Sektor Real Estate (Kennzahlen nicht vergleichbar)
+RF;Regions Financial Corporation;Financial Services;United States;USD;26.4;;;;;;;;12.6;;;;nein;;Sektor Financial Services (Kennzahlen nicht vergleichbar)
+RJF;Raymond James Financial, Inc.;Financial Services;United States;USD;33.8;;;;;;;;15.3;;;;nein;;Sektor Financial Services (Kennzahlen nicht vergleichbar)
+SBAC;SBA Communications Corporation;Real Estate;United States;USD;19.2;;;;;;;;19.1;;;;nein;;Sektor Real Estate (Kennzahlen nicht vergleichbar)
+SCHW;Charles Schwab Corporation (The;Financial Services;United States;USD;183.0;;;;;;;;19.2;;;;nein;;Sektor Financial Services (Kennzahlen nicht vergleichbar)
+SO;Southern Company (The);Utilities;United States;USD;108.8;;;;;;;;22.8;;;;nein;;Sektor Utilities (Kennzahlen nicht vergleichbar)
+SPG;Simon Property Group, Inc.;Real Estate;United States;USD;74.4;;;;;;;;16.0;;;;nein;;Sektor Real Estate (Kennzahlen nicht vergleichbar)
+SPGI;S&P Global Inc.;Financial Services;United States;USD;121.4;;;;;;;;25.1;;;;nein;;Sektor Financial Services (Kennzahlen nicht vergleichbar)
+SRE;DBA Sempra;Utilities;United States;USD;57.9;;;;;;;;30.1;;;;nein;;Sektor Utilities (Kennzahlen nicht vergleichbar)
+STT;State Street Corporation;Financial Services;United States;USD;50.6;;;;;;;;16.3;;;;nein;;Sektor Financial Services (Kennzahlen nicht vergleichbar)
+STX;Seagate Technology Holdings PLC;Technology;Singapore;USD;194.3;;;;;;;;61.7;;;;nein;;EBIT oder Marktkapitalisierung fehlt
+SYF;Synchrony Financial;Financial Services;United States;USD;24.7;;;;;;;;7.8;;;;nein;;Sektor Financial Services (Kennzahlen nicht vergleichbar)
+TFC;Truist Financial Corporation;Financial Services;United States;USD;63.3;;;;;;;;11.9;;;;nein;;Sektor Financial Services (Kennzahlen nicht vergleichbar)
+TROW;T. Rowe Price Group, Inc.;Financial Services;United States;USD;23.9;;;;;;;;11.2;;;;nein;;Sektor Financial Services (Kennzahlen nicht vergleichbar)
+TRV;The Travelers Companies, Inc.;Financial Services;United States;USD;78.1;;;;;;;;10.1;;;;nein;;Sektor Financial Services (Kennzahlen nicht vergleichbar)
+UDR;UDR, Inc.;Real Estate;United States;USD;14.0;;;;;;;;24.2;;;;nein;;Sektor Real Estate (Kennzahlen nicht vergleichbar)
+USB;U.S. Bancorp;Financial Services;United States;USD;98.2;;;;;;;;12.6;;;;nein;;Sektor Financial Services (Kennzahlen nicht vergleichbar)
+V;Visa Inc.;Financial Services;United States;USD;683.6;;;;;;;;31.2;;;;nein;;Sektor Financial Services (Kennzahlen nicht vergleichbar)
+VICI;VICI Properties Inc.;Real Estate;United States;USD;29.0;;;;;;;;10.2;;;;nein;;Sektor Real Estate (Kennzahlen nicht vergleichbar)
+VST;Vistra Corp.;Utilities;United States;USD;50.0;;;;;;;;24.7;;;;nein;;Sektor Utilities (Kennzahlen nicht vergleichbar)
+VTR;Ventas, Inc.;Real Estate;United States;USD;48.0;;;;;;;;170.0;;;;nein;;Sektor Real Estate (Kennzahlen nicht vergleichbar)
+WEC;WEC Energy Group, Inc.;Utilities;United States;USD;35.7;;;;;;;;21.2;;;;nein;;Sektor Utilities (Kennzahlen nicht vergleichbar)
+WELL;Welltower Inc.;Real Estate;United States;USD;168.9;;;;;;;;105.1;;;;nein;;Sektor Real Estate (Kennzahlen nicht vergleichbar)
+WFC;Wells Fargo & Company;Financial Services;United States;USD;261.4;;;;;;;;12.6;;;;nein;;Sektor Financial Services (Kennzahlen nicht vergleichbar)
+WRB;W.R. Berkley Corporation;Financial Services;United States;USD;26.9;;;;;;;;14.9;;;;nein;;Sektor Financial Services (Kennzahlen nicht vergleichbar)
+WTW;Willis Towers Watson Public Lim;Financial Services;United Kingdom;USD;31.2;;;;;;;;20.8;;;;nein;;Sektor Financial Services (Kennzahlen nicht vergleichbar)
+WY;Weyerhaeuser Company;Real Estate;United States;USD;18.0;;;;;;;;37.9;;;;nein;;Sektor Real Estate (Kennzahlen nicht vergleichbar)
+XEL;Xcel Energy Inc.;Utilities;United States;USD;48.8;;;;;;;;21.4;;;;nein;;Sektor Utilities (Kennzahlen nicht vergleichbar)
