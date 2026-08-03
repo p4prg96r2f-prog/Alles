@@ -1,0 +1,121 @@
+ticker;name;sektor;land;waehrung;marktkap_mrd;roce_prozent;roce_schnitt_prozent;gewinnrendite_prozent;fcf_rendite_prozent;umsatz_cagr_prozent;bruttomarge_prozent;schulden_zu_ebitda;kgv;rang_qualitaet;rang_bewertung;magic_rang;kandidat;verletzte_kriterien;ausschluss
+EVD.DE;CTS Eventim AG & Co. KGaA     I;Communication Services;Germany;EUR;5.6;29.7;32.8;11.3;1.5;16.9;27.0;0.0;19.2;5;10;15;nein;FCF-Rendite < 3 %;
+TMV.DE;TeamViewer SE                 I;Technology;Germany;EUR;1.0;25.9;27.6;11.4;23.0;9.7;86.4;3.3;8.1;7;9;16;nein;Marktkap. < 1 Mrd | Nettoschulden > 3x EBITDA;
+TUI1.DE;TUI AG                        N;Consumer Cyclical;Germany;EUR;4.0;18.5;14.2;24.2;33.1;13.5;8.3;0.9;6.0;16;3;19;JA;;
+WKL.AS;WOLTERS KLUWER;Industrials;Netherlands;EUR;15.2;32.0;26.9;9.2;9.0;3.9;73.5;1.8;12.1;4;20;24;JA;;
+KRN.DE;KRONES AG                     I;Industrials;Germany;EUR;3.6;16.8;15.4;13.5;7.2;10.4;52.3;0.0;12.4;20;7;27;JA;;
+FNTN.DE;freenet AG                    N;Communication Services;Germany;EUR;2.9;17.2;12.8;11.0;12.6;-1.5;41.1;1.2;11.2;19;11;30;nein;Umsatz schrumpft;
+BOSS.DE;HUGO BOSS AG                  N;Consumer Cyclical;Germany;EUR;2.6;15.4;15.6;11.9;19.4;5.4;61.5;1.0;11.4;24;8;32;JA;;
+FPE3.DE;FUCHS SE                      N;Basic Materials;Germany;EUR;5.3;20.9;20.8;8.7;5.9;1.5;34.9;0.0;16.8;10;22;32;JA;;
+ENI.MI;ENI;Energy;Italy;EUR;68.1;13.9;19.1;16.0;6.0;-14.7;9.4;0.9;19.1;27;5;32;nein;ROCE < 15 % | Umsatz schrumpft;
+GBF.DE;Bilfinger SE                  I;Industrials;Germany;EUR;3.1;16.7;12.1;10.7;10.3;8.0;11.3;0.0;17.1;21;13;34;JA;;
+ADYEN.AS;ADYEN;Technology;Netherlands;EUR;28.6;25.8;27.6;7.7;3.2;-33.3;88.8;0.0;27.0;8;27;35;nein;Umsatz schrumpft;
+DG.PA;VINCI;Industrials;France;EUR;68.8;12.6;11.8;10.7;11.6;6.6;60.0;1.4;13.8;31;12;43;nein;ROCE < 15 %;
+MTX.DE;MTU Aero Engines AG           N;Industrials;Germany;EUR;20.1;19.8;10.5;7.5;1.7;18.0;19.3;0.0;21.7;14;31;45;nein;FCF-Rendite < 3 %;
+LHA.DE;DEUTSCHE LUFTHANSA AG         V;Industrials;Germany;EUR;11.1;8.7;8.7;14.1;-3.9;8.6;12.5;1.3;7.1;44;6;50;nein;ROCE < 15 % | FCF-Rendite < 3 % | FCF mehrfach negativ;
+NDX1.DE;Nordex SE                     I;Industrials;Germany;EUR;8.9;19.8;-3.8;6.3;9.4;9.9;27.0;0.0;23.0;13;37;50;JA;;
+TKA.DE;thyssenkrupp AG               I;Industrials;Germany;EUR;7.7;7.2;0.5;50.0;0.4;-7.2;11.3;0.0;1239.0;50;1;51;nein;ROCE < 15 % | FCF-Rendite < 3 % | Umsatz schrumpft | FCF mehrfach negativ;
+NDA.DE;Aurubis AG                    I;Industrials;Germany;EUR;8.0;11.6;10.8;9.2;-1.0;-0.6;10.2;0.2;8.7;33;19;52;nein;ROCE < 15 % | FCF-Rendite < 3 % | Umsatz schrumpft | FCF mehrfach negativ;
+HEN3.DE;Henkel AG & Co. KGaA          I;Consumer Defensive;Germany;EUR;30.9;11.8;9.6;9.1;6.0;-2.9;50.8;0.1;15.5;32;21;53;nein;ROCE < 15 % | Umsatz schrumpft;
+RAA.DE;RATIONAL AG                   I;Industrials;Germany;EUR;7.8;34.9;34.8;4.7;2.8;7.2;59.0;0.0;30.4;2;51;53;nein;Gewinnrendite < 5 % | FCF-Rendite < 3 %;
+SGO.PA;SAINT GOBAIN;Industrials;France;EUR;40.8;11.1;11.5;9.6;8.4;-3.2;27.8;1.3;14.4;36;17;53;nein;ROCE < 15 % | Umsatz schrumpft;
+DTE.DE;DEUTSCHE TELEKOM AG           N;Communication Services;Germany;EUR;133.9;10.3;8.9;9.8;16.0;1.4;61.1;2.7;15.3;39;15;54;nein;ROCE < 15 %;
+SAP.DE;SAP SE                        I;Technology;Germany;EUR;188.2;20.3;12.5;5.8;4.5;7.6;72.9;0.0;24.4;11;43;54;JA;;
+ADS.DE;adidas AG                     N;Consumer Cyclical;Germany;EUR;29.0;18.3;9.4;6.2;0.9;3.3;51.6;1.3;21.2;17;39;56;nein;FCF-Rendite < 3 %;
+HEI.DE;Heidelberg Materials AG       I;Basic Materials;Germany;EUR;28.6;11.0;10.0;9.4;6.4;0.6;64.2;1.2;14.1;38;18;56;nein;ROCE < 15 %;
+MC.PA;LVMH;Consumer Cyclical;France;EUR;240.2;16.0;18.3;6.8;5.9;0.7;66.2;0.9;22.2;23;34;57;JA;;
+RMS.PA;HERMES INTL;Consumer Cyclical;France;EUR;164.7;32.3;33.1;4.4;2.6;11.3;71.1;0.0;36.5;3;54;57;nein;Gewinnrendite < 5 % | FCF-Rendite < 3 %;
+PAH3.DE;Porsche Automobil Holding SE  I;Consumer Cyclical;Germany;EUR;9.0;6.6;-5.3;21.0;7.8;-20.4;;1.7;3.2;54;4;58;nein;ROCE < 15 % | Umsatz schrumpft;
+AD.AS;KONINKLIJKE AHOLD DELHAIZE N.V.;Consumer Defensive;Netherlands;EUR;30.4;11.5;10.3;8.3;14.6;2.0;26.5;2.0;13.7;35;23;58;nein;ROCE < 15 %;
+SAX.DE;STROEER SE + CO. KGAA;Communication Services;Germany;EUR;2.2;12.9;12.7;7.2;14.2;5.4;42.8;2.5;18.0;29;32;61;nein;ROCE < 15 %;
+FRA.DE;Fraport AG Ffm.Airport.Ser.AG I;Industrials;Germany;EUR;6.3;5.6;5.1;28.4;5.2;11.5;28.8;0.0;14.7;60;2;62;nein;ROCE < 15 % | FCF mehrfach negativ;
+DHL.DE;DEUTSCHE POST AG              N;Industrials;Germany;EUR;65.0;12.8;14.4;7.2;9.7;-4.3;16.4;2.1;18.8;30;33;63;nein;ROCE < 15 % | Umsatz schrumpft;
+KBX.DE;Knorr-Bremse AG               I;Consumer Cyclical;Germany;EUR;16.9;15.1;14.0;6.3;4.6;3.0;54.9;0.0;28.8;26;38;64;JA;;
+HOT.DE;HOCHTIEF AG                   I;Industrials;Germany;EUR;33.1;18.1;14.7;5.5;4.9;13.4;25.1;0.5;37.3;18;48;66;JA;;
+NEM.DE;Nemetschek SE                 I;Technology;Germany;EUR;6.8;20.2;21.2;4.3;5.7;14.1;61.0;0.4;27.8;12;55;67;nein;Gewinnrendite < 5 %;
+ASML.AS;ASML HOLDING;Technology;Netherlands;EUR;548.6;43.8;37.7;2.1;2.0;15.6;52.8;0.0;56.3;1;66;67;nein;Gewinnrendite < 5 % | FCF-Rendite < 3 %;
+RACE.MI;FERRARI;Consumer Cyclical;Italy;EUR;61.2;29.1;26.3;3.4;2.3;11.9;51.7;0.5;37.5;6;62;68;nein;Gewinnrendite < 5 % | FCF-Rendite < 3 %;
+BFSA.DE;BEFESA S.A.                   A;Industrials;Luxembourg;EUR;1.4;9.3;7.9;7.7;9.7;1.3;58.0;2.4;16.4;43;28;71;nein;ROCE < 15 %;
+OR.PA;L'OREAL;Consumer Defensive;France;EUR;208.1;19.1;21.4;4.2;3.4;4.8;74.3;0.2;34.1;15;56;71;nein;Gewinnrendite < 5 %;
+BMW.DE;BAYERISCHE MOTOREN WERKE AG   S;Consumer Cyclical;Germany;EUR;36.2;5.9;9.4;10.5;-7.6;-2.2;15.4;3.4;5.8;58;14;72;nein;ROCE < 15 % | FCF-Rendite < 3 % | Umsatz schrumpft | Nettoschulden > 3x EBITDA | FCF mehrfach negativ;
+G24.DE;Scout24 SE                    N;Communication Services;Germany;EUR;5.3;16.2;13.5;5.3;5.0;13.2;99.5;0.3;20.7;22;50;72;JA;;
+RHM.DE;RHEINMETALL AG                I;Industrials;Germany;EUR;54.4;21.9;17.7;3.1;2.6;15.7;52.4;0.0;51.4;9;63;72;nein;Gewinnrendite < 5 % | FCF-Rendite < 3 %;
+AFX.DE;Carl Zeiss Meditec AG         I;Healthcare;Germany;EUR;2.8;7.7;13.2;7.7;4.8;5.4;52.8;0.3;23.1;46;29;75;nein;ROCE < 15 %;
+ZAL.DE;Zalando SE                    I;Consumer Cyclical;Germany;EUR;7.1;10.0;7.4;6.6;12.8;6.1;39.9;0.0;65.9;40;36;76;nein;ROCE < 15 %;
+JUN3.DE;JUNGHEINRICH AG               I;Industrials;Germany;EUR;2.6;4.6;8.0;9.7;13.5;4.9;32.2;0.0;24.9;63;16;79;nein;ROCE < 15 %;
+UTDI.DE;UNITED INTERNET AG            N;Communication Services;Germany;EUR;4.1;6.8;6.8;7.5;12.4;1.1;31.2;3.3;14.7;52;30;82;nein;ROCE < 15 % | Nettoschulden > 3x EBITDA;
+BN.PA;DANONE;Consumer Defensive;France;EUR;43.4;10.0;8.8;5.9;6.3;-0.5;50.6;1.8;22.4;42;42;84;nein;ROCE < 15 % | Umsatz schrumpft;
+SU.PA;SCHNEIDER ELECTRIC SE;Industrials;France;EUR;163.4;15.3;14.0;3.8;2.8;5.5;42.1;1.6;34.1;25;60;85;nein;Gewinnrendite < 5 % | FCF-Rendite < 3 %;
+SAN.PA;SANOFI;Healthcare;France;EUR;90.1;6.9;7.7;6.7;8.0;4.8;72.1;1.0;23.2;51;35;86;nein;ROCE < 15 %;
+STM.DE;Stabilus SE                   I;Industrials;Germany;EUR;0.4;5.3;10.1;7.7;28.9;5.1;27.2;3.7;24.8;61;26;87;nein;Marktkap. < 1 Mrd | ROCE < 15 % | Nettoschulden > 3x EBITDA;
+VOW3.DE;VOLKSWAGEN AG                 V;Consumer Cyclical;Germany;EUR;38.4;3.0;5.2;7.8;-24.3;4.9;15.9;2.5;7.3;67;24;91;nein;ROCE < 15 % | FCF-Rendite < 3 % | FCF mehrfach negativ;
+AI.PA;AIR LIQUIDE;Basic Materials;France;EUR;108.0;11.5;10.7;4.2;2.5;-3.5;64.2;1.3;30.5;34;57;91;nein;ROCE < 15 % | Gewinnrendite < 5 % | FCF-Rendite < 3 % | Umsatz schrumpft;
+BNR.DE;Brenntag SE                   N;Basic Materials;Germany;EUR;9.0;7.7;12.6;5.5;7.5;-7.9;25.3;2.0;39.3;45;47;92;nein;ROCE < 15 % | Umsatz schrumpft;
+VOW.DE;VOLKSWAGEN AG                 I;Consumer Cyclical;Germany;EUR;38.9;3.0;5.2;7.8;-24.0;4.9;15.9;2.5;7.4;68;25;93;nein;ROCE < 15 % | FCF-Rendite < 3 % | FCF mehrfach negativ;
+AIR.PA;AIRBUS SE;Industrials;Netherlands;EUR;164.6;10.0;9.1;4.5;2.4;7.7;14.9;0.0;27.9;41;53;94;nein;ROCE < 15 % | Gewinnrendite < 5 % | FCF-Rendite < 3 %;
+ENR.DE;Siemens Energy AG             N;Industrials;Germany;EUR;125.6;13.8;1.3;2.1;3.3;10.4;16.8;0.0;58.1;28;67;95;nein;ROCE < 15 % | Gewinnrendite < 5 %;
+8TRA.DE;TRATON SE                     I;Industrials;Germany;EUR;20.6;6.2;8.2;6.1;-9.2;3.0;19.1;4.1;11.7;57;41;98;nein;ROCE < 15 % | FCF-Rendite < 3 % | Nettoschulden > 3x EBITDA | FCF mehrfach negativ;
+DTG.DE;Daimler Truck Holding AG      N;Industrials;Germany;EUR;38.2;6.2;8.6;5.7;7.5;-3.7;19.0;3.9;31.8;56;44;100;nein;ROCE < 15 % | Umsatz schrumpft | Nettoschulden > 3x EBITDA | FCF mehrfach negativ;
+AIXA.DE;AIXTRON SE                    N;Technology;Germany;EUR;4.1;11.0;15.6;2.6;4.4;6.3;40.0;0.0;70.5;37;64;101;nein;ROCE < 15 % | Gewinnrendite < 5 % | FCF mehrfach negativ;
+MBG.DE;Mercedes-Benz Group AG        N;Consumer Cyclical;Germany;EUR;46.1;3.7;8.8;6.1;17.9;-4.1;16.9;4.5;9.1;65;40;105;nein;ROCE < 15 % | Umsatz schrumpft | Nettoschulden > 3x EBITDA;
+JEN.DE;JENOPTIK AG                   N;Technology;Germany;EUR;2.1;7.7;8.4;4.2;5.7;2.2;32.1;1.8;28.1;47;58;105;nein;ROCE < 15 % | Gewinnrendite < 5 %;
+KGX.DE;KION GROUP AG                 I;Industrials;Germany;EUR;5.3;5.3;5.3;5.7;21.3;0.5;26.1;3.6;13.8;62;45;107;nein;ROCE < 15 % | Nettoschulden > 3x EBITDA;
+BAS.DE;BASF SE                       N;Basic Materials;Germany;EUR;44.0;5.7;4.3;5.3;3.1;-11.9;24.1;2.7;21.5;59;49;108;nein;ROCE < 15 % | Umsatz schrumpft;
+SY1.DE;Symrise AG                    I;Basic Materials;Germany;EUR;12.2;7.2;8.5;3.5;4.6;2.2;37.6;2.1;50.1;49;61;110;nein;ROCE < 15 % | Gewinnrendite < 5 %;
+EVK.DE;Evonik Industries AG          N;Basic Materials;Germany;EUR;8.3;4.4;3.4;5.6;8.4;-8.7;23.1;1.8;52.2;64;46;110;nein;ROCE < 15 % | Umsatz schrumpft;
+EL.PA;ESSILORLUXOTTICA;Healthcare;France;EUR;77.1;6.6;6.3;4.0;4.9;5.2;60.6;1.6;31.4;53;59;112;nein;ROCE < 15 % | Gewinnrendite < 5 %;
+HAG.DE;HENSOLDT AG                   I;Industrials;Germany;EUR;9.9;7.5;8.3;2.2;2.5;12.8;21.4;1.7;98.2;48;65;113;nein;ROCE < 15 % | Gewinnrendite < 5 % | FCF-Rendite < 3 %;
+RRTL.DE;RTL GROUP S.A.                A;Communication Services;Luxembourg;EUR;5.0;3.6;8.7;4.7;6.7;-3.0;56.4;0.3;217.0;66;52;118;nein;ROCE < 15 % | Gewinnrendite < 5 % | Umsatz schrumpft;
+IFX.DE;INFINEON TECHNOLOGIES AG      N;Technology;Germany;EUR;81.1;6.5;11.9;1.9;1.4;1.0;39.2;1.5;76.1;55;68;123;nein;ROCE < 15 % | Gewinnrendite < 5 % | FCF-Rendite < 3 %;
+WAF.DE;Siltronic AG                  N;Technology;Germany;EUR;2.6;-0.2;5.9;-0.3;-5.8;-9.3;8.3;2.9;;69;69;138;nein;ROCE < 15 % | Gewinnrendite < 5 % | FCF-Rendite < 3 % | Umsatz schrumpft | FCF mehrfach negativ;
+BAYN.DE;Bayer AG                      N;Healthcare;Germany;EUR;47.0;-1.2;1.6;-1.1;7.3;-3.5;58.8;14.9;;70;71;141;nein;ROCE < 15 % | Gewinnrendite < 5 % | Umsatz schrumpft | Nettoschulden > 3x EBITDA;
+DHER.DE;Delivery Hero SE              N;Consumer Cyclical;Germany;EUR;11.4;-1.3;-13.2;-0.6;-2.2;17.9;24.4;6.8;;71;70;141;nein;ROCE < 15 % | Gewinnrendite < 5 % | FCF-Rendite < 3 % | Nettoschulden > 3x EBITDA | FCF mehrfach negativ;
+HFG.DE;HelloFresh SE                 I;Consumer Defensive;Germany;EUR;0.5;-1.8;2.7;-2.5;33.5;-3.9;61.7;1.5;;72;73;145;nein;Marktkap. < 1 Mrd | ROCE < 15 % | Gewinnrendite < 5 % | Umsatz schrumpft;
+RDC.DE;Redcare Pharmacy N.V.         A;Healthcare;Netherlands;EUR;1.3;-3.4;-5.5;-1.9;-6.8;34.7;22.5;4.4;;73;72;145;nein;ROCE < 15 % | Gewinnrendite < 5 % | FCF-Rendite < 3 % | Nettoschulden > 3x EBITDA | FCF mehrfach negativ;
+EVT.DE;Evotec SE                     I;Healthcare;Germany;EUR;0.6;-5.4;-7.0;-12.0;-14.8;1.6;14.5;0.0;;74;75;149;nein;Marktkap. < 1 Mrd | ROCE < 15 % | Gewinnrendite < 5 % | FCF-Rendite < 3 % | FCF mehrfach negativ;
+GXI.DE;Gerresheimer AG               I;Healthcare;Germany;EUR;0.9;-7.4;3.8;-8.0;-10.5;8.5;18.3;6.8;;75;74;149;nein;Marktkap. < 1 Mrd | ROCE < 15 % | Gewinnrendite < 5 % | FCF-Rendite < 3 % | Nettoschulden > 3x EBITDA | FCF mehrfach negativ;
+ALV.DE;Allianz SE                    v;Financial Services;Germany;EUR;;;;;;;;;14.0;;;;nein;;Sektor Financial Services (Kennzahlen nicht vergleichbar)
+BEI.DE;BEIERSDORF AG                 I;Consumer Defensive;Germany;EUR;;;;;;;;;19.3;;;;nein;;EBIT oder Marktkapitalisierung fehlt
+CBK.DE;Commerzbank AG                I;Financial Services;Germany;EUR;42.3;;;;;;;;17.8;;;;nein;;Sektor Financial Services (Kennzahlen nicht vergleichbar)
+CON.DE;CONTINENTAL AG                I;Consumer Cyclical;Germany;EUR;;;;;;;;;;;;;nein;;EBIT oder Marktkapitalisierung fehlt
+DB1.DE;DEUTSCHE BOERSE AG            N;Financial Services;Germany;EUR;47.5;;;;;;;;22.7;;;;nein;;Sektor Financial Services (Kennzahlen nicht vergleichbar)
+DBK.DE;DEUTSCHE BANK AG              N;Financial Services;Germany;EUR;60.5;;;;;;;;9.8;;;;nein;;Sektor Financial Services (Kennzahlen nicht vergleichbar)
+EOAN.DE;E.ON SE                       N;Utilities;Germany;EUR;49.6;;;;;;;;14.5;;;;nein;;Sektor Utilities (Kennzahlen nicht vergleichbar)
+FME.DE;Fresenius Medical Care AG     I;Healthcare;Germany;EUR;;;;;;;;;13.7;;;;nein;;EBIT oder Marktkapitalisierung fehlt
+FRE.DE;Fresenius SE & Co. KGaA       I;Healthcare;Germany;EUR;;;;;;;;;16.7;;;;nein;;EBIT oder Marktkapitalisierung fehlt
+G1A.DE;GEA Group AG                  I;Industrials;Germany;EUR;;;;;;;;;24.5;;;;nein;;EBIT oder Marktkapitalisierung fehlt
+HNR1.DE;HANNOVER RUECK SE NA O.N.;Financial Services;Germany;EUR;30.2;;;;;;;;10.5;;;;nein;;Sektor Financial Services (Kennzahlen nicht vergleichbar)
+MRK.DE;MERCK KGAA                    I;Healthcare;Germany;EUR;;;;;;;;;24.7;;;;nein;;EBIT oder Marktkapitalisierung fehlt
+MUV2.DE;MUENCHENER RUECKVERS.-GES. AG N;Financial Services;Germany;EUR;66.5;;;;;;;;10.0;;;;nein;;Sektor Financial Services (Kennzahlen nicht vergleichbar)
+QIA.DE;Qiagen N.V.                   A;Healthcare;Netherlands;EUR;7.5;;;;;;;;21.4;;;;nein;;Waehrungsmix EUR/USD (EV-Kennzahlen nicht direkt vergleichbar)
+RWE.DE;RWE AG                        I;Utilities;Germany;EUR;42.3;;;;;;;;17.3;;;;nein;;Sektor Utilities (Kennzahlen nicht vergleichbar)
+SHL.DE;Siemens Healthineers AG       N;Healthcare;Germany;EUR;42.9;;;;;;;;19.4;;;;nein;;EBIT oder Marktkapitalisierung fehlt
+SIE.DE;SIEMENS AG                    N;Industrials;Germany;EUR;;;;;;;;;29.5;;;;nein;;EBIT oder Marktkapitalisierung fehlt
+VNA.DE;Vonovia SE                    N;Real Estate;Germany;EUR;18.2;;;;;;;;5.4;;;;nein;;Sektor Real Estate (Kennzahlen nicht vergleichbar)
+AT1.DE;Aroundtown SA                 B;Real Estate;Luxembourg;EUR;2.3;;;;;;;;4.8;;;;nein;;Sektor Real Estate (Kennzahlen nicht vergleichbar)
+BC8.DE;BECHTLE AG                    I;Technology;Germany;EUR;;;;;;;;;19.9;;;;nein;;EBIT oder Marktkapitalisierung fehlt
+ECV.DE;;;;;;;;;;;;;;;;;nein;;EBIT oder Marktkapitalisierung fehlt
+HLE.DE;HELLA GmbH & Co. KGaA         I;Consumer Cyclical;Germany;EUR;;;;;;;;;69.6;;;;nein;;EBIT oder Marktkapitalisierung fehlt
+LEG.DE;LEG Immobilien SE             N;Real Estate;Germany;EUR;4.1;;;;;;;;3.5;;;;nein;;Sektor Real Estate (Kennzahlen nicht vergleichbar)
+LXS.DE;LANXESS AG                    I;Basic Materials;Germany;EUR;;;;;;;;;;;;;nein;;EBIT oder Marktkapitalisierung fehlt
+PUM.DE;PUMA SE                       I;Consumer Cyclical;Germany;EUR;;;;;;;;;;;;;nein;;EBIT oder Marktkapitalisierung fehlt
+SDF.DE;K+S Aktiengesellschaft        N;Basic Materials;Germany;EUR;;;;;;;;;;;;;nein;;EBIT oder Marktkapitalisierung fehlt
+TEG.DE;TAG Immobilien AG             I;Real Estate;Germany;EUR;2.7;;;;;;;;29.9;;;;nein;;Sektor Real Estate (Kennzahlen nicht vergleichbar)
+TLX.DE;Talanx AG                     N;Financial Services;Germany;EUR;29.7;;;;;;;;11.2;;;;nein;;Sektor Financial Services (Kennzahlen nicht vergleichbar)
+WCH.DE;Wacker Chemie AG              I;Basic Materials;Germany;EUR;;;;;;;;;;;;;nein;;EBIT oder Marktkapitalisierung fehlt
+ABI.BR;AB INBEV;Consumer Defensive;Belgium;EUR;144.2;;;;;;;;18.1;;;;nein;;Waehrungsmix EUR/USD (EV-Kennzahlen nicht direkt vergleichbar)
+ARGX.BR;ARGENX SE;Healthcare;Netherlands;EUR;45.8;;;;;;;;32.3;;;;nein;;Waehrungsmix EUR/USD (EV-Kennzahlen nicht direkt vergleichbar)
+BBVA.MC;BANCO BILBAO VIZCAYA ARGENTARIA;Financial Services;Spain;EUR;135.9;;;;;;;;13.0;;;;nein;;Sektor Financial Services (Kennzahlen nicht vergleichbar)
+BNP.PA;BNP PARIBAS ACT.A;Financial Services;France;EUR;122.1;;;;;;;;9.6;;;;nein;;Sektor Financial Services (Kennzahlen nicht vergleichbar)
+CS.PA;AXA;Financial Services;France;EUR;90.9;;;;;;;;12.0;;;;nein;;Sektor Financial Services (Kennzahlen nicht vergleichbar)
+ENEL.MI;ENEL;Utilities;Italy;EUR;97.6;;;;;;;;25.9;;;;nein;;Sektor Utilities (Kennzahlen nicht vergleichbar)
+IBE.MC;ACCIONES IBERDROLA;Utilities;Spain;EUR;136.9;;;;;;;;25.6;;;;nein;;Sektor Utilities (Kennzahlen nicht vergleichbar)
+INGA.AS;ING GROEP N.V.;Financial Services;Netherlands;EUR;86.1;;;;;;;;13.0;;;;nein;;Sektor Financial Services (Kennzahlen nicht vergleichbar)
+ISP.MI;INTESA SANPAOLO;Financial Services;Italy;EUR;116.2;;;;;;;;11.8;;;;nein;;Sektor Financial Services (Kennzahlen nicht vergleichbar)
+ITX.MC;;Consumer Cyclical;Spain;EUR;;;;;;;;;28.6;;;;nein;;EBIT oder Marktkapitalisierung fehlt
+NDA-FI.HE;Nordea Bank Abp;Financial Services;Finland;EUR;59.6;;;;;;;;12.8;;;;nein;;Sektor Financial Services (Kennzahlen nicht vergleichbar)
+PRX.AS;PROSUS;Consumer Cyclical;Netherlands;EUR;87.6;;;;;;;;9.1;;;;nein;;Waehrungsmix EUR/USD (EV-Kennzahlen nicht direkt vergleichbar)
+SAF.PA;SAFRAN;Industrials;France;EUR;;;;;;;;;37.9;;;;nein;;EBIT oder Marktkapitalisierung fehlt
+SAN.MC;BANCO SANTANDER S.A.;Financial Services;Spain;EUR;177.7;;;;;;;;14.1;;;;nein;;Sektor Financial Services (Kennzahlen nicht vergleichbar)
+TTE.PA;TOTALENERGIES;Energy;France;EUR;168.3;;;;;;;;10.9;;;;nein;;Waehrungsmix EUR/USD (EV-Kennzahlen nicht direkt vergleichbar)
+UCG.MI;UNICREDIT;Financial Services;Italy;EUR;;;;;;;;;11.9;;;;nein;;Sektor Financial Services (Kennzahlen nicht vergleichbar)
