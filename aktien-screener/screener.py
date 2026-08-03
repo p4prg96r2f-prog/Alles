@@ -173,15 +173,25 @@ def rohdaten_holen(symbol, cache_tage):
             gewinn = aktie.income_stmt
             bilanz = aktie.balance_sheet
             cashflow = aktie.cashflow
+            marktkap = info.get("marketCap")
+            waehrung = info.get("currency")
+            if marktkap is None:
+                # Yahoo drosselt den Info-Endpunkt gern; die Kurs-API ist robuster
+                try:
+                    schnell = aktie.fast_info
+                    marktkap = schnell["market_cap"]
+                    waehrung = waehrung or schnell["currency"]
+                except Exception:
+                    pass
             daten = {
                 "_geholt_am": time.time(),
                 "name": info.get("shortName") or info.get("longName"),
                 "sektor": info.get("sector"),
                 "branche": info.get("industry"),
                 "land": info.get("country"),
-                "waehrung": info.get("currency"),
+                "waehrung": waehrung,
                 "bilanz_waehrung": info.get("financialCurrency"),
-                "marktkap": info.get("marketCap"),
+                "marktkap": marktkap,
                 "kgv": info.get("trailingPE"),
                 "ebit": _zeile(gewinn, "EBIT", "Operating Income"),
                 "ebitda": _zeile(gewinn, "EBITDA", "Normalized EBITDA"),
