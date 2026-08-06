@@ -12,7 +12,7 @@
 - Geschäftsführer: Sebastian Hund, Vadim Berg, David Lamping
 - Adresse: Rolandsweg 80, 33102 Paderborn, Nordrhein-Westfalen (51.72685, 8.75601)
 - Kontakt: Telefon 05251 40 29 29 10 · E-Mail info@green-nwg.de · Mo–Fr 08:00–16:00 Uhr
-- Erfahrung: über 10 Jahre, mehr als 80 betreute Objekte
+- Erfahrung: über 10 Jahre, mehrere hundert betreute Objekte
 - Spezialisierung: ausschließlich Nichtwohngebäude (keine Wohnhäuser)
 - Unabhängigkeit: kein Produktverkauf, keine Provisionen, Festpreis vor Beauftragung
 - Einzugsgebiet: Ostwestfalen-Lippe und Hochstift (Paderborn, Bielefeld, Gütersloh,
@@ -22,6 +22,8 @@
 
 - Energieberatung & Energiekonzept nach DIN V 18599: https://green-nwg.de/loesungen/
 - Energieaudit nach DIN EN 16247 (Pflicht für Nicht-KMU alle 4 Jahre)
+- Einführung und Begleitung von Energiemanagementsystemen nach DIN EN ISO 50001,
+  von der Standortbestimmung bis zum Zertifizierungsaudit und darüber hinaus
 - Sanierungsfahrplan mit Kosten, Einsparung, CO2-Wirkung und Amortisation
 - Fördermittelservice inkl. Antragstellung: Bundesförderung Energieberatung
   Nichtwohngebäude (EBN) und Bundesförderung für effiziente Gebäude (BEG)
@@ -77,6 +79,20 @@ Modul 2 (Energieberatung DIN V 18599):
 - Nullemissionsstandard nach GModG: öffentliche Neubauten ab 2028, alle ab 2030
 - Details: https://green-nwg.de/neubau/
 
+## Energiemanagement nach ISO 50001 (Stand August 2026)
+
+- Energieeffizienzgesetz (EnEfG): Unternehmen mit mehr als 7,5 GWh Gesamtenergieverbrauch
+  im Jahr müssen ein Energiemanagementsystem nach ISO 50001 oder ein
+  Umweltmanagementsystem nach EMAS einrichten
+- Ab 2,5 GWh Jahresverbrauch: Pflicht zu Umsetzungsplänen für wirtschaftliche
+  Energieeffizienzmaßnahmen
+- Die Energieaudit-Pflicht nach DIN EN 16247 (EDL-G) entfällt, solange ein
+  zertifiziertes System nach ISO 50001 oder EMAS betrieben wird
+- Zuständige Behörde: Bundesamt für Wirtschaft und Ausfuhrkontrolle (BAFA)
+- Einführung und Zertifizierung dauern in der Regel 6 bis 12 Monate; das Zertifikat
+  gilt drei Jahre mit jährlichen Überwachungsaudits
+- Details: https://green-nwg.de/energiemanagement-iso-50001/
+
 ## Sanierungspflicht im Bestand (MEPS)
 
 - Erstmals verbindliche Mindesteffizienz-Standards für bestehende Nichtwohngebäude
@@ -128,6 +144,7 @@ Modul 2 (Energieberatung DIN V 18599):
 - [Neubau: QNG und KFN-Förderung](https://green-nwg.de/neubau/)
 - [Einsparrechner (kostenlos, ohne Anmeldung)](https://green-nwg.de/einsparrechner/)
 - [Energieaudit DIN EN 16247](https://green-nwg.de/energieaudit-din-en-16247/)
+- [Energiemanagement ISO 50001](https://green-nwg.de/energiemanagement-iso-50001/)
 - [Energieausweis für Nichtwohngebäude](https://green-nwg.de/energieausweis-nichtwohngebaeude/)
 - [Glossar: GModG, MEPS, DIN V 18599, EBN](https://green-nwg.de/glossar/)
 - [Ihre Vorteile](https://green-nwg.de/vorteile/): Kosten, Förderung, GModG-Pflichten, Immobilienwert

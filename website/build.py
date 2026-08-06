@@ -330,6 +330,7 @@ def footer(p):
           <li><a href="{p}ueber-uns/">Über uns</a></li>
           <li><a href="{p}einzugsgebiet/">Einzugsgebiet OWL &amp; NRW</a></li>
           <li><a href="{p}energieaudit-din-en-16247/">Energieaudit DIN EN 16247</a></li>
+          <li><a href="{p}energiemanagement-iso-50001/">Energiemanagement ISO 50001</a></li>
           <li><a href="{p}energieausweis-nichtwohngebaeude/">Energieausweis</a></li>
           <li><a href="{p}glossar/">Glossar</a></li>
           <li><a href="{p}kontakt/">Kontakt</a></li>
@@ -571,7 +572,7 @@ def render_home():
 
     services = [
         ("search", "Energieberatung & -konzept", "Vollständige Analyse Ihres Gebäudes nach DIN V 18599 – mit priorisierten Maßnahmen und Wirtschaftlichkeitsrechnung."),
-        ("doc", "Energieaudit DIN EN 16247", "Normkonforme Audits für Nicht-KMU: Pflicht erfüllen und gleichzeitig die profitabelsten Einsparungen identifizieren."),
+        ("doc", "Energieaudit &amp; ISO 50001", "Normkonforme Audits nach DIN EN 16247 – oder gleich das Energiemanagementsystem nach ISO 50001, mit dem die Auditpflicht entfällt."),
         ("chart", "Sanierungsfahrplan &amp; MEPS-Check", "Schritt für Schritt zum effizienten Gebäude – und rechtzeitig unter die Sanierungspflicht-Schwellen 2030 und 2033."),
         ("euro", "Fördermittelservice", "BEG-Kredite mit Tilgungszuschuss, KFN im Neubau, Landes- und Kommunalprogramme – wir finden die richtige Kombination und beantragen sie."),
         ("buero", "Neubau, QNG &amp; KFN-Förderung", "Effizienzstufe festlegen, Qualitätssiegel Nachhaltiges Gebäude prüfen, Förderkredit bis 2.000 € je m² sichern – und zwar vor dem Bauantrag."),
@@ -647,7 +648,7 @@ def render_home():
         <a class="btn btn--ghost btn--lg" href="einsparrechner/">{icon('chart')} Einsparung berechnen</a>
       </div>
       <ul class="hero-trust">
-        <li>{icon('check')} 80+ betreute Objekte</li>
+        <li>{icon('check')} mehrere hundert betreute Objekte</li>
         <li>{icon('check')} 50&#8239;% Förderung, max. 4.000&#8239;€</li>
         <li>{icon('check')} keine versteckten Kosten</li>
       </ul>
@@ -662,7 +663,7 @@ def render_home():
 <section class="kpi-band" aria-label="Kennzahlen">
   <div class="container">
     <div class="kpi-grid">
-      <div class="kpi reveal"><div class="kpi-value"><span data-count="80">80</span><span class="unit">+</span></div><div class="kpi-label">betreute Objekte</div></div>
+      <div class="kpi reveal"><div class="kpi-value"><span data-count="300">300</span><span class="unit">+</span></div><div class="kpi-label">betreute Objekte</div></div>
       <div class="kpi reveal reveal-d1"><div class="kpi-value">−<span data-count="70">70</span><span class="unit">%</span></div><div class="kpi-label">Energiekosten möglich</div></div>
       <div class="kpi reveal reveal-d2"><div class="kpi-value"><span data-count="50">50</span><span class="unit">%</span></div><div class="kpi-label">Förderung der Beratung</div></div>
       <div class="kpi reveal reveal-d3"><div class="kpi-value"><span data-count="10">10</span><span class="unit">+ Jahre</span></div><div class="kpi-label">Erfahrung mit NWG</div></div>
@@ -1258,7 +1259,7 @@ def render_ueber_uns():
 <section class="kpi-band" aria-label="Kennzahlen">
   <div class="container">
     <div class="kpi-grid">
-      <div class="kpi reveal"><div class="kpi-value"><span data-count="80">80</span><span class="unit">+</span></div><div class="kpi-label">betreute Objekte</div></div>
+      <div class="kpi reveal"><div class="kpi-value"><span data-count="300">300</span><span class="unit">+</span></div><div class="kpi-label">betreute Objekte</div></div>
       <div class="kpi reveal reveal-d1"><div class="kpi-value">−<span data-count="70">70</span><span class="unit">%</span></div><div class="kpi-label">Energiekosten erreicht</div></div>
       <div class="kpi reveal reveal-d2"><div class="kpi-value">−<span data-count="80">80</span><span class="unit">%</span></div><div class="kpi-label">CO₂-Ausstoß erreicht</div></div>
       <div class="kpi reveal reveal-d3"><div class="kpi-value"><span data-count="10">10</span><span class="unit">+ Jahre</span></div><div class="kpi-label">Erfahrung</div></div>
@@ -2148,6 +2149,179 @@ def render_foerderung():
     )
 
 
+def render_enms():
+    p = "../"
+    faqs = [
+        ("Wer muss ein Energiemanagementsystem einführen?",
+         "Nach dem Energieeffizienzgesetz (EnEfG) müssen Unternehmen mit mehr als 7,5 Gigawattstunden "
+         "Gesamtenergieverbrauch im Jahr ein Energiemanagementsystem nach ISO 50001 oder ein "
+         "Umweltmanagementsystem nach EMAS einrichten. Bereits ab 2,5 Gigawattstunden sind zudem "
+         "Umsetzungspläne für wirtschaftliche Effizienzmaßnahmen zu erstellen. Zuständig ist das "
+         "Bundesamt für Wirtschaft und Ausfuhrkontrolle."),
+        ("Ersetzt ISO 50001 das Energieaudit?",
+         "Ja. Die Pflicht zum Energieaudit nach DIN EN 16247 entfällt, solange Sie ein zertifiziertes "
+         "System nach ISO 50001 oder EMAS betreiben. Für Unternehmen, die ohnehin alle vier Jahre "
+         "auditieren müssen, ist das ein wesentliches Argument: Statt wiederkehrender Momentaufnahmen "
+         "entsteht ein laufender Prozess – und die Auditpflicht ist mit erledigt."),
+        ("Wie lange dauert die Einführung?",
+         "Von der Bestandsaufnahme bis zum Zertifikat vergehen in der Regel sechs bis zwölf Monate. "
+         "Wie schnell es geht, hängt vor allem an der Datenlage: Wer bereits eine saubere "
+         "Zählerstruktur und dokumentierte Verbräuche hat, ist deutlich schneller. Wo Zähler fehlen, "
+         "planen wir die Messkonzeption gleich mit ein."),
+        ("Was kostet das – und was bringt es?",
+         "Neben unserem Honorar fallen die Gebühren der Zertifizierungsstelle an sowie interner "
+         "Aufwand für Datenpflege und Audits. Dem stehen drei Effekte gegenüber: die entfallende "
+         "Auditpflicht, die systematisch gehobenen Einsparungen und – je nach Konstellation – "
+         "Voraussetzungen für Entlastungen bei Energiesteuern und Umlagen. Was davon für Sie gilt, "
+         "prüfen wir vor der Entscheidung."),
+        ("Wie lange gilt das Zertifikat?",
+         "Das Zertifikat läuft drei Jahre. In dieser Zeit finden jährliche Überwachungsaudits statt, "
+         "danach ein Re-Zertifizierungsaudit. Genau dafür braucht das System einen Betreiber im "
+         "Unternehmen – und, wenn gewünscht, uns als externe Begleitung im laufenden Betrieb."),
+    ]
+    faq_items = "".join(
+        f'<details class="faq reveal"><summary>{q}</summary><div class="faq-body"><p>{a}</p></div></details>'
+        for q, a in faqs)
+
+    steps = [
+        ("Standortbestimmung", "Verbrauchsdaten sichten, Zählerstruktur prüfen, wesentliche Energieeinsatzbereiche bestimmen. Ergebnis: eine ehrliche Lücke­nliste zum Normanspruch.", "2–4 Wochen"),
+        ("Energetische Bewertung", "Energieplanung nach Norm: Ausgangsbasis, Leistungskennzahlen (EnPIs), Einsparpotenziale und messbare Ziele mit Aktionsplänen.", "6–10 Wochen"),
+        ("System aufbauen", "Energiepolitik, Rollen und Verantwortlichkeiten, Dokumentation, Betriebssteuerung, Beschaffungs- und Auslegungsvorgaben – so schlank wie die Norm es zulässt.", "8–12 Wochen"),
+        ("Internes Audit & Managementbewertung", "Wir auditieren intern, schulen Ihre Beteiligten und bereiten die Managementbewertung vor. Abweichungen werden vor dem Zertifizierer gefunden, nicht von ihm.", "3–4 Wochen"),
+        ("Zertifizierungsaudit", "Begleitung durch Stufe 1 und Stufe 2 der externen Zertifizierung, Bearbeitung von Feststellungen bis zur Zertifikatserteilung.", "je nach Stelle"),
+        ("Betrieb & Verbesserung", "Kennzahlen fortschreiben, Überwachungsaudits vorbereiten, Maßnahmen nachhalten. Ein System, das nur zur Auditzeit lebt, spart nichts.", "laufend"),
+    ]
+    step_items = "".join(
+        f'<li class="step reveal"><h3>{t}</h3><p>{d}</p><span class="step-duration">{dur}</span></li>'
+        for t, d, dur in steps)
+
+    parts = [
+        ("law", "Energiepolitik & Verantwortlichkeiten", "Eine unterschriebene Energiepolitik der Leitung, klar zugeschnittene Rollen und ein benanntes Energieteam. Ohne Rückendeckung von oben bleibt jedes System Papier."),
+        ("chart", "Energetische Bewertung & Kennzahlen", "Wesentliche Energieeinsatzbereiche bestimmen, Ausgangsbasis festlegen, Leistungskennzahlen (EnPIs) definieren, die Ihr Geschäft abbilden – nicht bloß den Gesamtzähler."),
+        ("search", "Messkonzept & Datenerfassung", "Zählerstruktur, Messpunkte und Datenwege so aufbauen, dass Kennzahlen automatisch entstehen statt monatlich zusammengesucht zu werden."),
+        ("doc", "Dokumentation & Betriebssteuerung", "Verfahren, Nachweise und Betriebsvorgaben in dem Umfang, den die Norm verlangt – und keinen Absatz mehr."),
+        ("check", "Internes Audit & Schulung", "Wir auditieren intern, qualifizieren Ihre Beteiligten und sorgen dafür, dass Kompetenzanforderungen der Norm nachweisbar erfüllt sind."),
+        ("handshake", "Begleitung im Zertifizierungsaudit", "Vorbereitung, Teilnahme und Nachbereitung – von Stufe 1 bis zur Zertifikatserteilung und danach bei den Überwachungsaudits."),
+    ]
+    part_html = "".join(
+        f'<li class="feature reveal"><span class="feature-icon">{icon(ic)}</span>'
+        f'<div><h3>{t}</h3><p>{d}</p></div></li>' for ic, t, d in parts)
+
+    body = f"""
+{page_hero(p, [("energiemanagement-iso-50001/", "ISO 50001")], "Energiemanagement",
+           "Energiemanagementsystem nach DIN EN ISO 50001",
+           "Von der Standortbestimmung über den Systemaufbau bis zum Zertifikat – und danach "
+           "im laufenden Betrieb. Wir begleiten die Einführung so schlank, wie die Norm es "
+           "zulässt.")}
+
+<section class="section">
+  <div class="container">
+    <div class="section-head reveal">
+      <p class="eyebrow">Antwort zuerst</p>
+      <h2>Wer muss – und wer sollte</h2>
+      <p class="lead">Die Pflicht hängt am Jahresverbrauch. Der Nutzen hängt daran, ob das
+      System im Alltag benutzt wird.</p>
+    </div>
+    <div class="table-wrap reveal">
+      <table class="data-table">
+        <caption>Pflichten nach dem Energieeffizienzgesetz (EnEfG), Stand August 2026</caption>
+        <thead><tr><th scope="col">Gesamtenergieverbrauch pro Jahr</th><th scope="col">Was verlangt wird</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">über 7,5 GWh</th><td>Energiemanagementsystem nach ISO 50001 <em>oder</em> Umweltmanagementsystem nach EMAS</td></tr>
+          <tr><th scope="row">ab 2,5 GWh</th><td>Umsetzungspläne für wirtschaftliche Energieeffizienzmaßnahmen</td></tr>
+          <tr><th scope="row">Nicht-KMU unabhängig davon</th><td><a href="{p}energieaudit-din-en-16247/">Energieaudit nach DIN EN 16247</a> alle vier Jahre – entfällt bei ISO 50001 oder EMAS</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="mono-note">Zuständig ist das Bundesamt für Wirtschaft und Ausfuhrkontrolle (BAFA) ·
+    Quelle: Energieeffizienzgesetz, Umweltbundesamt</p>
+  </div>
+</section>
+
+<section class="section section--surface">
+  <div class="container split">
+    <div class="reveal">
+      <p class="eyebrow">Audit oder System?</p>
+      <h2>Der Unterschied, der über den Nutzen entscheidet</h2>
+      <p>Ein <a href="{p}energieaudit-din-en-16247/">Energieaudit</a> ist eine Momentaufnahme: Alle
+      vier Jahre schaut jemand genau hin, schreibt Maßnahmen auf – und häufig verschwindet der
+      Bericht in der Ablage. Ein Energiemanagementsystem nach ISO 50001 dreht das um: Es macht die
+      Energieleistung zu einer laufend gemessenen Größe mit Zielen, Verantwortlichen und Terminen.</p>
+      <p>Für Unternehmen, die ohnehin auditpflichtig sind, ist das die wirtschaftlich interessantere
+      Variante. Die Auditpflicht entfällt, der Aufwand verteilt sich über die Jahre statt sich alle
+      vier Jahre zu ballen, und die Einsparungen werden systematisch gehoben statt einmalig
+      identifiziert.</p>
+      <ul class="checklist">
+        <li>Auditpflicht nach DIN EN 16247 entfällt bei zertifiziertem System</li>
+        <li>Kontinuierliche Verbesserung statt Vier-Jahres-Rhythmus</li>
+        <li>Belastbare Kennzahlen für ESG-Berichte, Banken und Kunden</li>
+        <li>Je nach Konstellation Voraussetzung für steuerliche Entlastungen</li>
+      </ul>
+    </div>
+    {photo("beratung-daten", p, "Ein Managementsystem lebt von Daten, die ohnehin entstehen.", eager=True)}
+  </div>
+</section>
+
+<section class="section section--dark">
+  <div class="container">
+    <div class="section-head reveal">
+      <p class="eyebrow">Unsere Begleitung</p>
+      <h2>Sechs Schritte bis zum Zertifikat</h2>
+      <p class="lead">Sechs bis zwölf Monate von der Bestandsaufnahme bis zur Zertifikatserteilung –
+      der Zeitplan hängt vor allem an Ihrer Datenlage.</p>
+    </div>
+    <ol class="steps">{step_items}</ol>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head reveal">
+      <p class="eyebrow">Was dazugehört</p>
+      <h2>Alle Bausteine, die die Norm verlangt</h2>
+      <p class="lead">Wir bauen das System so schlank wie möglich – aber vollständig. Jeder
+      Baustein hat einen Zweck, sonst wäre er nicht dabei.</p>
+    </div>
+    <ul class="feature-list">{part_html}</ul>
+    {figure("energieaudit-din-16247", "Abb. – Normkonforme Prüfung und Nachweisführung", "illus--pad")}
+  </div>
+</section>
+
+<section class="section section--surface">
+  <div class="container">
+    <div class="section-head reveal">
+      <p class="eyebrow">Häufige Fragen zu ISO 50001</p>
+      <h2>Kurz beantwortet</h2>
+    </div>
+    <div class="faq-list">{faq_items}</div>
+    <div class="notice reveal" style="margin-top:2rem">
+      <strong>Hinweis:</strong> Ob und ab wann die Pflicht für Ihr Unternehmen greift, hängt von
+      Verbrauch, Unternehmensstruktur und Beteiligungsverhältnissen ab. Wir klären das im
+      kostenlosen Erstgespräch – bevor Sie in ein Projekt einsteigen, das Sie vielleicht gar
+      nicht brauchen.
+    </div>
+  </div>
+</section>
+
+{cta_band(p, "Pflicht klären, System planen.",
+          "Im kostenlosen Erstgespräch prüfen wir Ihre Verbrauchsschwelle, den Aufwand und ob ISO 50001 oder das Energieaudit für Sie der bessere Weg ist.")}
+"""
+    schema = {"@context": "https://schema.org", "@graph": [
+        {"@type": "Service", "name": "Einführung eines Energiemanagementsystems nach DIN EN ISO 50001",
+         "serviceType": "Energiemanagement", "url": f"{BASE}/energiemanagement-iso-50001/",
+         "provider": {"@id": ORG_ID}, "areaServed": {"@type": "State", "name": "Nordrhein-Westfalen"}},
+        {"@type": "FAQPage", "mainEntity": [
+            {"@type": "Question", "name": plain(q), "acceptedAnswer": {"@type": "Answer", "text": plain(a)}}
+            for q, a in faqs]},
+    ]}
+    return page(
+        "energiemanagement-iso-50001/",
+        "Energiemanagement ISO 50001: Einführung & Zertifizierung | GREEN",
+        "DIN EN ISO 50001 einführen: Pflicht ab 7,5 GWh, Auditpflicht entfällt, Zertifikat in 6–12 Monaten. Wir begleiten von der Analyse bis zum Audit. Jetzt Pflicht klären.",
+        body, active=None, schema=schema,
+    )
+
+
 def render_neubau():
     p = "../"
     faqs = [
@@ -2719,6 +2893,15 @@ GLOSSAR = [
      "Die Norm zur energetischen Bewertung von Gebäuden. Sie bilanziert Heizung, Kühlung, Lüftung, "
      "Trinkwarmwasser und Beleuchtung im Zusammenspiel und ist Grundlage für Bedarfsausweise und "
      "geförderte Energieberatungen von Nichtwohngebäuden.", "energieausweis-nichtwohngebaeude/"),
+    ("ISO 50001 – Energiemanagementsystem",
+     "Internationale Norm für Energiemanagementsysteme (in Deutschland DIN EN ISO 50001). Sie "
+     "verlangt einen fortlaufenden Verbesserungsprozess mit Energiepolitik, Kennzahlen, Zielen und "
+     "internen Audits. Wer ein zertifiziertes System betreibt, ist von der Energieaudit-Pflicht "
+     "befreit.", "energiemanagement-iso-50001/"),
+    ("EnEfG – Energieeffizienzgesetz",
+     "Verpflichtet Unternehmen mit mehr als 7,5 GWh Jahresverbrauch zu einem Energie- oder "
+     "Umweltmanagementsystem nach ISO 50001 oder EMAS. Ab 2,5 GWh sind zusätzlich Umsetzungspläne "
+     "für wirtschaftliche Effizienzmaßnahmen zu erstellen.", "energiemanagement-iso-50001/"),
     ("DIN EN 16247 – Energieaudit",
      "Norm für Energieaudits in Unternehmen. Nicht-KMU müssen alle vier Jahre ein solches Audit "
      "durchführen oder alternativ ein Energiemanagementsystem nach ISO 50001 betreiben.",
@@ -3422,7 +3605,7 @@ def render_llms_txt():
 - Geschäftsführer: Sebastian Hund, Vadim Berg, David Lamping
 - Adresse: Rolandsweg 80, 33102 Paderborn, Nordrhein-Westfalen (51.72685, 8.75601)
 - Kontakt: Telefon 05251 40 29 29 10 · E-Mail info@green-nwg.de · Mo–Fr 08:00–16:00 Uhr
-- Erfahrung: über 10 Jahre, mehr als 80 betreute Objekte
+- Erfahrung: über 10 Jahre, mehrere hundert betreute Objekte
 - Spezialisierung: ausschließlich Nichtwohngebäude (keine Wohnhäuser)
 - Unabhängigkeit: kein Produktverkauf, keine Provisionen, Festpreis vor Beauftragung
 - Einzugsgebiet: Ostwestfalen-Lippe und Hochstift (Paderborn, Bielefeld, Gütersloh,
@@ -3432,6 +3615,8 @@ def render_llms_txt():
 
 - Energieberatung & Energiekonzept nach DIN V 18599: {BASE}/loesungen/
 - Energieaudit nach DIN EN 16247 (Pflicht für Nicht-KMU alle 4 Jahre)
+- Einführung und Begleitung von Energiemanagementsystemen nach DIN EN ISO 50001,
+  von der Standortbestimmung bis zum Zertifizierungsaudit und darüber hinaus
 - Sanierungsfahrplan mit Kosten, Einsparung, CO2-Wirkung und Amortisation
 - Fördermittelservice inkl. Antragstellung: Bundesförderung Energieberatung
   Nichtwohngebäude (EBN) und Bundesförderung für effiziente Gebäude (BEG)
@@ -3487,6 +3672,20 @@ Modul 2 (Energieberatung DIN V 18599):
 - Nullemissionsstandard nach GModG: öffentliche Neubauten ab 2028, alle ab 2030
 - Details: {BASE}/neubau/
 
+## Energiemanagement nach ISO 50001 (Stand August 2026)
+
+- Energieeffizienzgesetz (EnEfG): Unternehmen mit mehr als 7,5 GWh Gesamtenergieverbrauch
+  im Jahr müssen ein Energiemanagementsystem nach ISO 50001 oder ein
+  Umweltmanagementsystem nach EMAS einrichten
+- Ab 2,5 GWh Jahresverbrauch: Pflicht zu Umsetzungsplänen für wirtschaftliche
+  Energieeffizienzmaßnahmen
+- Die Energieaudit-Pflicht nach DIN EN 16247 (EDL-G) entfällt, solange ein
+  zertifiziertes System nach ISO 50001 oder EMAS betrieben wird
+- Zuständige Behörde: Bundesamt für Wirtschaft und Ausfuhrkontrolle (BAFA)
+- Einführung und Zertifizierung dauern in der Regel 6 bis 12 Monate; das Zertifikat
+  gilt drei Jahre mit jährlichen Überwachungsaudits
+- Details: {BASE}/energiemanagement-iso-50001/
+
 ## Sanierungspflicht im Bestand (MEPS)
 
 - Erstmals verbindliche Mindesteffizienz-Standards für bestehende Nichtwohngebäude
@@ -3526,6 +3725,7 @@ Modul 2 (Energieberatung DIN V 18599):
 - [Neubau: QNG und KFN-Förderung]({BASE}/neubau/)
 - [Einsparrechner (kostenlos, ohne Anmeldung)]({BASE}/einsparrechner/)
 - [Energieaudit DIN EN 16247]({BASE}/energieaudit-din-en-16247/)
+- [Energiemanagement ISO 50001]({BASE}/energiemanagement-iso-50001/)
 - [Energieausweis für Nichtwohngebäude]({BASE}/energieausweis-nichtwohngebaeude/)
 - [Glossar: GModG, MEPS, DIN V 18599, EBN]({BASE}/glossar/)
 - [Ihre Vorteile]({BASE}/vorteile/): Kosten, Förderung, GModG-Pflichten, Immobilienwert
@@ -3584,6 +3784,7 @@ def main():
         "einsparrechner/index.html": render_rechner(),
         "foerderung/index.html": render_foerderung(),
         "neubau/index.html": render_neubau(),
+        "energiemanagement-iso-50001/index.html": render_enms(),
         "sanierungspflicht-nichtwohngebaeude/index.html": render_sanierungspflicht(),
         "energieausweis-nichtwohngebaeude/index.html": render_energieausweis(),
         "energieaudit-din-en-16247/index.html": render_energieaudit(),

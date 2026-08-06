@@ -271,7 +271,7 @@ INDUSTRIES = [
             ("Abwärme systematisch nutzen", "Abwärme aus Kompressoren und Prozessen heizt Hallen, Warmwasser oder benachbarte Gebäude."),
             ("Effiziente Hallenbeleuchtung", "LED-Hallenbeleuchtung mit Tageslicht- und Präsenzsteuerung – bessere Ausleuchtung, weniger Verbrauch."),
             ("Prozesswärme & Dämmung", "Gedämmte Leitungen, richtige Temperaturniveaus und Brennwerttechnik senken den Gasverbrauch sofort."),
-            ("Energieaudit DIN EN 16247", "Normkonformes <a href='../../energieaudit-din-en-16247/'>Energieaudit</a> für Nicht-KMU – als gesetzliche Pflicht und als belastbare Investitionsgrundlage."),
+            ("Energieaudit &amp; Energiemanagement", "Normkonformes <a href='../../energieaudit-din-en-16247/'>Energieaudit</a> nach DIN EN 16247 – oder gleich ein <a href='../../energiemanagement-iso-50001/'>Energiemanagementsystem nach ISO 50001</a>, mit dem die Auditpflicht entfällt."),
             ("Lastmanagement & PV", "Lastspitzen kappen, Netzentgelte senken und mit Photovoltaik auf Hallendächern eigenen Strom erzeugen."),
         ),
         "stat": ("30", "%", "der erzeugten Druckluft gehen in ungewarteten Systemen durch Leckagen verloren"),
@@ -489,7 +489,7 @@ FAQS = [
     (
         "Was ist ein Energieaudit nach DIN EN 16247 – und brauchen wir eins?",
         "Unternehmen, die kein KMU sind, sind gesetzlich verpflichtet, alle vier Jahre ein <a href='energieaudit-din-en-16247/'>Energieaudit</a> "
-        "durchzuführen (alternativ: Energiemanagementsystem). Ein gutes Audit ist aber mehr als "
+        "durchzuführen – alternativ ein <a href='energiemanagement-iso-50001/'>Energiemanagementsystem nach ISO 50001</a>, das die Auditpflicht ersetzt. Ein gutes Audit ist aber mehr als "
         "Pflichterfüllung: Es zeigt schwarz auf weiß, wo sich Investitionen zuerst lohnen. Wir führen "
         "Audits normkonform und pragmatisch durch.",
     ),
