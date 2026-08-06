@@ -15,6 +15,50 @@ from illustrations import ILLUSTRATIONS
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 BASE = COMPANY["base_url"]
+BUILD_DATE = "2026-08-06"  # Stand der Inhalte (sitemap lastmod, Article-Schema)
+
+# Fotos: Metadaten (Alt-Text, Lizenz, Urheber) aus photos.json
+with open(os.path.join(ROOT, "photos.json"), encoding="utf-8") as _f:
+    PHOTOS = {p["name"]: p for p in json.load(_f)}
+PHOTO_W, PHOTO_H = 1000, 562
+
+
+def photo(name, p, caption=None, cls="", sizes="(max-width: 860px) 92vw, 46vw", eager=False):
+    """Responsives Foto mit srcset, fester Größe (kein Layout-Shift) und Alt-Text."""
+    ph = PHOTOS[name]
+    base = f"{p}assets/img/fotos/{name}"
+    loading = "" if eager else ' loading="lazy" decoding="async"'
+    fetch = ' fetchpriority="high"' if eager else ""
+    img = (
+        f'<img src="{base}-1000.webp" srcset="{base}-500.webp 500w, {base}-1000.webp 1000w" '
+        f'sizes="{sizes}" width="{PHOTO_W}" height="{PHOTO_H}" alt="{ph["alt"]}"{loading}{fetch}>'
+    )
+    cap = f"<figcaption>{caption}</figcaption>" if caption else ""
+    return f'<figure class="photo {cls}">{img}{cap}</figure>'
+
+
+def photo_img(name, p, sizes="(max-width: 700px) 92vw, 30vw"):
+    """Nacktes <img> für Karten (ohne figure-Rahmen)."""
+    ph = PHOTOS[name]
+    base = f"{p}assets/img/fotos/{name}"
+    return (
+        f'<img src="{base}-500.webp" srcset="{base}-500.webp 500w, {base}-1000.webp 1000w" '
+        f'sizes="{sizes}" width="{PHOTO_W}" height="{PHOTO_H}" alt="{ph["alt"]}" '
+        f'loading="lazy" decoding="async">'
+    )
+
+
+# Branche -> Foto
+INDUSTRY_PHOTO = {
+    "buero": "buero",
+    "einzelhandel": "einzelhandel",
+    "produktion": "produktion",
+    "veranstaltung": "veranstaltung",
+    "bildung": "bildung",
+    "kindergarten": "kindergarten",
+    "kommune": "kommune",
+    "andere": "logistik",
+}
 
 # ---------------------------------------------------------------------------
 # SVG-Bausteine
@@ -247,6 +291,7 @@ def header(p, active):
     </button>
     <nav class="site-nav" id="site-nav" aria-label="Hauptnavigation">
       {''.join(links)}
+      <a href="{p}einsparrechner/">Rechner</a>
       <a class="btn btn--primary nav-cta" href="{p}beratungstermin/">Beratungstermin</a>
     </nav>
   </div>
@@ -274,9 +319,14 @@ def footer(p):
         <h3>Unternehmen</h3>
         <ul>
           <li><a href="{p}vorteile/">Ihre Vorteile</a></li>
+          <li><a href="{p}einsparrechner/">Einsparrechner</a></li>
           <li><a href="{p}gmodg-nichtwohngebaeude/">GModG 2026 – Überblick</a></li>
+          <li><a href="{p}foerderung/">Förderung &amp; Zuschüsse</a></li>
           <li><a href="{p}ueber-uns/">Über uns</a></li>
           <li><a href="{p}einzugsgebiet/">Einzugsgebiet OWL &amp; NRW</a></li>
+          <li><a href="{p}energieaudit-din-en-16247/">Energieaudit DIN EN 16247</a></li>
+          <li><a href="{p}energieausweis-nichtwohngebaeude/">Energieausweis</a></li>
+          <li><a href="{p}glossar/">Glossar</a></li>
           <li><a href="{p}kontakt/">Kontakt</a></li>
           <li><a href="{p}beratungstermin/">Beratungstermin</a></li>
         </ul>
@@ -297,6 +347,7 @@ def footer(p):
         <a href="{p}impressum/">Impressum</a>
         <a href="{p}datenschutz/">Datenschutz</a>
         <a href="{p}agb/">AGB</a>
+        <a href="{p}bildnachweis/">Bildnachweis</a>
       </nav>
       <span class="footer-note">Diese Website lädt keine externen Dienste &amp; setzt keine Cookies.</span>
     </div>
@@ -351,6 +402,10 @@ def page(path, title, desc, body, active="", schema=None, depth=None):
 {body}
   </main>
   {footer(p)}
+  <div class="sticky-cta">
+    <a class="btn btn--light" href="{p}beratungstermin/">Kostenloses Erstgespräch</a>
+    <a class="btn btn--ghost-light" href="tel:{COMPANY['phone_link']}" aria-label="Anrufen">{icon('phone')}</a>
+  </div>
   <script src="{p}assets/js/main.js" defer></script>
 </body>
 </html>"""
@@ -418,11 +473,13 @@ def cta_band(p, title="Bereit für niedrigere Energiekosten?",
 def render_home():
     p = ""
     industry_cards = "".join(
-        f"""<a class="card reveal" href="{p}services/{i['slug']}/">
-      <span class="card-icon">{icon(i['slug'])}</span>
-      <h3>{i['name']}</h3>
-      <p>{i['card']}</p>
-      <span class="card-more">Mehr erfahren {icon('arrow')}</span>
+        f"""<a class="card card--photo reveal" href="{p}services/{i['slug']}/">
+      {photo_img(INDUSTRY_PHOTO[i['slug']], p)}
+      <div class="card-body">
+        <h3>{i['name']}</h3>
+        <p>{i['card']}</p>
+        <span class="card-more">Mehr erfahren {icon('arrow')}</span>
+      </div>
     </a>"""
         for i in INDUSTRIES
     )
@@ -498,15 +555,15 @@ def render_home():
       <h1>Bis zu <span class="accent">70&#8239;% weniger</span> Energiekosten für Ihr Gebäude.</h1>
       <p class="lead">GREEN ist die spezialisierte Energieberatung für Nichtwohngebäude:
       Wir analysieren Büro, Produktion, Handel oder Schule, entwickeln Ihr
-      Energiekonzept und sichern bis zu 50&#8239;% Förderung – unabhängig, persönlich
+      Energiekonzept und sichern die staatliche Förderung – unabhängig, persönlich
       und mit Festpreis.</p>
       <div class="hero-ctas">
         <a class="btn btn--primary btn--lg" href="beratungstermin/">{icon('calendar')} Kostenloses Erstgespräch</a>
-        <a class="btn btn--ghost btn--lg" href="loesungen/">Lösungen entdecken</a>
+        <a class="btn btn--ghost btn--lg" href="einsparrechner/">{icon('chart')} Einsparung berechnen</a>
       </div>
       <ul class="hero-trust">
         <li>{icon('check')} 80+ betreute Objekte</li>
-        <li>{icon('check')} bis zu 50&#8239;% Förderung</li>
+        <li>{icon('check')} 50&#8239;% Förderung, max. 4.000&#8239;€</li>
         <li>{icon('check')} keine versteckten Kosten</li>
       </ul>
     </div>
@@ -587,13 +644,16 @@ def render_home():
     <div class="callout reveal">
       <div>
         <h2>Der Staat zahlt die Hälfte Ihrer Beratung.</h2>
-        <p>Über die Bundesförderung für Energieberatung für Nichtwohngebäude (EBN)
-        werden bis zu 50&#8239;% des Beratungshonorars bezuschusst. Auch Ihre
-        Sanierungsmaßnahmen sind förderfähig – wir übernehmen die komplette
-        Antragstellung.</p>
-        <a class="btn btn--light" href="beratungstermin/">Förderung sichern {icon('arrow')}</a>
+        <p>Die Bundesförderung für Energieberatung für Nichtwohngebäude (EBN) übernimmt
+        50&#8239;% des Beratungshonorars – gestaffelt nach Fläche bis maximal 4.000&#8239;€.
+        Auch die Sanierung selbst ist förderfähig. Wir übernehmen die komplette
+        Antragstellung, in der richtigen Reihenfolge.</p>
+        <div class="hero-ctas" style="margin-bottom:0">
+          <a class="btn btn--light" href="foerderung/">Förderung im Detail {icon('arrow')}</a>
+          <a class="btn btn--ghost-light" href="beratungstermin/">Anspruch prüfen lassen</a>
+        </div>
       </div>
-      <div class="big-number">50&#8239;%<small>Zuschuss zur Energieberatung</small></div>
+      <div class="big-number">50&#8239;%<small>des Honorars, max. 4.000&#8239;€</small></div>
     </div>
   </div>
 </section>
@@ -747,11 +807,13 @@ def render_home():
 def render_loesungen():
     p = "../"
     cards = "".join(
-        f"""<a class="card reveal" href="{p}services/{i['slug']}/">
-      <span class="card-icon">{icon(i['slug'])}</span>
-      <h3>{i['name']}</h3>
-      <p>{i['card']}</p>
-      <span class="card-more">Zur Branchenlösung {icon('arrow')}</span>
+        f"""<a class="card card--photo reveal" href="{p}services/{i['slug']}/">
+      {photo_img(INDUSTRY_PHOTO[i['slug']], p)}
+      <div class="card-body">
+        <h3>{i['name']}</h3>
+        <p>{i['card']}</p>
+        <span class="card-more">Zur Branchenlösung {icon('arrow')}</span>
+      </div>
     </a>"""
         for i in INDUSTRIES
     )
@@ -844,7 +906,7 @@ def render_industry(ind):
       {intro_ps}
     </div>
     <div class="reveal reveal-d1">
-      {figure(f"schema-{ind['slug']}", f"Abb. – Energiekonzept {ind['name']} (Schema)")}
+      {photo(INDUSTRY_PHOTO[ind['slug']], p, eager=True)}
       <div class="callout illus--pad" style="grid-template-columns:1fr;padding:1.6rem">
         <div class="big-number">{stat_value}{'&#8239;' + stat_unit if stat_unit else ''}<small>{stat_label}</small></div>
       </div>
@@ -871,6 +933,7 @@ def render_industry(ind):
       Sie entscheiden auf Basis von Zahlen, nicht von Versprechen.</p>
     </div>
     <ul class="feature-list">{measures}</ul>
+    {figure(f"schema-{ind['slug']}", f"Abb. – Energiekonzept {ind['name']} (Schema)", "illus--pad")}
   </div>
 </section>
 
@@ -878,13 +941,16 @@ def render_industry(ind):
   <div class="container">
     <div class="callout reveal">
       <div>
-        <h2>Bis zu 50&#8239;% Förderung – auch für Ihr Gebäude.</h2>
-        <p>Die Energieberatung für Nichtwohngebäude wird vom Bund bezuschusst.
-        Wir prüfen Ihre Fördermöglichkeiten im kostenlosen Erstgespräch und
-        übernehmen die komplette Antragstellung.</p>
-        <a class="btn btn--light" href="{p}beratungstermin/">Kostenloses Erstgespräch {icon('arrow')}</a>
+        <h2>50&#8239;% Förderung – auch für Ihr Gebäude.</h2>
+        <p>Der Bund bezuschusst die Energieberatung für Nichtwohngebäude mit 50&#8239;% des
+        Honorars, gestaffelt nach Fläche bis maximal 4.000&#8239;€. Wir prüfen im kostenlosen
+        Erstgespräch, ob Sie antragsberechtigt sind, und übernehmen die Antragstellung.</p>
+        <div class="hero-ctas" style="margin-bottom:0">
+          <a class="btn btn--light" href="{p}beratungstermin/">Kostenloses Erstgespräch {icon('arrow')}</a>
+          <a class="btn btn--ghost-light" href="{p}foerderung/">Förderbedingungen</a>
+        </div>
       </div>
-      <div class="big-number">50&#8239;%<small>Zuschuss zur Beratung</small></div>
+      <div class="big-number">50&#8239;%<small>des Honorars, max. 4.000&#8239;€</small></div>
     </div>
   </div>
 </section>
@@ -991,7 +1057,10 @@ def render_vorteile():
       planbar, gefördert und ohne Betriebsunterbrechung.</p>
       <a class="btn btn--primary" href="{p}beratungstermin/">Fahrplan erstellen lassen {icon('arrow')}</a>
     </div>
-    {figure("sanierungsfahrplan", "Abb. – Sanierungsfahrplan (Schema): Energiekosten sinken in Stufen")}
+    <div class="reveal reveal-d1">
+      {figure("sanierungsfahrplan", "Abb. – Sanierungsfahrplan (Schema): Energiekosten sinken in Stufen")}
+      {photo("photovoltaik", p, cls="illus--pad")}
+    </div>
   </div>
 </section>
 
@@ -1057,7 +1126,8 @@ def render_ueber_uns():
       und einem Faible für ehrliche Zahlen.</p>
     </div>
     <div class="reveal reveal-d1">
-      {figure("standort-paderborn", "Abb. – Unser Büro am Rolandsweg 80, Paderborn")}
+      {photo("beratung-gespraech", p, "Beratung heißt bei uns: gemeinsam vor Ort, nicht per Formular.", eager=True)}
+      {figure("standort-paderborn", "Abb. – Unser Büro am Rolandsweg 80, Paderborn", "illus--pad")}
       <ul class="checklist illus--pad" style="margin-bottom:0">
         <li><strong>Persönlicher Kontakt</strong> statt anonymer Portale – Sie kennen Ihren Berater beim Namen.</li>
         <li><strong>Unabhängige Beratung</strong> – wir verkaufen keine Produkte und nehmen keine Provisionen.</li>
@@ -1296,6 +1366,150 @@ def render_termin():
 
 
 # ---------------------------------------------------------------------------
+# Einsparrechner
+# ---------------------------------------------------------------------------
+
+def render_rechner():
+    p = "../"
+    opts = "".join(
+        f'<option value="{v}"{" selected" if v == "buero" else ""}>{l}</option>'
+        for v, l in [
+            ("buero", "Bürogebäude / Verwaltung"),
+            ("einzelhandel", "Einzelhandel / Verkaufsfläche"),
+            ("produktion", "Produktion / Werkstatt"),
+            ("veranstaltung", "Veranstaltungsstätte / Halle"),
+            ("bildung", "Schule / Hochschule"),
+            ("kindergarten", "Kindergarten / Kita"),
+            ("kommune", "Kommunales Verwaltungsgebäude"),
+            ("hotel", "Hotel / Pflege / 24-Stunden-Betrieb"),
+        ]
+    )
+    body = f"""
+{page_hero(p, [("einsparrechner/", "Einsparrechner")], "Kostenloses Werkzeug",
+           "Einsparrechner für Nichtwohngebäude",
+           "In 30 Sekunden zur ersten Einschätzung: Wie hoch sind Ihre Energiekosten "
+           "voraussichtlich – und wie viel davon lässt sich realistisch einsparen?")}
+
+<section class="section">
+  <div class="container">
+    <div class="calc" id="rechner">
+      <div class="calc-inputs reveal">
+        <div class="calc-field">
+          <label for="r-typ">Gebäudetyp</label>
+          <select id="r-typ">{opts}</select>
+        </div>
+        <div class="calc-field">
+          <label for="r-flaeche">Nutzfläche in m²</label>
+          <input id="r-flaeche" type="number" min="50" max="200000" step="50" value="2500" inputmode="numeric">
+          <span class="calc-hint">Beheizte Nettogrundfläche, grob geschätzt genügt</span>
+        </div>
+        <div class="calc-field">
+          <label for="r-zustand">Energetischer Zustand</label>
+          <select id="r-zustand">
+            <option value="alt">Unsaniert – Technik und Hülle älter als ca. 25 Jahre</option>
+            <option value="teil" selected>Teilsaniert – einzelne Maßnahmen umgesetzt</option>
+            <option value="neu">Weitgehend saniert oder Neubau</option>
+          </select>
+        </div>
+        <div class="calc-row">
+          <div class="calc-field">
+            <label for="r-preis-strom">Strompreis (ct/kWh)</label>
+            <input id="r-preis-strom" type="number" min="5" max="80" step="0.5" value="25" inputmode="decimal">
+          </div>
+          <div class="calc-field">
+            <label for="r-preis-waerme">Wärmepreis (ct/kWh)</label>
+            <input id="r-preis-waerme" type="number" min="2" max="40" step="0.5" value="10" inputmode="decimal">
+          </div>
+        </div>
+        <p class="calc-hint" style="margin:0">Ihre Eingaben bleiben im Browser – es werden
+        keine Daten übertragen oder gespeichert.</p>
+      </div>
+
+      <div class="calc-result reveal reveal-d1">
+        <p class="calc-headline-label">Mögliche Ersparnis pro Jahr</p>
+        <p class="calc-headline" id="r-sparen">–</p>
+
+        <div class="calc-bars">
+          <div class="calc-bar-row">
+            <span class="calc-bar-label">Heute</span>
+            <div class="calc-bar-track">
+              <div class="calc-bar-fill calc-bar-fill--ist" id="r-bar-ist"><span id="r-ist">–</span></div>
+            </div>
+          </div>
+          <div class="calc-bar-row">
+            <span class="calc-bar-label">Nach Sanierung</span>
+            <div class="calc-bar-track">
+              <div class="calc-bar-fill calc-bar-fill--neu" id="r-bar-neu"><span id="r-neu">–</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="calc-facts">
+          <div class="calc-fact"><b id="r-quote">–</b><span>Einsparpotenzial</span></div>
+          <div class="calc-fact"><b id="r-sparen-10">–</b><span>in 10 Jahren</span></div>
+          <div class="calc-fact"><b id="r-co2">–</b><span>CO₂ pro Jahr</span></div>
+          <div class="calc-fact"><b id="r-verbrauch">–</b><span>Verbrauch heute p. a.</span></div>
+        </div>
+
+        <div class="hero-ctas" style="margin-bottom:0">
+          <a class="btn btn--light" href="{p}beratungstermin/">{icon('calendar')} Genaue Zahlen im Erstgespräch</a>
+        </div>
+
+        <p class="calc-disclaimer">Die Werte beruhen auf durchschnittlichen
+        Verbrauchskennwerten für <span id="r-flaeche-out">–</span> Nutzfläche und sind eine
+        grobe Orientierung, keine Zusage. Der tatsächliche Verbrauch hängt von Anlagentechnik,
+        Nutzungszeiten, Baujahr und Nutzerverhalten ab und weicht im Einzelfall deutlich ab.
+        Belastbare Zahlen liefert erst die Analyse vor Ort – die ist bei uns kostenlos
+        im Erstgespräch angelegt.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--surface">
+  <div class="container split">
+    <div class="reveal">
+      <p class="eyebrow">Vom Schätzwert zur Sicherheit</p>
+      <h2>Was der Rechner nicht kann – und wir schon</h2>
+      <p>Ein Rechner arbeitet mit Durchschnitten. Ihr Gebäude ist aber kein Durchschnitt:
+      Eine Lüftungsanlage, die nachts durchläuft, eine Kälteanlage ohne Türen oder ein
+      Druckluftnetz mit Leckagen verschieben das Ergebnis um Zehntausende Euro – nach oben
+      wie nach unten.</p>
+      <p>Deshalb messen wir, statt zu schätzen: Wir werten Ihre Verbrauchsdaten aus, erfassen
+      Anlagen und Gebäudehülle vor Ort und rechnen jede Maßnahme einzeln durch – mit Kosten,
+      Einsparung, Förderung und Amortisationszeit. Das Ergebnis ist keine Prozentzahl,
+      sondern eine Entscheidungsgrundlage.</p>
+      <a class="btn btn--primary" href="{p}beratungstermin/">Kostenloses Erstgespräch {icon('arrow')}</a>
+    </div>
+    {photo("beratung-daten", p, "Belastbare Zahlen entstehen aus echten Verbrauchsdaten, nicht aus Durchschnitten.")}
+  </div>
+</section>
+
+{cta_band(p)}
+"""
+    schema = {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Einsparrechner für Nichtwohngebäude",
+        "url": f"{BASE}/einsparrechner/",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Web",
+        "inLanguage": "de",
+        "offers": {"@type": "Offer", "price": "0", "priceCurrency": "EUR"},
+        "publisher": {"@id": f"{BASE}/#organization"},
+        "description": "Kostenloser Rechner: schätzt Energiekosten, Einsparpotenzial und CO₂-Reduktion für Büro-, Handels-, Produktions-, Bildungs- und kommunale Gebäude.",
+    }
+    return page(
+        "einsparrechner/",
+        "Einsparrechner: Energiekosten für Nichtwohngebäude schätzen | GREEN",
+        "Kostenloser Einsparrechner für Nichtwohngebäude: Energiekosten, Einsparpotenzial und CO₂-Reduktion in 30 Sekunden schätzen – ohne Anmeldung, ohne Datenübertragung.",
+        body,
+        active=None,
+        schema=schema,
+    )
+
+
+# ---------------------------------------------------------------------------
 # GModG 2026 (Gesetzes-Überblick)
 # ---------------------------------------------------------------------------
 
@@ -1381,9 +1595,47 @@ def render_gmodg():
     {figure("gmodg-bio-treppe", "Abb. – Die Bio-Treppe für neue Gas- und Ölheizungen")}
     {figure("gmodg-nullemission", "Abb. – Nullemissionsstandard für Neubauten (öffentlich ab 2028, alle ab 2030)")}
   </div>
+  <div class="container illus--pad">
+    <div class="photo-band">
+      {photo("gebaeudehuelle", p)}
+      {photo("nichtwohngebaeude", p)}
+      {photo("solarpark", p)}
+    </div>
+  </div>
 </section>
 
 <section class="section section--surface">
+  <div class="container">
+    <div class="section-head reveal">
+      <p class="eyebrow">Vorher / nachher</p>
+      <h2>Was sich gegenüber dem GEG geändert hat</h2>
+      <p class="lead">Die wichtigsten Unterschiede zwischen dem alten Gebäudeenergiegesetz
+      und dem GModG auf einen Blick – bezogen auf Nichtwohngebäude.</p>
+    </div>
+    <div class="table-wrap reveal">
+      <table class="data-table">
+        <thead><tr><th>Thema</th><th>GEG (bis 2026)</th><th>GModG (seit 29.07.2026)</th></tr></thead>
+        <tbody>
+          <tr><td>Neue Heizungen</td><td>65 % erneuerbare Energien vorgeschrieben</td>
+              <td>Technologieoffen; Gas und Öl erlaubt, dafür Bio-Treppe 10 % (2029) bis 60 % (2040)</td></tr>
+          <tr><td>Bestandsgebäude</td><td>Keine allgemeine Sanierungspflicht</td>
+              <td>MEPS: max. 3,5-facher Referenzwert ab 2030, 2,95-facher ab 2033</td></tr>
+          <tr><td>Gebäudeautomation</td><td>Pflicht ab 290 kW</td>
+              <td>Pflicht ab 70 kW, Nachrüstung bis 31.12.2029</td></tr>
+          <tr><td>Energieausweis</td><td>Verbrauchsausweis zulässig</td>
+              <td>Ab 1.1.2027 nur noch Bedarfsausweis, neue Effizienzklassen</td></tr>
+          <tr><td>Neubau</td><td>Effizienzgebäude-Anforderungen</td>
+              <td>Nullemissionsstandard: öffentlich ab 2028, alle ab 2030</td></tr>
+          <tr><td>Photovoltaik</td><td>Keine bundesweite Pflicht</td>
+              <td>Solarpflicht wird ab 1.1.2027 schrittweise eingeführt</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="mono-note">Stand: August 2026 · Verkündet am 28.07.2026 im Bundesgesetzblatt Nr. 226</p>
+  </div>
+</section>
+
+<section class="section">
   <div class="container">
     <div class="section-head reveal">
       <p class="eyebrow">Was heißt das für Sie?</p>
@@ -1453,6 +1705,488 @@ def render_gmodg():
 
 
 # ---------------------------------------------------------------------------
+# Wissens- und Leistungsseiten (SEO/GEO)
+# ---------------------------------------------------------------------------
+
+def render_foerderung():
+    p = "../"
+    faqs = [
+        ("Wie hoch ist die Förderung für eine Energieberatung wirklich?",
+         "Der Bund übernimmt 50 % des förderfähigen Beratungshonorars. Der Zuschuss ist allerdings "
+         "nach Gebäudegröße gedeckelt: bis 200 m² Nettogrundfläche maximal 850 €, bei 200 bis 500 m² "
+         "maximal 2.500 € und ab 500 m² maximal 4.000 €. Die Hälfte des Honorars gibt es also nur "
+         "bis zu diesen Obergrenzen – alles darüber tragen Sie selbst."),
+        ("Wer ist überhaupt antragsberechtigt?",
+         "Antragsberechtigt sind kommunale Gebietskörperschaften und Zweckverbände, gemeinnützige "
+         "Organisationen und Religionsgemeinschaften, kleine und mittlere Unternehmen (bis 250 "
+         "Beschäftigte und höchstens 50 Mio. € Jahresumsatz) sowie Nicht-KMU mit einem "
+         "Gesamtenergieverbrauch von maximal 500.000 kWh pro Jahr. Große Energieverbraucher fallen "
+         "damit aus der EBN heraus – für sie ist das Energieaudit nach DIN EN 16247 der richtige Weg."),
+        ("Muss der Antrag vor Beauftragung gestellt werden?",
+         "Ja. Der Förderantrag muss beim BAFA gestellt und bewilligt sein, bevor die Beratung "
+         "beginnt. Wer zuerst beauftragt und dann den Antrag stellt, verliert den Zuschuss. Wir "
+         "übernehmen die Antragstellung und stimmen den Projektstart darauf ab."),
+        ("Werden auch die Baumaßnahmen selbst gefördert?",
+         "Ja, aber über andere Programme – vor allem die Bundesförderung für effiziente Gebäude (BEG) "
+         "für Einzelmaßnahmen und Effizienzgebäude, dazu Landes- und Kommunalprogramme sowie "
+         "zinsgünstige KfW-Kredite. Welche Kombination für Ihr Vorhaben die höchste Quote ergibt, "
+         "prüfen wir im Rahmen der Beratung; die Sätze ändern sich regelmäßig."),
+        ("Was kostet die Beratung unter dem Strich?",
+         "Das hängt von Größe und Komplexität des Gebäudes ab. Wir nennen Ihnen vor der Beauftragung "
+         "einen Festpreis und rechnen offen vor, welcher Zuschuss realistisch übrig bleibt – "
+         "inklusive Deckelung. So wissen Sie vorher, was Sie tatsächlich zahlen."),
+    ]
+    faq_items = "".join(
+        f'<details class="faq reveal"><summary>{q}</summary><div class="faq-body"><p>{a}</p></div></details>'
+        for q, a in faqs
+    )
+    body = f"""
+{page_hero(p, [("foerderung/", "Förderung")], "Fördermittel",
+           "Förderung für Energieberatung und Sanierung",
+           "Wie viel Zuschuss es wirklich gibt, wer ihn bekommt und worauf Sie achten müssen – "
+           "ohne Werbeversprechen, mit den echten Obergrenzen.")}
+
+<section class="section">
+  <div class="container">
+    <div class="section-head reveal">
+      <p class="eyebrow">Antwort zuerst</p>
+      <h2>50 % Zuschuss – aber gedeckelt</h2>
+      <p class="lead">Die Bundesförderung für Energieberatung für Nichtwohngebäude, Anlagen und
+      Systeme (EBN) übernimmt <strong>50 % des förderfähigen Beratungshonorars</strong>. Der
+      Zuschuss ist nach Nettogrundfläche gestaffelt und endet bei maximal 4.000 €.</p>
+    </div>
+    <div class="table-wrap reveal">
+      <table class="data-table">
+        <thead><tr><th>Nettogrundfläche</th><th>Fördersatz</th><th>Maximaler Zuschuss</th></tr></thead>
+        <tbody>
+          <tr><td>unter 200 m²</td><td>50 %</td><td>850 €</td></tr>
+          <tr><td>200 – 500 m²</td><td>50 %</td><td>2.500 €</td></tr>
+          <tr><td>über 500 m²</td><td>50 %</td><td>4.000 €</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="mono-note">Stand: August 2026 · Quelle: BAFA, Bundesförderung Energieberatung für
+    Nichtwohngebäude, Anlagen und Systeme (Modul 2, Energieberatung DIN V 18599)</p>
+  </div>
+</section>
+
+<section class="section section--surface">
+  <div class="container split">
+    <div class="reveal">
+      <p class="eyebrow">Antragsberechtigt</p>
+      <h2>Wer den Zuschuss bekommt</h2>
+      <ul class="checklist">
+        <li>Kommunale Gebietskörperschaften und Zweckverbände</li>
+        <li>Gemeinnützige Organisationen und Religionsgemeinschaften</li>
+        <li>Kleine und mittlere Unternehmen – bis 250 Beschäftigte und höchstens 50 Mio. € Jahresumsatz</li>
+        <li>Nicht-KMU mit einem Gesamtenergieverbrauch bis 500.000 kWh pro Jahr</li>
+      </ul>
+      <p>Fällt Ihr Unternehmen nicht darunter, ist die EBN nicht der richtige Weg – dann führt der
+      Einstieg meist über das <a href="{p}energieaudit-din-en-16247/">Energieaudit nach DIN EN 16247</a>,
+      das für Nicht-KMU ohnehin verpflichtend ist.</p>
+    </div>
+    {photo("beratung-daten", p, "Vor dem Antrag steht die ehrliche Rechnung: Was bleibt netto übrig?")}
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head reveal">
+      <p class="eyebrow">Reihenfolge</p>
+      <h2>Erst Antrag, dann Auftrag – nie umgekehrt</h2>
+      <p class="lead">Der häufigste und teuerste Fehler: zuerst beauftragen, dann Förderung
+      beantragen. Damit ist der Zuschuss verloren. Wir halten die Reihenfolge ein.</p>
+    </div>
+    {figure("prozess-ablauf", "Abb. – Ablauf mit korrekt eingeordneter Antragstellung")}
+  </div>
+</section>
+
+<section class="section section--dark">
+  <div class="container">
+    <div class="section-head reveal">
+      <p class="eyebrow">Und die Sanierung?</p>
+      <h2>Förderung für die Maßnahmen selbst</h2>
+      <p class="lead">Neben der Beratung sind auch die baulichen und technischen Maßnahmen
+      förderfähig – über andere Programme mit eigenen Regeln.</p>
+    </div>
+    <ul class="feature-list">
+      <li class="feature reveal"><span class="feature-icon">{icon('euro')}</span>
+        <div><h3>BEG – Bundesförderung effiziente Gebäude</h3>
+        <p>Zuschüsse für Einzelmaßnahmen wie Gebäudehülle, Anlagentechnik und Heizungstausch sowie
+        für den Effizienzgebäude-Standard. Die Sätze werden regelmäßig angepasst – wir prüfen den
+        jeweils gültigen Stand für Ihr Vorhaben.</p></div></li>
+      <li class="feature reveal"><span class="feature-icon">{icon('chart')}</span>
+        <div><h3>KfW-Kredite</h3>
+        <p>Zinsgünstige Darlehen, teils mit Tilgungszuschuss – besonders interessant, wenn größere
+        Sanierungspakete finanziert werden müssen.</p></div></li>
+      <li class="feature reveal"><span class="feature-icon">{icon('kommune')}</span>
+        <div><h3>Landes- und Kommunalprogramme</h3>
+        <p>NRW und viele Kommunen legen eigene Programme auf, die sich mit Bundesmitteln
+        kombinieren lassen. Gerade für kommunale Träger lohnt der Blick.</p></div></li>
+      <li class="feature reveal"><span class="feature-icon">{icon('doc')}</span>
+        <div><h3>Antragstellung inklusive</h3>
+        <p>Wir recherchieren die passenden Programme, erstellen die Unterlagen und begleiten den
+        Antrag – Sie unterschreiben, wir kümmern uns um den Rest.</p></div></li>
+    </ul>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head reveal">
+      <p class="eyebrow">Häufige Fragen zur Förderung</p>
+      <h2>Klar beantwortet</h2>
+    </div>
+    <div class="faq-list">{faq_items}</div>
+    <div class="notice reveal" style="margin-top:2rem">
+      <strong>Hinweis:</strong> Förderprogramme ändern sich laufend. Die hier genannten Werte
+      entsprechen dem Stand August 2026; maßgeblich sind die jeweils gültigen Richtlinien des
+      Bundesamts für Wirtschaft und Ausfuhrkontrolle. Offizielle Informationen finden Sie unter
+      <a href="https://www.bafa.de/" rel="noopener" target="_blank">bafa.de&nbsp;↗</a>.
+      Was für Ihr Gebäude gilt, prüfen wir individuell.
+    </div>
+  </div>
+</section>
+
+{cta_band(p, "Wie viel Förderung bleibt für Sie übrig?",
+          "Im kostenlosen Erstgespräch rechnen wir Ihnen Honorar, Zuschuss und Eigenanteil offen vor – bevor Sie sich entscheiden.")}
+"""
+    schema = {
+        "@context": "https://schema.org",
+        "@graph": [
+            {"@type": "FAQPage", "mainEntity": [
+                {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}}
+                for q, a in faqs]},
+            {"@type": "BreadcrumbList", "itemListElement": [
+                {"@type": "ListItem", "position": 1, "name": "Start", "item": f"{BASE}/"},
+                {"@type": "ListItem", "position": 2, "name": "Förderung", "item": f"{BASE}/foerderung/"}]},
+        ],
+    }
+    return page(
+        "foerderung/",
+        "Förderung Energieberatung Nichtwohngebäude: 50 % bis 4.000 € | GREEN",
+        "Wie viel Förderung gibt es wirklich? 50 % des Beratungshonorars, gedeckelt auf 850–4.000 € je nach Fläche. Antragsberechtigte, Fristen und BEG-Förderung im Überblick.",
+        body, active=None, schema=schema,
+    )
+
+
+def render_energieausweis():
+    p = "../"
+    faqs = [
+        ("Brauchen wir einen Bedarfs- oder einen Verbrauchsausweis?",
+         "Für Nichtwohngebäude ist die Frage seit dem GModG entschieden: Ab dem 1. Januar 2027 sind "
+         "Verbrauchsausweise für Nichtwohngebäude nicht mehr zulässig. Energieausweise müssen dann "
+         "auf einer energetischen Bilanzierung beruhen – also als Bedarfsausweis erstellt werden."),
+        ("Wann brauche ich überhaupt einen Energieausweis?",
+         "Immer bei Verkauf, Neuvermietung oder Verpachtung – der Ausweis muss Interessenten "
+         "unaufgefordert vorgelegt werden. Bei Gebäuden mit starkem Publikumsverkehr besteht "
+         "zusätzlich eine Aushangpflicht. Auch für Neubau und größere Sanierungen sind Nachweise nötig."),
+        ("Wie lange ist ein Energieausweis gültig?",
+         "Zehn Jahre ab Ausstellung. Wird das Gebäude zwischenzeitlich wesentlich saniert, lohnt "
+         "sich eine Neuausstellung meist früher – die bessere Effizienzklasse wirkt direkt auf "
+         "Miete, Verkaufspreis und Finanzierungskonditionen."),
+        ("Was kostet ein Bedarfsausweis für ein Nichtwohngebäude?",
+         "Deutlich mehr als bei einem Wohnhaus, weil die Bilanzierung nach DIN V 18599 Gebäudehülle, "
+         "Anlagentechnik, Zonierung und Nutzungsprofile abbildet. Der Aufwand hängt von Größe und "
+         "Zonenvielfalt ab. Sinnvoll ist, den Ausweis gleich mit einer Energieberatung zu verbinden: "
+         "Die Datenaufnahme fällt dann nur einmal an."),
+    ]
+    faq_items = "".join(
+        f'<details class="faq reveal"><summary>{q}</summary><div class="faq-body"><p>{a}</p></div></details>'
+        for q, a in faqs)
+    body = f"""
+{page_hero(p, [("energieausweis-nichtwohngebaeude/", "Energieausweis")], "Leistung",
+           "Energieausweis für Nichtwohngebäude",
+           "Ab 2027 gilt für Nichtwohngebäude der Bedarfsausweis – Verbrauchsausweise sind dann "
+           "nicht mehr zulässig. Wir erstellen die Bilanzierung nach DIN V 18599.")}
+
+<section class="section">
+  <div class="container split">
+    <div class="reveal">
+      <p class="eyebrow">Das Wichtigste zuerst</p>
+      <h2>Der Verbrauchsausweis läuft aus</h2>
+      <p>Bislang konnten viele Nichtwohngebäude ihren Energieausweis auf Basis der reinen
+      Verbrauchsdaten erstellen lassen – schnell und günstig, aber wenig aussagekräftig, weil das
+      Nutzerverhalten das Ergebnis dominiert.</p>
+      <p>Mit dem Gebäudemodernisierungsgesetz ist damit Schluss: <strong>Ab dem 1. Januar 2027 sind
+      Verbrauchsausweise für Nichtwohngebäude nicht mehr zulässig.</strong> Erforderlich ist dann
+      eine energetische Bilanzierung – der Bedarfsausweis. Neu sind außerdem Effizienzklassen auf
+      Basis des Primärenergiereferenzfaktors.</p>
+      <p>Das ist mehr Aufwand, aber auch mehr wert: Ein Bedarfsausweis zeigt, wo das Gebäude
+      Energie verliert – und ist damit die halbe Sanierungsplanung.</p>
+      <a class="btn btn--primary" href="{p}beratungstermin/">Ausweis anfragen {icon('arrow')}</a>
+    </div>
+    {photo("gebaeudehuelle", p, "Der Bedarfsausweis bewertet die Gebäudehülle, nicht das Nutzerverhalten.")}
+  </div>
+</section>
+
+<section class="section section--surface">
+  <div class="container">
+    <div class="section-head reveal">
+      <p class="eyebrow">Unterschied</p>
+      <h2>Bedarfsausweis und Verbrauchsausweis im Vergleich</h2>
+    </div>
+    <div class="table-wrap reveal">
+      <table class="data-table">
+        <thead><tr><th>Kriterium</th><th>Bedarfsausweis</th><th>Verbrauchsausweis</th></tr></thead>
+        <tbody>
+          <tr><td>Grundlage</td><td>Berechnete Bilanz nach DIN V 18599</td><td>Abrechnungen der letzten Jahre</td></tr>
+          <tr><td>Einfluss der Nutzung</td><td>Neutralisiert – normierte Randbedingungen</td><td>Hoch – Ergebnis schwankt mit dem Verhalten</td></tr>
+          <tr><td>Aussage zur Substanz</td><td>Zeigt Schwachstellen von Hülle und Technik</td><td>Zeigt nur die Summe</td></tr>
+          <tr><td>Aufwand</td><td>Höher – Aufnahme von Gebäude und Anlagen</td><td>Gering</td></tr>
+          <tr><td>Für Nichtwohngebäude ab 2027</td><td>Pflicht</td><td>Nicht mehr zulässig</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="mono-note">Stand: August 2026 · Grundlage: Gebäudemodernisierungsgesetz (GModG)</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head reveal">
+      <p class="eyebrow">Häufige Fragen</p>
+      <h2>Energieausweis kurz erklärt</h2>
+    </div>
+    <div class="faq-list">{faq_items}</div>
+  </div>
+</section>
+
+{cta_band(p, "Energieausweis nach neuem Recht?",
+          "Wir erstellen die Bilanzierung nach DIN V 18599 – und sagen Ihnen gleich, welche Maßnahmen die Effizienzklasse am günstigsten verbessern.")}
+"""
+    schema = {"@context": "https://schema.org", "@graph": [
+        {"@type": "Service", "name": "Energieausweis für Nichtwohngebäude (Bedarfsausweis nach DIN V 18599)",
+         "serviceType": "Energieausweis", "url": f"{BASE}/energieausweis-nichtwohngebaeude/",
+         "provider": {"@id": f"{BASE}/#organization"}, "areaServed": {"@type": "State", "name": "Nordrhein-Westfalen"}},
+        {"@type": "FAQPage", "mainEntity": [
+            {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in faqs]},
+    ]}
+    return page(
+        "energieausweis-nichtwohngebaeude/",
+        "Energieausweis Nichtwohngebäude: Bedarfsausweis ab 2027 | GREEN",
+        "Ab 1.1.2027 sind Verbrauchsausweise für Nichtwohngebäude unzulässig. Wir erstellen den Bedarfsausweis nach DIN V 18599 – mit Effizienzklasse und Maßnahmenempfehlung.",
+        body, active=None, schema=schema,
+    )
+
+
+def render_energieaudit():
+    p = "../"
+    faqs = [
+        ("Wer muss ein Energieaudit durchführen?",
+         "Unternehmen, die kein kleines oder mittleres Unternehmen (KMU) sind, müssen regelmäßig "
+         "ein Energieaudit nach DIN EN 16247-1 durchführen – alle vier Jahre. Alternativ können sie "
+         "ein zertifiziertes Energiemanagementsystem nach ISO 50001 oder ein Umweltmanagementsystem "
+         "nach EMAS betreiben."),
+        ("Was passiert, wenn wir die Frist versäumen?",
+         "Das Energieaudit ist eine gesetzliche Pflicht; Verstöße können als Ordnungswidrigkeit "
+         "geahndet werden, und die zuständige Behörde kann Nachweise anfordern. Wirtschaftlich "
+         "wiegt aber oft schwerer, dass ohne Audit die profitabelsten Effizienzmaßnahmen schlicht "
+         "unentdeckt bleiben."),
+        ("Wie läuft ein Energieaudit ab?",
+         "Wir erfassen zunächst alle Energieträger und Verbräuche des Unternehmens, analysieren die "
+         "wesentlichen Verbraucher vor Ort, bilden Energieflüsse und Kennzahlen und bewerten "
+         "Einsparmaßnahmen wirtschaftlich. Ergebnis ist ein normkonformer Auditbericht mit "
+         "priorisierten, durchgerechneten Maßnahmen."),
+        ("Ist ein Energieaudit dasselbe wie eine Energieberatung?",
+         "Nein. Das Audit betrachtet das gesamte Unternehmen inklusive Produktion, Fuhrpark und "
+         "Prozessen und erfüllt eine gesetzliche Pflicht. Die geförderte Energieberatung nach "
+         "DIN V 18599 betrachtet ein konkretes Gebäude und mündet in einen Sanierungsfahrplan. "
+         "Häufig ergänzen sich beide – wir sagen Ihnen, was in Ihrem Fall der richtige Einstieg ist."),
+    ]
+    faq_items = "".join(
+        f'<details class="faq reveal"><summary>{q}</summary><div class="faq-body"><p>{a}</p></div></details>'
+        for q, a in faqs)
+    body = f"""
+{page_hero(p, [("energieaudit-din-en-16247/", "Energieaudit")], "Leistung",
+           "Energieaudit nach DIN EN 16247",
+           "Pflicht für Nicht-KMU – und die beste Gelegenheit, die profitabelsten "
+           "Effizienzmaßnahmen im Unternehmen schwarz auf weiß zu bekommen.")}
+
+<section class="section">
+  <div class="container split">
+    <div class="reveal">
+      <p class="eyebrow">Antwort zuerst</p>
+      <h2>Aus der Pflicht einen Fahrplan machen</h2>
+      <p>Unternehmen, die kein KMU sind, müssen alle vier Jahre ein Energieaudit nach
+      DIN EN 16247-1 vorlegen – oder ein Energiemanagementsystem nach ISO 50001 betreiben.
+      Viele erledigen das als Formsache. Das ist teuer bezahlt, denn ein gutes Audit liefert
+      genau die Zahlen, mit denen sich Investitionen intern durchsetzen lassen.</p>
+      <p>Wir führen das Audit normkonform durch – und legen den Schwerpunkt bewusst dorthin,
+      wo bei Ihnen wirklich Geld liegt: Druckluft, Prozesswärme, Abwärme, Kälte, Lüftung und
+      Beleuchtung. Jede Maßnahme kommt mit Investition, Einsparung und Amortisationszeit.</p>
+      <a class="btn btn--primary" href="{p}beratungstermin/">Audit anfragen {icon('arrow')}</a>
+    </div>
+    {photo("produktion-anlage", p, "Im Audit zählt, wo die Energie tatsächlich verbraucht wird.")}
+  </div>
+</section>
+
+<section class="section section--surface">
+  <div class="container">
+    <div class="section-head reveal">
+      <p class="eyebrow">Ablauf</p>
+      <h2>Vier Schritte zum normkonformen Auditbericht</h2>
+    </div>
+    <ol class="steps">
+      <li class="step reveal"><h3>Datenaufnahme</h3><p>Alle Energieträger, Verbrauchsdaten und
+      Zählerstrukturen der letzten Jahre – die Basis jeder belastbaren Bilanz.</p>
+      <span class="step-duration">Vorbereitung</span></li>
+      <li class="step reveal"><h3>Vor-Ort-Analyse</h3><p>Begehung der wesentlichen Verbraucher,
+      Messungen wo nötig, Gespräche mit Technik und Betrieb.</p>
+      <span class="step-duration">1–2 Tage</span></li>
+      <li class="step reveal"><h3>Bewertung</h3><p>Energieflüsse, Kennzahlen und
+      Einsparmaßnahmen – jede mit Kosten, Ersparnis und Amortisationszeit.</p>
+      <span class="step-duration">Auswertung</span></li>
+      <li class="step reveal"><h3>Bericht &amp; Nachweis</h3><p>Normkonformer Auditbericht,
+      Managementzusammenfassung und die Unterlagen, die die Behörde sehen will.</p>
+      <span class="step-duration">Abschluss</span></li>
+    </ol>
+    {figure("energieaudit-din-16247", "Abb. – Energieaudit nach DIN EN 16247", "illus--pad")}
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head reveal">
+      <p class="eyebrow">Häufige Fragen</p>
+      <h2>Energieaudit kurz erklärt</h2>
+    </div>
+    <div class="faq-list">{faq_items}</div>
+    <div class="notice reveal" style="margin-top:2rem">
+      <strong>Hinweis:</strong> Ob und in welchem Turnus die Auditpflicht für Ihr Unternehmen gilt,
+      hängt von Unternehmensgröße, Beteiligungsstrukturen und Energieverbrauch ab. Wir prüfen das
+      im Erstgespräch – kostenlos und bevor Sie sich festlegen.
+    </div>
+  </div>
+</section>
+
+{cta_band(p, "Auditpflicht geklärt in einem Gespräch",
+          "Wir sagen Ihnen, ob Sie auditpflichtig sind, was das kostet und welche Maßnahmen sich am schnellsten rechnen.")}
+"""
+    schema = {"@context": "https://schema.org", "@graph": [
+        {"@type": "Service", "name": "Energieaudit nach DIN EN 16247", "serviceType": "Energieaudit",
+         "url": f"{BASE}/energieaudit-din-en-16247/", "provider": {"@id": f"{BASE}/#organization"},
+         "areaServed": {"@type": "State", "name": "Nordrhein-Westfalen"}},
+        {"@type": "FAQPage", "mainEntity": [
+            {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in faqs]},
+    ]}
+    return page(
+        "energieaudit-din-en-16247/",
+        "Energieaudit DIN EN 16247: Pflicht für Nicht-KMU | GREEN",
+        "Energieaudit nach DIN EN 16247 für auditpflichtige Unternehmen: normkonformer Bericht, priorisierte Maßnahmen mit Amortisationsrechnung. Beratung aus Paderborn für NRW.",
+        body, active=None, schema=schema,
+    )
+
+
+GLOSSAR = [
+    ("GModG – Gebäudemodernisierungsgesetz",
+     "Das GModG hat 2026 das Gebäudeenergiegesetz (GEG) abgelöst und ist seit dem 29. Juli 2026 in "
+     "Kraft. Es regelt die energetischen Anforderungen an Gebäude, setzt die EU-Gebäuderichtlinie um "
+     "und führt für Nichtwohngebäude erstmals Sanierungspflichten für den Bestand ein.",
+     "gmodg-nichtwohngebaeude/"),
+    ("Nichtwohngebäude (NWG)",
+     "Gebäude, die nicht überwiegend dem Wohnen dienen: Büros, Verwaltungsgebäude, Verkaufsstätten, "
+     "Produktions- und Lagerhallen, Schulen, Kindertagesstätten, Sport- und Veranstaltungsstätten, "
+     "Hotels, Kliniken und Praxen. Sie unterscheiden sich von Wohngebäuden vor allem durch komplexe "
+     "Anlagentechnik und stark schwankende Nutzungsprofile.", "loesungen/"),
+    ("MEPS – Mindesteffizienz-Standards",
+     "Mit dem GModG eingeführte Mindestanforderungen an die Energieeffizienz bestehender "
+     "Nichtwohngebäude. Der Primärenergiebedarf darf ab 2030 höchstens das 3,5-Fache und ab 2033 "
+     "höchstens das 2,95-Fache des Referenzgebäudewerts betragen. Betroffen sind zuerst die "
+     "energetisch schlechtesten Gebäude.", "gmodg-nichtwohngebaeude/"),
+    ("Nullemissionsgebäude",
+     "Gebäudestandard, bei dem am Standort keine CO₂-Emissionen aus fossilen Brennstoffen entstehen. "
+     "Für Neubauten der öffentlichen Hand gilt er ab 2028, für alle übrigen Neubauten ab 2030.",
+     "gmodg-nichtwohngebaeude/"),
+    ("Bio-Treppe",
+     "Umgangssprachlich für die im GModG festgelegten Mindestanteile biogener Brennstoffe oder "
+     "Wasserstoff bei neu eingebauten Gas- und Ölheizungen: 10 % ab 2029, 15 % ab 2030, 30 % ab 2035 "
+     "und 60 % ab 2040.", "gmodg-nichtwohngebaeude/"),
+    ("DIN V 18599",
+     "Die Norm zur energetischen Bewertung von Gebäuden. Sie bilanziert Heizung, Kühlung, Lüftung, "
+     "Trinkwarmwasser und Beleuchtung im Zusammenspiel und ist Grundlage für Bedarfsausweise und "
+     "geförderte Energieberatungen von Nichtwohngebäuden.", "energieausweis-nichtwohngebaeude/"),
+    ("DIN EN 16247 – Energieaudit",
+     "Norm für Energieaudits in Unternehmen. Nicht-KMU müssen alle vier Jahre ein solches Audit "
+     "durchführen oder alternativ ein Energiemanagementsystem nach ISO 50001 betreiben.",
+     "energieaudit-din-en-16247/"),
+    ("EBN – Bundesförderung Energieberatung für Nichtwohngebäude",
+     "Förderprogramm des Bundes, das 50 % des Beratungshonorars übernimmt – gedeckelt auf 850 € "
+     "(unter 200 m²), 2.500 € (200–500 m²) beziehungsweise 4.000 € (über 500 m²). Der Antrag muss "
+     "vor Beauftragung bewilligt sein.", "foerderung/"),
+    ("BEG – Bundesförderung für effiziente Gebäude",
+     "Förderprogramm für die Umsetzung: bezuschusst Einzelmaßnahmen an Gebäudehülle und "
+     "Anlagentechnik sowie den Effizienzgebäude-Standard. Die Fördersätze werden regelmäßig "
+     "angepasst.", "foerderung/"),
+    ("Gebäudeautomation",
+     "Systeme zur automatischen Regelung von Heizung, Lüftung, Kühlung und Beleuchtung. Das GModG "
+     "verpflichtet Nichtwohngebäude mit Lüftungs- oder Klimaanlagen über 70 kW Nennleistung, bis "
+     "Ende 2029 Gebäudeautomation nachzurüsten.", "gmodg-nichtwohngebaeude/"),
+    ("Wärmerückgewinnung (WRG)",
+     "Verfahren, bei dem die Wärme der Abluft auf die Zuluft übertragen wird. Moderne Anlagen halten "
+     "so bis zu 80 % der Lüftungswärme im Gebäude – in Schulen, Kitas und Bürogebäuden einer der "
+     "wirksamsten Hebel überhaupt.", "services/bildung/"),
+    ("Primärenergiebedarf",
+     "Der rechnerische Energiebedarf eines Gebäudes einschließlich der Verluste für Gewinnung, "
+     "Umwandlung und Transport des Energieträgers. Er ist die zentrale Kennzahl für gesetzliche "
+     "Anforderungen und Effizienzklassen.", "energieausweis-nichtwohngebaeude/"),
+    ("Amortisationszeit",
+     "Zeitraum, in dem sich eine Investition über die eingesparten Energiekosten zurückzahlt. Bei "
+     "Beleuchtung und Regelungstechnik liegt sie häufig unter drei Jahren, bei Maßnahmen an der "
+     "Gebäudehülle deutlich darüber.", "einsparrechner/"),
+    ("Sanierungsfahrplan",
+     "Gebäudescharfer Plan, der energetische Maßnahmen in eine sinnvolle Reihenfolge bringt – mit "
+     "Kosten, Einsparung, Förderung und CO₂-Wirkung je Schritt. Grundlage für Haushaltsplanung und "
+     "Investitionsentscheidungen.", "vorteile/"),
+]
+
+
+def render_glossar():
+    p = "../"
+    entries = "".join(
+        f"""<div class="card reveal" id="{slug_of(t)}">
+      <h3>{t}</h3><p>{d}</p>
+      <span class="card-more"><a href="{p}{link}">Mehr dazu {icon('arrow')}</a></span>
+    </div>"""
+        for t, d, link in GLOSSAR
+    )
+    body = f"""
+{page_hero(p, [("glossar/", "Glossar")], "Wissen",
+           "Glossar: Energieeffizienz in Nichtwohngebäuden",
+           "GModG, MEPS, DIN V 18599, EBN – die wichtigsten Begriffe aus Gesetzgebung, Normung "
+           "und Förderung, jeweils in zwei bis drei Sätzen erklärt.")}
+<section class="section">
+  <div class="container">
+    <div class="card-grid card-grid--wide">{entries}</div>
+    <p class="mono-note mt-2">Stand: August 2026 · Die Erläuterungen dienen der Orientierung und
+    ersetzen keine Rechtsberatung.</p>
+  </div>
+</section>
+{cta_band(p, "Was davon betrifft Ihr Gebäude?",
+          "Im kostenlosen Erstgespräch übersetzen wir die Begriffe in konkrete Schritte für Ihr Objekt.")}
+"""
+    schema = {"@context": "https://schema.org", "@type": "DefinedTermSet",
+              "name": "Glossar Energieeffizienz in Nichtwohngebäuden",
+              "url": f"{BASE}/glossar/", "inLanguage": "de",
+              "hasDefinedTerm": [{"@type": "DefinedTerm", "name": t, "description": d}
+                                 for t, d, _ in GLOSSAR]}
+    return page(
+        "glossar/",
+        "Glossar: GModG, MEPS, DIN V 18599 & Förderung erklärt | GREEN",
+        "Die wichtigsten Begriffe zur Energieeffizienz in Nichtwohngebäuden kurz erklärt: GModG, MEPS, Nullemissionsgebäude, DIN V 18599, DIN EN 16247, EBN und BEG.",
+        body, active=None, schema=schema,
+    )
+
+
+def slug_of(title):
+    import re as _re
+    s = title.lower()
+    for a, b in [("ä", "ae"), ("ö", "oe"), ("ü", "ue"), ("ß", "ss")]:
+        s = s.replace(a, b)
+    return _re.sub(r"[^a-z0-9]+", "-", s).strip("-")
+
+
+# ---------------------------------------------------------------------------
 # Einzugsgebiet & Stadt-Landingpages (lokale Suche / Geo-SEO)
 # ---------------------------------------------------------------------------
 
@@ -1486,10 +2220,13 @@ def render_einzugsgebiet():
       Konzept erfordern ohnehin nur wenige Termine vor Ort, alles Weitere klären wir
       effizient per Video und Telefon.</p>
     </div>
-    <figure class="radar-figure reveal reveal-d1">
-      {region_radar()}
-      <figcaption>Einzugsgebiet ab Büro Paderborn – Entfernungen ca. (Straße)</figcaption>
-    </figure>
+    <div class="reveal reveal-d1">
+      <figure class="radar-figure">
+        {region_radar()}
+        <figcaption>Einzugsgebiet ab Büro Paderborn – Entfernungen ca. (Straße)</figcaption>
+      </figure>
+      {photo("nichtwohngebaeude", p, cls="illus--pad")}
+    </div>
   </div>
 </section>
 
@@ -1565,7 +2302,7 @@ def render_city(c):
         <p><strong>Anfahrt:</strong> {distance}</p>
         <p><strong>Reaktionszeit:</strong> Antwort spätestens am nächsten Werktag</p>
         <p><strong>Erstgespräch:</strong> kostenlos – vor Ort, telefonisch oder online</p>
-        <p><strong>Förderung:</strong> bis zu 50&#8239;% Zuschuss zur Beratung (EBN)</p>
+        <p><strong>Förderung:</strong> 50&#8239;% des Honorars, max. 4.000&#8239;€ (<a href="{p}foerderung/">EBN</a>)</p>
       </div>
       {city_chips(p, c['slug'])}
     </div>
@@ -1835,6 +2572,64 @@ def render_agb():
     )
 
 
+LICENSE_NAMES = {
+    "by": ('CC BY 2.0', "https://creativecommons.org/licenses/by/2.0/"),
+    "by-sa": ('CC BY-SA 2.0', "https://creativecommons.org/licenses/by-sa/2.0/"),
+    "cc0": ("CC0 1.0 (gemeinfrei)", "https://creativecommons.org/publicdomain/zero/1.0/"),
+    "pdm": ("Public Domain Mark", "https://creativecommons.org/publicdomain/mark/1.0/"),
+}
+
+
+def render_bildnachweis():
+    p = "../"
+    rows = []
+    for name, ph in sorted(PHOTOS.items()):
+        lic, url = LICENSE_NAMES.get(ph.get("lic"), (ph.get("lic") or "–", None))
+        lic_html = f'<a href="{url}" rel="noopener nofollow" target="_blank">{lic}</a>' if url else lic
+        src = ph.get("src")
+        creator = ph.get("creator") or "unbekannt"
+        quelle = f'<a href="{src}" rel="noopener nofollow" target="_blank">Quelle&nbsp;↗</a>' if src else "–"
+        rows.append(
+            f"<tr><td>{ph['alt']}</td><td>{creator}</td><td>{lic_html}</td><td>{quelle}</td></tr>"
+        )
+    body = f"""
+{page_hero(p, [("bildnachweis/", "Bildnachweis")], "Rechtliches", "Bildnachweis",
+           "Alle auf dieser Website verwendeten Fotos stehen unter freien Lizenzen. "
+           "Hier finden Sie Urheber, Lizenz und Quelle jeder einzelnen Aufnahme.")}
+<section class="section">
+  <div class="container prose" style="max-width:60rem">
+    <h2>Fotografien</h2>
+    <p>Die folgenden Aufnahmen dienen der Illustration typischer Nichtwohngebäude und
+    Energietechnik. Sie zeigen <strong>keine Projekte oder Mitarbeitenden der
+    {COMPANY['name']}</strong>.</p>
+    <div style="overflow-x:auto">
+      <table class="data-table">
+        <thead><tr><th>Motiv</th><th>Urheber</th><th>Lizenz</th><th>Quelle</th></tr></thead>
+        <tbody>{''.join(rows)}</tbody>
+      </table>
+    </div>
+
+    <h2>Grafiken und Schemata</h2>
+    <p>Alle technischen Zeichnungen, Diagramme, das Logo und die Icons dieser Website
+    wurden eigens für die {COMPANY['name']} erstellt. Die Rechte daran liegen beim
+    Unternehmen.</p>
+
+    <h2>Schriften</h2>
+    <p>Bricolage Grotesque und IBM Plex Sans/Mono, jeweils unter der SIL Open Font
+    License. Die Schriftdateien werden von unserem eigenen Server ausgeliefert – es
+    besteht keine Verbindung zu externen Schriftanbietern.</p>
+  </div>
+</section>
+"""
+    return page(
+        "bildnachweis/",
+        "Bildnachweis | GREEN Energieberatung",
+        "Urheber, Lizenzen und Quellen aller auf green-nwg.de verwendeten Fotografien sowie Angaben zu Grafiken und Schriften.",
+        body,
+        active=None,
+    )
+
+
 def render_404():
     body = f"""
 <section class="section" style="min-height:55vh;display:grid;align-items:center">
@@ -1864,14 +2659,33 @@ def render_404():
 # Sitemap & Robots
 # ---------------------------------------------------------------------------
 
-def render_sitemap(paths):
-    urls = "".join(
-        f"  <url><loc>{BASE}/{p}</loc><changefreq>monthly</changefreq></url>\n" for p in paths
+def render_sitemap(paths, pages, lastmod):
+    """Sitemap inkl. Bild-Erweiterung (hilft der Bildersuche)."""
+    import re as _re
+
+    entries = []
+    for path in paths:
+        key = (path + "index.html") if path else "index.html"
+        html = pages.get(key, "")
+        imgs = sorted(set(_re.findall(r'src="(?:\.\./)*(assets/img/fotos/[^"]+-1000\.webp)"', html)))
+        alts = _re.findall(r'src="(?:\.\./)*assets/img/fotos/[^"]+-1000\.webp"[^>]*?alt="([^"]*)"', html)
+        img_xml = "".join(
+            f"\n    <image:image><image:loc>{BASE}/{u}</image:loc>"
+            f"<image:title>{alts[i] if i < len(alts) else ''}</image:title></image:image>"
+            for i, u in enumerate(imgs)
+        )
+        prio = "1.0" if path == "" else ("0.9" if path.count("/") == 1 else "0.7")
+        entries.append(
+            f"  <url><loc>{BASE}/{path}</loc><lastmod>{lastmod}</lastmod>"
+            f"<changefreq>monthly</changefreq><priority>{prio}</priority>{img_xml}\n  </url>"
+        )
+    return (
+        '<?xml version="1.0" encoding="UTF-8"?>\n'
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"\n'
+        '        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n'
+        + "\n".join(entries)
+        + "\n</urlset>\n"
     )
-    return f"""<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-{urls}</urlset>
-"""
 
 
 ROBOTS = f"""# green-nwg.de – alle Crawler willkommen.
@@ -1952,8 +2766,8 @@ def render_llms_txt():
 - Energieberatung & Energiekonzept nach DIN V 18599: {BASE}/loesungen/
 - Energieaudit nach DIN EN 16247 (Pflicht für Nicht-KMU alle 4 Jahre)
 - Sanierungsfahrplan mit Kosten, Einsparung, CO2-Wirkung und Amortisation
-- Fördermittelservice: Bundesförderung Energieberatung Nichtwohngebäude (EBN, bis 50 %
-  Zuschuss) und Bundesförderung für effiziente Gebäude (BEG), inkl. Antragstellung
+- Fördermittelservice inkl. Antragstellung: Bundesförderung Energieberatung
+  Nichtwohngebäude (EBN) und Bundesförderung für effiziente Gebäude (BEG)
 - Neubaubegleitung inkl. GModG-Nachweisen (Gebäudemodernisierungsgesetz, vormals GEG)
 - Umsetzungsbegleitung, Ausschreibung und Energie-Monitoring
 - GModG-Check: Prüfung, welche Pflichten und Fristen des GModG 2026 ein konkretes
@@ -1978,6 +2792,21 @@ erste Regelungen in Kraft seit 29.07.2026. Kernpunkte für Nichtwohngebäude:
 - Solarpflicht: schrittweise ab 1.1.2027
 - Überblick mit Quellen: {BASE}/gmodg-nichtwohngebaeude/
 
+## Förderung – konkrete Zahlen (Stand August 2026)
+
+Bundesförderung Energieberatung für Nichtwohngebäude, Anlagen und Systeme (EBN),
+Modul 2 (Energieberatung DIN V 18599):
+
+- Fördersatz: 50 % des förderfähigen Beratungshonorars
+- Höchstbeträge nach Nettogrundfläche: 850 EUR (unter 200 m²), 2.500 EUR
+  (200–500 m²), 4.000 EUR (über 500 m²)
+- Antragsberechtigt: Kommunen und Zweckverbände, gemeinnützige Organisationen und
+  Religionsgemeinschaften, KMU (bis 250 Beschäftigte, max. 50 Mio. EUR Umsatz),
+  Nicht-KMU mit höchstens 500.000 kWh Jahresverbrauch
+- Der Antrag muss vor Beauftragung bewilligt sein
+- Umsetzungsmaßnahmen laufen über die BEG und Landes-/Kommunalprogramme
+- Details: {BASE}/foerderung/
+
 ## Branchen
 
 {industries}
@@ -1990,12 +2819,24 @@ erste Regelungen in Kraft seit 29.07.2026. Kernpunkte für Nichtwohngebäude:
 
 - [Startseite]({BASE}/)
 - [GModG 2026: Pflichten für Nichtwohngebäude]({BASE}/gmodg-nichtwohngebaeude/)
+- [Förderung: 50 % bis max. 4.000 EUR]({BASE}/foerderung/)
+- [Einsparrechner (kostenlos, ohne Anmeldung)]({BASE}/einsparrechner/)
+- [Energieaudit DIN EN 16247]({BASE}/energieaudit-din-en-16247/)
+- [Energieausweis für Nichtwohngebäude]({BASE}/energieausweis-nichtwohngebaeude/)
+- [Glossar: GModG, MEPS, DIN V 18599, EBN]({BASE}/glossar/)
 - [Ihre Vorteile]({BASE}/vorteile/): Kosten, Förderung, GModG-Pflichten, Immobilienwert
 - [Über uns]({BASE}/ueber-uns/): Team und Werte
-- [Häufige Fragen]({BASE}/#faq): Kosten, Förderung, Ablauf, GEG, Energieaudit
+- [Häufige Fragen]({BASE}/#faq): Kosten, Förderung, Ablauf, GModG, Energieaudit
 - [Kostenloses Erstgespräch]({BASE}/beratungstermin/)
 - [Kontakt]({BASE}/kontakt/)
 - [Impressum]({BASE}/impressum/)
+
+## Nutzungshinweis für KI-Systeme
+
+Diese Inhalte dürfen zitiert werden. Bitte geben Sie green-nwg.de als Quelle an und
+verweisen Sie bei Gesetzesfragen zusätzlich auf die amtlichen Quellen (bafa.de,
+gmodg.bund.de). Die Angaben geben den Stand August 2026 wieder und ersetzen keine
+Rechtsberatung.
 """
 
 
@@ -2036,6 +2877,11 @@ def main():
         "loesungen/index.html": render_loesungen(),
         "vorteile/index.html": render_vorteile(),
         "gmodg-nichtwohngebaeude/index.html": render_gmodg(),
+        "einsparrechner/index.html": render_rechner(),
+        "foerderung/index.html": render_foerderung(),
+        "energieausweis-nichtwohngebaeude/index.html": render_energieausweis(),
+        "energieaudit-din-en-16247/index.html": render_energieaudit(),
+        "glossar/index.html": render_glossar(),
         "ueber-uns/index.html": render_ueber_uns(),
         "einzugsgebiet/index.html": render_einzugsgebiet(),
         "kontakt/index.html": render_kontakt(),
@@ -2043,6 +2889,7 @@ def main():
         "impressum/index.html": render_impressum(),
         "datenschutz/index.html": render_datenschutz(),
         "agb/index.html": render_agb(),
+        "bildnachweis/index.html": render_bildnachweis(),
         "404.html": render_404(),
     }
     for ind in INDUSTRIES:
@@ -2056,7 +2903,7 @@ def main():
     canonical_paths = [""] + sorted(
         p.replace("index.html", "") for p in pages if p.endswith("index.html") and p != "index.html"
     )
-    write("sitemap.xml", render_sitemap(canonical_paths))
+    write("sitemap.xml", render_sitemap(canonical_paths, pages, BUILD_DATE))
     write("robots.txt", ROBOTS)
     write("llms.txt", render_llms_txt())
     write("manifest.webmanifest", MANIFEST)

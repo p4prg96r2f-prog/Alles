@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Einsparrechner: Energiekosten für Nichtwohngebäude schätzen | GREEN</title>
+  <meta name="description" content="Kostenloser Einsparrechner für Nichtwohngebäude: Energiekosten, Einsparpotenzial und CO₂-Reduktion in 30 Sekunden schätzen – ohne Anmeldung, ohne Datenübertragung.">
+  <link rel="canonical" href="https://green-nwg.de/einsparrechner/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="GREEN – Energieberatung für Nichtwohngebäude">
+  <meta property="og:title" content="Einsparrechner: Energiekosten für Nichtwohngebäude schätzen | GREEN">
+  <meta property="og:description" content="Kostenloser Einsparrechner für Nichtwohngebäude: Energiekosten, Einsparpotenzial und CO₂-Reduktion in 30 Sekunden schätzen – ohne Anmeldung, ohne Datenübertragung.">
+  <meta property="og:url" content="https://green-nwg.de/einsparrechner/">
+  <meta property="og:image" content="https://green-nwg.de/assets/img/og-image.png">
+  <meta property="og:locale" content="de_DE">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#0d3b2a">
+  <meta name="geo.region" content="DE-NW">
+  <meta name="geo.placename" content="Paderborn">
+  <meta name="geo.position" content="51.72685;8.75601">
+  <meta name="ICBM" content="51.72685, 8.75601">
+  <link rel="manifest" href="../manifest.webmanifest">
+  <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
+  <link rel="preload" href="../assets/fonts/bricolage-grotesque-400-800-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../assets/fonts/ibm-plex-sans-400-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Einsparrechner für Nichtwohngebäude", "url": "https://green-nwg.de/einsparrechner/", "applicationCategory": "BusinessApplication", "operatingSystem": "Web", "inLanguage": "de", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "EUR"}, "publisher": {"@id": "https://green-nwg.de/#organization"}, "description": "Kostenloser Rechner: schätzt Energiekosten, Einsparpotenzial und CO₂-Reduktion für Büro-, Handels-, Produktions-, Bildungs- und kommunale Gebäude."}</script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Zum Inhalt springen</a>
+  <header class="site-header">
+  <div class="container header-bar">
+    <a class="brand" href="../" aria-label="GREEN – Startseite">
+      <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <rect x="1.5" y="1.5" width="45" height="45" rx="12" fill="#0d3b2a"/>
+  <path d="M33.5 12.5C24 13.5 17.5 19 15.5 27.5c-.9 3.7-.7 6.6-.5 8" stroke="#4caf78" stroke-width="3" stroke-linecap="round" fill="none"/>
+  <path d="M33.5 12.5c.8 9.5-2.5 15.5-8.5 18.5-2.6 1.3-5.4 1.7-7.5 1.7" stroke="#e8a33d" stroke-width="3" stroke-linecap="round" fill="none"/>
+  <path d="M25 35.5 30 30l-3.2-1 4.7-5.5" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+</svg>
+      <span class="brand-name"><b>GREEN</b><span>Energieberatung&nbsp;NWG</span></span>
+    </a>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Menü öffnen">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+    <nav class="site-nav" id="site-nav" aria-label="Hauptnavigation">
+      <a href="../">Start</a><a href="../loesungen/">Lösungen</a><a href="../vorteile/">Vorteile</a><a href="../ueber-uns/">Über uns</a><a href="../kontakt/">Kontakt</a>
+      <a href="../einsparrechner/">Rechner</a>
+      <a class="btn btn--primary nav-cta" href="../beratungstermin/">Beratungstermin</a>
+    </nav>
+  </div>
+</header>
+  <main id="main">
+
+<section class="page-hero">
+  <div class="container">
+    <ol class="breadcrumb"><li><a href="../">Start</a></li><li>Einsparrechner</li></ol>
+    <p class="eyebrow">Kostenloses Werkzeug</p>
+    <h1>Einsparrechner für Nichtwohngebäude</h1>
+    <p class="lead">In 30 Sekunden zur ersten Einschätzung: Wie hoch sind Ihre Energiekosten voraussichtlich – und wie viel davon lässt sich realistisch einsparen?</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="calc" id="rechner">
+      <div class="calc-inputs reveal">
+        <div class="calc-field">
+          <label for="r-typ">Gebäudetyp</label>
+          <select id="r-typ"><option value="buero" selected>Bürogebäude / Verwaltung</option><option value="einzelhandel">Einzelhandel / Verkaufsfläche</option><option value="produktion">Produktion / Werkstatt</option><option value="veranstaltung">Veranstaltungsstätte / Halle</option><option value="bildung">Schule / Hochschule</option><option value="kindergarten">Kindergarten / Kita</option><option value="kommune">Kommunales Verwaltungsgebäude</option><option value="hotel">Hotel / Pflege / 24-Stunden-Betrieb</option></select>
+        </div>
+        <div class="calc-field">
+          <label for="r-flaeche">Nutzfläche in m²</label>
+          <input id="r-flaeche" type="number" min="50" max="200000" step="50" value="2500" inputmode="numeric">
+          <span class="calc-hint">Beheizte Nettogrundfläche, grob geschätzt genügt</span>
+        </div>
+        <div class="calc-field">
+          <label for="r-zustand">Energetischer Zustand</label>
+          <select id="r-zustand">
+            <option value="alt">Unsaniert – Technik und Hülle älter als ca. 25 Jahre</option>
+            <option value="teil" selected>Teilsaniert – einzelne Maßnahmen umgesetzt</option>
+            <option value="neu">Weitgehend saniert oder Neubau</option>
+          </select>
+        </div>
+        <div class="calc-row">
+          <div class="calc-field">
+            <label for="r-preis-strom">Strompreis (ct/kWh)</label>
+            <input id="r-preis-strom" type="number" min="5" max="80" step="0.5" value="25" inputmode="decimal">
+          </div>
+          <div class="calc-field">
+            <label for="r-preis-waerme">Wärmepreis (ct/kWh)</label>
+            <input id="r-preis-waerme" type="number" min="2" max="40" step="0.5" value="10" inputmode="decimal">
+          </div>
+        </div>
+        <p class="calc-hint" style="margin:0">Ihre Eingaben bleiben im Browser – es werden
+        keine Daten übertragen oder gespeichert.</p>
+      </div>
+
+      <div class="calc-result reveal reveal-d1">
+        <p class="calc-headline-label">Mögliche Ersparnis pro Jahr</p>
+        <p class="calc-headline" id="r-sparen">–</p>
+
+        <div class="calc-bars">
+          <div class="calc-bar-row">
+            <span class="calc-bar-label">Heute</span>
+            <div class="calc-bar-track">
+              <div class="calc-bar-fill calc-bar-fill--ist" id="r-bar-ist"><span id="r-ist">–</span></div>
+            </div>
+          </div>
+          <div class="calc-bar-row">
+            <span class="calc-bar-label">Nach Sanierung</span>
+            <div class="calc-bar-track">
+              <div class="calc-bar-fill calc-bar-fill--neu" id="r-bar-neu"><span id="r-neu">–</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="calc-facts">
+          <div class="calc-fact"><b id="r-quote">–</b><span>Einsparpotenzial</span></div>
+          <div class="calc-fact"><b id="r-sparen-10">–</b><span>in 10 Jahren</span></div>
+          <div class="calc-fact"><b id="r-co2">–</b><span>CO₂ pro Jahr</span></div>
+          <div class="calc-fact"><b id="r-verbrauch">–</b><span>Verbrauch heute p. a.</span></div>
+        </div>
+
+        <div class="hero-ctas" style="margin-bottom:0">
+          <a class="btn btn--light" href="../beratungstermin/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4m8-4v4M3 10h18"/><path d="m9 15.5 2 2 4-4"/></svg> Genaue Zahlen im Erstgespräch</a>
+        </div>
+
+        <p class="calc-disclaimer">Die Werte beruhen auf durchschnittlichen
+        Verbrauchskennwerten für <span id="r-flaeche-out">–</span> Nutzfläche und sind eine
+        grobe Orientierung, keine Zusage. Der tatsächliche Verbrauch hängt von Anlagentechnik,
+        Nutzungszeiten, Baujahr und Nutzerverhalten ab und weicht im Einzelfall deutlich ab.
+        Belastbare Zahlen liefert erst die Analyse vor Ort – die ist bei uns kostenlos
+        im Erstgespräch angelegt.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--surface">
+  <div class="container split">
+    <div class="reveal">
+      <p class="eyebrow">Vom Schätzwert zur Sicherheit</p>
+      <h2>Was der Rechner nicht kann – und wir schon</h2>
+      <p>Ein Rechner arbeitet mit Durchschnitten. Ihr Gebäude ist aber kein Durchschnitt:
+      Eine Lüftungsanlage, die nachts durchläuft, eine Kälteanlage ohne Türen oder ein
+      Druckluftnetz mit Leckagen verschieben das Ergebnis um Zehntausende Euro – nach oben
+      wie nach unten.</p>
+      <p>Deshalb messen wir, statt zu schätzen: Wir werten Ihre Verbrauchsdaten aus, erfassen
+      Anlagen und Gebäudehülle vor Ort und rechnen jede Maßnahme einzeln durch – mit Kosten,
+      Einsparung, Förderung und Amortisationszeit. Das Ergebnis ist keine Prozentzahl,
+      sondern eine Entscheidungsgrundlage.</p>
+      <a class="btn btn--primary" href="../beratungstermin/">Kostenloses Erstgespräch <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></a>
+    </div>
+    <figure class="photo "><img src="../assets/img/fotos/beratung-daten-1000.webp" srcset="../assets/img/fotos/beratung-daten-500.webp 500w, ../assets/img/fotos/beratung-daten-1000.webp 1000w" sizes="(max-width: 860px) 92vw, 46vw" width="1000" height="562" alt="Hände halten ein Tablet mit Energieauswertungen" loading="lazy" decoding="async"><figcaption>Belastbare Zahlen entstehen aus echten Verbrauchsdaten, nicht aus Durchschnitten.</figcaption></figure>
+  </div>
+</section>
+
+<section class="cta-band section">
+  <div class="container">
+    <div class="reveal">
+      <h2>Bereit für niedrigere Energiekosten?</h2>
+      <p>Im kostenlosen Erstgespräch klären wir Potenzial, Förderung und nächste Schritte – unverbindlich und auf den Punkt.</p>
+    </div>
+    <div class="cta-band-actions reveal reveal-d1">
+      <a class="btn btn--light btn--lg" href="../beratungstermin/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4m8-4v4M3 10h18"/><path d="m9 15.5 2 2 4-4"/></svg> Beratungstermin buchen</a>
+      <a class="btn btn--ghost-light btn--lg" href="tel:+49525140292910"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h4l1.5 5L9 9.5a12 12 0 0 0 5.5 5.5l1.5-2.5 5 1.5v4a2 2 0 0 1-2 2A16 16 0 0 1 4 5a2 2 0 0 1 2-2Z"/></svg> 05251 40 29 29 10</a>
+    </div>
+  </div>
+</section>
+
+  </main>
+  <footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <rect x="1.5" y="1.5" width="45" height="45" rx="12" fill="#0d3b2a"/>
+  <path d="M33.5 12.5C24 13.5 17.5 19 15.5 27.5c-.9 3.7-.7 6.6-.5 8" stroke="#4caf78" stroke-width="3" stroke-linecap="round" fill="none"/>
+  <path d="M33.5 12.5c.8 9.5-2.5 15.5-8.5 18.5-2.6 1.3-5.4 1.7-7.5 1.7" stroke="#e8a33d" stroke-width="3" stroke-linecap="round" fill="none"/>
+  <path d="M25 35.5 30 30l-3.2-1 4.7-5.5" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+</svg>
+        <p><strong style="color:#fff">GREEN</strong> – Gesellschaft für rationale und effiziente
+        Energienutzung in Nichtwohngebäuden. Unabhängige Energieberatung aus Paderborn für
+        Unternehmen und Kommunen in ganz NRW.</p>
+      </div>
+      <div class="footer-col">
+        <h3>Lösungen</h3>
+        <ul><li><a href="../services/buero/">Bürogebäude</a></li><li><a href="../services/einzelhandel/">Einzelhandel</a></li><li><a href="../services/produktion/">Produktionsstätten</a></li><li><a href="../services/veranstaltung/">Veranstaltungsstätten</a></li><li><a href="../services/bildung/">Bildungseinrichtungen</a></li><li><a href="../services/kindergarten/">Kindergärten</a></li><li><a href="../services/kommune/">Kommunale Gebäude</a></li><li><a href="../services/andere/">Weitere Nichtwohngebäude</a></li></ul>
+      </div>
+      <div class="footer-col">
+        <h3>Unternehmen</h3>
+        <ul>
+          <li><a href="../vorteile/">Ihre Vorteile</a></li>
+          <li><a href="../einsparrechner/">Einsparrechner</a></li>
+          <li><a href="../gmodg-nichtwohngebaeude/">GModG 2026 – Überblick</a></li>
+          <li><a href="../foerderung/">Förderung &amp; Zuschüsse</a></li>
+          <li><a href="../ueber-uns/">Über uns</a></li>
+          <li><a href="../einzugsgebiet/">Einzugsgebiet OWL &amp; NRW</a></li>
+          <li><a href="../energieaudit-din-en-16247/">Energieaudit DIN EN 16247</a></li>
+          <li><a href="../energieausweis-nichtwohngebaeude/">Energieausweis</a></li>
+          <li><a href="../glossar/">Glossar</a></li>
+          <li><a href="../kontakt/">Kontakt</a></li>
+          <li><a href="../beratungstermin/">Beratungstermin</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3>Kontakt</h3>
+        <ul class="footer-contact">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-6.1 7-11a7 7 0 1 0-14 0c0 4.9 7 11 7 11Z"/><circle cx="12" cy="10" r="2.6"/></svg><span>Rolandsweg 80<br>33102 Paderborn</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h4l1.5 5L9 9.5a12 12 0 0 0 5.5 5.5l1.5-2.5 5 1.5v4a2 2 0 0 1-2 2A16 16 0 0 1 4 5a2 2 0 0 1 2-2Z"/></svg><a href="tel:+49525140292910">05251 40 29 29 10</a></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><a href="mailto:info@green-nwg.de">info@green-nwg.de</a></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg><span>Mo–Fr 08:00–16:00 Uhr</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span id="year">2026</span> Green HLB GmbH · HRB 16341, AG Paderborn · Antwort i.&#8239;d.&#8239;R. binnen 1 Werktag</span>
+      <nav aria-label="Rechtliches">
+        <a href="../impressum/">Impressum</a>
+        <a href="../datenschutz/">Datenschutz</a>
+        <a href="../agb/">AGB</a>
+        <a href="../bildnachweis/">Bildnachweis</a>
+      </nav>
+      <span class="footer-note">Diese Website lädt keine externen Dienste &amp; setzt keine Cookies.</span>
+    </div>
+  </div>
+</footer>
+  <div class="sticky-cta">
+    <a class="btn btn--light" href="../beratungstermin/">Kostenloses Erstgespräch</a>
+    <a class="btn btn--ghost-light" href="tel:+49525140292910" aria-label="Anrufen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h4l1.5 5L9 9.5a12 12 0 0 0 5.5 5.5l1.5-2.5 5 1.5v4a2 2 0 0 1-2 2A16 16 0 0 1 4 5a2 2 0 0 1 2-2Z"/></svg></a>
+  </div>
+  <script src="../assets/js/main.js" defer></script>
+</body>
+</html>

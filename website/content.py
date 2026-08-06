@@ -442,15 +442,19 @@ FAQS = [
         "Was kostet eine Energieberatung für Nichtwohngebäude?",
         "Die Kosten richten sich nach Größe und Komplexität des Gebäudes – vom kompakten Beratungspaket "
         "bis zum vollständigen Energiekonzept nach DIN V 18599. Der Bund bezuschusst die Beratung mit "
-        "bis zu 50 %. Im kostenlosen Erstgespräch nennen wir Ihnen einen Festpreis, bevor Sie sich "
-        "entscheiden – ohne versteckte Kosten.",
+        "50 % des Honorars, gedeckelt auf maximal 4.000 €. Im kostenlosen Erstgespräch nennen wir "
+        "Ihnen einen Festpreis und rechnen offen vor, welcher Eigenanteil bleibt – ohne versteckte "
+        "Kosten.",
     ),
     (
         "Welche Förderung gibt es für die Energieberatung?",
-        "Über die Bundesförderung für Energieberatung für Nichtwohngebäude (EBN) übernimmt der Staat "
-        "bis zu 50 % des Beratungshonorars. Auch die anschließenden Sanierungsmaßnahmen werden über die "
-        "Bundesförderung für effiziente Gebäude (BEG) und weitere Programme bezuschusst. Wir prüfen alle "
-        "Fördertöpfe und übernehmen die Antragstellung für Sie.",
+        "Über die Bundesförderung für Energieberatung für Nichtwohngebäude (EBN) übernimmt der Bund "
+        "50 % des förderfähigen Beratungshonorars – gedeckelt auf 850 € bei bis zu 200 m², 2.500 € "
+        "bei 200 bis 500 m² und 4.000 € ab 500 m² Nettogrundfläche. Antragsberechtigt sind unter "
+        "anderem Kommunen, gemeinnützige Träger, KMU und Nicht-KMU bis 500.000 kWh Jahresverbrauch. "
+        "Wichtig: Der Antrag muss vor der Beauftragung bewilligt sein. Die Sanierungsmaßnahmen selbst "
+        "werden über die BEG und weitere Programme bezuschusst – wir prüfen alle Töpfe und übernehmen "
+        "die Antragstellung.",
     ),
     (
         "Wie läuft die Beratung ab und wie lange dauert sie?",

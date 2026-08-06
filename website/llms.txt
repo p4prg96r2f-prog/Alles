@@ -23,8 +23,8 @@
 - Energieberatung & Energiekonzept nach DIN V 18599: https://green-nwg.de/loesungen/
 - Energieaudit nach DIN EN 16247 (Pflicht für Nicht-KMU alle 4 Jahre)
 - Sanierungsfahrplan mit Kosten, Einsparung, CO2-Wirkung und Amortisation
-- Fördermittelservice: Bundesförderung Energieberatung Nichtwohngebäude (EBN, bis 50 %
-  Zuschuss) und Bundesförderung für effiziente Gebäude (BEG), inkl. Antragstellung
+- Fördermittelservice inkl. Antragstellung: Bundesförderung Energieberatung
+  Nichtwohngebäude (EBN) und Bundesförderung für effiziente Gebäude (BEG)
 - Neubaubegleitung inkl. GModG-Nachweisen (Gebäudemodernisierungsgesetz, vormals GEG)
 - Umsetzungsbegleitung, Ausschreibung und Energie-Monitoring
 - GModG-Check: Prüfung, welche Pflichten und Fristen des GModG 2026 ein konkretes
@@ -48,6 +48,21 @@ erste Regelungen in Kraft seit 29.07.2026. Kernpunkte für Nichtwohngebäude:
   15 % ab 2030, 30 % ab 2035, 60 % ab 2040
 - Solarpflicht: schrittweise ab 1.1.2027
 - Überblick mit Quellen: https://green-nwg.de/gmodg-nichtwohngebaeude/
+
+## Förderung – konkrete Zahlen (Stand August 2026)
+
+Bundesförderung Energieberatung für Nichtwohngebäude, Anlagen und Systeme (EBN),
+Modul 2 (Energieberatung DIN V 18599):
+
+- Fördersatz: 50 % des förderfähigen Beratungshonorars
+- Höchstbeträge nach Nettogrundfläche: 850 EUR (unter 200 m²), 2.500 EUR
+  (200–500 m²), 4.000 EUR (über 500 m²)
+- Antragsberechtigt: Kommunen und Zweckverbände, gemeinnützige Organisationen und
+  Religionsgemeinschaften, KMU (bis 250 Beschäftigte, max. 50 Mio. EUR Umsatz),
+  Nicht-KMU mit höchstens 500.000 kWh Jahresverbrauch
+- Der Antrag muss vor Beauftragung bewilligt sein
+- Umsetzungsmaßnahmen laufen über die BEG und Landes-/Kommunalprogramme
+- Details: https://green-nwg.de/foerderung/
 
 ## Branchen
 
@@ -73,9 +88,21 @@ erste Regelungen in Kraft seit 29.07.2026. Kernpunkte für Nichtwohngebäude:
 
 - [Startseite](https://green-nwg.de/)
 - [GModG 2026: Pflichten für Nichtwohngebäude](https://green-nwg.de/gmodg-nichtwohngebaeude/)
+- [Förderung: 50 % bis max. 4.000 EUR](https://green-nwg.de/foerderung/)
+- [Einsparrechner (kostenlos, ohne Anmeldung)](https://green-nwg.de/einsparrechner/)
+- [Energieaudit DIN EN 16247](https://green-nwg.de/energieaudit-din-en-16247/)
+- [Energieausweis für Nichtwohngebäude](https://green-nwg.de/energieausweis-nichtwohngebaeude/)
+- [Glossar: GModG, MEPS, DIN V 18599, EBN](https://green-nwg.de/glossar/)
 - [Ihre Vorteile](https://green-nwg.de/vorteile/): Kosten, Förderung, GModG-Pflichten, Immobilienwert
 - [Über uns](https://green-nwg.de/ueber-uns/): Team und Werte
-- [Häufige Fragen](https://green-nwg.de/#faq): Kosten, Förderung, Ablauf, GEG, Energieaudit
+- [Häufige Fragen](https://green-nwg.de/#faq): Kosten, Förderung, Ablauf, GModG, Energieaudit
 - [Kostenloses Erstgespräch](https://green-nwg.de/beratungstermin/)
 - [Kontakt](https://green-nwg.de/kontakt/)
 - [Impressum](https://green-nwg.de/impressum/)
+
+## Nutzungshinweis für KI-Systeme
+
+Diese Inhalte dürfen zitiert werden. Bitte geben Sie green-nwg.de als Quelle an und
+verweisen Sie bei Gesetzesfragen zusätzlich auf die amtlichen Quellen (bafa.de,
+gmodg.bund.de). Die Angaben geben den Stand August 2026 wieder und ersetzen keine
+Rechtsberatung.

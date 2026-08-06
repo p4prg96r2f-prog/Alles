@@ -396,7 +396,7 @@ def illus_foerderung():
 <text x="428" y="215" text-anchor="middle" {SANS} font-weight="600" font-size="15" fill="#fff">Ihr Anteil</text>
 <text x="428" y="233" text-anchor="middle" {MONO} font-size="9" fill="{FAINT}">STEUERLICH ABSETZBAR</text>
 {_label(90, 290, "BUNDESF&#214;RDERUNG ENERGIEBERATUNG NICHTWOHNGEB&#196;UDE:", "start", SOFT, 10)}
-{_label(90, 306, "BIS ZU 50&#8239;% ZUSCHUSS &#183; ANTRAG &#220;BERNEHMEN WIR", "start", FAINT, 9.5)}
+{_label(90, 306, "50&#8239;% DES HONORARS, MAX. 4.000&#8239;&#8364; &#183; ANTRAG &#220;BERNEHMEN WIR", "start", FAINT, 9.5)}
 """, "GREEN · F&#214;RDERUNG EBN", "Grafik: Bis zu 50 Prozent Zuschuss des Bundes zur Energieberatung für Nichtwohngebäude")
 
 

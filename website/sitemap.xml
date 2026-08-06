@@ -1,28 +1,84 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://green-nwg.de/</loc><changefreq>monthly</changefreq></url>
-  <url><loc>https://green-nwg.de/agb/</loc><changefreq>monthly</changefreq></url>
-  <url><loc>https://green-nwg.de/beratungstermin/</loc><changefreq>monthly</changefreq></url>
-  <url><loc>https://green-nwg.de/datenschutz/</loc><changefreq>monthly</changefreq></url>
-  <url><loc>https://green-nwg.de/einzugsgebiet/</loc><changefreq>monthly</changefreq></url>
-  <url><loc>https://green-nwg.de/energieberatung-bielefeld/</loc><changefreq>monthly</changefreq></url>
-  <url><loc>https://green-nwg.de/energieberatung-detmold/</loc><changefreq>monthly</changefreq></url>
-  <url><loc>https://green-nwg.de/energieberatung-guetersloh/</loc><changefreq>monthly</changefreq></url>
-  <url><loc>https://green-nwg.de/energieberatung-hoexter/</loc><changefreq>monthly</changefreq></url>
-  <url><loc>https://green-nwg.de/energieberatung-lippstadt/</loc><changefreq>monthly</changefreq></url>
-  <url><loc>https://green-nwg.de/energieberatung-paderborn/</loc><changefreq>monthly</changefreq></url>
-  <url><loc>https://green-nwg.de/gmodg-nichtwohngebaeude/</loc><changefreq>monthly</changefreq></url>
-  <url><loc>https://green-nwg.de/impressum/</loc><changefreq>monthly</changefreq></url>
-  <url><loc>https://green-nwg.de/kontakt/</loc><changefreq>monthly</changefreq></url>
-  <url><loc>https://green-nwg.de/loesungen/</loc><changefreq>monthly</changefreq></url>
-  <url><loc>https://green-nwg.de/services/andere/</loc><changefreq>monthly</changefreq></url>
-  <url><loc>https://green-nwg.de/services/bildung/</loc><changefreq>monthly</changefreq></url>
-  <url><loc>https://green-nwg.de/services/buero/</loc><changefreq>monthly</changefreq></url>
-  <url><loc>https://green-nwg.de/services/einzelhandel/</loc><changefreq>monthly</changefreq></url>
-  <url><loc>https://green-nwg.de/services/kindergarten/</loc><changefreq>monthly</changefreq></url>
-  <url><loc>https://green-nwg.de/services/kommune/</loc><changefreq>monthly</changefreq></url>
-  <url><loc>https://green-nwg.de/services/produktion/</loc><changefreq>monthly</changefreq></url>
-  <url><loc>https://green-nwg.de/services/veranstaltung/</loc><changefreq>monthly</changefreq></url>
-  <url><loc>https://green-nwg.de/ueber-uns/</loc><changefreq>monthly</changefreq></url>
-  <url><loc>https://green-nwg.de/vorteile/</loc><changefreq>monthly</changefreq></url>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url><loc>https://green-nwg.de/</loc><lastmod>2026-08-06</lastmod><changefreq>monthly</changefreq><priority>1.0</priority>
+  </url>
+  <url><loc>https://green-nwg.de/agb/</loc><lastmod>2026-08-06</lastmod><changefreq>monthly</changefreq><priority>0.9</priority>
+  </url>
+  <url><loc>https://green-nwg.de/beratungstermin/</loc><lastmod>2026-08-06</lastmod><changefreq>monthly</changefreq><priority>0.9</priority>
+  </url>
+  <url><loc>https://green-nwg.de/bildnachweis/</loc><lastmod>2026-08-06</lastmod><changefreq>monthly</changefreq><priority>0.9</priority>
+  </url>
+  <url><loc>https://green-nwg.de/datenschutz/</loc><lastmod>2026-08-06</lastmod><changefreq>monthly</changefreq><priority>0.9</priority>
+  </url>
+  <url><loc>https://green-nwg.de/einsparrechner/</loc><lastmod>2026-08-06</lastmod><changefreq>monthly</changefreq><priority>0.9</priority>
+    <image:image><image:loc>https://green-nwg.de/assets/img/fotos/beratung-daten-1000.webp</image:loc><image:title>Hände halten ein Tablet mit Energieauswertungen</image:title></image:image>
+  </url>
+  <url><loc>https://green-nwg.de/einzugsgebiet/</loc><lastmod>2026-08-06</lastmod><changefreq>monthly</changefreq><priority>0.9</priority>
+    <image:image><image:loc>https://green-nwg.de/assets/img/fotos/nichtwohngebaeude-1000.webp</image:loc><image:title>Moderne Glasfassade eines mehrgeschossigen Nichtwohngebäudes</image:title></image:image>
+  </url>
+  <url><loc>https://green-nwg.de/energieaudit-din-en-16247/</loc><lastmod>2026-08-06</lastmod><changefreq>monthly</changefreq><priority>0.9</priority>
+    <image:image><image:loc>https://green-nwg.de/assets/img/fotos/produktion-anlage-1000.webp</image:loc><image:title>Verfahrenstechnische Anlage im Inneren einer Industriehalle</image:title></image:image>
+  </url>
+  <url><loc>https://green-nwg.de/energieausweis-nichtwohngebaeude/</loc><lastmod>2026-08-06</lastmod><changefreq>monthly</changefreq><priority>0.9</priority>
+    <image:image><image:loc>https://green-nwg.de/assets/img/fotos/gebaeudehuelle-1000.webp</image:loc><image:title>Moderne, dunkel verkleidete Gebäudehülle eines Nichtwohngebäudes</image:title></image:image>
+  </url>
+  <url><loc>https://green-nwg.de/energieberatung-bielefeld/</loc><lastmod>2026-08-06</lastmod><changefreq>monthly</changefreq><priority>0.9</priority>
+  </url>
+  <url><loc>https://green-nwg.de/energieberatung-detmold/</loc><lastmod>2026-08-06</lastmod><changefreq>monthly</changefreq><priority>0.9</priority>
+  </url>
+  <url><loc>https://green-nwg.de/energieberatung-guetersloh/</loc><lastmod>2026-08-06</lastmod><changefreq>monthly</changefreq><priority>0.9</priority>
+  </url>
+  <url><loc>https://green-nwg.de/energieberatung-hoexter/</loc><lastmod>2026-08-06</lastmod><changefreq>monthly</changefreq><priority>0.9</priority>
+  </url>
+  <url><loc>https://green-nwg.de/energieberatung-lippstadt/</loc><lastmod>2026-08-06</lastmod><changefreq>monthly</changefreq><priority>0.9</priority>
+  </url>
+  <url><loc>https://green-nwg.de/energieberatung-paderborn/</loc><lastmod>2026-08-06</lastmod><changefreq>monthly</changefreq><priority>0.9</priority>
+  </url>
+  <url><loc>https://green-nwg.de/foerderung/</loc><lastmod>2026-08-06</lastmod><changefreq>monthly</changefreq><priority>0.9</priority>
+    <image:image><image:loc>https://green-nwg.de/assets/img/fotos/beratung-daten-1000.webp</image:loc><image:title>Hände halten ein Tablet mit Energieauswertungen</image:title></image:image>
+  </url>
+  <url><loc>https://green-nwg.de/glossar/</loc><lastmod>2026-08-06</lastmod><changefreq>monthly</changefreq><priority>0.9</priority>
+  </url>
+  <url><loc>https://green-nwg.de/gmodg-nichtwohngebaeude/</loc><lastmod>2026-08-06</lastmod><changefreq>monthly</changefreq><priority>0.9</priority>
+    <image:image><image:loc>https://green-nwg.de/assets/img/fotos/gebaeudehuelle-1000.webp</image:loc><image:title>Moderne, dunkel verkleidete Gebäudehülle eines Nichtwohngebäudes</image:title></image:image>
+    <image:image><image:loc>https://green-nwg.de/assets/img/fotos/nichtwohngebaeude-1000.webp</image:loc><image:title>Moderne Glasfassade eines mehrgeschossigen Nichtwohngebäudes</image:title></image:image>
+    <image:image><image:loc>https://green-nwg.de/assets/img/fotos/solarpark-1000.webp</image:loc><image:title>Große Photovoltaikanlage mit vielen Modulreihen</image:title></image:image>
+  </url>
+  <url><loc>https://green-nwg.de/impressum/</loc><lastmod>2026-08-06</lastmod><changefreq>monthly</changefreq><priority>0.9</priority>
+  </url>
+  <url><loc>https://green-nwg.de/kontakt/</loc><lastmod>2026-08-06</lastmod><changefreq>monthly</changefreq><priority>0.9</priority>
+  </url>
+  <url><loc>https://green-nwg.de/loesungen/</loc><lastmod>2026-08-06</lastmod><changefreq>monthly</changefreq><priority>0.9</priority>
+  </url>
+  <url><loc>https://green-nwg.de/services/andere/</loc><lastmod>2026-08-06</lastmod><changefreq>monthly</changefreq><priority>0.7</priority>
+    <image:image><image:loc>https://green-nwg.de/assets/img/fotos/logistik-1000.webp</image:loc><image:title>Regallager mit Hallenbeleuchtung und Mitarbeiter bei der Kommissionierung</image:title></image:image>
+  </url>
+  <url><loc>https://green-nwg.de/services/bildung/</loc><lastmod>2026-08-06</lastmod><changefreq>monthly</changefreq><priority>0.7</priority>
+    <image:image><image:loc>https://green-nwg.de/assets/img/fotos/bildung-1000.webp</image:loc><image:title>Moderner Campusbau einer Bildungseinrichtung mit Glas- und Ziegelfassade</image:title></image:image>
+  </url>
+  <url><loc>https://green-nwg.de/services/buero/</loc><lastmod>2026-08-06</lastmod><changefreq>monthly</changefreq><priority>0.7</priority>
+    <image:image><image:loc>https://green-nwg.de/assets/img/fotos/buero-1000.webp</image:loc><image:title>Bürogebäude mit großflächiger Glasfassade und Gewerbeflächen</image:title></image:image>
+  </url>
+  <url><loc>https://green-nwg.de/services/einzelhandel/</loc><lastmod>2026-08-06</lastmod><changefreq>monthly</changefreq><priority>0.7</priority>
+    <image:image><image:loc>https://green-nwg.de/assets/img/fotos/einzelhandel-1000.webp</image:loc><image:title>Hell beleuchtete Obst- und Gemüseabteilung in einem Supermarkt</image:title></image:image>
+  </url>
+  <url><loc>https://green-nwg.de/services/kindergarten/</loc><lastmod>2026-08-06</lastmod><changefreq>monthly</changefreq><priority>0.7</priority>
+    <image:image><image:loc>https://green-nwg.de/assets/img/fotos/kindergarten-1000.webp</image:loc><image:title>Heller Gruppenraum einer Kindertagesstätte</image:title></image:image>
+  </url>
+  <url><loc>https://green-nwg.de/services/kommune/</loc><lastmod>2026-08-06</lastmod><changefreq>monthly</changefreq><priority>0.7</priority>
+    <image:image><image:loc>https://green-nwg.de/assets/img/fotos/kommune-1000.webp</image:loc><image:title>Historisches Rathaus an einem innerstädtischen Platz</image:title></image:image>
+  </url>
+  <url><loc>https://green-nwg.de/services/produktion/</loc><lastmod>2026-08-06</lastmod><changefreq>monthly</changefreq><priority>0.7</priority>
+    <image:image><image:loc>https://green-nwg.de/assets/img/fotos/produktion-1000.webp</image:loc><image:title>Automatisierte Fertigungslinie mit Industrierobotern in einer Produktionshalle</image:title></image:image>
+  </url>
+  <url><loc>https://green-nwg.de/services/veranstaltung/</loc><lastmod>2026-08-06</lastmod><changefreq>monthly</changefreq><priority>0.7</priority>
+    <image:image><image:loc>https://green-nwg.de/assets/img/fotos/veranstaltung-1000.webp</image:loc><image:title>Bestuhlter Saal einer Veranstaltungsstätte mit ansteigenden Sitzreihen</image:title></image:image>
+  </url>
+  <url><loc>https://green-nwg.de/ueber-uns/</loc><lastmod>2026-08-06</lastmod><changefreq>monthly</changefreq><priority>0.9</priority>
+    <image:image><image:loc>https://green-nwg.de/assets/img/fotos/beratung-gespraech-1000.webp</image:loc><image:title>Beratungsgespräch zwischen Fachleuten in einem Bürogebäude</image:title></image:image>
+  </url>
+  <url><loc>https://green-nwg.de/vorteile/</loc><lastmod>2026-08-06</lastmod><changefreq>monthly</changefreq><priority>0.9</priority>
+    <image:image><image:loc>https://green-nwg.de/assets/img/fotos/photovoltaik-1000.webp</image:loc><image:title>Photovoltaikmodul vor einer modernen Gewerbehalle</image:title></image:image>
+  </url>
 </urlset>
