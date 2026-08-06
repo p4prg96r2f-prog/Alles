@@ -1,0 +1,50 @@
+name: Website auf GitHub Pages deployen
+
+on:
+  push:
+    branches: [claude/green-nwg-website-redesign-4wmqmu]
+    paths:
+      - "website/**"
+      - ".github/workflows/deploy-pages.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Statische Site bauen (dist/ ohne Generator-Quellen)
+        run: |
+          cd website && python3 build.py && cd ..
+          rm -rf dist && mkdir dist && cp -r website/. dist/
+          rm -f dist/*.py dist/README.md dist/.gitignore dist/_headers
+          rm -rf dist/__pycache__
+          # Staging-Deployment: nicht indexieren – Canonicals zeigen auf green-nwg.de
+          find dist -name "*.html" -exec sed -i 's|<meta name="description"|<meta name="robots" content="noindex">\n  <meta name="description"|' {} +
+
+      - name: Pages konfigurieren (bei Bedarf aktivieren)
+        uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
+      - name: Artefakt hochladen
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+      - name: Deployen
+        id: deployment
+        uses: actions/deploy-pages@v4
