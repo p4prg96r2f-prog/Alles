@@ -355,33 +355,90 @@ def footer(p):
 </footer>"""
 
 
-def page(path, title, desc, body, active="", schema=None, depth=None):
+ORG_ID = f"{BASE}/#organization"
+
+# Kurzfassung des Unternehmensknotens. Google bewertet jede Seite für sich –
+# eine @id-Referenz ohne Knoten auf derselben Seite löst sich ins Leere auf.
+# Deshalb liegt dieser Knoten auf JEDER Seite im @graph (außer auf der
+# Startseite, die den vollständigen ProfessionalService unter derselben @id führt).
+ORG_STUB = {
+    "@type": "Organization",
+    "@id": ORG_ID,
+    "name": "GREEN – Energieberatung für Nichtwohngebäude",
+    "legalName": COMPANY["name"],
+    "url": f"{BASE}/",
+    "logo": f"{BASE}/assets/img/apple-touch-icon.png",
+    "telephone": "+49 5251 40292910",
+    "email": COMPANY["email"],
+    "address": {
+        "@type": "PostalAddress",
+        "streetAddress": COMPANY["street"],
+        "postalCode": "33102",
+        "addressLocality": "Paderborn",
+        "addressRegion": "Nordrhein-Westfalen",
+        "addressCountry": "DE",
+    },
+}
+
+
+def plain(text):
+    """Entfernt HTML aus Texten, die in strukturierte Daten wandern."""
+    import re as _re
+    return _re.sub(r"\s+", " ", _re.sub(r"<[^>]+>", "", text)).strip()
+
+
+def build_graph(schema, crumbs_schema):
+    """Führt Seiten-Schema, Breadcrumb und Unternehmensknoten zu einem @graph zusammen."""
+    nodes = []
+    if schema:
+        nodes = list(schema["@graph"]) if "@graph" in schema else [
+            {k: v for k, v in schema.items() if k != "@context"}
+        ]
+    if crumbs_schema and not any(n.get("@type") == "BreadcrumbList" for n in nodes):
+        nodes.append(crumbs_schema)
+    if not any(n.get("@id") == ORG_ID for n in nodes):
+        nodes.insert(0, ORG_STUB)
+    if not nodes:
+        return ""
+    graph = {"@context": "https://schema.org", "@graph": nodes}
+    return (
+        '<script type="application/ld+json">'
+        + json.dumps(graph, ensure_ascii=False)
+        + "</script>"
+    )
+
+
+def page(path, title, desc, body, active="", schema=None, depth=None,
+         og_type="website", noindex=False, extra_head=""):
     """Komplette HTML-Seite. path = Canonical-Pfad relativ zur Domain, z. B. 'vorteile/'."""
     if depth is None:
         depth = path.count("/")
     p = "../" * depth
     canonical = f"{BASE}/{path}"
-    schema_tag = (
-        f'<script type="application/ld+json">{json.dumps(schema, ensure_ascii=False)}</script>'
-        if schema
-        else ""
-    )
+    schema_tag = build_graph(schema, take_crumbs_schema())
+    robots = '\n  <meta name="robots" content="noindex, follow">' if noindex else ""
+    canonical_tag = "" if noindex else f'\n  <link rel="canonical" href="{canonical}">'
     return f"""<!DOCTYPE html>
 <html lang="de">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{title}</title>
-  <meta name="description" content="{desc}">
-  <link rel="canonical" href="{canonical}">
-  <meta property="og:type" content="website">
+  <meta name="description" content="{desc}">{robots}{canonical_tag}
+  <meta property="og:type" content="{og_type}">
   <meta property="og:site_name" content="GREEN – Energieberatung für Nichtwohngebäude">
   <meta property="og:title" content="{title}">
   <meta property="og:description" content="{desc}">
   <meta property="og:url" content="{canonical}">
   <meta property="og:image" content="{BASE}/assets/img/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="GREEN – bis zu 70 % weniger Energiekosten für Ihr Nichtwohngebäude">
   <meta property="og:locale" content="de_DE">
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{title}">
+  <meta name="twitter:description" content="{desc}">
+  <meta name="twitter:image" content="{BASE}/assets/img/og-image.png">{extra_head}
   <meta name="theme-color" content="#0d3b2a">
   <meta name="geo.region" content="DE-NW">
   <meta name="geo.placename" content="Paderborn">
@@ -411,12 +468,34 @@ def page(path, title, desc, body, active="", schema=None, depth=None):
 </html>"""
 
 
+# Der Generator baut Seiten streng nacheinander: erst der Body (dort läuft
+# breadcrumbs()), dann page(). Deshalb kann breadcrumbs() die Krümel hier
+# hinterlegen und page() sie für das BreadcrumbList-Schema abholen. So können
+# sichtbarer Pfad und strukturierte Daten nicht auseinanderlaufen.
+_PENDING_CRUMBS = None
+
+
 def breadcrumbs(p, items):
+    global _PENDING_CRUMBS
+    _PENDING_CRUMBS = [("Start", "")] + [(label, href) for href, label in items]
     lis = [f'<li><a href="{p}">Start</a></li>']
     for href, label in items[:-1]:
         lis.append(f'<li><a href="{p}{href}">{label}</a></li>')
     lis.append(f"<li>{items[-1][1]}</li>")
     return f'<ol class="breadcrumb">{"".join(lis)}</ol>'
+
+
+def take_crumbs_schema():
+    """Liefert das BreadcrumbList-Schema zur zuletzt gerenderten Krümelnavigation."""
+    global _PENDING_CRUMBS
+    if not _PENDING_CRUMBS:
+        return None
+    items = [
+        {"@type": "ListItem", "position": i + 1, "name": name, "item": f"{BASE}/{href}"}
+        for i, (name, href) in enumerate(_PENDING_CRUMBS)
+    ]
+    _PENDING_CRUMBS = None
+    return {"@type": "BreadcrumbList", "itemListElement": items}
 
 
 def page_hero(p, crumbs, eyebrow, h1, lead):
@@ -623,7 +702,9 @@ def render_home():
       <p class="eyebrow">Leistungen</p>
       <h2>Vom ersten Messwert bis zur nachgewiesenen Einsparung</h2>
       <p class="lead">Alles aus einer Hand – Sie behalten einen Ansprechpartner,
-      wir behalten die Verantwortung.</p>
+      wir behalten die Verantwortung. Warum sich das rechnet, steht unter
+      <a href="vorteile/">Ihre Vorteile</a>; wer dahintersteckt, unter
+      <a href="ueber-uns/">Über uns</a>.</p>
     </div>
     <ul class="feature-list">{service_items}</ul>
   </div>
@@ -780,8 +861,8 @@ def render_home():
                 "mainEntity": [
                     {
                         "@type": "Question",
-                        "name": q,
-                        "acceptedAnswer": {"@type": "Answer", "text": a},
+                        "name": plain(q),
+                        "acceptedAnswer": {"@type": "Answer", "text": plain(a)},
                     }
                     for q, a in FAQS
                 ],
@@ -792,7 +873,7 @@ def render_home():
     return page(
         "",
         "Energieberatung für Nichtwohngebäude in NRW | GREEN Paderborn",
-        "Bis zu 70 % Energiekosten sparen: GREEN ist die unabhängige Energieberatung für Büro, Handel, Produktion, Schulen & Kommunen – mit bis zu 50 % Förderung. Jetzt Termin sichern.",
+        "Bis zu 70 % Energiekosten sparen: unabhängige Energieberatung für Büro, Handel, Produktion, Schulen und Kommunen in NRW. Jetzt Erstgespräch sichern.",
         body,
         active="",
         schema=schema,
@@ -826,6 +907,19 @@ def render_loesungen():
 
 <section class="section">
   <div class="container">
+    <div class="section-head reveal">
+      <p class="eyebrow">Branchen im Überblick</p>
+      <h2>Acht Gebäudetypen, acht eigene Energieprofile</h2>
+      <p class="lead">Was in einem Bürogebäude den größten Hebel bildet – Beleuchtung,
+      Lüftung, Regelung – ist im Lebensmittelhandel zweitrangig: Dort entscheidet die
+      Kälte. In der Produktion wiederum liegt das Geld in Druckluft und Abwärme, in
+      Schulen im Lüftungskonzept, in Kitas in der Behaglichkeit am Boden.</p>
+      <p>Deshalb starten wir nie mit einer Maßnahmenliste, sondern mit Ihrem
+      Nutzungsprofil: Wann läuft welche Anlage, wie lange, für wen? Aus dieser
+      Betriebswirklichkeit ergibt sich die Reihenfolge der Maßnahmen – und damit,
+      welcher Euro sich zuerst lohnt. Wählen Sie unten Ihren Gebäudetyp, um die
+      typischen Energiefresser und die passenden Maßnahmen zu sehen.</p>
+    </div>
     <div class="card-grid card-grid--wide">{cards}</div>
   </div>
 </section>
@@ -853,12 +947,29 @@ def render_loesungen():
 
 {cta_band(p)}
 """
+    schema = {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        "name": "Branchenlösungen der Energieberatung",
+        "url": f"{BASE}/loesungen/",
+        "inLanguage": "de",
+        "mainEntity": {
+            "@type": "ItemList",
+            "numberOfItems": len(INDUSTRIES),
+            "itemListElement": [
+                {"@type": "ListItem", "position": n + 1, "name": i["name"],
+                 "url": f"{BASE}/services/{i['slug']}/"}
+                for n, i in enumerate(INDUSTRIES)
+            ],
+        },
+    }
     return page(
         "loesungen/",
-        "Branchenlösungen: Energieberatung nach Gebäudetyp | GREEN",
-        "Energieberatung für Büro, Einzelhandel, Produktion, Schulen, Kitas, Kommunen und Veranstaltungsstätten – spezialisiert auf Nichtwohngebäude. GREEN Paderborn.",
+        "Branchenlösungen nach Gebäudetyp | GREEN",
+        "Energieberatung für Büro, Einzelhandel, Produktion, Schulen, Kitas, Kommunen und Veranstaltungsstätten. Jetzt Gebäudetyp wählen und Potenzial prüfen.",
         body,
         active="loesungen/",
+        schema=schema,
     )
 
 
@@ -1149,6 +1260,40 @@ def render_ueber_uns():
   </div>
 </section>
 
+<section class="section section--surface">
+  <div class="container">
+    <div class="section-head reveal">
+      <p class="eyebrow">Arbeitsweise</p>
+      <h2>Woran Sie eine unabhängige Beratung erkennen</h2>
+      <p class="lead">„Unabhängig" steht auf vielen Websites. Prüfbar wird es erst an
+      konkreten Punkten – diese vier können Sie bei jedem Anbieter abfragen.</p>
+    </div>
+    <ul class="feature-list">
+      <li class="feature reveal"><span class="feature-icon">{icon('shield')}</span>
+        <div><h3>Kein Produktverkauf, keine Provision</h3>
+        <p>Wir verkaufen weder Heizungen noch Photovoltaikmodule und erhalten von keinem
+        Hersteller und keinem Handwerksbetrieb eine Vermittlungsprovision. Unser Honorar
+        ist unsere einzige Einnahme aus Ihrem Projekt – deshalb kann eine Empfehlung auch
+        lauten, dass eine Maßnahme sich bei Ihnen nicht rechnet.</p></div></li>
+      <li class="feature reveal"><span class="feature-icon">{icon('chart')}</span>
+        <div><h3>Gerechnet, nicht geschätzt</h3>
+        <p>Jede Empfehlung kommt mit Investitionssumme, jährlicher Einsparung, Förderung
+        und Amortisationszeit. Sie sehen den Rechenweg und können ihn intern
+        weiterverwenden – in der Vorlage für Geschäftsführung, Kämmerei oder Rat.</p></div></li>
+      <li class="feature reveal"><span class="feature-icon">{icon('euro')}</span>
+        <div><h3>Festpreis vor der Beauftragung</h3>
+        <p>Sie erfahren vor Vertragsschluss, was die Beratung kostet und welcher Zuschuss
+        realistisch übrig bleibt – inklusive der gesetzlichen Deckelung. Nachträgliche
+        Aufschläge gibt es nur, wenn Sie zusätzliche Leistungen beauftragen.</p></div></li>
+      <li class="feature reveal"><span class="feature-icon">{icon('handshake')}</span>
+        <div><h3>Ein Ansprechpartner, durchgehend</h3>
+        <p>Die Person, die Ihr Gebäude begeht, ist auch die, die das Konzept rechnet und
+        später ans Telefon geht. Kein Wechsel zwischen Vertrieb, Fachabteilung und
+        Projektleitung – und niemand, der sich auf Vorgänger beruft.</p></div></li>
+    </ul>
+  </div>
+</section>
+
 <section class="section">
   <div class="container">
     <div class="section-head reveal">
@@ -1164,12 +1309,34 @@ def render_ueber_uns():
 {cta_band(p, "Lernen Sie uns kennen.",
           "Am besten bei einem kostenlosen Erstgespräch über Ihr Gebäude – telefonisch, online oder bei Ihnen vor Ort.")}
 """
+    schema = {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "AboutPage",
+                "name": "Über GREEN – Ingenieurbüro für Energieeffizienz",
+                "url": f"{BASE}/ueber-uns/",
+                "inLanguage": "de",
+                "mainEntity": {"@id": ORG_ID},
+            },
+            *[
+                {
+                    "@type": "Person",
+                    "name": name,
+                    "jobTitle": role,
+                    "worksFor": {"@id": ORG_ID},
+                }
+                for name, role in TEAM
+            ],
+        ],
+    }
     return page(
         "ueber-uns/",
-        "Über GREEN: Ingenieurbüro für Energieeffizienz | Paderborn",
-        "Seit über einem Jahrzehnt spezialisiert auf Energieberatung für Nichtwohngebäude: Lernen Sie das Team der Green HLB GmbH aus Paderborn kennen.",
+        "Über uns: Ingenieurbüro für Energieeffizienz | GREEN",
+        "Seit über einem Jahrzehnt auf Nichtwohngebäude spezialisiert: Lernen Sie das Team der Green HLB GmbH aus Paderborn kennen und sprechen Sie uns an.",
         body,
         active="ueber-uns/",
+        schema=schema,
     )
 
 
@@ -1272,12 +1439,21 @@ def render_kontakt():
 {cta_band(p, "Lieber gleich einen Termin?",
           "Buchen Sie direkt Ihr kostenloses Erstgespräch – wir rufen Sie zum Wunschtermin zurück.")}
 """
+    schema = {
+        "@context": "https://schema.org",
+        "@type": "ContactPage",
+        "name": "Kontakt zur GREEN Energieberatung",
+        "url": f"{BASE}/kontakt/",
+        "inLanguage": "de",
+        "mainEntity": {"@id": ORG_ID},
+    }
     return page(
         "kontakt/",
-        "Kontakt: GREEN Energieberatung Paderborn | 05251 4029290",
-        "Kontaktieren Sie GREEN: Telefon 05251 40 29 29 10, info@green-nwg.de, Rolandsweg 80, Paderborn. Unabhängige Energieberatung für Nichtwohngebäude in NRW.",
+        "Kontakt & Anfahrt Paderborn | GREEN",
+        "GREEN erreichen: 05251 40 29 29 10, info@green-nwg.de, Rolandsweg 80 in Paderborn. Antwort in der Regel am nächsten Werktag – jetzt schreiben.",
         body,
         active="kontakt/",
+        schema=schema,
     )
 
 
@@ -1358,7 +1534,7 @@ def render_termin():
 """
     return page(
         "beratungstermin/",
-        "Beratungstermin vereinbaren – kostenloses Erstgespräch | GREEN",
+        "Beratungstermin: kostenloses Erstgespräch | GREEN",
         "Jetzt kostenloses Erstgespräch zur Energieberatung sichern: Potenzial, Förderung und nächste Schritte für Ihr Nichtwohngebäude – unverbindlich und mit Festpreis.",
         body,
         active=None,
@@ -1501,7 +1677,7 @@ def render_rechner():
     }
     return page(
         "einsparrechner/",
-        "Einsparrechner: Energiekosten für Nichtwohngebäude schätzen | GREEN",
+        "Einsparrechner Nichtwohngebäude: Kosten schätzen | GREEN",
         "Kostenloser Einsparrechner für Nichtwohngebäude: Energiekosten, Einsparpotenzial und CO₂-Reduktion in 30 Sekunden schätzen – ohne Anmeldung, ohne Datenübertragung.",
         body,
         active=None,
@@ -1674,8 +1850,10 @@ def render_gmodg():
                 "datePublished": "2026-08-06",
                 "dateModified": "2026-08-06",
                 "inLanguage": "de",
-                "author": {"@id": f"{BASE}/#organization"},
-                "publisher": {"@id": f"{BASE}/#organization"},
+                "author": {"@id": ORG_ID},
+                "publisher": {"@id": ORG_ID},
+                "image": f"{BASE}/assets/img/og-image.png",
+                "description": "Überblick über die Pflichten des Gebäudemodernisierungsgesetzes (GModG) für Nichtwohngebäude: MEPS-Sanierungspflicht, Gebäudeautomation, Bedarfsausweis, Nullemissionsstandard, Bio-Treppe und Solarpflicht mit allen Fristen.",
                 "mainEntityOfPage": f"{BASE}/gmodg-nichtwohngebaeude/",
             },
             {
@@ -1688,7 +1866,7 @@ def render_gmodg():
             {
                 "@type": "FAQPage",
                 "mainEntity": [
-                    {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}}
+                    {"@type": "Question", "name": plain(q), "acceptedAnswer": {"@type": "Answer", "text": plain(a)}}
                     for q, a in gmodg_faqs
                 ],
             },
@@ -1697,10 +1875,13 @@ def render_gmodg():
     return page(
         "gmodg-nichtwohngebaeude/",
         "GModG 2026: Pflichten für Nichtwohngebäude | GREEN",
-        "GModG seit 29.07.2026 in Kraft: MEPS-Sanierungspflicht ab 2030, Gebäudeautomation >70 kW bis Ende 2029, Bedarfsausweis-Pflicht 2027, Bio-Treppe. Der Überblick für Eigentümer.",
+        "GModG in Kraft: MEPS-Sanierungspflicht ab 2030, Gebäudeautomation ab 70 kW, Bedarfsausweis 2027. Jetzt prüfen lassen, was für Ihr Gebäude gilt.",
         body,
         active=None,
         schema=schema,
+        og_type="article",
+        extra_head=f'\n  <meta property="article:published_time" content="{BUILD_DATE}">'
+                   f'\n  <meta property="article:modified_time" content="{BUILD_DATE}">',
     )
 
 
@@ -1767,6 +1948,10 @@ def render_foerderung():
     </div>
     <p class="mono-note">Stand: August 2026 · Quelle: BAFA, Bundesförderung Energieberatung für
     Nichtwohngebäude, Anlagen und Systeme (Modul 2, Energieberatung DIN V 18599)</p>
+    <p>Die Abkürzungen EBN, BEG und DIN V 18599 sind im
+    <a href="{p}glossar/">Glossar</a> kurz erklärt. Wie sich die Förderung auf Ihr Honorar
+    auswirkt, zeigt Ihnen der <a href="{p}einsparrechner/">Einsparrechner</a> als erste
+    Näherung.</p>
   </div>
 </section>
 
@@ -1855,7 +2040,7 @@ def render_foerderung():
         "@context": "https://schema.org",
         "@graph": [
             {"@type": "FAQPage", "mainEntity": [
-                {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}}
+                {"@type": "Question", "name": plain(q), "acceptedAnswer": {"@type": "Answer", "text": plain(a)}}
                 for q, a in faqs]},
             {"@type": "BreadcrumbList", "itemListElement": [
                 {"@type": "ListItem", "position": 1, "name": "Start", "item": f"{BASE}/"},
@@ -1864,8 +2049,8 @@ def render_foerderung():
     }
     return page(
         "foerderung/",
-        "Förderung Energieberatung Nichtwohngebäude: 50 % bis 4.000 € | GREEN",
-        "Wie viel Förderung gibt es wirklich? 50 % des Beratungshonorars, gedeckelt auf 850–4.000 € je nach Fläche. Antragsberechtigte, Fristen und BEG-Förderung im Überblick.",
+        "Förderung Energieberatung NWG: 50 % bis 4.000 € | GREEN",
+        "50 % des Beratungshonorars, gedeckelt auf 850–4.000 €: Antragsberechtigte, Fristen, BEG. Jetzt Förderanspruch prüfen lassen.",
         body, active=None, schema=schema,
     )
 
@@ -1960,11 +2145,11 @@ def render_energieausweis():
          "serviceType": "Energieausweis", "url": f"{BASE}/energieausweis-nichtwohngebaeude/",
          "provider": {"@id": f"{BASE}/#organization"}, "areaServed": {"@type": "State", "name": "Nordrhein-Westfalen"}},
         {"@type": "FAQPage", "mainEntity": [
-            {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in faqs]},
+            {"@type": "Question", "name": plain(q), "acceptedAnswer": {"@type": "Answer", "text": plain(a)}} for q, a in faqs]},
     ]}
     return page(
         "energieausweis-nichtwohngebaeude/",
-        "Energieausweis Nichtwohngebäude: Bedarfsausweis ab 2027 | GREEN",
+        "Energieausweis Nichtwohngebäude: Bedarfsausweis | GREEN",
         "Ab 1.1.2027 sind Verbrauchsausweise für Nichtwohngebäude unzulässig. Wir erstellen den Bedarfsausweis nach DIN V 18599 – mit Effizienzklasse und Maßnahmenempfehlung.",
         body, active=None, schema=schema,
     )
@@ -2068,12 +2253,12 @@ def render_energieaudit():
          "url": f"{BASE}/energieaudit-din-en-16247/", "provider": {"@id": f"{BASE}/#organization"},
          "areaServed": {"@type": "State", "name": "Nordrhein-Westfalen"}},
         {"@type": "FAQPage", "mainEntity": [
-            {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in faqs]},
+            {"@type": "Question", "name": plain(q), "acceptedAnswer": {"@type": "Answer", "text": plain(a)}} for q, a in faqs]},
     ]}
     return page(
         "energieaudit-din-en-16247/",
         "Energieaudit DIN EN 16247: Pflicht für Nicht-KMU | GREEN",
-        "Energieaudit nach DIN EN 16247 für auditpflichtige Unternehmen: normkonformer Bericht, priorisierte Maßnahmen mit Amortisationsrechnung. Beratung aus Paderborn für NRW.",
+        "Energieaudit nach DIN EN 16247 für Nicht-KMU: normkonformer Bericht, Maßnahmen mit Amortisationsrechnung. Jetzt Auditpflicht klären lassen.",
         body, active=None, schema=schema,
     )
 
@@ -2157,6 +2342,10 @@ def render_glossar():
            "und Förderung, jeweils in zwei bis drei Sätzen erklärt.")}
 <section class="section">
   <div class="container">
+    <div class="section-head reveal">
+      <p class="eyebrow">Von Gesetz bis Förderprogramm</p>
+      <h2>Begriffe, die in jedem Beratungsgespräch fallen</h2>
+    </div>
     <div class="card-grid card-grid--wide">{entries}</div>
     <p class="mono-note mt-2">Stand: August 2026 · Die Erläuterungen dienen der Orientierung und
     ersetzen keine Rechtsberatung.</p>
@@ -2168,7 +2357,7 @@ def render_glossar():
     schema = {"@context": "https://schema.org", "@type": "DefinedTermSet",
               "name": "Glossar Energieeffizienz in Nichtwohngebäuden",
               "url": f"{BASE}/glossar/", "inLanguage": "de",
-              "hasDefinedTerm": [{"@type": "DefinedTerm", "name": t, "description": d}
+              "hasDefinedTerm": [{"@type": "DefinedTerm", "name": t, "description": plain(d)}
                                  for t, d, _ in GLOSSAR]}
     return page(
         "glossar/",
@@ -2218,7 +2407,8 @@ def render_einzugsgebiet():
       ohne lange Vorläufe – und ein Berater, der die Region und ihre Gebäude kennt.</p>
       <p>Ihr Gebäude steht woanders in Nordrhein-Westfalen? Kein Problem: Analyse und
       Konzept erfordern ohnehin nur wenige Termine vor Ort, alles Weitere klären wir
-      effizient per Video und Telefon.</p>
+      effizient per Video und Telefon. <a href="{p}kontakt/">Schreiben Sie uns</a> –
+      wir antworten in der Regel am nächsten Werktag.</p>
     </div>
     <div class="reveal reveal-d1">
       <figure class="radar-figure">
@@ -2233,8 +2423,43 @@ def render_einzugsgebiet():
 <section class="section section--surface">
   <div class="container">
     <div class="section-head reveal">
+      <p class="eyebrow">Warum Nähe zählt</p>
+      <h2>Was vor Ort passieren muss – und was nicht</h2>
+      <p class="lead">Energieberatung ist keine reine Schreibtischarbeit. Entscheidend ist
+      aber, welche Schritte wirklich Anwesenheit erfordern.</p>
+    </div>
+    <ul class="feature-list">
+      <li class="feature reveal"><span class="feature-icon">{icon('search')}</span>
+        <div><h3>Vor Ort: die Bestandsaufnahme</h3>
+        <p>Anlagentechnik, Zählerstruktur, Regelung, Bauteilaufbauten, Betriebszeiten:
+        Diese Daten entstehen nur im Gebäude. Wir gehen mit Ihrer Haustechnik durch
+        Keller, Dach und Technikzentrale – meist ein bis zwei Termine.</p></div></li>
+      <li class="feature reveal"><span class="feature-icon">{icon('chart')}</span>
+        <div><h3>Aus der Ferne: Auswertung und Konzept</h3>
+        <p>Bilanzierung, Wirtschaftlichkeitsrechnung und Förderanträge entstehen bei uns
+        im Büro. Zwischenstände besprechen wir per Video – das spart Ihnen Termine und
+        uns Fahrzeit, die Sie sonst mitbezahlen würden.</p></div></li>
+      <li class="feature reveal"><span class="feature-icon">{icon('tools')}</span>
+        <div><h3>Wieder vor Ort: die Umsetzung</h3>
+        <p>Bei Ausschreibung, Angebotsprüfung und Baubegleitung sind wir da, wo gearbeitet
+        wird. Genau dafür ist kurze Anfahrt bares Geld wert: Ein Baustellentermin darf
+        keine Tagesreise sein.</p></div></li>
+      <li class="feature reveal"><span class="feature-icon">{icon('handshake')}</span>
+        <div><h3>Regionalkenntnis als Nebeneffekt</h3>
+        <p>Wer in einer Region dauerhaft arbeitet, kennt die üblichen Bauweisen, die
+        Genehmigungspraxis und belastbare Handwerksbetriebe. Das verkürzt Wege, die auf
+        keinem Angebot stehen.</p></div></li>
+    </ul>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head reveal">
       <p class="eyebrow">Standort-Infos</p>
       <h2>Ihre Region im Detail</h2>
+      <p class="lead">Zu jeder Region haben wir aufgeschrieben, was den örtlichen
+      Gebäudebestand prägt und welche Maßnahmen dort typischerweise zuerst greifen.</p>
     </div>
     <div class="card-grid card-grid--wide">{city_cards}</div>
   </div>
@@ -2253,7 +2478,7 @@ def render_einzugsgebiet():
     return page(
         "einzugsgebiet/",
         "Einzugsgebiet: Energieberatung in OWL & NRW | GREEN",
-        "GREEN berät Nichtwohngebäude in Paderborn, Bielefeld, Gütersloh, Detmold, Höxter, Lippstadt und ganz NRW – Ortstermine in der Kernregion binnen einer Stunde erreichbar.",
+        "Energieberatung in Paderborn, Bielefeld, Gütersloh, Detmold, Höxter, Lippstadt und ganz NRW. Ortstermine kurzfristig – jetzt anfragen.",
         body,
         active=None,
         schema=schema,
@@ -2354,7 +2579,7 @@ def render_city(c):
             {
                 "@type": "FAQPage",
                 "mainEntity": [
-                    {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}}
+                    {"@type": "Question", "name": plain(q), "acceptedAnswer": {"@type": "Answer", "text": plain(a)}}
                     for q, a in c["faq"]
                 ],
             },
@@ -2363,7 +2588,7 @@ def render_city(c):
     return page(
         f"{c['slug']}/",
         f"Energieberatung {c['city']}: Nichtwohngebäude | GREEN",
-        f"Unabhängige Energieberatung für Nichtwohngebäude in {c['city']} ({c['region']}): Analyse, Sanierungskonzept, bis 50 % Förderung. {distance}. Jetzt Erstgespräch sichern.",
+        f"Energieberatung für Nichtwohngebäude in {c['city']}: Analyse, Sanierungskonzept, Fördermittel. Jetzt kostenloses Erstgespräch sichern.",
         body,
         active=None,
         schema=schema,
@@ -2411,7 +2636,7 @@ def render_impressum():
 """
     return page(
         "impressum/",
-        "Impressum | Green HLB GmbH, Paderborn",
+        "Impressum | GREEN",
         "Impressum der Green HLB GmbH, Rolandsweg 80, 33102 Paderborn. Geschäftsführer: Sebastian Hund, Vadim Berg, David Lamping. HRB 16341, Amtsgericht Paderborn.",
         body,
         active=None,
@@ -2478,7 +2703,7 @@ def render_datenschutz():
 """
     return page(
         "datenschutz/",
-        "Datenschutzerklärung | GREEN – green-nwg.de",
+        "Datenschutzerklärung | GREEN",
         "Datenschutz bei green-nwg.de: keine Cookies, kein Tracking, keine externen Dienste. Alle Informationen zur Datenverarbeitung durch die Green HLB GmbH.",
         body,
         active=None,
@@ -2565,7 +2790,7 @@ def render_agb():
 """
     return page(
         "agb/",
-        "AGB | Green HLB GmbH – Energieberatung Paderborn",
+        "AGB | GREEN",
         "Allgemeine Geschäftsbedingungen der Green HLB GmbH für Energieberatungsleistungen: Vertragsgegenstand, Vergütung, Haftung, Zahlungsbedingungen.",
         body,
         active=None,
@@ -2623,7 +2848,7 @@ def render_bildnachweis():
 """
     return page(
         "bildnachweis/",
-        "Bildnachweis | GREEN Energieberatung",
+        "Bildnachweis | GREEN",
         "Urheber, Lizenzen und Quellen aller auf green-nwg.de verwendeten Fotografien sowie Angaben zu Grafiken und Schriften.",
         body,
         active=None,
@@ -2647,11 +2872,12 @@ def render_404():
 """
     return page(
         "404.html",
-        "Seite nicht gefunden | GREEN Energieberatung",
+        "Seite nicht gefunden | GREEN",
         "Die angeforderte Seite existiert nicht. Zurück zur Startseite der GREEN Energieberatung für Nichtwohngebäude.",
         body,
         active=None,
         depth=0,
+        noindex=True,
     )
 
 

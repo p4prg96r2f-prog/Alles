@@ -95,7 +95,7 @@ CITIES = [
         "industries": ("produktion", "buero", "einzelhandel"),
         "faq": (
             ("Führt GREEN Energieaudits für Unternehmen im Kreis Gütersloh durch?",
-             "Ja – wir führen normkonforme Energieaudits nach DIN EN 16247 durch, wie sie für Nicht-KMU alle vier Jahre vorgeschrieben sind, und machen daraus zugleich einen belastbaren Investitionsfahrplan."),
+             "Ja – wir führen normkonforme <a href='../energieaudit-din-en-16247/'>Energieaudits nach DIN EN 16247</a> durch, wie sie für Nicht-KMU alle vier Jahre vorgeschrieben sind, und machen daraus zugleich einen belastbaren Investitionsfahrplan."),
             ("Lohnt sich eine Energieberatung auch für kleinere Betriebe?",
              "Gerade dort: Für kleine und mittlere Unternehmen ist die Beratung über die Bundesförderung EBN mit bis zu 50 % bezuschusst, und Maßnahmen wie LED, Druckluft-Optimierung oder PV amortisieren sich oft in wenigen Jahren."),
         ),
@@ -208,7 +208,7 @@ INDUSTRIES = [
             ("Gebäudeautomation nachrüsten", "Das GModG verpflichtet Nichtwohngebäude mit Lüftungs- oder Klimaanlagen über 70 kW bis Ende 2029 zur Gebäudeautomation – wir planen die wirtschaftliche Umsetzung."),
             ("Photovoltaik auf dem Flachdach", "Bürodächer sind ideale PV-Flächen: Der Ertrag fällt genau dann an, wenn das Gebäude ihn verbraucht – und die GModG-Solarpflicht greift schrittweise ab 2027."),
             ("Heizung & Wärmepumpe", "Wir prüfen technologieoffen, ob Wärmepumpe, Hybridlösung oder Anschluss an ein Wärmenetz Ihr Gebäude wirtschaftlich versorgt – GModG-konform."),
-            ("Energieausweis & Nachweise", "Bedarfsausweis (für Nichtwohngebäude ab 2027 Pflicht), GModG-Nachweise und Unterlagen für Banken, Investoren und ESG-Reporting aus einer Hand."),
+            ("Energieausweis & Nachweise", "<a href='../../energieausweis-nichtwohngebaeude/'>Bedarfsausweis</a> (für Nichtwohngebäude ab 2027 Pflicht), GModG-Nachweise und Unterlagen für Banken, Investoren und ESG-Reporting aus einer Hand."),
         ),
         "stat": ("60", "%", "weniger Lichtkosten sind nach LED-Umrüstung mit Sensorik realistisch"),
     },
@@ -271,7 +271,7 @@ INDUSTRIES = [
             ("Abwärme systematisch nutzen", "Abwärme aus Kompressoren und Prozessen heizt Hallen, Warmwasser oder benachbarte Gebäude."),
             ("Effiziente Hallenbeleuchtung", "LED-Hallenbeleuchtung mit Tageslicht- und Präsenzsteuerung – bessere Ausleuchtung, weniger Verbrauch."),
             ("Prozesswärme & Dämmung", "Gedämmte Leitungen, richtige Temperaturniveaus und Brennwerttechnik senken den Gasverbrauch sofort."),
-            ("Energieaudit DIN EN 16247", "Normkonformes Audit für Nicht-KMU – als gesetzliche Pflicht und als belastbare Investitionsgrundlage."),
+            ("Energieaudit DIN EN 16247", "Normkonformes <a href='../../energieaudit-din-en-16247/'>Energieaudit</a> für Nicht-KMU – als gesetzliche Pflicht und als belastbare Investitionsgrundlage."),
             ("Lastmanagement & PV", "Lastspitzen kappen, Netzentgelte senken und mit Photovoltaik auf Hallendächern eigenen Strom erzeugen."),
         ),
         "stat": ("30", "%", "der erzeugten Druckluft gehen in ungewarteten Systemen durch Leckagen verloren"),
@@ -335,7 +335,7 @@ INDUSTRIES = [
             ("Heizungsmodernisierung", "Von der alten Kesselanlage zu Wärmepumpe oder Hybridsystem – GModG-konform, technologieoffen und förderfähig."),
             ("Sommerlicher Wärmeschutz", "Verschattung, Nachtauskühlung und clevere Steuerung halten Klassenräume auch im Juli nutzbar."),
             ("PV mit Lerneffekt", "Photovoltaik senkt Betriebskosten – und macht Energie im Unterricht sichtbar und erlebbar."),
-            ("Fördermittel-Strategie", "Bund, Land und Kommunalprogramme kombinieren: Wir strukturieren die Finanzierung Ihrer Sanierung."),
+            ("Fördermittel-Strategie", "Bund, Land und Kommunalprogramme kombinieren: Wir strukturieren die <a href='../../foerderung/'>Finanzierung</a> Ihrer Sanierung."),
         ),
         "stat": ("80", "%", "der Lüftungswärme lassen sich mit Wärmerückgewinnung im Gebäude halten"),
     },
@@ -448,7 +448,7 @@ FAQS = [
     ),
     (
         "Welche Förderung gibt es für die Energieberatung?",
-        "Über die Bundesförderung für Energieberatung für Nichtwohngebäude (EBN) übernimmt der Bund "
+        "Über die <a href='foerderung/'>Bundesförderung für Energieberatung für Nichtwohngebäude</a> (EBN) übernimmt der Bund "
         "50 % des förderfähigen Beratungshonorars – gedeckelt auf 850 € bei bis zu 200 m², 2.500 € "
         "bei 200 bis 500 m² und 4.000 € ab 500 m² Nettogrundfläche. Antragsberechtigt sind unter "
         "anderem Kommunen, gemeinnützige Träger, KMU und Nicht-KMU bis 500.000 kWh Jahresverbrauch. "
@@ -488,7 +488,7 @@ FAQS = [
     ),
     (
         "Was ist ein Energieaudit nach DIN EN 16247 – und brauchen wir eins?",
-        "Unternehmen, die kein KMU sind, sind gesetzlich verpflichtet, alle vier Jahre ein Energieaudit "
+        "Unternehmen, die kein KMU sind, sind gesetzlich verpflichtet, alle vier Jahre ein <a href='energieaudit-din-en-16247/'>Energieaudit</a> "
         "durchzuführen (alternativ: Energiemanagementsystem). Ein gutes Audit ist aber mehr als "
         "Pflichterfüllung: Es zeigt schwarz auf weiß, wo sich Investitionen zuerst lohnen. Wir führen "
         "Audits normkonform und pragmatisch durch.",
