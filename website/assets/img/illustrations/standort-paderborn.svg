@@ -6,7 +6,7 @@
 <rect x="166" y="188" width="30" height="26" rx="2" fill="#e3f0e6" stroke="#dbe4dc"/><rect x="206" y="188" width="30" height="26" rx="2" fill="#e3f0e6" stroke="#dbe4dc"/><rect x="246" y="188" width="30" height="26" rx="2" fill="#e3f0e6" stroke="#dbe4dc"/><rect x="286" y="188" width="30" height="26" rx="2" fill="#e3f0e6" stroke="#dbe4dc"/><rect x="166" y="224" width="30" height="26" rx="2" fill="#e3f0e6" stroke="#dbe4dc"/><rect x="206" y="224" width="30" height="26" rx="2" fill="#e3f0e6" stroke="#dbe4dc"/><rect x="246" y="224" width="30" height="26" rx="2" fill="#e3f0e6" stroke="#dbe4dc"/><rect x="286" y="224" width="30" height="26" rx="2" fill="#e3f0e6" stroke="#dbe4dc"/><rect x="166" y="260" width="30" height="26" rx="2" fill="#e3f0e6" stroke="#dbe4dc"/><rect x="206" y="260" width="30" height="26" rx="2" fill="#e3f0e6" stroke="#dbe4dc"/><rect x="246" y="260" width="30" height="26" rx="2" fill="#e3f0e6" stroke="#dbe4dc"/><rect x="286" y="260" width="30" height="26" rx="2" fill="#e3f0e6" stroke="#dbe4dc"/>
 <path d="M150 170 176 142h128l26 28z" fill="#0d3b2a"/>
 <path d="M240 96c-22 0-38 16-38 36 0 26 38 58 38 58s38-32 38-58c0-20-16-36-38-36z" fill="#e8a33d" stroke="#092c1f" stroke-width="2"/>
-<circle cx="240" cy="132" r="12" fill="#fff"/>
+<circle cx="240" cy="132" r="12" fill="#fff" class="pulse-node"/>
 <path d="M360 210h150m-150 50h110m-110 50h130" stroke="#a8c4b2" stroke-dasharray="4 6"/>
 <path d="M510 210l-9-5v10zm-40 50l-9-5v10zm20 50-9-5v10z" fill="#a8c4b2"/>
 <text x='520' y='213' text-anchor='start' font-family='IBM Plex Mono, monospace' letter-spacing='.06em' font-size='10' fill='#64796e'>OWL</text>

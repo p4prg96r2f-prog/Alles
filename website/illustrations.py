@@ -64,7 +64,7 @@ def _label(x, y, text, anchor="start", color=SOFT, size=10):
 
 def _leader(x1, y1, x2, y2, dot=PINE):
     return (
-        f'<circle cx="{x1}" cy="{y1}" r="2.5" fill="{dot}"/>'
+        f'<circle cx="{x1}" cy="{y1}" r="2.5" fill="{dot}" class="pulse-node"/>'
         f'<line x1="{x1}" y1="{y1}" x2="{x2}" y2="{y2}" stroke="{FAINT}"/>'
     )
 
@@ -92,7 +92,7 @@ def illus_buero():
 <path d="M328 172l18-13m6 13 18-13" stroke="{LEAF}" stroke-width="1.2"/>
 <rect x="470" y="250" width="56 " height="80" rx="5" fill="#fff" stroke="{DEEP}" stroke-width="2"/>
 <circle cx="498" cy="282" r="15" stroke="{PINE}" stroke-width="2"/>
-<path d="M498 282m-1-11a11 11 0 0 1 8 6m-13 10a11 11 0 0 1-6-8" stroke="{LEAF}" stroke-width="1.8" stroke-linecap="round"/>
+<g class="spin-slow"><path d="M498 282m-1-11a11 11 0 0 1 8 6m-13 10a11 11 0 0 1-6-8" stroke="{LEAF}" stroke-width="1.8" stroke-linecap="round"/></g>
 <line x1="440" y1="290" x2="470" y2="290" stroke="{AMBER}" stroke-width="2.2" class="flow-line"/>
 {_ground(90, 560, 330)}
 {_leader(206, 148, 206, 96)}<line x1="206" y1="96" x2="252" y2="96" stroke="{FAINT}"/>
@@ -198,7 +198,7 @@ def illus_bildung():
 <rect x="150" y="132" width="70" height="38" rx="5" fill="{LEAFSOFT}" stroke="{PINE}" stroke-width="1.8"/>
 <path d="M162 152h14m8 0h14" stroke="{PINE}" stroke-width="1.6"/>
 <path d="M150 145c-16 0-24 8-24 8m94-14c16-6 26 2 26 2" stroke="{AMBER}" stroke-width="2" class="flow-line"/>
-<circle cx="524" cy="128" r="22" stroke="{AMBER}" stroke-width="2.4"/>
+<circle cx="524" cy="128" r="22" stroke="{AMBER}" stroke-width="2.4" class="sun-glow"/>
 <path d="M524 96v-12M547 105l8-8M556 128h12" stroke="{AMBER}" stroke-width="2.4" stroke-linecap="round"/>
 <path d="M330 190h60m-60 10h60m-60 10h60" stroke="{AMBERDEEP}" stroke-width="2"/>
 {_ground(80, 570, 330)}
@@ -217,7 +217,7 @@ def illus_kindergarten():
 <rect x="262" y="238" width="40" height="92" fill="{DEEP}" rx="2"/>
 <path d="M148 316h164" stroke="{AMBER}" stroke-width="2.4"/>
 <path d="M156 316c4-6 8-6 12 0s8 6 12 0 8-6 12 0 8 6 12 0 8-6 12 0 8 6 12 0 8-6 12 0 8 6 12 0 8-6 12 0 8 6 12 0" stroke="{AMBERDEEP}" stroke-width="1.6"/>
-<circle cx="470" cy="150" r="24" stroke="{AMBER}" stroke-width="2.4"/>
+<circle cx="470" cy="150" r="24" stroke="{AMBER}" stroke-width="2.4" class="sun-glow"/>
 <path d="M470 116v-12m24 22 8-8m-56 8-8-8" stroke="{AMBER}" stroke-width="2.4" stroke-linecap="round"/>
 <path d="M420 330v-52c0-26 44-26 44 0v52" fill="{LEAFSOFT}" stroke="{PINE}" stroke-width="1.8"/>
 <circle cx="442" cy="248" r="26" fill="{LEAFSOFT}" stroke="{PINE}" stroke-width="1.8"/>
@@ -294,7 +294,8 @@ def illus_gmodg_zeitstrahl():
         ly = 108 if up else 196
         parts.append(f'<line x1="{x:.0f}" y1="150" x2="{x:.0f}" y2="{ly + (14 if up else -22)}" stroke="{FAINT}"/>')
         color = AMBER if hot else PINE
-        parts.append(f'<circle cx="{x:.0f}" cy="150" r="{7 if hot else 5.5}" fill="{color}" stroke="#fff" stroke-width="2"/>')
+        cls = ' class="pulse-node"' if hot else ''
+        parts.append(f'<circle cx="{x:.0f}" cy="150" r="{7 if hot else 5.5}" fill="{color}" stroke="#fff" stroke-width="2"{cls}/>')
         parts.append(f"<text x='{x:.0f}' y='{ly - 14 if up else ly + 14}' text-anchor='middle' {DISPLAY} font-size='15' fill='{AMBERDEEP if hot else DEEP}'>{year}</text>")
         parts.append(_label(x, ly if up else ly + 28, l1, "middle", INK, 9.5))
         parts.append(_label(x, (ly + 12) if up else ly + 40, l2, "middle", FAINT, 8.5))
@@ -354,7 +355,7 @@ def illus_fahrplan():
         inner.append(f'<circle cx="{x}" cy="{y}" r="6" fill="{AMBER}" stroke="#fff" stroke-width="2.4"/>')
         inner.append(f'<line x1="{x}" y1="{y - 10}" x2="{x}" y2="{y - 34}" stroke="{FAINT}"/>')
         inner.append(_label(x, y - 40, t, "middle", INK, 9.5))
-    inner.append(f'<circle cx="560" cy="276" r="5" fill="{PINE}"/>')
+    inner.append(f'<circle cx="560" cy="276" r="5" fill="{PINE}" class="pulse-node"/>')
     inner.append(f"<text x='548' y='262' text-anchor='end' {DISPLAY} font-size='17' fill='{DEEP}'>−70&#8239;%</text>")
     inner.append(_label(90, 322, "JAHR 1", "start", FAINT, 9))
     inner.append(_label(560, 322, "JAHR 5", "end", FAINT, 9))
@@ -423,7 +424,7 @@ def illus_standort():
 {_win_grid(166, 188, 4, 3, 30, 26, 10)}
 <path d="M150 170 176 142h128l26 28z" fill="{DEEP}"/>
 <path d="M240 96c-22 0-38 16-38 36 0 26 38 58 38 58s38-32 38-58c0-20-16-36-38-36z" fill="{AMBER}" stroke="{DEEPER}" stroke-width="2"/>
-<circle cx="240" cy="132" r="12" fill="#fff"/>
+<circle cx="240" cy="132" r="12" fill="#fff" class="pulse-node"/>
 <path d="M360 210h150m-150 50h110m-110 50h130" stroke="{FAINT}" stroke-dasharray="4 6"/>
 <path d="M510 210l-9-5v10zm-40 50l-9-5v10zm20 50-9-5v10z" fill="{FAINT}"/>
 {_label(520, 213, "OWL")}

@@ -77,6 +77,8 @@
           if (!entry.isIntersecting) return;
           cio.unobserve(entry.target);
           var el = entry.target;
+          var tile = el.closest('.kpi');
+          if (tile) tile.classList.add('in');
           var target = parseInt(el.getAttribute('data-count'), 10);
           el.textContent = '0';
           var start = null;
@@ -240,6 +242,14 @@
       el('r-bar-neu').style.width = Math.max(6, (1 - quote) * 100) + '%';
       el('r-bar-ist').style.width = '100%';
 
+      var head = el('r-sparen');
+      if (head && head.dataset.prev !== head.textContent && !reduceMotion) {
+        head.dataset.prev = head.textContent;
+        head.classList.remove('bump');
+        void head.offsetWidth;
+        head.classList.add('bump');
+      }
+
       /* Eine gebündelte Ansage statt sechs einzelner Feldänderungen */
       var live = el('r-live');
       if (live) {
@@ -258,6 +268,104 @@
     calc.addEventListener('input', rechne);
     calc.addEventListener('change', rechne);
     rechne();
+  }
+
+
+  /* ------------------------------------------------------------------
+     Bewegung
+     Alles hier ist rein visuell und schaltet sich bei reduzierter Bewegung
+     ab. Kein Element hängt in seiner Sichtbarkeit davon ab.
+     ------------------------------------------------------------------ */
+  if (!reduceMotion) {
+    /* Lesefortschritt oben */
+    var bar = document.createElement('div');
+    bar.className = 'progress-bar';
+    bar.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(bar);
+
+    var sticky = document.querySelector('.sticky-cta');
+    var ticking = false;
+    var onFrame = function () {
+      var h = document.documentElement.scrollHeight - window.innerHeight;
+      var y = window.scrollY;
+      bar.style.transform = 'scaleX(' + (h > 0 ? Math.min(y / h, 1) : 0) + ')';
+      if (sticky) sticky.classList.toggle('is-visible', y > 260);
+      ticking = false;
+    };
+    window.addEventListener('scroll', function () {
+      if (!ticking) { ticking = true; requestAnimationFrame(onFrame); }
+    }, { passive: true });
+    onFrame();
+
+    /* Gestaffelte Reveals: Geschwister bekommen einen Index */
+    var groups = document.querySelectorAll(
+      '.card-grid, .feature-list, .steps, .quote-grid, .team-grid, .faq-list, .photo-band, .city-chips'
+    );
+    Array.prototype.forEach.call(groups, function (g) {
+      var n = 0;
+      Array.prototype.forEach.call(g.children, function (c) {
+        if (c.classList.contains('reveal')) c.style.setProperty('--i', n++);
+      });
+    });
+
+    /* Technische Zeichnungen bauen sich beim Erscheinen auf.
+       Nur die tragenden Konturen (Strichstärke >= 2) werden gezeichnet –
+       Fenster, Raster und Beschriftungen blieben sonst unruhig. */
+    var figs = document.querySelectorAll('.illus svg, .hero-figure svg, .radar-figure svg');
+    if (figs.length && 'IntersectionObserver' in window) {
+      var dio = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (!e.isIntersecting) return;
+          dio.unobserve(e.target);
+          var svg = e.target;
+          var i = 0;
+          Array.prototype.forEach.call(
+            svg.querySelectorAll('path, line, polyline, circle, rect'),
+            function (el) {
+              var sw = parseFloat(getComputedStyle(el).strokeWidth) || 0;
+              var stroke = el.getAttribute('stroke');
+              if (sw < 2 || !stroke || stroke === 'none') return;
+              if (el.classList.contains('flow-line')) return;
+              var len = 0;
+              try { len = el.getTotalLength ? el.getTotalLength() : 0; } catch (err) { len = 0; }
+              if (!len || len > 4000) return;
+              el.style.setProperty('--len', Math.ceil(len));
+              el.style.setProperty('--d', i++);
+            }
+          );
+          svg.classList.add('draw');
+        });
+      }, { threshold: 0.25 });
+      Array.prototype.forEach.call(figs, function (f) { dio.observe(f); });
+    }
+
+    /* Fotos ziehen beim Scrollen minimal nach (sehr dezent) */
+    var photos = document.querySelectorAll('.photo img');
+    if (photos.length && 'IntersectionObserver' in window) {
+      var active = [];
+      var pio = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { if (active.indexOf(e.target) < 0) active.push(e.target); }
+          else { var k = active.indexOf(e.target); if (k > -1) active.splice(k, 1); }
+        });
+      }, { threshold: 0 });
+      Array.prototype.forEach.call(photos, function (im) { pio.observe(im); });
+
+      var pTick = false;
+      window.addEventListener('scroll', function () {
+        if (pTick || !active.length) return;
+        pTick = true;
+        requestAnimationFrame(function () {
+          var vh = window.innerHeight;
+          active.forEach(function (im) {
+            var r = im.getBoundingClientRect();
+            var mid = (r.top + r.height / 2 - vh / 2) / vh;   /* -1 .. 1 */
+            im.style.transform = 'translate3d(0,' + (mid * -9).toFixed(1) + 'px,0) scale(1.05)';
+          });
+          pTick = false;
+        });
+      }, { passive: true });
+    }
   }
 
   /* Aktuelles Jahr im Footer */

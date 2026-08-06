@@ -10,7 +10,7 @@
 <circle cx="446" cy="256" r="52" fill="none" stroke="#1e5b3f" stroke-width="3"/>
 <line x1="483" y1="293" x2="524" y2="334" stroke="#1e5b3f" stroke-width="6" stroke-linecap="round"/>
 <path d="M420 268c10-22 34-30 52-22" stroke="#4caf78" stroke-width="2"/>
-<circle cx="446" cy="204" r="2.5" fill="#1e5b3f"/><line x1="446" y1="204" x2="446" y2="150" stroke="#a8c4b2"/><line x1="446" y1="150" x2="492" y2="150" stroke="#a8c4b2"/>
+<circle cx="446" cy="204" r="2.5" fill="#1e5b3f" class="pulse-node"/><line x1="446" y1="204" x2="446" y2="150" stroke="#a8c4b2"/><line x1="446" y1="150" x2="492" y2="150" stroke="#a8c4b2"/>
 <text x='498' y='153' text-anchor='start' font-family='IBM Plex Mono, monospace' letter-spacing='.06em' font-size='10' fill='#64796e'>PFLICHT F&#220;R</text>
 <text x='498' y='166' text-anchor='start' font-family='IBM Plex Mono, monospace' letter-spacing='.06em' font-size='9' fill='#a8c4b2'>NICHT-KMU ALLE 4 JAHRE</text>
 <text x='150' y='369' text-anchor='start' font-family='IBM Plex Mono, monospace' letter-spacing='.06em' font-size='9' fill='#a8c4b2'>AUS DER PFLICHT WIRD EIN INVESTITIONSFAHRPLAN</text>

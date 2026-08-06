@@ -14,7 +14,7 @@
 <text x="490" y="188" text-anchor="middle" font-family='IBM Plex Mono, monospace' letter-spacing='.06em' font-size="8.5" fill="#64796e">CO&#8322; FOSSIL</text>
 <path d="M446 200c-20 18-44 26-70 28" stroke="#a8c4b2" stroke-dasharray="3 5"/>
 <line x1="120" y1="330" x2="560" y2="330" stroke="#0d3b2a" stroke-width="2.2"/><g stroke="#a8c4b2" stroke-width="1.4"><line x1="140" y1="330" x2="131" y2="340"/><line x1="176" y1="330" x2="167" y2="340"/><line x1="212" y1="330" x2="203" y2="340"/><line x1="248" y1="330" x2="239" y2="340"/><line x1="284" y1="330" x2="275" y2="340"/><line x1="320" y1="330" x2="311" y2="340"/><line x1="356" y1="330" x2="347" y2="340"/><line x1="392" y1="330" x2="383" y2="340"/><line x1="428" y1="330" x2="419" y2="340"/><line x1="464" y1="330" x2="455" y2="340"/><line x1="500" y1="330" x2="491" y2="340"/><line x1="536" y1="330" x2="527" y2="340"/></g>
-<circle cx="250" cy="122" r="2.5" fill="#1e5b3f"/><line x1="250" y1="122" x2="250" y2="96" stroke="#a8c4b2"/><line x1="250" y1="96" x2="296" y2="96" stroke="#a8c4b2"/>
+<circle cx="250" cy="122" r="2.5" fill="#1e5b3f" class="pulse-node"/><line x1="250" y1="122" x2="250" y2="96" stroke="#a8c4b2"/><line x1="250" y1="96" x2="296" y2="96" stroke="#a8c4b2"/>
 <text x='302' y='99' text-anchor='start' font-family='IBM Plex Mono, monospace' letter-spacing='.06em' font-size='10' fill='#64796e'>PV-VOLLBELEGUNG</text>
 <text x='150' y='369' text-anchor='start' font-family='IBM Plex Mono, monospace' letter-spacing='.06em' font-size='9' fill='#a8c4b2'>NULLEMISSIONSSTANDARD: &#214;FFENTL. NEUBAU AB 2028 &#183; ALLE NEUBAUTEN AB 2030</text>
 

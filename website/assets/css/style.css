@@ -2106,3 +2106,378 @@ a.card.card--photo,
     padding-block: 1.5rem;
   }
 }
+
+/* ==========================================================================
+   Bewegung
+   Leitgedanke: Die Seite handelt von fließender Energie – also fließt, pulst
+   und baut sich hier etwas auf, statt bloß einzublenden. Alles läuft über
+   transform/opacity (GPU, kein Layout-Shift) und schaltet sich bei
+   prefers-reduced-motion vollständig ab.
+   ========================================================================== */
+
+/* ---------- Lesefortschritt ---------- */
+.progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 100%;
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  background: linear-gradient(90deg, var(--leaf), var(--amber));
+  z-index: 150;
+  pointer-events: none;
+}
+
+/* ---------- Eröffnung: gestaffelter Aufbau des Heros ---------- */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(26px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes riseSoft {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.965) translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.hero .eyebrow,
+.hero h1,
+.hero .lead,
+.hero-ctas,
+.hero-trust {
+  animation: rise 0.75s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+}
+
+.hero .eyebrow  { animation-delay: 0.05s; }
+.hero h1        { animation-delay: 0.14s; }
+.hero .lead     { animation-delay: 0.26s; }
+.hero-ctas      { animation-delay: 0.38s; }
+.hero-trust     { animation-delay: 0.50s; }
+
+.hero-figure {
+  animation: scaleIn 1s cubic-bezier(0.22, 1, 0.36, 1) 0.3s backwards;
+}
+
+/* Das Hero-Schema atmet leicht – wie ein laufendes System */
+.hero-figure svg {
+  animation: float 7s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-9px); }
+}
+
+/* ---------- Gestaffelte Reveals ---------- */
+.reveal {
+  transition-delay: calc(var(--i, 0) * 70ms);
+}
+
+/* Karten und Kacheln kommen mit leichtem Zoom statt nur von unten */
+a.card.reveal,
+.card.reveal,
+.team-card.reveal,
+.quote.reveal,
+.step.reveal {
+  transform: translateY(26px) scale(0.985);
+}
+
+a.card.reveal.in,
+.card.reveal.in,
+.team-card.reveal.in,
+.quote.reveal.in,
+.step.reveal.in {
+  transform: none;
+}
+
+/* ---------- Der Messstrich der Eyebrow zieht sich auf ---------- */
+.eyebrow::before {
+  transform-origin: 0 50%;
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.1s;
+}
+
+.reveal .eyebrow::before,
+.reveal.eyebrow::before {
+  transform: scaleX(0);
+}
+
+.reveal.in .eyebrow::before,
+.reveal.in.eyebrow::before {
+  transform: scaleX(1);
+}
+
+/* ---------- Technische Zeichnungen bauen sich auf ---------- */
+.illus svg [stroke],
+.hero-figure svg [stroke] {
+  transition: stroke-dashoffset 1.4s ease;
+}
+
+.draw path,
+.draw line,
+.draw circle,
+.draw rect,
+.draw polyline {
+  stroke-dasharray: var(--len, 1200);
+  stroke-dashoffset: var(--len, 1200);
+  animation: draw 1.5s cubic-bezier(0.33, 1, 0.68, 1) forwards;
+  animation-delay: calc(var(--d, 0) * 24ms);
+}
+
+@keyframes draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Energiefluss – jetzt schneller und mit Leuchtpuls */
+.flow-line {
+  stroke-dasharray: 6 8;
+  animation: flow 1.25s linear infinite;
+}
+
+@keyframes flow {
+  to {
+    stroke-dashoffset: -28;
+  }
+}
+
+.pulse-node {
+  animation: pulseNode 2.2s ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+@keyframes pulseNode {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: 0.55; transform: scale(1.35); }
+}
+
+.spin-slow {
+  animation: spin 9s linear infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.sun-glow {
+  animation: glow 3.4s ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+@keyframes glow {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: 0.7; transform: scale(1.08); }
+}
+
+/* ---------- Karten: Foto zoomt, Pfeil wandert ---------- */
+.card--photo img {
+  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+a.card--photo:hover img,
+a.card--photo:focus-visible img {
+  transform: scale(1.055);
+}
+
+.card-more svg {
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+a.card:hover .card-more svg,
+a.card:focus-visible .card-more svg {
+  transform: translateX(5px);
+}
+
+/* Icon-Kachel reagiert mit */
+.card-icon,
+.feature-icon {
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.3s ease;
+}
+
+a.card:hover .card-icon,
+.feature:hover .feature-icon {
+  transform: translateY(-3px) rotate(-4deg);
+}
+
+/* ---------- Buttons: Lichtwisch beim Überfahren ---------- */
+.btn {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(105deg, transparent 35%, rgba(255, 255, 255, 0.28) 50%, transparent 65%);
+  transform: translateX(-120%);
+  transition: transform 0.6s ease;
+}
+
+.btn:hover::after,
+.btn:focus-visible::after {
+  transform: translateX(120%);
+}
+
+.btn svg {
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.btn:hover svg {
+  transform: translateX(3px);
+}
+
+/* ---------- KPI-Kacheln: Zahl steigt mit dem Zähler auf ---------- */
+.kpi.in .kpi-value {
+  animation: riseSoft 0.6s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+}
+
+/* ---------- Zahlen im Rechner wechseln sichtbar ---------- */
+.calc-headline,
+.calc-fact b,
+.calc-bar-fill span {
+  transition: color 0.2s ease;
+}
+
+.calc-headline.bump {
+  animation: bump 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes bump {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.055); }
+  100% { transform: scale(1); }
+}
+
+.calc-bar-fill {
+  transition: width 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ---------- FAQ öffnet sich weich ---------- */
+.faq-body {
+  animation: riseSoft 0.35s ease;
+}
+
+.faq summary::after {
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ---------- Fotos ziehen beim Scrollen leicht nach ---------- */
+.photo img {
+  will-change: transform;
+}
+
+/* ---------- Sanfte Bewegung der Hintergrundlichter im Hero ---------- */
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: -20% -10% auto auto;
+  width: 46rem;
+  height: 30rem;
+  background: radial-gradient(circle at 60% 40%, rgba(76, 175, 120, 0.16), transparent 62%);
+  animation: drift 16s ease-in-out infinite alternate;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero > .container {
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes drift {
+  from { transform: translate3d(0, 0, 0) scale(1); }
+  to   { transform: translate3d(-4rem, 2rem, 0) scale(1.12); }
+}
+
+/* ---------- Sticky-CTA fährt ein, sobald gescrollt wurde ---------- */
+.sticky-cta {
+  transform: translateY(110%);
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.sticky-cta.is-visible {
+  transform: none;
+}
+
+/* ==========================================================================
+   Vollständige Abschaltung bei reduzierter Bewegung
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    animation-delay: 0ms !important;
+    transition-duration: 0.001ms !important;
+    transition-delay: 0ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .progress-bar {
+    display: none;
+  }
+
+  .sticky-cta {
+    transform: none;
+  }
+
+  .draw path,
+  .draw line,
+  .draw circle,
+  .draw rect,
+  .draw polyline {
+    stroke-dasharray: none;
+    stroke-dashoffset: 0;
+  }
+
+  .hero::before {
+    animation: none;
+  }
+}
+
+/* Ohne Skriptausführung darf nichts verborgen bleiben */
+@media (scripting: none) {
+  .sticky-cta {
+    transform: none;
+  }
+
+  .draw path,
+  .draw line,
+  .draw circle,
+  .draw rect,
+  .draw polyline {
+    stroke-dasharray: none;
+    stroke-dashoffset: 0;
+  }
+}
