@@ -535,5 +535,4 @@ TEAM = [
     ("David Lamping", "Geschäftsführer"),
     ("Sebastian Hund", "Geschäftsführer"),
     ("Katrin Voß", "Teamleitung"),
-    ("Monika Rutkowski", "Beratung & Organisation"),
 ]

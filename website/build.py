@@ -324,6 +324,8 @@ def footer(p):
           <li><a href="{p}vorteile/">Ihre Vorteile</a></li>
           <li><a href="{p}einsparrechner/">Einsparrechner</a></li>
           <li><a href="{p}gmodg-nichtwohngebaeude/">GModG 2026 – Überblick</a></li>
+          <li><a href="{p}sanierungspflicht-nichtwohngebaeude/">Sanierungspflicht (MEPS)</a></li>
+          <li><a href="{p}neubau/">Neubau &amp; QNG</a></li>
           <li><a href="{p}foerderung/">Förderung &amp; Zuschüsse</a></li>
           <li><a href="{p}ueber-uns/">Über uns</a></li>
           <li><a href="{p}einzugsgebiet/">Einzugsgebiet OWL &amp; NRW</a></li>
@@ -570,9 +572,9 @@ def render_home():
     services = [
         ("search", "Energieberatung & -konzept", "Vollständige Analyse Ihres Gebäudes nach DIN V 18599 – mit priorisierten Maßnahmen und Wirtschaftlichkeitsrechnung."),
         ("doc", "Energieaudit DIN EN 16247", "Normkonforme Audits für Nicht-KMU: Pflicht erfüllen und gleichzeitig die profitabelsten Einsparungen identifizieren."),
-        ("chart", "Sanierungsfahrplan", "Schritt für Schritt zum effizienten Gebäude: Maßnahmen, Kosten, Förderungen und CO₂-Wirkung über Jahre geplant."),
-        ("euro", "Fördermittelservice", "Bis zu 50 % Zuschuss zur Beratung, attraktive Förderung für Maßnahmen – wir finden und beantragen alle Töpfe."),
-        ("buero", "Neubaubegleitung", "Effizienz von Anfang an: Wir begleiten Ihren Neubau von der Planung bis zum GModG-Nachweis – Nullemissionsstandard inklusive."),
+        ("chart", "Sanierungsfahrplan &amp; MEPS-Check", "Schritt für Schritt zum effizienten Gebäude – und rechtzeitig unter die Sanierungspflicht-Schwellen 2030 und 2033."),
+        ("euro", "Fördermittelservice", "BEG-Kredite mit Tilgungszuschuss, KFN im Neubau, Landes- und Kommunalprogramme – wir finden die richtige Kombination und beantragen sie."),
+        ("buero", "Neubau, QNG &amp; KFN-Förderung", "Effizienzstufe festlegen, Qualitätssiegel Nachhaltiges Gebäude prüfen, Förderkredit bis 2.000 € je m² sichern – und zwar vor dem Bauantrag."),
         ("tools", "Umsetzung & Monitoring", "Ausschreibung, Angebotsprüfung, Baubegleitung und anschließendes Monitoring – Einsparungen, die bleiben."),
     ]
     service_items = "".join(
@@ -679,8 +681,8 @@ def render_home():
         Das neue Gebäudemodernisierungsgesetz betrifft praktisch jedes Nichtwohngebäude.
         Wir sagen Ihnen in einem kostenlosen GModG-Check, was für Ihres gilt.</p>
         <div class="hero-ctas" style="margin-bottom:0">
-          <a class="btn btn--light" href="gmodg-nichtwohngebaeude/">GModG-Überblick lesen {icon('arrow')}</a>
-          <a class="btn btn--ghost-light" href="beratungstermin/">GModG-Check anfragen</a>
+          <a class="btn btn--light" href="sanierungspflicht-nichtwohngebaeude/">Sanierungspflicht prüfen {icon('arrow')}</a>
+          <a class="btn btn--ghost-light" href="gmodg-nichtwohngebaeude/">Alle GModG-Pflichten</a>
         </div>
       </div>
       <div class="big-number">2030<small>erste MEPS-Sanierungsfrist im Bestand</small></div>
@@ -1704,7 +1706,7 @@ def render_gmodg():
         ("law", "Sanierungspflicht für den Bestand (MEPS)", "Erstmals gelten Mindesteffizienz-Standards für bestehende Nichtwohngebäude: Der Primärenergiebedarf darf den Referenzgebäudewert ab 1.1.2030 höchstens um das 3,5-Fache und ab 1.1.2033 um das 2,95-Fache überschreiten. Getroffen werden zuerst die energetisch schlechtesten Gebäude – gemäß EU-Vorgabe die schwächsten 16 % bis 2030 und 26 % bis 2033."),
         ("tools", "Gebäudeautomation bis Ende 2029", "Nichtwohngebäude mit Lüftungs- oder Klimaanlagen über 70 kW Nennleistung müssen bis zum 31.12.2029 mit Gebäudeautomation ausgerüstet werden – eine deutliche Verschärfung gegenüber der alten 290-kW-Schwelle."),
         ("doc", "Bedarfsausweis wird Pflicht", "Verbrauchsausweise sind für Nichtwohngebäude ab dem 1.1.2027 nicht mehr zulässig. Energieausweise brauchen dann eine energetische Bilanzierung – mit neuen Effizienzklassen auf Basis des Primärenergiereferenzfaktors."),
-        ("buero", "Nullemissions-Neubauten", "Neubauten der öffentlichen Hand müssen ab 1.1.2028, alle übrigen Neubauten ab 1.1.2030 als Nullemissionsgebäude errichtet werden – am Standort ohne CO₂-Emissionen aus fossilen Brennstoffen."),
+        ("buero", "Nullemissions-Neubauten", "Neubauten der öffentlichen Hand müssen ab 1.1.2028, alle übrigen Neubauten ab 1.1.2030 als Nullemissionsgebäude errichtet werden – am Standort ohne CO₂-Emissionen aus fossilen Brennstoffen. <a href=\'../neubau/\'>Neubau, QNG und Förderung</a>"),
         ("bolt", "Heizung: technologieoffen mit Bio-Treppe", "Die 65-Prozent-EE-Vorgabe („Heizungsgesetz“) ist gestrichen. Neue Gas- und Ölheizungen bleiben erlaubt, müssen aber steigende Anteile biogener Brennstoffe oder Wasserstoff nutzen: 10 % ab 2029, 15 % ab 2030, 30 % ab 2035, 60 % ab 2040."),
         ("chart", "Solarpflicht ab 2027", "Die Pflicht zur Photovoltaik-Nutzung wird ab dem 1.1.2027 schrittweise eingeführt. Gut zu wissen: Auf Nichtwohngebäuden rechnet sich PV meist ohnehin – der Verbrauch liegt genau in den Ertragsstunden."),
     ]
@@ -1717,8 +1719,8 @@ def render_gmodg():
     )
 
     audiences = [
-        ("Sie besitzen Bestandsgebäude?", "Klären Sie jetzt, ob Ihr Gebäude unter die MEPS-Stufen 2030/2033 fällt und ob die 70-kW-Automationspflicht greift. Wer früh plant, saniert mit Förderung statt unter Fristdruck."),
-        ("Sie planen einen Neubau?", "Ab 2030 gilt der Nullemissionsstandard für alle – wer heute plant, baut ihn besser gleich mit ein. Wir begleiten von der Konzeption bis zum GModG-Nachweis."),
+        ("Sie besitzen Bestandsgebäude?", "Klären Sie jetzt, ob Ihr Gebäude unter die MEPS-Stufen 2030/2033 fällt und ob die 70-kW-Automationspflicht greift. Wer früh plant, saniert mit Förderung statt unter Fristdruck. <a href=\'../sanierungspflicht-nichtwohngebaeude/\'>Zur Sanierungspflicht</a>"),
+        ("Sie planen einen Neubau?", "Ab 2030 gilt der Nullemissionsstandard für alle – wer heute plant, baut ihn besser gleich mit ein. Dazu kommt die Förderfrage: mit QNG steigt der Förderkredit auf 2.000 € je m². <a href=\'../neubau/\'>Zur Neubaubegleitung</a>"),
         ("Sie vertreten eine Kommune?", "Für öffentliche Neubauten gilt der Nullemissionsstandard schon ab 2028 – und die Vorbildfunktion für den Bestand bleibt. Wir priorisieren Ihr Portfolio fristen- und fördergerecht."),
     ]
     audience_cards = "".join(
@@ -2000,29 +2002,109 @@ def render_foerderung():
 <section class="section section--dark">
   <div class="container">
     <div class="section-head reveal">
-      <p class="eyebrow">Und die Sanierung?</p>
-      <h2>Förderung für die Maßnahmen selbst</h2>
-      <p class="lead">Neben der Beratung sind auch die baulichen und technischen Maßnahmen
-      förderfähig – über andere Programme mit eigenen Regeln.</p>
+      <p class="eyebrow">Bundesförderung für effiziente Gebäude</p>
+      <h2>Die BEG-Programme für Nichtwohngebäude im Überblick</h2>
+      <p class="lead">Die Beratung ist das eine – gefördert wird vor allem das Bauen. Diese
+      Programme kommen für Nichtwohngebäude infrage, je nachdem ob Sie sanieren oder neu bauen
+      und ob Sie ein Unternehmen oder eine Kommune sind.</p>
+    </div>
+    <div class="table-wrap reveal">
+      <table class="data-table">
+        <caption>BEG-Programme der KfW für Nichtwohngebäude, Stand August 2026</caption>
+        <thead><tr>
+          <th scope="col">Programm</th><th scope="col">Wofür</th>
+          <th scope="col">Art</th><th scope="col">Höchstbetrag</th>
+        </tr></thead>
+        <tbody>
+          <tr><th scope="row">263 – Nichtwohngebäude-Kredit</th>
+              <td>Sanierung zum Effizienzgebäude (Stufen 40 bis 115)</td>
+              <td>Kredit mit Tilgungszuschuss 5–25&nbsp;%</td>
+              <td>2.000&nbsp;€/m² NGF, max. 10&nbsp;Mio.&nbsp;€</td></tr>
+          <tr><th scope="row">264 – Kommunen-Kredit</th>
+              <td>Sanierung kommunaler Nichtwohngebäude</td>
+              <td>Kredit mit Tilgungszuschuss bis 40&nbsp;%</td>
+              <td>max. 10&nbsp;Mio.&nbsp;€</td></tr>
+          <tr><th scope="row">464 – Kommunen-Zuschuss</th>
+              <td>Sanierung kommunaler Nichtwohngebäude</td>
+              <td>direkter Zuschuss</td>
+              <td>max. 4&nbsp;Mio.&nbsp;€</td></tr>
+          <tr><th scope="row">299 – Klimafreundlicher Neubau</th>
+              <td><a href="{p}neubau/">Neubau</a>, Stufen EG&nbsp;55, EG&nbsp;40 und EG&nbsp;40 mit QNG</td>
+              <td>zinsverbilligter Kredit</td>
+              <td>1.000 bis 2.000&nbsp;€/m², max. 10&nbsp;Mio.&nbsp;€</td></tr>
+          <tr><th scope="row">596 – Neubau im Niedrigpreissegment</th>
+              <td>energie- <em>und</em> kosteneffizienter Neubau</td>
+              <td>zinsverbilligter Kredit</td>
+              <td>programmabhängig</td></tr>
+          <tr><th scope="row">498/499 – Neubau für Kommunen</th>
+              <td>klimafreundlicher kommunaler Neubau</td>
+              <td>Zuschuss</td>
+              <td>bis 10&nbsp;% der förderfähigen Kosten</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="mono-note" style="color:var(--faint-on-dark)">Quelle: KfW · Bezugsgröße ist die
+    Nettogrundfläche · Antrag jeweils vor Vorhabenbeginn</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head reveal">
+      <p class="eyebrow">Wichtig zu wissen</p>
+      <h2>Die Förderkurve zeigt nach unten</h2>
+      <p class="lead">Wer eine Sanierung ohnehin plant, sollte die zeitliche Entwicklung kennen –
+      sie spricht klar für früher statt später.</p>
     </div>
     <ul class="feature-list">
-      <li class="feature reveal"><span class="feature-icon">{icon('euro')}</span>
-        <div><h3>BEG – Bundesförderung effiziente Gebäude</h3>
-        <p>Zuschüsse für Einzelmaßnahmen wie Gebäudehülle, Anlagentechnik und Heizungstausch sowie
-        für den Effizienzgebäude-Standard. Die Sätze werden regelmäßig angepasst – wir prüfen den
-        jeweils gültigen Stand für Ihr Vorhaben.</p></div></li>
+      <li class="feature reveal"><span class="feature-icon">{icon('law')}</span>
+        <div><h3>Seit 21. Juli 2026 gelten neue Bedingungen</h3>
+        <p>Die Tilgungszuschüsse für Sanierungen zum Effizienzgebäude wurden um zehn Prozentpunkte
+        gesenkt. Der Fünf-Prozent-Bonus für die Erneuerbare-Energien-Klasse ist entfallen, ebenso
+        Effizienzbonus und Emissionsminderungszuschlag.</p></div></li>
       <li class="feature reveal"><span class="feature-icon">{icon('chart')}</span>
-        <div><h3>KfW-Kredite</h3>
-        <p>Zinsgünstige Darlehen, teils mit Tilgungszuschuss – besonders interessant, wenn größere
-        Sanierungspakete finanziert werden müssen.</p></div></li>
+        <div><h3>Ab Februar 2027 sinken die Höchstbeträge</h3>
+        <p>Die Förderhöchstbeträge werden ab dem 1. Februar 2027 halbjährlich abgeschmolzen –
+        gestaffelt nach Gebäudegröße. Für größere Gebäude bedeutet das jedes Halbjahr einen
+        kleineren Topf.</p></div></li>
+      <li class="feature reveal"><span class="feature-icon">{icon('bolt')}</span>
+        <div><h3>Heizung: Grundförderung bleibt 30 %</h3>
+        <p>Die Grundförderung für die Heizungsmodernisierung liegt weiterhin bei 30&nbsp;%. Ab dem
+        ersten Quartal 2027 kommt ein Wertschöpfungsbonus hinzu, der die Herkunft der Anlage
+        berücksichtigt.</p></div></li>
+      <li class="feature reveal"><span class="feature-icon">{icon('tools')}</span>
+        <div><h3>Neu: Bonus für serielles Sanieren</h3>
+        <p>Im zweiten Halbjahr 2026 wird ein zusätzlicher Bonus für serielle Sanierungen eingeführt –
+        interessant für Portfolios mit vielen gleichartigen Gebäuden, etwa im kommunalen Bestand.</p></div></li>
+    </ul>
+  </div>
+</section>
+
+<section class="section section--surface">
+  <div class="container">
+    <div class="section-head reveal">
+      <p class="eyebrow">Was noch dazukommt</p>
+      <h2>Programme neben der BEG</h2>
+    </div>
+    <ul class="feature-list">
       <li class="feature reveal"><span class="feature-icon">{icon('kommune')}</span>
         <div><h3>Landes- und Kommunalprogramme</h3>
-        <p>NRW und viele Kommunen legen eigene Programme auf, die sich mit Bundesmitteln
-        kombinieren lassen. Gerade für kommunale Träger lohnt der Blick.</p></div></li>
+        <p>Nordrhein-Westfalen und viele Kommunen legen eigene Programme auf, die sich mit
+        Bundesmitteln kombinieren lassen. Gerade für kommunale Träger und gemeinnützige
+        Organisationen lohnt der Blick – hier bleibt am häufigsten Geld liegen.</p></div></li>
+      <li class="feature reveal"><span class="feature-icon">{icon('euro')}</span>
+        <div><h3>Steuerliche Wege</h3>
+        <p>Wo eine Direktförderung nicht greift oder sich nicht rechnet, prüfen wir Abschreibung und
+        steuerliche Behandlung als Alternative. Manchmal ist der Steuerweg der bessere.</p></div></li>
       <li class="feature reveal"><span class="feature-icon">{icon('doc')}</span>
         <div><h3>Antragstellung inklusive</h3>
-        <p>Wir recherchieren die passenden Programme, erstellen die Unterlagen und begleiten den
-        Antrag – Sie unterschreiben, wir kümmern uns um den Rest.</p></div></li>
+        <p>Wir recherchieren die passenden Programme, erstellen die Unterlagen, koordinieren mit
+        Ihrer Hausbank und liefern die Nachweise, ohne die kein Tilgungszuschuss ausgezahlt wird.
+        Sie unterschreiben, wir kümmern uns um den Rest.</p></div></li>
+      <li class="feature reveal"><span class="feature-icon">{icon('search')}</span>
+        <div><h3>Kombination statt Einzelantrag</h3>
+        <p>Der größte Hebel liegt selten in einem Programm, sondern in der richtigen Kombination –
+        und in der Reihenfolge, in der beantragt wird. Genau dafür gibt es uns.</p></div></li>
     </ul>
   </div>
 </section>
@@ -2062,6 +2144,340 @@ def render_foerderung():
         "foerderung/",
         "Förderung Energieberatung NWG: 50 % bis 4.000 € | GREEN",
         "50 % des Beratungshonorars, gedeckelt auf 850–4.000 €: Antragsberechtigte, Fristen, BEG. Jetzt Förderanspruch prüfen lassen.",
+        body, active=None, schema=schema,
+    )
+
+
+def render_neubau():
+    p = "../"
+    faqs = [
+        ("Was ist das QNG und wann brauchen wir es?",
+         "Das Qualitätssiegel Nachhaltiges Gebäude (QNG) ist ein staatliches Siegel des Bundes, das die "
+         "Nachhaltigkeit eines Gebäudes über den gesamten Lebenszyklus bewertet – ökologisch, "
+         "soziokulturell und ökonomisch. Es wird in den Stufen PLUS und PREMIUM vergeben und gilt seit "
+         "März 2023 für alle Nichtwohngebäude. Gebraucht wird es, wenn Sie die höchste Förderstufe im "
+         "Programm Klimafreundlicher Neubau erreichen wollen: Ohne QNG endet der Förderkredit bei "
+         "1.500 € je Quadratmeter, mit QNG sind es 2.000 €."),
+        ("Was kostet ein QNG-Nachweis und lohnt er sich?",
+         "Der Nachweis verursacht zusätzlichen Planungs- und Dokumentationsaufwand, unter anderem für "
+         "die Ökobilanzierung und den Nachweis der Schadstofffreiheit. Ob er sich rechnet, hängt an der "
+         "Gebäudegröße: Die höhere Kreditlinie und der Imagegewinn müssen den Mehraufwand tragen. Bei "
+         "größeren Vorhaben geht die Rechnung meist klar auf. Wir prüfen das vor der Planungsentscheidung "
+         "durch – nicht danach."),
+        ("Ab wann gilt der Nullemissionsstandard?",
+         "Nach dem Gebäudemodernisierungsgesetz müssen Neubauten der öffentlichen Hand ab dem "
+         "1. Januar 2028 und alle übrigen Neubauten ab dem 1. Januar 2030 als Nullemissionsgebäude "
+         "errichtet werden – am Standort also ohne CO₂-Emissionen aus fossilen Brennstoffen. Wer heute "
+         "plant und 2029 oder später fertigstellt, sollte den Standard bereits mitdenken."),
+        ("Wann muss der Förderantrag gestellt werden?",
+         "Vor Beginn der Bauarbeiten vor Ort. Das ist die häufigste und teuerste Falle im Neubau: Wer "
+         "erst den Bauauftrag vergibt und dann die Förderung beantragt, verliert sie. Wir binden die "
+         "Antragstellung deshalb fest in den Terminplan ein."),
+        ("Begleiten Sie auch die Ausführung?",
+         "Ja. Zur Förderung gehört die Baubegleitung durch einen Energieeffizienz-Experten – von der "
+         "Planungsprüfung über Baustellenkontrollen bis zur Bestätigung nach Durchführung. Ohne diese "
+         "Nachweise wird der Tilgungszuschuss nicht ausgezahlt."),
+    ]
+    faq_items = "".join(
+        f'<details class="faq reveal"><summary>{q}</summary><div class="faq-body"><p>{a}</p></div></details>'
+        for q, a in faqs)
+
+    steps = [
+        ("Zieldefinition", "Welche Effizienzstufe, welches Förderprogramm, QNG ja oder nein? Diese Entscheidung fällt vor dem ersten Strich, nicht nach der Genehmigungsplanung.", "vor Planungsbeginn"),
+        ("Planungsbegleitung", "Wir rechnen die Bilanz nach DIN V 18599 mit, prüfen Varianten der Anlagentechnik und halten die Förderkriterien in der Planung nach.", "Leistungsphase 1–4"),
+        ("Förderantrag", "Antrag über Ihre Hausbank an die KfW, vollständig mit unserer Bestätigung zum Antrag – rechtzeitig vor Baubeginn.", "vor Baubeginn"),
+        ("Baubegleitung & Nachweis", "Baustellenkontrollen, Prüfung der Ausführung und die Bestätigung nach Durchführung, ohne die kein Tilgungszuschuss fließt.", "bis Abnahme"),
+    ]
+    step_items = "".join(
+        f'<li class="step reveal"><h3>{t}</h3><p>{d}</p><span class="step-duration">{dur}</span></li>'
+        for t, d, dur in steps)
+
+    body = f"""
+{page_hero(p, [("neubau/", "Neubau")], "Neubaubegleitung",
+           "Neubau: Effizienzstandard, QNG und Förderung von Anfang an",
+           "Im Neubau entscheidet sich der Energieverbrauch der nächsten fünfzig Jahre in den "
+           "ersten Wochen der Planung. Und die Förderung entscheidet sich noch früher – vor dem "
+           "ersten Spatenstich.")}
+
+<section class="section">
+  <div class="container split">
+    <div class="reveal">
+      <p class="eyebrow">Warum so früh?</p>
+      <h2>Die teuersten Fehler passieren vor dem Bauantrag</h2>
+      <p>Ein Neubau, der die Förderstufe knapp verfehlt, kostet nicht ein paar Prozent – er kostet
+      den kompletten Zuschuss. Und ein Gebäude, das 2029 fertig wird, aber ohne den kommenden
+      <a href="{p}gmodg-nichtwohngebaeude/">Nullemissionsstandard</a> geplant wurde, ist bei
+      Fertigstellung bereits veraltet.</p>
+      <p>Deshalb setzen wir am Anfang an: Bevor die Kubatur steht, klären wir, welche
+      Effizienzstufe wirtschaftlich erreichbar ist, ob sich das QNG rechnet und welches
+      Förderprogramm dazu passt. Danach begleiten wir die Planung mit der Bilanz nach
+      DIN V 18599, stellen den Antrag rechtzeitig und führen die Baubegleitung bis zur
+      Bestätigung nach Durchführung.</p>
+      <a class="btn btn--primary" href="{p}beratungstermin/">Neubau besprechen {icon('arrow')}</a>
+    </div>
+    {photo("gebaeudehuelle", p, "Effizienz entsteht in der Planung – später wird sie teuer.", eager=True)}
+  </div>
+</section>
+
+<section class="section section--surface">
+  <div class="container">
+    <div class="section-head reveal">
+      <p class="eyebrow">Klimafreundlicher Neubau (KFN)</p>
+      <h2>Was der Bund für Neubauten bereitstellt</h2>
+      <p class="lead">Gefördert wird als zinsverbilligter Kredit über die KfW, Programm 299 für
+      Nichtwohngebäude. Die Höhe hängt an der erreichten Stufe – und an einem Siegel.</p>
+    </div>
+    <div class="table-wrap reveal">
+      <table class="data-table">
+        <caption>KfW-Programm 299 „Klimafreundlicher Neubau – Nichtwohngebäude", Stand August 2026</caption>
+        <thead><tr><th scope="col">Förderstufe</th><th scope="col">Höchstbetrag je m²</th><th scope="col">Höchstbetrag gesamt</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Effizienzgebäude&nbsp;55 (nicht mit Öl oder Gas beheizt)</th><td>1.000&nbsp;€</td><td>5&nbsp;Mio.&nbsp;€</td></tr>
+          <tr><th scope="row">Klimafreundliches Nichtwohngebäude (EG&nbsp;40)</th><td>1.500&nbsp;€</td><td>7,5&nbsp;Mio.&nbsp;€</td></tr>
+          <tr><th scope="row">Klimafreundliches Nichtwohngebäude <strong>mit QNG</strong></th><td><strong>2.000&nbsp;€</strong></td><td><strong>10&nbsp;Mio.&nbsp;€</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="mono-note">Bezugsgröße ist die Nettogrundfläche · Antrag zwingend vor Baubeginn ·
+    Quelle: KfW, Programm 299</p>
+    <div class="notice reveal" style="margin-top:1.6rem">
+      <strong>Die Stufe EG&nbsp;55 ist befristet.</strong> Sie wurde zusätzlich eingeführt und gilt
+      nach aktuellem Stand für Anträge bis zum 31.&nbsp;Dezember 2026. Wer diese Stufe nutzen will,
+      sollte den Antrag entsprechend terminieren – wir behalten die Frist im Projektplan.
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container split">
+    <div class="reveal">
+      <p class="eyebrow">QNG</p>
+      <h2>Das Qualitätssiegel Nachhaltiges Gebäude</h2>
+      <p>Das QNG ist ein staatliches Siegel und geht deutlich über Energieeffizienz hinaus: Bewertet
+      werden der gesamte Lebenszyklus des Gebäudes, die Ökobilanz der eingesetzten Baustoffe, die
+      Schadstofffreiheit, die Barrierefreiheit und die Wirtschaftlichkeit. Vergeben wird es in den
+      Stufen <strong>PLUS</strong> und <strong>PREMIUM</strong>; seit März 2023 gilt es für alle
+      Arten von Nichtwohngebäuden.</p>
+      <p>Für die Förderung ist es der Hebel auf die höchste Stufe – aus 1.500&nbsp;€ je Quadratmeter
+      werden 2.000&nbsp;€. Aber es ist mehr als ein Förderticket: Ein QNG-zertifiziertes Gebäude
+      lässt sich gegenüber Mietern, Banken und im ESG-Reporting belegen, nicht nur behaupten.</p>
+      <ul class="checklist">
+        <li>Ökobilanz über den Lebenszyklus (Treibhausgase, Primärenergie)</li>
+        <li>Nachweis der Schadstofffreiheit verwendeter Baustoffe</li>
+        <li>Anforderungen an Barrierefreiheit und Nutzungsqualität</li>
+        <li>Wirtschaftlichkeit und Rückbaufähigkeit</li>
+        <li>Vergabe durch akkreditierte Zertifizierungsstellen</li>
+      </ul>
+    </div>
+    {photo("nichtwohngebaeude", p, "QNG bewertet das Gebäude über seinen ganzen Lebenszyklus.")}
+  </div>
+</section>
+
+<section class="section section--dark">
+  <div class="container">
+    <div class="section-head reveal">
+      <p class="eyebrow">Unsere Leistung</p>
+      <h2>Vier Schritte, in der richtigen Reihenfolge</h2>
+      <p class="lead">Die Reihenfolge ist keine Formalie: Wer sie umdreht, verliert die Förderung.</p>
+    </div>
+    <ol class="steps">{step_items}</ol>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head reveal">
+      <p class="eyebrow">Häufige Fragen zum Neubau</p>
+      <h2>Kurz beantwortet</h2>
+    </div>
+    <div class="faq-list">{faq_items}</div>
+    <div class="notice reveal" style="margin-top:2rem">
+      <strong>Hinweis:</strong> Förderprogramme ändern sich laufend. Die genannten Werte entsprechen
+      dem Stand August 2026; maßgeblich sind die jeweils gültigen Programmbedingungen der KfW.
+      Einen Überblick über alle Programme finden Sie unter
+      <a href="{p}foerderung/">Förderung</a>.
+    </div>
+  </div>
+</section>
+
+{cta_band(p, "Neubau geplant? Sprechen wir vor dem Bauantrag.",
+          "Im kostenlosen Erstgespräch klären wir Effizienzstufe, QNG-Frage und Förderweg – solange sich alles noch günstig entscheiden lässt.")}
+"""
+    schema = {"@context": "https://schema.org", "@graph": [
+        {"@type": "Service", "name": "Neubaubegleitung für Nichtwohngebäude mit QNG und KFN-Förderung",
+         "serviceType": "Neubaubegleitung", "url": f"{BASE}/neubau/",
+         "provider": {"@id": ORG_ID}, "areaServed": {"@type": "State", "name": "Nordrhein-Westfalen"}},
+        {"@type": "FAQPage", "mainEntity": [
+            {"@type": "Question", "name": plain(q), "acceptedAnswer": {"@type": "Answer", "text": plain(a)}}
+            for q, a in faqs]},
+    ]}
+    return page(
+        "neubau/",
+        "Neubau: QNG, Effizienzstufe & KFN-Förderung | GREEN",
+        "Neubau von Nichtwohngebäuden: Effizienzstufe festlegen, QNG-Siegel prüfen, KFN-Förderung bis 2.000 €/m² sichern. Jetzt vor dem Bauantrag beraten lassen.",
+        body, active=None, schema=schema,
+    )
+
+
+def render_sanierungspflicht():
+    p = "../"
+    faqs = [
+        ("Gibt es jetzt eine Sanierungspflicht für Nichtwohngebäude?",
+         "Ja. Mit dem Gebäudemodernisierungsgesetz gelten erstmals Mindesteffizienz-Standards (MEPS) "
+         "für bestehende Nichtwohngebäude. Der Primärenergiebedarf darf ab dem 1. Januar 2030 "
+         "höchstens das 3,5-Fache und ab dem 1. Januar 2033 höchstens das 2,95-Fache des Wertes eines "
+         "Referenzgebäudes betragen. Betroffen sind zuerst die energetisch schlechtesten Gebäude – "
+         "nach EU-Vorgabe die schwächsten 16 Prozent bis 2030 und 26 Prozent bis 2033."),
+        ("Woher weiß ich, ob mein Gebäude betroffen ist?",
+         "Das lässt sich nicht am Baujahr ablesen, sondern nur über eine energetische Bilanzierung. "
+         "Entscheidend ist der Abstand Ihres Primärenergiebedarfs zum Referenzgebäudewert. Genau das "
+         "rechnen wir im GModG-Check aus: Wir bilanzieren nach DIN V 18599, bestimmen den Abstand zur "
+         "jeweiligen Schwelle und sagen Ihnen, ob und wann Handlungsbedarf besteht."),
+        ("Was passiert, wenn wir die Frist reißen?",
+         "Die MEPS sind ordnungsrechtliche Anforderungen, keine Empfehlung. Neben möglichen "
+         "behördlichen Maßnahmen trifft Sie der wirtschaftliche Schaden meist früher: Wer erst kurz "
+         "vor der Frist saniert, konkurriert mit allen anderen um dieselben Handwerker, zahlt höhere "
+         "Preise und findet die Förderprogramme in schlechteren Konditionen vor – die Zuschüsse sind "
+         "bereits im Juli 2026 gesenkt worden."),
+        ("Welche weiteren Pflichten kommen neben MEPS?",
+         "Für Nichtwohngebäude mit Lüftungs- oder Klimaanlagen über 70 kW Nennleistung gilt die "
+         "Pflicht zur Gebäudeautomation bis zum 31. Dezember 2029. Ab dem 1. Januar 2027 sind zudem "
+         "Verbrauchsausweise nicht mehr zulässig – erforderlich ist dann der Bedarfsausweis. Und die "
+         "Solarpflicht wird ab 2027 schrittweise eingeführt."),
+        ("Lohnt es sich, früher zu sanieren als nötig?",
+         "In aller Regel ja, aus drei Gründen: Die Förderquoten sinken planmäßig weiter, der CO₂-Preis "
+         "auf fossile Wärme steigt jedes Jahr, und Sie können die Maßnahmen in Ihren normalen "
+         "Instandhaltungszyklus legen statt in einen Zwangstermin. Sanieren, wenn ohnehin das Dach "
+         "fällig ist, kostet einen Bruchteil einer isolierten Pflichtmaßnahme."),
+    ]
+    faq_items = "".join(
+        f'<details class="faq reveal"><summary>{q}</summary><div class="faq-body"><p>{a}</p></div></details>'
+        for q, a in faqs)
+
+    help_items = [
+        ("search", "Betroffenheit klären", "Wir bilanzieren Ihr Gebäude nach DIN V 18599 und bestimmen den Abstand zum Referenzgebäudewert. Ergebnis: eine belastbare Aussage, ob die Schwellen 2030 und 2033 überschritten werden – und um wie viel."),
+        ("chart", "Sanierungsfahrplan bis zur Frist", "Aus dem Abstand zur Schwelle entwickeln wir eine Maßnahmenfolge mit Terminen: Was muss bis 2030 stehen, was kann bis 2033 warten, was passt in den ohnehin geplanten Instandhaltungszyklus?"),
+        ("euro", "Förderung sichern, solange sie hoch ist", "Die Zuschüsse wurden im Juli 2026 bereits um zehn Prozentpunkte gesenkt und die Höchstbeträge sinken ab Februar 2027 halbjährlich weiter. Wer früh beantragt, bekommt mehr."),
+        ("tools", "Umsetzung begleiten", "Ausschreibung, Angebotsprüfung, Baubegleitung und die Nachweise, die für den Tilgungszuschuss verlangt werden – damit die Sanierung auch fördertechnisch aufgeht."),
+        ("doc", "Nachweise und Dokumentation", "Bedarfsausweis, GModG-Nachweise und die Unterlagen, die Behörden, Banken und ESG-Berichte verlangen. Aus der Pflichterfüllung wird ein verwertbarer Datensatz."),
+        ("law", "Fristen im Blick behalten", "MEPS 2030 und 2033, Gebäudeautomation bis Ende 2029, Bedarfsausweis ab 2027: Wir führen diese Termine für Ihren Bestand nach, statt sie Ihnen zu überlassen."),
+    ]
+    help_html = "".join(
+        f'<li class="feature reveal"><span class="feature-icon">{icon(ic)}</span>'
+        f'<div><h3>{t}</h3><p>{d}</p></div></li>' for ic, t, d in help_items)
+
+    body = f"""
+{page_hero(p, [("sanierungspflicht-nichtwohngebaeude/", "Sanierungspflicht")], "GModG · MEPS",
+           "Sanierungspflicht für Nichtwohngebäude",
+           "Seit dem GModG gibt es sie: verbindliche Mindeststandards für den Bestand, mit "
+           "Fristen 2030 und 2033. Wir klären, ob Ihr Gebäude betroffen ist – und was das "
+           "konkret bedeutet.")}
+
+<section class="section">
+  <div class="container">
+    <div class="section-head reveal">
+      <p class="eyebrow">Antwort zuerst</p>
+      <h2>Zwei Termine, eine Kennzahl</h2>
+      <p class="lead">Ob Sie betroffen sind, entscheidet sich am Verhältnis Ihres
+      Primärenergiebedarfs zum Referenzgebäudewert – nicht am Baujahr.</p>
+    </div>
+    <div class="table-wrap reveal">
+      <table class="data-table">
+        <caption>Mindesteffizienz-Standards (MEPS) für bestehende Nichtwohngebäude nach GModG</caption>
+        <thead><tr><th scope="col">Ab</th><th scope="col">Höchstwert Primärenergiebedarf</th><th scope="col">Betroffener Gebäudebestand</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">1. Januar 2030</th><td>max. das 3,5-Fache des Referenzgebäudewerts</td><td>die energetisch schwächsten rund 16&nbsp;%</td></tr>
+          <tr><th scope="row">1. Januar 2033</th><td>max. das 2,95-Fache des Referenzgebäudewerts</td><td>die energetisch schwächsten rund 26&nbsp;%</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="mono-note">Stand: August 2026 · Grundlage: Gebäudemodernisierungsgesetz, Umsetzung der
+    EU-Gebäuderichtlinie (EPBD) · <a href="{p}gmodg-nichtwohngebaeude/">alle GModG-Pflichten im Überblick</a></p>
+  </div>
+</section>
+
+<section class="section section--surface">
+  <div class="container split">
+    <div class="reveal">
+      <p class="eyebrow">Die Rechnung dahinter</p>
+      <h2>Warum Warten die teuerste Variante ist</h2>
+      <p>Die Frist 2030 klingt weit weg. Aus Sicht eines Gebäudes ist sie es nicht: Zwischen erster
+      Analyse, Planung, Förderantrag, Ausschreibung und Ausführung liegen bei größeren Maßnahmen
+      leicht zwei bis drei Jahre. Wer 2029 anfängt, ist zu spät.</p>
+      <p>Dazu kommt die Förderkurve, die in die falsche Richtung zeigt. Die Tilgungszuschüsse für
+      Sanierungen zu Effizienzgebäuden wurden zum 21. Juli 2026 um zehn Prozentpunkte gesenkt, der
+      Bonus für die Erneuerbare-Energien-Klasse ist entfallen, und ab dem 1. Februar 2027 sinken die
+      Höchstbeträge halbjährlich weiter. Jedes Jahr Abwarten kostet also doppelt: über die
+      Energierechnung und über die entgangene Förderung.</p>
+      <a class="btn btn--primary" href="{p}beratungstermin/">Betroffenheit prüfen lassen {icon('arrow')}</a>
+    </div>
+    <div class="reveal reveal-d1">
+      {figure("sanierungsfahrplan", "Abb. – Sanierungsfahrplan: Maßnahmen in sinnvoller Reihenfolge bis zur Frist")}
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head reveal">
+      <p class="eyebrow">Wie wir helfen</p>
+      <h2>Von der Pflicht zum Plan</h2>
+      <p class="lead">Eine Sanierungspflicht ist zuerst eine Rechenaufgabe und erst danach eine
+      Baustelle. Wir bearbeiten beides.</p>
+    </div>
+    <ul class="feature-list">{help_html}</ul>
+  </div>
+</section>
+
+<section class="section section--tight">
+  <div class="container">
+    <div class="callout reveal">
+      <div>
+        <span class="badge">GModG-Check</span>
+        <h2>Erst rechnen, dann entscheiden.</h2>
+        <p>Im GModG-Check bilanzieren wir Ihr Gebäude, bestimmen den Abstand zu den Schwellen 2030
+        und 2033 und legen die Maßnahmen fest, die Sie darüber bringen – mit Kosten, Einsparung,
+        Förderung und Termin. Das Erstgespräch dazu ist kostenlos.</p>
+        <div class="hero-ctas" style="margin-bottom:0">
+          <a class="btn btn--light" href="{p}beratungstermin/">{icon('calendar')} GModG-Check anfragen</a>
+          <a class="btn btn--ghost-light" href="{p}foerderung/">Förderung ansehen</a>
+        </div>
+      </div>
+      <div class="big-number">2030<small>erste verbindliche Frist im Bestand</small></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head reveal">
+      <p class="eyebrow">Häufige Fragen zur Sanierungspflicht</p>
+      <h2>Kurz beantwortet</h2>
+    </div>
+    <div class="faq-list">{faq_items}</div>
+    <div class="notice reveal" style="margin-top:2rem">
+      <strong>Transparenzhinweis:</strong> Diese Darstellung fasst den Stand August 2026 zusammen und
+      ersetzt keine Rechtsberatung – maßgeblich ist der Gesetzestext. Amtliche Informationen finden
+      Sie im <a href="https://www.gmodg.bund.de/" rel="noopener" target="_blank">GModG-Portal des Bundes&nbsp;↗</a>.
+    </div>
+  </div>
+</section>
+
+{cta_band(p, "Ist Ihr Gebäude betroffen?",
+          "Wir rechnen es aus, statt zu schätzen – im kostenlosen Erstgespräch klären wir Ausgangslage, Frist und Förderweg.")}
+"""
+    schema = {"@context": "https://schema.org", "@graph": [
+        {"@type": "Service", "name": "GModG-Check: Prüfung der Sanierungspflicht für Nichtwohngebäude",
+         "serviceType": "Energieberatung", "url": f"{BASE}/sanierungspflicht-nichtwohngebaeude/",
+         "provider": {"@id": ORG_ID}, "areaServed": {"@type": "State", "name": "Nordrhein-Westfalen"}},
+        {"@type": "FAQPage", "mainEntity": [
+            {"@type": "Question", "name": plain(q), "acceptedAnswer": {"@type": "Answer", "text": plain(a)}}
+            for q, a in faqs]},
+    ]}
+    return page(
+        "sanierungspflicht-nichtwohngebaeude/",
+        "Sanierungspflicht Nichtwohngebäude: MEPS 2030 & 2033 | GREEN",
+        "GModG-Sanierungspflicht: Primärenergiebedarf max. 3,5-fach ab 2030, 2,95-fach ab 2033. Wir prüfen die Betroffenheit Ihres Gebäudes – jetzt GModG-Check anfragen.",
         body, active=None, schema=schema,
     )
 
@@ -2311,6 +2727,16 @@ GLOSSAR = [
      "Förderprogramm des Bundes, das 50 % des Beratungshonorars übernimmt – gedeckelt auf 850 € "
      "(unter 200 m²), 2.500 € (200–500 m²) beziehungsweise 4.000 € (über 500 m²). Der Antrag muss "
      "vor Beauftragung bewilligt sein.", "foerderung/"),
+    ("QNG – Qualitätssiegel Nachhaltiges Gebäude",
+     "Staatliches Siegel des Bundes, das die Nachhaltigkeit eines Gebäudes über den gesamten "
+     "Lebenszyklus bewertet – Ökobilanz, Schadstofffreiheit, Barrierefreiheit und Wirtschaftlichkeit. "
+     "Vergeben in den Stufen PLUS und PREMIUM; seit März 2023 für alle Nichtwohngebäude. Es ist "
+     "Voraussetzung für die höchste Förderstufe im Programm Klimafreundlicher Neubau.", "neubau/"),
+    ("KFN – Klimafreundlicher Neubau",
+     "Förderprogramm des Bundes für Neubauten, für Nichtwohngebäude über den KfW-Kredit 299. "
+     "Gefördert wird gestaffelt: bis 1.000 € je m² für Effizienzgebäude 55, bis 1.500 € für ein "
+     "klimafreundliches Nichtwohngebäude und bis 2.000 € mit QNG. Der Antrag muss vor Baubeginn "
+     "vorliegen.", "neubau/"),
     ("BEG – Bundesförderung für effiziente Gebäude",
      "Förderprogramm für die Umsetzung: bezuschusst Einzelmaßnahmen an Gebäudehülle und "
      "Anlagentechnik sowie den Effizienzgebäude-Standard. Die Fördersätze werden regelmäßig "
@@ -3009,7 +3435,7 @@ def render_llms_txt():
 - Sanierungsfahrplan mit Kosten, Einsparung, CO2-Wirkung und Amortisation
 - Fördermittelservice inkl. Antragstellung: Bundesförderung Energieberatung
   Nichtwohngebäude (EBN) und Bundesförderung für effiziente Gebäude (BEG)
-- Neubaubegleitung inkl. GModG-Nachweisen (Gebäudemodernisierungsgesetz, vormals GEG)
+- Neubaubegleitung inkl. GModG-Nachweisen, QNG-Prüfung und KFN-Förderantrag
 - Umsetzungsbegleitung, Ausschreibung und Energie-Monitoring
 - GModG-Check: Prüfung, welche Pflichten und Fristen des GModG 2026 ein konkretes
   Gebäude betreffen
@@ -3048,6 +3474,41 @@ Modul 2 (Energieberatung DIN V 18599):
 - Umsetzungsmaßnahmen laufen über die BEG und Landes-/Kommunalprogramme
 - Details: {BASE}/foerderung/
 
+## Neubau: QNG und Förderung (Stand August 2026)
+
+- Qualitätssiegel Nachhaltiges Gebäude (QNG): staatliches Siegel, Stufen PLUS und PREMIUM,
+  seit März 2023 für alle Nichtwohngebäude; bewertet Ökobilanz, Schadstofffreiheit,
+  Barrierefreiheit und Wirtschaftlichkeit über den Lebenszyklus
+- KfW-Programm 299 „Klimafreundlicher Neubau – Nichtwohngebäude" (zinsverbilligter Kredit):
+  Effizienzgebäude 55 bis 1.000 EUR/m² (max. 5 Mio. EUR); klimafreundliches Nichtwohngebäude
+  EG 40 bis 1.500 EUR/m² (max. 7,5 Mio. EUR); EG 40 mit QNG bis 2.000 EUR/m² (max. 10 Mio. EUR)
+- Die Stufe EG 55 ist befristet (Antragseingang bis 31.12.2026)
+- Antrag zwingend vor Beginn der Bauarbeiten
+- Nullemissionsstandard nach GModG: öffentliche Neubauten ab 2028, alle ab 2030
+- Details: {BASE}/neubau/
+
+## Sanierungspflicht im Bestand (MEPS)
+
+- Erstmals verbindliche Mindesteffizienz-Standards für bestehende Nichtwohngebäude
+- Primärenergiebedarf höchstens 3,5-facher Referenzgebäudewert ab 1.1.2030,
+  höchstens 2,95-facher ab 1.1.2033
+- Betroffen sind zuerst die energetisch schwächsten Gebäude (EU-Vorgabe: 16 % bis 2030,
+  26 % bis 2033); die Betroffenheit ergibt sich aus der Bilanz, nicht aus dem Baujahr
+- Details: {BASE}/sanierungspflicht-nichtwohngebaeude/
+
+## BEG-Programme für Nichtwohngebäude (KfW, Stand August 2026)
+
+- 263 Nichtwohngebäude-Kredit: Sanierung zum Effizienzgebäude (Stufen 40 bis 115),
+  bis 2.000 EUR/m² Nettogrundfläche, max. 10 Mio. EUR, Tilgungszuschuss 5–25 %
+- 264 Kommunen-Kredit: max. 10 Mio. EUR, Tilgungszuschuss bis 40 %
+- 464 Kommunen-Zuschuss: max. 4 Mio. EUR
+- 299 Klimafreundlicher Neubau (siehe oben)
+- 596 Klimafreundlicher Neubau im Niedrigpreissegment
+- 498/499 Neubau für Kommunen: Zuschuss bis 10 % der förderfähigen Kosten
+- Änderungen zum 21.07.2026: Tilgungszuschüsse für Effizienzgebäude-Sanierungen um
+  10 Prozentpunkte gesenkt, EE-Klassen-Bonus entfallen; ab 01.02.2027 sinken die
+  Höchstbeträge halbjährlich
+
 ## Branchen
 
 {industries}
@@ -3060,7 +3521,9 @@ Modul 2 (Energieberatung DIN V 18599):
 
 - [Startseite]({BASE}/)
 - [GModG 2026: Pflichten für Nichtwohngebäude]({BASE}/gmodg-nichtwohngebaeude/)
-- [Förderung: 50 % bis max. 4.000 EUR]({BASE}/foerderung/)
+- [Förderung: EBN, BEG und KFN im Überblick]({BASE}/foerderung/)
+- [Sanierungspflicht MEPS 2030/2033]({BASE}/sanierungspflicht-nichtwohngebaeude/)
+- [Neubau: QNG und KFN-Förderung]({BASE}/neubau/)
 - [Einsparrechner (kostenlos, ohne Anmeldung)]({BASE}/einsparrechner/)
 - [Energieaudit DIN EN 16247]({BASE}/energieaudit-din-en-16247/)
 - [Energieausweis für Nichtwohngebäude]({BASE}/energieausweis-nichtwohngebaeude/)
@@ -3120,6 +3583,8 @@ def main():
         "gmodg-nichtwohngebaeude/index.html": render_gmodg(),
         "einsparrechner/index.html": render_rechner(),
         "foerderung/index.html": render_foerderung(),
+        "neubau/index.html": render_neubau(),
+        "sanierungspflicht-nichtwohngebaeude/index.html": render_sanierungspflicht(),
         "energieausweis-nichtwohngebaeude/index.html": render_energieausweis(),
         "energieaudit-din-en-16247/index.html": render_energieaudit(),
         "glossar/index.html": render_glossar(),

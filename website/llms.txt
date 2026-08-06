@@ -25,7 +25,7 @@
 - Sanierungsfahrplan mit Kosten, Einsparung, CO2-Wirkung und Amortisation
 - Fördermittelservice inkl. Antragstellung: Bundesförderung Energieberatung
   Nichtwohngebäude (EBN) und Bundesförderung für effiziente Gebäude (BEG)
-- Neubaubegleitung inkl. GModG-Nachweisen (Gebäudemodernisierungsgesetz, vormals GEG)
+- Neubaubegleitung inkl. GModG-Nachweisen, QNG-Prüfung und KFN-Förderantrag
 - Umsetzungsbegleitung, Ausschreibung und Energie-Monitoring
 - GModG-Check: Prüfung, welche Pflichten und Fristen des GModG 2026 ein konkretes
   Gebäude betreffen
@@ -64,6 +64,41 @@ Modul 2 (Energieberatung DIN V 18599):
 - Umsetzungsmaßnahmen laufen über die BEG und Landes-/Kommunalprogramme
 - Details: https://green-nwg.de/foerderung/
 
+## Neubau: QNG und Förderung (Stand August 2026)
+
+- Qualitätssiegel Nachhaltiges Gebäude (QNG): staatliches Siegel, Stufen PLUS und PREMIUM,
+  seit März 2023 für alle Nichtwohngebäude; bewertet Ökobilanz, Schadstofffreiheit,
+  Barrierefreiheit und Wirtschaftlichkeit über den Lebenszyklus
+- KfW-Programm 299 „Klimafreundlicher Neubau – Nichtwohngebäude" (zinsverbilligter Kredit):
+  Effizienzgebäude 55 bis 1.000 EUR/m² (max. 5 Mio. EUR); klimafreundliches Nichtwohngebäude
+  EG 40 bis 1.500 EUR/m² (max. 7,5 Mio. EUR); EG 40 mit QNG bis 2.000 EUR/m² (max. 10 Mio. EUR)
+- Die Stufe EG 55 ist befristet (Antragseingang bis 31.12.2026)
+- Antrag zwingend vor Beginn der Bauarbeiten
+- Nullemissionsstandard nach GModG: öffentliche Neubauten ab 2028, alle ab 2030
+- Details: https://green-nwg.de/neubau/
+
+## Sanierungspflicht im Bestand (MEPS)
+
+- Erstmals verbindliche Mindesteffizienz-Standards für bestehende Nichtwohngebäude
+- Primärenergiebedarf höchstens 3,5-facher Referenzgebäudewert ab 1.1.2030,
+  höchstens 2,95-facher ab 1.1.2033
+- Betroffen sind zuerst die energetisch schwächsten Gebäude (EU-Vorgabe: 16 % bis 2030,
+  26 % bis 2033); die Betroffenheit ergibt sich aus der Bilanz, nicht aus dem Baujahr
+- Details: https://green-nwg.de/sanierungspflicht-nichtwohngebaeude/
+
+## BEG-Programme für Nichtwohngebäude (KfW, Stand August 2026)
+
+- 263 Nichtwohngebäude-Kredit: Sanierung zum Effizienzgebäude (Stufen 40 bis 115),
+  bis 2.000 EUR/m² Nettogrundfläche, max. 10 Mio. EUR, Tilgungszuschuss 5–25 %
+- 264 Kommunen-Kredit: max. 10 Mio. EUR, Tilgungszuschuss bis 40 %
+- 464 Kommunen-Zuschuss: max. 4 Mio. EUR
+- 299 Klimafreundlicher Neubau (siehe oben)
+- 596 Klimafreundlicher Neubau im Niedrigpreissegment
+- 498/499 Neubau für Kommunen: Zuschuss bis 10 % der förderfähigen Kosten
+- Änderungen zum 21.07.2026: Tilgungszuschüsse für Effizienzgebäude-Sanierungen um
+  10 Prozentpunkte gesenkt, EE-Klassen-Bonus entfallen; ab 01.02.2027 sinken die
+  Höchstbeträge halbjährlich
+
 ## Branchen
 
 - [Bürogebäude](https://green-nwg.de/services/buero/): LED, Lüftung, Kühlung, IT: In Büros stecken die größten Sparpotenziale in der Technik – oft ohne Komfortverlust.
@@ -88,7 +123,9 @@ Modul 2 (Energieberatung DIN V 18599):
 
 - [Startseite](https://green-nwg.de/)
 - [GModG 2026: Pflichten für Nichtwohngebäude](https://green-nwg.de/gmodg-nichtwohngebaeude/)
-- [Förderung: 50 % bis max. 4.000 EUR](https://green-nwg.de/foerderung/)
+- [Förderung: EBN, BEG und KFN im Überblick](https://green-nwg.de/foerderung/)
+- [Sanierungspflicht MEPS 2030/2033](https://green-nwg.de/sanierungspflicht-nichtwohngebaeude/)
+- [Neubau: QNG und KFN-Förderung](https://green-nwg.de/neubau/)
 - [Einsparrechner (kostenlos, ohne Anmeldung)](https://green-nwg.de/einsparrechner/)
 - [Energieaudit DIN EN 16247](https://green-nwg.de/energieaudit-din-en-16247/)
 - [Energieausweis für Nichtwohngebäude](https://green-nwg.de/energieausweis-nichtwohngebaeude/)
