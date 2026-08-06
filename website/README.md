@@ -19,6 +19,9 @@ Nichtwohngebäude, Paderborn) als schnelle, statische Website ohne WordPress.
 | **Rechts-Content** | EnEV (seit 2020 außer Kraft) | Eigene GModG-2026-Seite (`/gmodg-nichtwohngebaeude/`, Stand-Datum, Quellenlink auf gmodg.bund.de, Transparenzhinweis „keine Rechtsberatung") – Fakten am 06.08.2026 gegen offizielle Quellen verifiziert |
 | **Bildwelt** | Stockfotos | 16 eigene SVG-Illustrationen im Marken-Stil „technische Zeichnung" (`assets/img/illustrations/`) – lizenzfrei, < 10 KB je Grafik, auch inline eingebettet |
 | **Trust-Signale** | – | HRB + Reaktionszeit im Footer, Klartext-Hinweise an Formularen (keine Datenspeicherung), freundliche 404, „keine Cookies"-Hinweis |
+| **Fotos** | Stockfotos ohne Optimierung | 15 frei lizenzierte Fotos, einheitlich markengetont, WebP in 2 Größen mit `srcset`, `loading="lazy"`, feste Maße (kein Layout-Shift), Alt-Texte, Bild-Sitemap, Bildnachweis-Seite |
+| **Interaktion** | – | Einsparrechner (`/einsparrechner/`): schätzt Kosten, Einsparpotenzial, CO₂ und Zehnjahreswert – rein clientseitig, ohne Datenübertragung |
+| **Werbeaussagen** | „bis zu 50 % Förderung" (ohne Deckel) | Fördersatz **und** gesetzlicher Höchstbetrag (850/2.500/4.000 €) überall genannt – Quelle BAFA, Stand angegeben |
 
 ## Struktur
 
@@ -27,7 +30,10 @@ website/
 ├── build.py            # Statischer Site-Generator (nur Python-Standardbibliothek)
 ├── content.py          # ALLE Inhalte: Firmendaten, Branchen, FAQ, Team, Zitate
 ├── index.html          # … und alle weiteren generierten Seiten (nicht von Hand editieren!)
-├── loesungen/ vorteile/ gmodg-nichtwohngebaeude/ ueber-uns/ einzugsgebiet/ kontakt/ beratungstermin/
+├── loesungen/ vorteile/ ueber-uns/ einzugsgebiet/ kontakt/ beratungstermin/
+├── gmodg-nichtwohngebaeude/ foerderung/ einsparrechner/ glossar/     # Wissen & Werkzeuge
+├── energieausweis-nichtwohngebaeude/ energieaudit-din-en-16247/      # Leistungsseiten
+├── bildnachweis/                                                     # Foto-Lizenzen
 ├── services/{buero,einzelhandel,produktion,veranstaltung,bildung,kindergarten,kommune,andere}/
 ├── energieberatung-{paderborn,bielefeld,guetersloh,detmold,hoexter,lippstadt}/   # lokale Landingpages
 ├── impressum/ datenschutz/ agb/  404.html
@@ -75,6 +81,19 @@ Beliebiges statisches Hosting genügt – den Inhalt des `website/`-Ordners hoch
 - [ ] Zertifizierungen/Referenzlogos ergänzen, falls vorhanden (z. B. Energieeffizienz-Expertenliste)
 - [ ] Team-Fotos: aktuell Initialen-Avatare; echte Fotos können in `build.py` (`render_ueber_uns`)
       eingesetzt werden
+- [ ] **Fotos ersetzen (größter verbleibender Qualitätssprung):** Die eingebauten Bilder sind
+      frei lizenzierte Aufnahmen fremder Gebäude und dienen nur der Illustration – darauf weist
+      auch `/bildnachweis/` ausdrücklich hin. Eigene Projektfotos wirken deutlich stärker.
+      Austausch: neue Dateien als `assets/img/fotos/<name>-1000.webp` und `-500.webp` ablegen,
+      Alt-Text in `photos.json` anpassen, `python3 build.py` ausführen.
+- [ ] **Referenzprojekte ergänzen:** Für echte Fallbeispiele fehlen belastbare Zahlen (Objekt,
+      Ausgangslage, Maßnahmen, erreichte Einsparung). Sobald zwei bis drei freigegebene Beispiele
+      vorliegen, lohnt eine eigene Referenzseite – erfahrungsgemäß das stärkste Verkaufsargument.
+- [ ] **Kennwerte des Einsparrechners prüfen:** Die Verbrauchskennwerte in `assets/js/main.js`
+      (Objekt `TYPES`) sind bewusst konservative Durchschnittswerte. Eigene Erfahrungswerte
+      können dort eingetragen werden.
+- [ ] **Förderwerte aktuell halten:** `/foerderung/` nennt Stand August 2026 (BAFA). Bei
+      Programmänderungen Werte und Stand-Datum anpassen.
 
 ## Design-System
 
