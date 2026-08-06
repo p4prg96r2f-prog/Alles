@@ -1,0 +1,7 @@
+# Netlify-Konfiguration für green-nwg.de
+# Die Website liegt in website/ und wird beim Deploy nach dist/ kopiert,
+# damit Generator-Quellen (*.py, README) nicht mit veröffentlicht werden.
+
+[build]
+  publish = "dist"
+  command = "cd website && python3 build.py && cd .. && rm -rf dist && mkdir dist && cp -r website/. dist/ && rm -f dist/*.py dist/README.md dist/.gitignore && rm -rf dist/__pycache__"
