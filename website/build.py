@@ -11,6 +11,7 @@ import math
 import os
 
 from content import CITIES, COMPANY, FAQS, INDUSTRIES, TEAM, TESTIMONIALS
+from illustrations import ILLUSTRATIONS
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 BASE = COMPANY["base_url"]
@@ -273,6 +274,7 @@ def footer(p):
         <h3>Unternehmen</h3>
         <ul>
           <li><a href="{p}vorteile/">Ihre Vorteile</a></li>
+          <li><a href="{p}gmodg-nichtwohngebaeude/">GModG 2026 – Überblick</a></li>
           <li><a href="{p}ueber-uns/">Über uns</a></li>
           <li><a href="{p}einzugsgebiet/">Einzugsgebiet OWL &amp; NRW</a></li>
           <li><a href="{p}kontakt/">Kontakt</a></li>
@@ -290,7 +292,7 @@ def footer(p):
       </div>
     </div>
     <div class="footer-bottom">
-      <span>© <span id="year">2026</span> {COMPANY['name']} · Alle Rechte vorbehalten</span>
+      <span>© <span id="year">2026</span> {COMPANY['name']} · HRB 16341, AG Paderborn · Antwort i.&#8239;d.&#8239;R. binnen 1 Werktag</span>
       <nav aria-label="Rechtliches">
         <a href="{p}impressum/">Impressum</a>
         <a href="{p}datenschutz/">Datenschutz</a>
@@ -373,6 +375,13 @@ def page_hero(p, crumbs, eyebrow, h1, lead):
 </section>"""
 
 
+def figure(name, caption, extra_class=""):
+    return (
+        f'<figure class="illus reveal {extra_class}">{ILLUSTRATIONS[name]()}'
+        f"<figcaption>{caption}</figcaption></figure>"
+    )
+
+
 def city_chips(p, current_slug=None):
     chips = []
     for c in CITIES:
@@ -423,7 +432,7 @@ def render_home():
         ("doc", "Energieaudit DIN EN 16247", "Normkonforme Audits für Nicht-KMU: Pflicht erfüllen und gleichzeitig die profitabelsten Einsparungen identifizieren."),
         ("chart", "Sanierungsfahrplan", "Schritt für Schritt zum effizienten Gebäude: Maßnahmen, Kosten, Förderungen und CO₂-Wirkung über Jahre geplant."),
         ("euro", "Fördermittelservice", "Bis zu 50 % Zuschuss zur Beratung, attraktive Förderung für Maßnahmen – wir finden und beantragen alle Töpfe."),
-        ("buero", "Neubaubegleitung", "Effizienz von Anfang an: Wir begleiten Ihren Neubau von der Planung bis zum GEG-Nachweis."),
+        ("buero", "Neubaubegleitung", "Effizienz von Anfang an: Wir begleiten Ihren Neubau von der Planung bis zum GModG-Nachweis – Nullemissionsstandard inklusive."),
         ("tools", "Umsetzung & Monitoring", "Ausschreibung, Angebotsprüfung, Baubegleitung und anschließendes Monitoring – Einsparungen, die bleiben."),
     ]
     service_items = "".join(
@@ -515,6 +524,26 @@ def render_home():
       <div class="kpi reveal reveal-d1"><div class="kpi-value">−<span data-count="70">0</span><span class="unit">%</span></div><div class="kpi-label">Energiekosten möglich</div></div>
       <div class="kpi reveal reveal-d2"><div class="kpi-value"><span data-count="50">0</span><span class="unit">%</span></div><div class="kpi-label">Förderung der Beratung</div></div>
       <div class="kpi reveal reveal-d3"><div class="kpi-value"><span data-count="10">0</span><span class="unit">+ Jahre</span></div><div class="kpi-label">Erfahrung mit NWG</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--tight">
+  <div class="container">
+    <div class="callout reveal">
+      <div>
+        <span class="badge">Neu · in Kraft seit 29.07.2026</span>
+        <h2>Das GModG ersetzt das Heizungsgesetz – das ändert sich für Ihr Gebäude.</h2>
+        <p>Sanierungspflichten für Bestandsgebäude ab 2030, Gebäudeautomation über 70&#8239;kW
+        bis Ende 2029, Bedarfsausweis-Pflicht ab 2027, Heizung wieder technologieoffen:
+        Das neue Gebäudemodernisierungsgesetz betrifft praktisch jedes Nichtwohngebäude.
+        Wir sagen Ihnen in einem kostenlosen GModG-Check, was für Ihres gilt.</p>
+        <div class="hero-ctas" style="margin-bottom:0">
+          <a class="btn btn--light" href="gmodg-nichtwohngebaeude/">GModG-Überblick lesen {icon('arrow')}</a>
+          <a class="btn btn--ghost-light" href="beratungstermin/">GModG-Check anfragen</a>
+        </div>
+      </div>
+      <div class="big-number">2030<small>erste MEPS-Sanierungsfrist im Bestand</small></div>
     </div>
   </div>
 </section>
@@ -748,12 +777,15 @@ def render_loesungen():
       oder Quartierslösung: Rufen Sie uns an, wir sagen Ihnen ehrlich, was möglich ist.</p>
       <a class="btn btn--primary" href="{p}kontakt/">Kontakt aufnehmen {icon('arrow')}</a>
     </div>
-    <ul class="checklist reveal reveal-d1" style="margin:0">
-      <li>Unabhängige Analyse für jeden Gebäudetyp</li>
-      <li>Förderfähig nach Bundesprogrammen (EBN/BEG)</li>
-      <li>Beratung nach DIN V 18599 &amp; DIN EN 16247</li>
-      <li>Ein fester Ansprechpartner für alles</li>
-    </ul>
+    <div class="reveal reveal-d1">
+      {figure("energieaudit-din-16247", "Abb. – Energieaudit nach DIN EN 16247")}
+      <ul class="checklist illus--pad" style="margin-bottom:0">
+        <li>Unabhängige Analyse für jeden Gebäudetyp</li>
+        <li>Förderfähig nach Bundesprogrammen (EBN/BEG)</li>
+        <li>Beratung nach DIN V 18599 &amp; DIN EN 16247</li>
+        <li>Ein fester Ansprechpartner für alles</li>
+      </ul>
+    </div>
   </div>
 </section>
 
@@ -811,8 +843,11 @@ def render_industry(ind):
       <h2>Wo Ihre Energie wirklich bleibt</h2>
       {intro_ps}
     </div>
-    <div class="callout reveal reveal-d1" style="grid-template-columns:1fr">
-      <div class="big-number">{stat_value}{'&#8239;' + stat_unit if stat_unit else ''}<small>{stat_label}</small></div>
+    <div class="reveal reveal-d1">
+      {figure(f"schema-{ind['slug']}", f"Abb. – Energiekonzept {ind['name']} (Schema)")}
+      <div class="callout illus--pad" style="grid-template-columns:1fr;padding:1.6rem">
+        <div class="big-number">{stat_value}{'&#8239;' + stat_unit if stat_unit else ''}<small>{stat_label}</small></div>
+      </div>
     </div>
   </div>
 </section>
@@ -894,7 +929,7 @@ def render_vorteile():
     benefits = [
         ("euro", "Kosteneinsparung", "Wir analysieren Ihren Energieverbrauch bis auf Anlagenebene und priorisieren die Maßnahmen mit dem besten Verhältnis aus Investition und Einsparung – bis zu 70 % geringere Energiekosten sind je nach Ausgangslage realistisch."),
         ("leaf", "Klimaschutz, der sich rechnet", "Weniger Verbrauch heißt weniger Emissionen: Viele unserer Kunden senken ihren CO₂-Ausstoß um bis zu 80 % – und erfüllen damit zugleich die Erwartungen von Kunden, Banken und Öffentlichkeit."),
-        ("law", "Gesetzliche Sicherheit", "Gebäudeenergiegesetz (GEG), Energieausweis-Pflichten, Energieaudits nach DIN EN 16247, Gebäudeautomation: Wir übersetzen Paragrafen in einen machbaren Fahrplan – bevor Fristen und Bußgelder drohen."),
+        ("law", "Gesetzliche Sicherheit", "GModG 2026 (vormals GEG), Energieausweis-Pflichten, Energieaudits nach DIN EN 16247, Gebäudeautomation über 70 kW: Wir übersetzen Paragrafen in einen machbaren Fahrplan – bevor Fristen und Bußgelder drohen."),
         ("chart", "Höherer Immobilienwert", "Energieeffiziente Gebäude erzielen bessere Mieten, geringere Leerstände und bessere Finanzierungskonditionen. Jede Sanierung zahlt direkt auf den Wert Ihrer Immobilie ein."),
         ("comfort", "Mehr Komfort & Produktivität", "Gutes Raumklima ist messbar: konzentrierteres Arbeiten, weniger Beschwerden, zufriedenere Nutzer. Effizienz und Behaglichkeit sind kein Widerspruch – richtig geplant bedingen sie einander."),
     ]
@@ -907,9 +942,9 @@ def render_vorteile():
     )
 
     legal = [
-        ("Gebäudeenergiegesetz (GEG)", "Das GEG hat die frühere EnEV abgelöst und stellt laufend neue Anforderungen – von 65 % erneuerbaren Energien beim Heizungstausch über Nachrüstpflichten bis zur Gebäudeautomation für große Nichtwohngebäude."),
+        ("GModG 2026 – das neue Gebäudegesetz", "Seit 29. Juli 2026 ersetzt das Gebäudemodernisierungsgesetz das GEG: Sanierungspflichten für die schlechtesten Bestandsgebäude ab 2030, Gebäudeautomation über 70 kW bis Ende 2029, Bedarfsausweis-Pflicht ab 2027 – und technologieoffene Heizungsregeln. <a href='../gmodg-nichtwohngebaeude/'>Zum GModG-Überblick&nbsp;→</a>"),
         ("Energieaudit-Pflicht", "Unternehmen, die kein KMU sind, müssen alle vier Jahre ein Energieaudit nach DIN EN 16247 vorweisen – oder ein Energiemanagementsystem betreiben."),
-        ("CO₂-Preis & Energiekosten", "Der CO₂-Preis auf fossile Brennstoffe steigt planmäßig weiter und verteuert jede nicht sanierte Kilowattstunde Jahr für Jahr."),
+        ("CO₂-Preis & Energiekosten", "Der CO₂-Preis auf fossile Brennstoffe steigt planmäßig weiter und verteuert jede nicht sanierte Kilowattstunde Jahr für Jahr – jede eingesparte kWh wird damit doppelt wertvoll."),
         ("ESG & Berichtspflichten", "Banken, Investoren und Großkunden verlangen zunehmend belastbare Energie- und CO₂-Daten – ein professionelles Energiekonzept liefert genau diese Zahlen."),
     ]
     legal_items = "".join(
@@ -945,6 +980,21 @@ def render_vorteile():
   </div>
 </section>
 
+<section class="section">
+  <div class="container split">
+    <div class="reveal">
+      <p class="eyebrow">So sieht das in der Praxis aus</p>
+      <h2>Ihr Fahrplan: Jede Stufe senkt die Kosten</h2>
+      <p>Ein Sanierungsfahrplan ordnet die Maßnahmen nach Wirkung und Wirtschaftlichkeit:
+      Schnelle Gewinne wie LED und Regelungstechnik finanzieren die größeren Schritte wie
+      Wärmepumpe und Photovoltaik mit. So sinken Ihre Energiekosten Stufe für Stufe –
+      planbar, gefördert und ohne Betriebsunterbrechung.</p>
+      <a class="btn btn--primary" href="{p}beratungstermin/">Fahrplan erstellen lassen {icon('arrow')}</a>
+    </div>
+    {figure("sanierungsfahrplan", "Abb. – Sanierungsfahrplan (Schema): Energiekosten sinken in Stufen")}
+  </div>
+</section>
+
 <section class="section section--tight">
   <div class="container">
     <div class="callout reveal">
@@ -964,8 +1014,8 @@ def render_vorteile():
 """
     return page(
         "vorteile/",
-        "Ihre Vorteile: Kosten, Förderung, GEG-Sicherheit | GREEN",
-        "5 Gründe für die Energieberatung von GREEN: bis zu 70 % Kostenersparnis, 50 % Förderung, GEG-Sicherheit, höherer Immobilienwert und besseres Raumklima.",
+        "Ihre Vorteile: Kosten, Förderung, GModG-Sicherheit | GREEN",
+        "5 Gründe für die Energieberatung von GREEN: bis zu 70 % Kostenersparnis, 50 % Förderung, GModG-Sicherheit, höherer Immobilienwert und besseres Raumklima.",
         body,
         active="vorteile/",
     )
@@ -1007,7 +1057,8 @@ def render_ueber_uns():
       und einem Faible für ehrliche Zahlen.</p>
     </div>
     <div class="reveal reveal-d1">
-      <ul class="checklist" style="margin:0">
+      {figure("standort-paderborn", "Abb. – Unser Büro am Rolandsweg 80, Paderborn")}
+      <ul class="checklist illus--pad" style="margin-bottom:0">
         <li><strong>Persönlicher Kontakt</strong> statt anonymer Portale – Sie kennen Ihren Berater beim Namen.</li>
         <li><strong>Unabhängige Beratung</strong> – wir verkaufen keine Produkte und nehmen keine Provisionen.</li>
         <li><strong>Sicherheit &amp; Transparenz</strong> – geprüfte Partner, nachvollziehbare Empfehlungen.</li>
@@ -1096,6 +1147,7 @@ def render_kontakt():
       <p class="eyebrow">Direkter Draht</p>
       <h2>So erreichen Sie uns</h2>
       {contact_cards(p)}
+      {figure("prozess-ablauf", "Abb. – So geht es nach Ihrer Nachricht weiter", "illus--pad")}
     </div>
     <div class="reveal reveal-d1">
       <form class="form" id="contact-form" novalidate>
@@ -1183,6 +1235,7 @@ def render_termin():
       <h2>Drei Schritte bis zum Fahrplan</h2>
       <ol class="steps" style="grid-template-columns:1fr">{step_items}</ol>
       <p class="mono-note mt-2">Lieber direkt? {COMPANY['phone_display']} · {COMPANY['hours']}</p>
+      {figure("foerderung-ebn-50-50", "Abb. – Bundesförderung EBN: bis zu 50&#8239;% Zuschuss zur Beratung", "illus--pad")}
     </div>
     <div class="reveal reveal-d1">
       <form class="form" id="contact-form" novalidate>
@@ -1239,6 +1292,163 @@ def render_termin():
         "Jetzt kostenloses Erstgespräch zur Energieberatung sichern: Potenzial, Förderung und nächste Schritte für Ihr Nichtwohngebäude – unverbindlich und mit Festpreis.",
         body,
         active=None,
+    )
+
+
+# ---------------------------------------------------------------------------
+# GModG 2026 (Gesetzes-Überblick)
+# ---------------------------------------------------------------------------
+
+def render_gmodg():
+    p = "../"
+    duties = [
+        ("law", "Sanierungspflicht für den Bestand (MEPS)", "Erstmals gelten Mindesteffizienz-Standards für bestehende Nichtwohngebäude: Der Primärenergiebedarf darf den Referenzgebäudewert ab 1.1.2030 höchstens um das 3,5-Fache und ab 1.1.2033 um das 2,95-Fache überschreiten. Getroffen werden zuerst die energetisch schlechtesten Gebäude – gemäß EU-Vorgabe die schwächsten 16 % bis 2030 und 26 % bis 2033."),
+        ("tools", "Gebäudeautomation bis Ende 2029", "Nichtwohngebäude mit Lüftungs- oder Klimaanlagen über 70 kW Nennleistung müssen bis zum 31.12.2029 mit Gebäudeautomation ausgerüstet werden – eine deutliche Verschärfung gegenüber der alten 290-kW-Schwelle."),
+        ("doc", "Bedarfsausweis wird Pflicht", "Verbrauchsausweise sind für Nichtwohngebäude ab dem 1.1.2027 nicht mehr zulässig. Energieausweise brauchen dann eine energetische Bilanzierung – mit neuen Effizienzklassen auf Basis des Primärenergiereferenzfaktors."),
+        ("buero", "Nullemissions-Neubauten", "Neubauten der öffentlichen Hand müssen ab 1.1.2028, alle übrigen Neubauten ab 1.1.2030 als Nullemissionsgebäude errichtet werden – am Standort ohne CO₂-Emissionen aus fossilen Brennstoffen."),
+        ("bolt", "Heizung: technologieoffen mit Bio-Treppe", "Die 65-Prozent-EE-Vorgabe („Heizungsgesetz“) ist gestrichen. Neue Gas- und Ölheizungen bleiben erlaubt, müssen aber steigende Anteile biogener Brennstoffe oder Wasserstoff nutzen: 10 % ab 2029, 15 % ab 2030, 30 % ab 2035, 60 % ab 2040."),
+        ("chart", "Solarpflicht ab 2027", "Die Pflicht zur Photovoltaik-Nutzung wird ab dem 1.1.2027 schrittweise eingeführt. Gut zu wissen: Auf Nichtwohngebäuden rechnet sich PV meist ohnehin – der Verbrauch liegt genau in den Ertragsstunden."),
+    ]
+    duty_items = "".join(
+        f"""<li class="feature reveal">
+      <span class="feature-icon">{icon(ic)}</span>
+      <div><h3>{t}</h3><p>{d}</p></div>
+    </li>"""
+        for ic, t, d in duties
+    )
+
+    audiences = [
+        ("Sie besitzen Bestandsgebäude?", "Klären Sie jetzt, ob Ihr Gebäude unter die MEPS-Stufen 2030/2033 fällt und ob die 70-kW-Automationspflicht greift. Wer früh plant, saniert mit Förderung statt unter Fristdruck."),
+        ("Sie planen einen Neubau?", "Ab 2030 gilt der Nullemissionsstandard für alle – wer heute plant, baut ihn besser gleich mit ein. Wir begleiten von der Konzeption bis zum GModG-Nachweis."),
+        ("Sie vertreten eine Kommune?", "Für öffentliche Neubauten gilt der Nullemissionsstandard schon ab 2028 – und die Vorbildfunktion für den Bestand bleibt. Wir priorisieren Ihr Portfolio fristen- und fördergerecht."),
+    ]
+    audience_cards = "".join(
+        f"""<div class="card reveal"><h3>{t}</h3><p>{d}</p></div>""" for t, d in audiences
+    )
+
+    gmodg_faqs = [
+        ("Gilt das GModG schon?", "Ja. Das Gesetz wurde am 10. Juli 2026 von Bundestag und Bundesrat beschlossen, am 28. Juli 2026 verkündet, und die ersten Regelungen – darunter die neuen Heizungsvorschriften – sind seit dem 29. Juli 2026 in Kraft. Weitere Pflichten folgen gestaffelt bis 2040."),
+        ("Betrifft die MEPS-Sanierungspflicht unser Gebäude?", "Das hängt vom Primärenergiebedarf Ihres Gebäudes im Verhältnis zum Referenzgebäude ab – betroffen sind zuerst die energetisch schlechtesten Nichtwohngebäude. Genau das prüfen wir im GModG-Check: Bedarf bilanzieren, Abstand zur Schwelle bestimmen, Maßnahmen priorisieren."),
+        ("Welche Frist kommt zuerst?", "Für die meisten Eigentümer: der Bedarfsausweis ab 1.1.2027 (Verbrauchsausweise entfallen für Nichtwohngebäude) und die Gebäudeautomation über 70 kW bis Ende 2029. Danach folgen die MEPS-Stufen 2030 und 2033."),
+        ("Ist eine Gasheizung jetzt wieder eine gute Idee?", "Erlaubt: ja. Wirtschaftlich: Rechnen wir nach. Über die Bio-Treppe steigen die Pflicht-Anteile erneuerbarer Brennstoffe bis 2040 auf 60 %, und der CO₂-Preis verteuert fossile Wärme zusätzlich. Wir vergleichen Wärmepumpe, Hybrid, Wärmenetz und Gas neutral – wir verkaufen keine Heizungen."),
+    ]
+    faq_items = "".join(
+        f"""<details class="faq reveal">
+      <summary>{q}</summary>
+      <div class="faq-body"><p>{a}</p></div>
+    </details>"""
+        for q, a in gmodg_faqs
+    )
+
+    body = f"""
+<section class="page-hero">
+  <div class="container">
+    {breadcrumbs(p, [("gmodg-nichtwohngebaeude/", "GModG 2026")])}
+    <span class="badge">In Kraft seit 29. Juli 2026 · Stand: August 2026</span>
+    <h1>GModG 2026: Das gilt jetzt für Nichtwohngebäude</h1>
+    <p class="lead">Das Gebäudemodernisierungsgesetz (GModG) hat das GEG abgelöst – mit
+    neuen Pflichten, neuen Fristen und neuen Chancen für Eigentümer und Betreiber von
+    Nichtwohngebäuden. Hier ist der Überblick, der auf den Gesetzestext zurückgeht statt
+    auf Hörensagen.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head reveal">
+      <p class="eyebrow">Die Fristen</p>
+      <h2>Von heute bis 2040: Was wann gilt</h2>
+    </div>
+    {figure("gmodg-zeitstrahl", "Abb. – GModG-Fristen für Nichtwohngebäude (Auswahl, Stand August 2026)")}
+  </div>
+</section>
+
+<section class="section section--surface">
+  <div class="container">
+    <div class="section-head reveal">
+      <p class="eyebrow">Die Pflichten</p>
+      <h2>Sechs Regelungen, die Sie kennen müssen</h2>
+      <p class="lead">Beschlossen von Bundestag und Bundesrat am 10. Juli 2026, verkündet am
+      28. Juli 2026 im Bundesgesetzblatt – das GModG setzt zugleich die EU-Gebäuderichtlinie
+      (EPBD) um.</p>
+    </div>
+    <ul class="feature-list">{duty_items}</ul>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container split">
+    {figure("gmodg-bio-treppe", "Abb. – Die Bio-Treppe für neue Gas- und Ölheizungen")}
+    {figure("gmodg-nullemission", "Abb. – Nullemissionsstandard für Neubauten (öffentlich ab 2028, alle ab 2030)")}
+  </div>
+</section>
+
+<section class="section section--surface">
+  <div class="container">
+    <div class="section-head reveal">
+      <p class="eyebrow">Was heißt das für Sie?</p>
+      <h2>Drei Situationen, ein nächster Schritt</h2>
+    </div>
+    <div class="card-grid card-grid--wide">{audience_cards}</div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head reveal">
+      <p class="eyebrow">Häufige Fragen zum GModG</p>
+      <h2>Kurz beantwortet</h2>
+    </div>
+    <div class="faq-list">{faq_items}</div>
+    <div class="notice reveal" style="margin-top:2rem">
+      <strong>Transparenzhinweis:</strong> Dieser Überblick fasst das GModG mit Stand
+      August 2026 zusammen und ersetzt keine Rechtsberatung – maßgeblich ist der
+      Gesetzestext. Offizielle Informationen des Bundes finden Sie im
+      <a href="https://www.gmodg.bund.de/" rel="noopener" target="_blank">GModG-Portal&nbsp;↗</a>.
+      Was konkret für Ihr Gebäude gilt, prüfen wir individuell im GModG-Check.
+    </div>
+  </div>
+</section>
+
+{cta_band(p, "GModG-Check: Was gilt für Ihr Gebäude?",
+          "Im kostenlosen Erstgespräch klären wir, welche Pflichten und Fristen Ihr Gebäude betreffen – und welche Förderung die Umsetzung verbilligt.")}
+"""
+    schema = {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "Article",
+                "headline": "GModG 2026: Das gilt jetzt für Nichtwohngebäude",
+                "datePublished": "2026-08-06",
+                "dateModified": "2026-08-06",
+                "inLanguage": "de",
+                "author": {"@id": f"{BASE}/#organization"},
+                "publisher": {"@id": f"{BASE}/#organization"},
+                "mainEntityOfPage": f"{BASE}/gmodg-nichtwohngebaeude/",
+            },
+            {
+                "@type": "BreadcrumbList",
+                "itemListElement": [
+                    {"@type": "ListItem", "position": 1, "name": "Start", "item": f"{BASE}/"},
+                    {"@type": "ListItem", "position": 2, "name": "GModG 2026", "item": f"{BASE}/gmodg-nichtwohngebaeude/"},
+                ],
+            },
+            {
+                "@type": "FAQPage",
+                "mainEntity": [
+                    {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}}
+                    for q, a in gmodg_faqs
+                ],
+            },
+        ],
+    }
+    return page(
+        "gmodg-nichtwohngebaeude/",
+        "GModG 2026: Pflichten für Nichtwohngebäude | GREEN",
+        "GModG seit 29.07.2026 in Kraft: MEPS-Sanierungspflicht ab 2030, Gebäudeautomation >70 kW bis Ende 2029, Bedarfsausweis-Pflicht 2027, Bio-Treppe. Der Überblick für Eigentümer.",
+        body,
+        active=None,
+        schema=schema,
     )
 
 
@@ -1549,7 +1759,7 @@ def render_agb():
          Vor Go-Live den rechtsverbindlichen Originaltext einsetzen bzw. juristisch prüfen lassen. -->
     <h2>§ 1 Vertragsgegenstand</h2>
     <p>Diese Allgemeinen Geschäftsbedingungen gelten für alle Verträge über Beratungsleistungen
-    zwischen der {COMPANY['name']} (nachfolgend „Energieberater") und ihren Auftraggebern.
+    zwischen der {COMPANY['name']} (nachfolgend „Energieberater“) und ihren Auftraggebern.
     Der im Vertrag festgelegte Verwendungszweck der Beratungsergebnisse ist für beide Seiten
     bindend. Abweichende Bedingungen des Auftraggebers gelten nur bei ausdrücklicher
     schriftlicher Bestätigung.</p>
@@ -1744,8 +1954,29 @@ def render_llms_txt():
 - Sanierungsfahrplan mit Kosten, Einsparung, CO2-Wirkung und Amortisation
 - Fördermittelservice: Bundesförderung Energieberatung Nichtwohngebäude (EBN, bis 50 %
   Zuschuss) und Bundesförderung für effiziente Gebäude (BEG), inkl. Antragstellung
-- Neubaubegleitung inkl. GEG-Nachweisen (Gebäudeenergiegesetz)
+- Neubaubegleitung inkl. GModG-Nachweisen (Gebäudemodernisierungsgesetz, vormals GEG)
 - Umsetzungsbegleitung, Ausschreibung und Energie-Monitoring
+- GModG-Check: Prüfung, welche Pflichten und Fristen des GModG 2026 ein konkretes
+  Gebäude betreffen
+
+## GModG 2026 – Gesetzes-Fakten (Stand August 2026)
+
+Das Gebäudemodernisierungsgesetz (GModG) hat das Gebäudeenergiegesetz (GEG) abgelöst:
+beschlossen von Bundestag und Bundesrat am 10.07.2026, verkündet am 28.07.2026,
+erste Regelungen in Kraft seit 29.07.2026. Kernpunkte für Nichtwohngebäude:
+
+- MEPS-Sanierungspflicht Bestand: Primärenergiebedarf max. 3,5-faches (ab 2030) bzw.
+  2,95-faches (ab 2033) des Referenzgebäudewerts; zuerst betroffen sind die
+  energetisch schlechtesten Gebäude (EU-Vorgabe: 16 % bis 2030, 26 % bis 2033)
+- Gebäudeautomation: Pflicht für Nichtwohngebäude mit Lüftungs-/Klimaanlagen
+  über 70 kW bis 31.12.2029
+- Energieausweise: Verbrauchsausweise für Nichtwohngebäude ab 1.1.2027 unzulässig,
+  Bedarfsausweis wird Pflicht
+- Nullemissions-Neubauten: öffentliche Hand ab 2028, alle Neubauten ab 2030
+- Heizung technologieoffen; Bio-Treppe für neue Gas-/Ölheizungen: 10 % ab 2029,
+  15 % ab 2030, 30 % ab 2035, 60 % ab 2040
+- Solarpflicht: schrittweise ab 1.1.2027
+- Überblick mit Quellen: {BASE}/gmodg-nichtwohngebaeude/
 
 ## Branchen
 
@@ -1758,7 +1989,8 @@ def render_llms_txt():
 ## Wichtige Seiten
 
 - [Startseite]({BASE}/)
-- [Ihre Vorteile]({BASE}/vorteile/): Kosten, Förderung, GEG-Pflichten, Immobilienwert
+- [GModG 2026: Pflichten für Nichtwohngebäude]({BASE}/gmodg-nichtwohngebaeude/)
+- [Ihre Vorteile]({BASE}/vorteile/): Kosten, Förderung, GModG-Pflichten, Immobilienwert
 - [Über uns]({BASE}/ueber-uns/): Team und Werte
 - [Häufige Fragen]({BASE}/#faq): Kosten, Förderung, Ablauf, GEG, Energieaudit
 - [Kostenloses Erstgespräch]({BASE}/beratungstermin/)
@@ -1803,6 +2035,7 @@ def main():
         "index.html": render_home(),
         "loesungen/index.html": render_loesungen(),
         "vorteile/index.html": render_vorteile(),
+        "gmodg-nichtwohngebaeude/index.html": render_gmodg(),
         "ueber-uns/index.html": render_ueber_uns(),
         "einzugsgebiet/index.html": render_einzugsgebiet(),
         "kontakt/index.html": render_kontakt(),
@@ -1827,6 +2060,10 @@ def main():
     write("robots.txt", ROBOTS)
     write("llms.txt", render_llms_txt())
     write("manifest.webmanifest", MANIFEST)
+
+    # Illustrationen zusätzlich als eigenständige SVG-Dateien exportieren
+    for name, fn in ILLUSTRATIONS.items():
+        write(f"assets/img/illustrations/{name}.svg", fn())
 
     # Favicon (identisch mit Logo-Mark)
     write("assets/img/favicon.svg", LOGO_MARK.replace("aria-hidden=\"true\"", 'xmlns="http://www.w3.org/2000/svg"') if "xmlns" not in LOGO_MARK else LOGO_MARK)

@@ -114,7 +114,7 @@ CITIES = [
             "Effizienzkonzepte, die Bauphysik, Gestaltung und Wirtschaftlichkeit zusammen denken.",
             "Wir beraten in Detmold und im Kreis Lippe Verwaltungen, Bildungseinrichtungen und "
             "Unternehmen – von der behutsamen Sanierung im Bestand über Heizungsmodernisierung "
-            "nach GEG bis zur Photovoltaik auf kommunalen Dächern. Von Paderborn aus sind wir in "
+            "nach GModG bis zur Photovoltaik auf kommunalen Dächern. Von Paderborn aus sind wir in "
             "rund 30 Minuten vor Ort.",
         ),
         "industries": ("kommune", "bildung", "buero"),
@@ -205,10 +205,10 @@ INDUSTRIES = [
         "measures": (
             ("Beleuchtung auf LED mit Sensorik", "Umrüstung auf LED mit Präsenz- und Tageslichtsteuerung senkt die Lichtkosten typischerweise um 50–70 %."),
             ("Lüftung & Klima optimieren", "Bedarfsgeführte Regelung, Wärmerückgewinnung und angepasste Betriebszeiten – die günstigste Kilowattstunde ist die, die nicht verbraucht wird."),
-            ("Gebäudeautomation nachrüsten", "Für große Nichtwohngebäude schreibt das GEG Gebäudeautomation vor – wir planen die wirtschaftliche Umsetzung."),
-            ("Photovoltaik auf dem Flachdach", "Bürodächer sind ideale PV-Flächen: Der Ertrag fällt genau dann an, wenn das Gebäude ihn verbraucht."),
-            ("Heizung & Wärmepumpe", "Wir prüfen, ob eine Wärmepumpe oder Hybridlösung Ihr Gebäude wirtschaftlich mit Wärme versorgt – GEG-konform."),
-            ("Energieausweis & Nachweise", "Bedarfsausweis, GEG-Nachweise und Unterlagen für Banken, Investoren und ESG-Reporting aus einer Hand."),
+            ("Gebäudeautomation nachrüsten", "Das GModG verpflichtet Nichtwohngebäude mit Lüftungs- oder Klimaanlagen über 70 kW bis Ende 2029 zur Gebäudeautomation – wir planen die wirtschaftliche Umsetzung."),
+            ("Photovoltaik auf dem Flachdach", "Bürodächer sind ideale PV-Flächen: Der Ertrag fällt genau dann an, wenn das Gebäude ihn verbraucht – und die GModG-Solarpflicht greift schrittweise ab 2027."),
+            ("Heizung & Wärmepumpe", "Wir prüfen technologieoffen, ob Wärmepumpe, Hybridlösung oder Anschluss an ein Wärmenetz Ihr Gebäude wirtschaftlich versorgt – GModG-konform."),
+            ("Energieausweis & Nachweise", "Bedarfsausweis (für Nichtwohngebäude ab 2027 Pflicht), GModG-Nachweise und Unterlagen für Banken, Investoren und ESG-Reporting aus einer Hand."),
         ),
         "stat": ("60", "%", "weniger Lichtkosten sind nach LED-Umrüstung mit Sensorik realistisch"),
     },
@@ -332,7 +332,7 @@ INDUSTRIES = [
         "measures": (
             ("Lüftung mit Wärmerückgewinnung", "Frische Luft für konzentriertes Lernen, bis zu 80 % der Wärme bleiben im Gebäude."),
             ("Gebäudehülle sanieren", "Dach, Fassade, Fenster: Die Hülle entscheidet über Heizbedarf und sommerlichen Hitzeschutz."),
-            ("Heizungsmodernisierung", "Von der alten Kesselanlage zu Wärmepumpe oder Hybridsystem – GEG-konform und förderfähig."),
+            ("Heizungsmodernisierung", "Von der alten Kesselanlage zu Wärmepumpe oder Hybridsystem – GModG-konform, technologieoffen und förderfähig."),
             ("Sommerlicher Wärmeschutz", "Verschattung, Nachtauskühlung und clevere Steuerung halten Klassenräume auch im Juli nutzbar."),
             ("PV mit Lerneffekt", "Photovoltaik senkt Betriebskosten – und macht Energie im Unterricht sichtbar und erlebbar."),
             ("Fördermittel-Strategie", "Bund, Land und Kommunalprogramme kombinieren: Wir strukturieren die Finanzierung Ihrer Sanierung."),
@@ -390,7 +390,7 @@ INDUSTRIES = [
         ),
         "pains": (
             ("Heterogener Bestand", "Vom denkmalgeschützten Rathaus bis zur Systembau-Turnhalle: Jedes Gebäude braucht eine eigene Strategie – aber eine gemeinsame Priorisierung."),
-            ("Vorbildfunktion mit Frist", "Klimaneutrale Verwaltung bis 2045, kommunale Wärmeplanung, GEG-Pflichten: Die Anforderungen sind gesetzt, die Ressourcen knapp."),
+            ("Vorbildfunktion mit Frist", "Klimaneutrale Verwaltung bis 2045, kommunale Wärmeplanung, GModG-Pflichten – ab 2028 gilt für öffentliche Neubauten der Nullemissionsstandard. Die Anforderungen sind gesetzt, die Ressourcen knapp."),
             ("Fördermittel bleiben liegen", "Ohne systematische Förderstrategie verfallen Zuschüsse, die Sanierungen um bis zu die Hälfte verbilligen würden."),
         ),
         "measures": (
@@ -431,7 +431,7 @@ INDUSTRIES = [
             ("Beleuchtung & Steuerung", "LED plus Sensorik – vom Flutlichtmast bis zum Hotelflur, der nachts nicht auf Volllast leuchten muss."),
             ("Lüftung & Klima", "Bedarfsgerechte Konditionierung für Nutzungen von der Praxis bis zur Sporthalle."),
             ("Photovoltaik & Speicher", "Eigenverbrauchskonzepte passend zum Lastprofil – gerade bei 24/7-Betrieben besonders wirtschaftlich."),
-            ("Nachweise & Förderung", "Energieausweis, GEG-Nachweise, Förderanträge: Wir liefern die Unterlagen, die Behörden und Banken sehen wollen."),
+            ("Nachweise & Förderung", "Energieausweis, GModG-Nachweise, Förderanträge: Wir liefern die Unterlagen, die Behörden und Banken sehen wollen."),
         ),
         "stat": ("100", "%", "unseres Fokus gilt Nichtwohngebäuden – das ist unsere Spezialisierung, kein Nebengeschäft"),
     },
@@ -466,11 +466,21 @@ FAQS = [
         "Wohngebäude vermitteln wir an geeignete Kollegen – unser Fokus bleibt gewerblich und öffentlich.",
     ),
     (
-        "Was schreibt das Gebäudeenergiegesetz (GEG) vor?",
-        "Das GEG regelt u. a. Anforderungen an neue Heizungen (65 % erneuerbare Energien im "
-        "Zusammenspiel mit der kommunalen Wärmeplanung), Pflichten zur Gebäudeautomation für große "
-        "Nichtwohngebäude, Energieausweise und Nachrüstpflichten. Wir prüfen, welche Pflichten für Ihr "
-        "Gebäude gelten, und machen daraus einen wirtschaftlichen Fahrplan statt einer Bußgeldgefahr.",
+        "Was gilt seit dem GModG 2026 (früher GEG) für Nichtwohngebäude?",
+        "Das Gebäudemodernisierungsgesetz (GModG) hat das GEG zum 29. Juli 2026 abgelöst. Für "
+        "Nichtwohngebäude wichtig: erstmals Sanierungspflichten für die schlechtesten Bestandsgebäude "
+        "(MEPS, ab 2030), Gebäudeautomation für Lüftungs- und Klimaanlagen über 70 kW bis Ende 2029, "
+        "ab 2027 nur noch Bedarfsausweise, Nullemissionsstandard für Neubauten (öffentlich ab 2028, "
+        "alle ab 2030) und technologieoffene Heizungsregeln statt der 65-Prozent-Vorgabe. Wir prüfen, "
+        "welche Pflichten Ihr Gebäude betreffen, und machen daraus einen wirtschaftlichen Fahrplan.",
+    ),
+    (
+        "Dürfen wir jetzt wieder eine Gas- oder Ölheizung einbauen?",
+        "Grundsätzlich ja – das GModG ist technologieoffen. Aber: Neu eingebaute Gas- und Ölheizungen "
+        "müssen über die „Bio-Treppe“ steigende Anteile erneuerbarer Brennstoffe nutzen (10 % ab 2029, "
+        "15 % ab 2030, 30 % ab 2035, 60 % ab 2040), und der CO₂-Preis verteuert fossile Wärme weiter. "
+        "Ob sich das gegenüber Wärmepumpe, Hybrid oder Wärmenetz rechnet, kalkulieren wir für Ihr "
+        "Gebäude neutral durch – wir verkaufen keine Heizungen.",
     ),
     (
         "Was ist ein Energieaudit nach DIN EN 16247 – und brauchen wir eins?",

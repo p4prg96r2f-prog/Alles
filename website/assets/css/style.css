@@ -1479,6 +1479,58 @@ a.card:hover .card-more {
   }
 }
 
+/* ---------- Badges, Illustrationen, Hinweise ---------- */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: var(--amber);
+  color: var(--pine-deeper);
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  margin-bottom: 1.1rem;
+}
+
+.illus {
+  margin: 0;
+}
+
+.illus svg {
+  width: 100%;
+  height: auto;
+}
+
+.illus figcaption {
+  margin-top: 0.7rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.05em;
+  color: var(--ink-faint);
+}
+
+.illus--pad {
+  margin-top: 1.6rem;
+}
+
+.notice {
+  border: 1.5px solid var(--amber);
+  background: var(--amber-soft);
+  border-radius: var(--radius-sm);
+  padding: 1.1rem 1.3rem;
+  font-size: var(--fs-sm);
+  color: var(--ink-soft);
+  max-width: 46rem;
+}
+
+.notice strong {
+  color: var(--ink);
+}
+
 /* ---------- Stadt-Chips (Einzugsgebiet) ---------- */
 .city-chips {
   display: flex;

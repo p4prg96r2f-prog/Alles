@@ -1,0 +1,24 @@
+<svg viewBox="0 0 640 400" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Schema: Energiekonzept Kindergarten mit Fußbodenheizung und zugfreier Lüftung">
+<rect x="8" y="8" width="624" height="384" rx="10" fill="#ffffff" stroke="#dbe4dc"/>
+<g stroke="#dbe4dc" stroke-width="1"><line x1="48" y1="8" x2="48" y2="13"/><line x1="48" y1="387" x2="48" y2="392"/><line x1="92" y1="8" x2="92" y2="13"/><line x1="92" y1="387" x2="92" y2="392"/><line x1="136" y1="8" x2="136" y2="13"/><line x1="136" y1="387" x2="136" y2="392"/><line x1="180" y1="8" x2="180" y2="13"/><line x1="180" y1="387" x2="180" y2="392"/><line x1="224" y1="8" x2="224" y2="13"/><line x1="224" y1="387" x2="224" y2="392"/><line x1="268" y1="8" x2="268" y2="13"/><line x1="268" y1="387" x2="268" y2="392"/><line x1="312" y1="8" x2="312" y2="13"/><line x1="312" y1="387" x2="312" y2="392"/><line x1="356" y1="8" x2="356" y2="13"/><line x1="356" y1="387" x2="356" y2="392"/><line x1="400" y1="8" x2="400" y2="13"/><line x1="400" y1="387" x2="400" y2="392"/><line x1="444" y1="8" x2="444" y2="13"/><line x1="444" y1="387" x2="444" y2="392"/><line x1="488" y1="8" x2="488" y2="13"/><line x1="488" y1="387" x2="488" y2="392"/><line x1="532" y1="8" x2="532" y2="13"/><line x1="532" y1="387" x2="532" y2="392"/><line x1="576" y1="8" x2="576" y2="13"/><line x1="576" y1="387" x2="576" y2="392"/><line x1="8" y1="48" x2="13" y2="48"/><line x1="627" y1="48" x2="632" y2="48"/><line x1="8" y1="92" x2="13" y2="92"/><line x1="627" y1="92" x2="632" y2="92"/><line x1="8" y1="136" x2="13" y2="136"/><line x1="627" y1="136" x2="632" y2="136"/><line x1="8" y1="180" x2="13" y2="180"/><line x1="627" y1="180" x2="632" y2="180"/><line x1="8" y1="224" x2="13" y2="224"/><line x1="627" y1="224" x2="632" y2="224"/><line x1="8" y1="268" x2="13" y2="268"/><line x1="627" y1="268" x2="632" y2="268"/><line x1="8" y1="312" x2="13" y2="312"/><line x1="627" y1="312" x2="632" y2="312"/><line x1="8" y1="356" x2="13" y2="356"/><line x1="627" y1="356" x2="632" y2="356"/></g>
+
+<path d="M120 330V214l110-70 110 70v116" fill="#fff" stroke="#0d3b2a" stroke-width="2.2"/>
+<path d="M120 214l110-70 110 70" fill="none" stroke="#0d3b2a" stroke-width="2.2"/>
+<rect x="150" y="238" width="46" height="40" rx="2" fill="#e3f0e6" stroke="#dbe4dc"/><rect x="214" y="238" width="46" height="40" rx="2" fill="#e3f0e6" stroke="#dbe4dc"/>
+<rect x="262" y="238" width="40" height="92" fill="#0d3b2a" rx="2"/>
+<path d="M148 316h164" stroke="#e8a33d" stroke-width="2.4"/>
+<path d="M156 316c4-6 8-6 12 0s8 6 12 0 8-6 12 0 8 6 12 0 8-6 12 0 8 6 12 0 8-6 12 0 8 6 12 0 8-6 12 0 8 6 12 0" stroke="#b97a1a" stroke-width="1.6"/>
+<circle cx="470" cy="150" r="24" stroke="#e8a33d" stroke-width="2.4"/>
+<path d="M470 116v-12m24 22 8-8m-56 8-8-8" stroke="#e8a33d" stroke-width="2.4" stroke-linecap="round"/>
+<path d="M420 330v-52c0-26 44-26 44 0v52" fill="#e3f0e6" stroke="#1e5b3f" stroke-width="1.8"/>
+<circle cx="442" cy="248" r="26" fill="#e3f0e6" stroke="#1e5b3f" stroke-width="1.8"/>
+<line x1="90" y1="330" x2="570" y2="330" stroke="#0d3b2a" stroke-width="2.2"/><g stroke="#a8c4b2" stroke-width="1.4"><line x1="110" y1="330" x2="101" y2="340"/><line x1="146" y1="330" x2="137" y2="340"/><line x1="182" y1="330" x2="173" y2="340"/><line x1="218" y1="330" x2="209" y2="340"/><line x1="254" y1="330" x2="245" y2="340"/><line x1="290" y1="330" x2="281" y2="340"/><line x1="326" y1="330" x2="317" y2="340"/><line x1="362" y1="330" x2="353" y2="340"/><line x1="398" y1="330" x2="389" y2="340"/><line x1="434" y1="330" x2="425" y2="340"/><line x1="470" y1="330" x2="461" y2="340"/><line x1="506" y1="330" x2="497" y2="340"/><line x1="542" y1="330" x2="533" y2="340"/></g>
+<circle cx="230" cy="316" r="2.5" fill="#1e5b3f"/><line x1="230" y1="316" x2="230" y2="366" stroke="#a8c4b2"/><text x='239' y='369' text-anchor='start' font-family='IBM Plex Mono, monospace' letter-spacing='.06em' font-size='10' fill='#64796e'>FUSSBODENHEIZUNG &#183; 21&#8239;&#176;C AM BODEN</text>
+<circle cx="196" cy="238" r="2.5" fill="#1e5b3f"/><line x1="196" y1="238" x2="196" y2="120" stroke="#a8c4b2"/><line x1="196" y1="120" x2="242" y2="120" stroke="#a8c4b2"/>
+<text x='248' y='123' text-anchor='start' font-family='IBM Plex Mono, monospace' letter-spacing='.06em' font-size='10' fill='#64796e'>ZUGFREIE L&#220;FTUNG MIT WRG</text>
+<text x='486' y='296' text-anchor='start' font-family='IBM Plex Mono, monospace' letter-spacing='.06em' font-size='9' fill='#a8c4b2'>AUSSENSPIEL-</text>
+<text x='486' y='308' text-anchor='start' font-family='IBM Plex Mono, monospace' letter-spacing='.06em' font-size='9' fill='#a8c4b2'>BEREICH</text>
+
+<g font-family='IBM Plex Mono, monospace' letter-spacing='.06em'><rect x="429" y="366" width="195" height="20" fill="#f7f8f4" stroke="#dbe4dc"/>
+<text x="441" y="379.5" font-size="8.5" fill="#64796e">GREEN · SCHEMA KITA</text></g>
+</svg>

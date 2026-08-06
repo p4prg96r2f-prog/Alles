@@ -25,8 +25,29 @@
 - Sanierungsfahrplan mit Kosten, Einsparung, CO2-Wirkung und Amortisation
 - Fördermittelservice: Bundesförderung Energieberatung Nichtwohngebäude (EBN, bis 50 %
   Zuschuss) und Bundesförderung für effiziente Gebäude (BEG), inkl. Antragstellung
-- Neubaubegleitung inkl. GEG-Nachweisen (Gebäudeenergiegesetz)
+- Neubaubegleitung inkl. GModG-Nachweisen (Gebäudemodernisierungsgesetz, vormals GEG)
 - Umsetzungsbegleitung, Ausschreibung und Energie-Monitoring
+- GModG-Check: Prüfung, welche Pflichten und Fristen des GModG 2026 ein konkretes
+  Gebäude betreffen
+
+## GModG 2026 – Gesetzes-Fakten (Stand August 2026)
+
+Das Gebäudemodernisierungsgesetz (GModG) hat das Gebäudeenergiegesetz (GEG) abgelöst:
+beschlossen von Bundestag und Bundesrat am 10.07.2026, verkündet am 28.07.2026,
+erste Regelungen in Kraft seit 29.07.2026. Kernpunkte für Nichtwohngebäude:
+
+- MEPS-Sanierungspflicht Bestand: Primärenergiebedarf max. 3,5-faches (ab 2030) bzw.
+  2,95-faches (ab 2033) des Referenzgebäudewerts; zuerst betroffen sind die
+  energetisch schlechtesten Gebäude (EU-Vorgabe: 16 % bis 2030, 26 % bis 2033)
+- Gebäudeautomation: Pflicht für Nichtwohngebäude mit Lüftungs-/Klimaanlagen
+  über 70 kW bis 31.12.2029
+- Energieausweise: Verbrauchsausweise für Nichtwohngebäude ab 1.1.2027 unzulässig,
+  Bedarfsausweis wird Pflicht
+- Nullemissions-Neubauten: öffentliche Hand ab 2028, alle Neubauten ab 2030
+- Heizung technologieoffen; Bio-Treppe für neue Gas-/Ölheizungen: 10 % ab 2029,
+  15 % ab 2030, 30 % ab 2035, 60 % ab 2040
+- Solarpflicht: schrittweise ab 1.1.2027
+- Überblick mit Quellen: https://green-nwg.de/gmodg-nichtwohngebaeude/
 
 ## Branchen
 
@@ -51,7 +72,8 @@
 ## Wichtige Seiten
 
 - [Startseite](https://green-nwg.de/)
-- [Ihre Vorteile](https://green-nwg.de/vorteile/): Kosten, Förderung, GEG-Pflichten, Immobilienwert
+- [GModG 2026: Pflichten für Nichtwohngebäude](https://green-nwg.de/gmodg-nichtwohngebaeude/)
+- [Ihre Vorteile](https://green-nwg.de/vorteile/): Kosten, Förderung, GModG-Pflichten, Immobilienwert
 - [Über uns](https://green-nwg.de/ueber-uns/): Team und Werte
 - [Häufige Fragen](https://green-nwg.de/#faq): Kosten, Förderung, Ablauf, GEG, Energieaudit
 - [Kostenloses Erstgespräch](https://green-nwg.de/beratungstermin/)

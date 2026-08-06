@@ -16,6 +16,9 @@ Nichtwohngebäude, Paderborn) als schnelle, statische Website ohne WordPress.
 | **Wartung** | Plugin-Updates, Sicherheitslücken | Keine Angriffsfläche; Inhalte zentral in `content.py` |
 | **Lokale Suche (Geo-SEO)** | keine Standort-Signale | 6 Stadt-Landingpages (Paderborn, Bielefeld, Gütersloh, Detmold, Höxter, Lippstadt) + Einzugsgebiet-Seite, `geo.*`/ICBM-Meta, LocalBusiness-Schema mit Koordinaten, areaServed & GeoCircle |
 | **KI-Suche (GEO)** | – | `llms.txt` mit zitierfähigen Fakten, explizite AI-Crawler-Freigaben in `robots.txt` (GPTBot, ClaudeBot, PerplexityBot …), FAQ-/Service-Schema für Answer Engines |
+| **Rechts-Content** | EnEV (seit 2020 außer Kraft) | Eigene GModG-2026-Seite (`/gmodg-nichtwohngebaeude/`, Stand-Datum, Quellenlink auf gmodg.bund.de, Transparenzhinweis „keine Rechtsberatung") – Fakten am 06.08.2026 gegen offizielle Quellen verifiziert |
+| **Bildwelt** | Stockfotos | 16 eigene SVG-Illustrationen im Marken-Stil „technische Zeichnung" (`assets/img/illustrations/`) – lizenzfrei, < 10 KB je Grafik, auch inline eingebettet |
+| **Trust-Signale** | – | HRB + Reaktionszeit im Footer, Klartext-Hinweise an Formularen (keine Datenspeicherung), freundliche 404, „keine Cookies"-Hinweis |
 
 ## Struktur
 
@@ -24,7 +27,7 @@ website/
 ├── build.py            # Statischer Site-Generator (nur Python-Standardbibliothek)
 ├── content.py          # ALLE Inhalte: Firmendaten, Branchen, FAQ, Team, Zitate
 ├── index.html          # … und alle weiteren generierten Seiten (nicht von Hand editieren!)
-├── loesungen/ vorteile/ ueber-uns/ einzugsgebiet/ kontakt/ beratungstermin/
+├── loesungen/ vorteile/ gmodg-nichtwohngebaeude/ ueber-uns/ einzugsgebiet/ kontakt/ beratungstermin/
 ├── services/{buero,einzelhandel,produktion,veranstaltung,bildung,kindergarten,kommune,andere}/
 ├── energieberatung-{paderborn,bielefeld,guetersloh,detmold,hoexter,lippstadt}/   # lokale Landingpages
 ├── impressum/ datenschutz/ agb/  404.html
@@ -61,7 +64,10 @@ Beliebiges statisches Hosting genügt – den Inhalt des `website/`-Ordners hoch
 - [ ] **Rechtstexte prüfen**: Datenschutzerklärung und AGB sind fachlich vorbereitete Entwürfe
       (Struktur und Kernaussagen entsprechen der Alt-Website, angepasst an die neue cookie-freie
       Technik). Bitte juristisch prüfen bzw. den rechtsverbindlichen Originaltext einsetzen.
-- [ ] **Hosting-Anbieter** in der Datenschutzerklärung ergänzen (Abschnitt Server-Logfiles)
+- [ ] **Hosting-Anbieter** in der Datenschutzerklärung ergänzen (Abschnitt Server-Logfiles);
+      HTTPS mit gültigem Zertifikat und HSTS aktivieren (Standard bei Netlify/CF Pages)
+- [ ] **GModG-Seite** bei Gesetzesänderungen aktualisieren (Stand-Datum auf der Seite und
+      `datePublished`/`dateModified` in `build.py` pflegen)
 - [ ] **Formular**: Aktuell öffnet das Formular das E-Mail-Programm des Besuchers (`mailto:` –
       funktioniert ohne Backend und ohne Datenspeicherung). Für serverseitigen Versand einfach in
       `main.js` einen Form-Endpoint (z. B. eigener Mailserver, Formspree o. ä.) eintragen –
