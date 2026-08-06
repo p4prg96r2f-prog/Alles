@@ -2,6 +2,10 @@
 (function () {
   'use strict';
 
+  /* Markiert, dass das Skript laeuft. Solange diese Klasse gesetzt ist,
+     ruht der zeitgesteuerte Notfall-Fallback fuer .reveal in der CSS. */
+  document.documentElement.classList.add('js-on');
+
   /* Mobile Navigation */
   var toggle = document.querySelector('.nav-toggle');
   var nav = document.getElementById('site-nav');

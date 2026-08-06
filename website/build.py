@@ -1042,7 +1042,7 @@ def render_industry(ind):
   </div>
 </section>
 
-<section class="section">
+<section class="section section--dark">
   <div class="container">
     <div class="section-head reveal">
       <p class="eyebrow">Unsere Maßnahmen</p>
@@ -2591,7 +2591,7 @@ def render_sanierungspflicht():
   </div>
 </section>
 
-<section class="section">
+<section class="section section--dark">
   <div class="container">
     <div class="section-head reveal">
       <p class="eyebrow">Wie wir helfen</p>
@@ -2949,13 +2949,16 @@ GLOSSAR = [
 
 def render_glossar():
     p = "../"
-    entries = "".join(
-        f"""<div class="card reveal" id="{slug_of(t)}">
+    def cards(items):
+        return "".join(
+            f"""<div class="card reveal" id="{slug_of(t)}">
       <h3>{t}</h3><p>{d}</p>
       <span class="card-more"><a href="{p}{link}">Mehr dazu {icon('arrow')}</a></span>
     </div>"""
-        for t, d, link in GLOSSAR
-    )
+            for t, d, link in items
+        )
+    cut = (len(GLOSSAR) + 1) // 2
+    first_half, second_half = cards(GLOSSAR[:cut]), cards(GLOSSAR[cut:])
     body = f"""
 {page_hero(p, [("glossar/", "Glossar")], "Wissen",
            "Glossar: Energieeffizienz in Nichtwohngebäuden",
@@ -2967,7 +2970,17 @@ def render_glossar():
       <p class="eyebrow">Von Gesetz bis Förderprogramm</p>
       <h2>Begriffe, die in jedem Beratungsgespräch fallen</h2>
     </div>
-    <div class="card-grid card-grid--wide">{entries}</div>
+    <div class="card-grid card-grid--wide">{first_half}</div>
+  </div>
+</section>
+
+<section class="section section--dark">
+  <div class="container">
+    <div class="section-head reveal">
+      <p class="eyebrow">Normen, Programme, Kennzahlen</p>
+      <h2>Und die Begriffe, die im Antrag stehen</h2>
+    </div>
+    <div class="card-grid card-grid--wide">{second_half}</div>
     <p class="mono-note mt-2">Stand: August 2026 · Die Erläuterungen dienen der Orientierung und
     ersetzen keine Rechtsberatung.</p>
   </div>

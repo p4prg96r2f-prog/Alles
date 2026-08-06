@@ -53,16 +53,17 @@
   /* Farbwelt: Tannengrün auf warmem Papier, Bernstein für Energie/Förderung */
   --ink: #14231d;
   --ink-soft: #3d5248;
-  --ink-faint: #5f746a;
+  --ink-faint: #5a6f65;
   --paper: #f7f8f4;
+  --sage: #e7eee6;   /* dritter Flaechenton – gibt den Sektionen einen Takt */
   --surface: #ffffff;
   --pine-deep: #0d3b2a;
-  --pine-deeper: #092c1f;
+  --pine-deeper: #062017;
   --pine: #1e5b3f;
   --leaf: #4caf78;
   --leaf-soft: #e3f0e6;
   --amber: #e8a33d;
-  --amber-deep: #9c5f00;
+  --amber-deep: #8f5700;
   --amber-soft: #fdf3e2;
   --hairline: #dbe4dc;
   --field-border: #8a938c;
@@ -76,8 +77,10 @@
 
   /* Fluide Typo-Skala */
   --fs-xs: 0.8125rem;
-  --fs-sm: 0.9375rem;
-  --fs-base: 1.0625rem;
+  --fs-sm: 1rem;
+  --fs-base: clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem);
+  --fs-h4: 1.15rem;    /* eine Groesse fuer alle kleinen Ueberschriften */
+  --fs-ui: 1.02rem;    /* Bedienelemente und Zitate */
   --fs-lead: clamp(1.125rem, 1rem + 0.6vw, 1.375rem);
   --fs-h3: clamp(1.2rem, 1.05rem + 0.7vw, 1.5rem);
   --fs-h2: clamp(1.7rem, 1.3rem + 1.8vw, 2.6rem);
@@ -92,6 +95,7 @@
 
   --shadow-card: 0 1px 2px rgba(13, 59, 42, 0.05), 0 10px 30px -12px rgba(13, 59, 42, 0.14);
   --shadow-pop: 0 2px 6px rgba(13, 59, 42, 0.08), 0 24px 48px -16px rgba(13, 59, 42, 0.25);
+  --shadow-lift: 0 4px 12px rgba(13, 59, 42, 0.07), 0 40px 80px -32px rgba(13, 59, 42, 0.3);
 }
 
 /* ---------- Base ---------- */
@@ -156,7 +160,7 @@ h3 {
 
 p {
   margin: 0 0 1.1em;
-  max-width: 68ch;
+  max-width: 62ch;
 }
 
 a {
@@ -238,7 +242,10 @@ strong {
 }
 
 .section--dark {
-  background: var(--pine-deep);
+  background:
+    radial-gradient(70rem 40rem at 88% -10%, rgba(76, 175, 120, 0.17), transparent 62%),
+    radial-gradient(42rem 26rem at -8% 108%, rgba(232, 163, 61, 0.1), transparent 60%),
+    var(--pine-deep);
   color: var(--paper-on-dark);
 }
 
@@ -251,9 +258,70 @@ strong {
   color: var(--faint-on-dark);
 }
 
+/* Helle Karten behalten in dunklen Sektionen ihre eigene Textfarbe –
+   sonst steht Weiss auf Weiss. */
+.section--dark .card,
+.section--dark .card h3,
+.section--dark .step,
+.section--dark .step h3,
+.section--dark .quote,
+.section--dark .quote cite b,
+.section--dark .team-card,
+.section--dark .team-card h3,
+.section--dark .faq,
+.section--dark .faq summary {
+  color: var(--ink);
+}
+
+.section--dark .card p,
+.section--dark .step p,
+.section--dark .quote .quote-text,
+.section--dark .faq-body,
+.section--dark .team-card p {
+  color: var(--ink-soft);
+}
+
+.section--dark .card-more,
+.section--dark .card-more a {
+  color: var(--pine);
+}
+
+/* Tabellen, Bildunterschriften und Notizen liegen direkt auf der dunklen
+   Flaeche – sie brauchen die hellen Textfarben. */
+.section--dark .data-table th,
+.section--dark .data-table caption,
+.section--dark .mono-note,
+.section--dark .illus figcaption,
+.section--dark .radar-figure figcaption,
+.section--dark .step-duration {
+  color: var(--faint-on-dark);
+}
+
+.section--dark .data-table td,
+.section--dark .data-table tbody th {
+  color: var(--paper-on-dark);
+}
+
+.section--dark .data-table th,
+.section--dark .data-table td {
+  border-bottom-color: var(--hairline-dark);
+}
+
+.section--dark .data-table tbody tr:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.section--dark .data-table a {
+  color: var(--amber);
+}
+
+.section--dark .illus,
+.section--dark .radar-figure {
+  color: var(--faint-on-dark);
+}
+
 .section--surface {
-  background: var(--surface);
-  border-block: 1px solid var(--hairline);
+  background: var(--sage);
 }
 
 /* Eyebrow: Mono-Label mit Messstrich */
@@ -638,9 +706,15 @@ strong {
 
 /* ---------- KPI-Band ---------- */
 .kpi-band {
-  background: var(--pine-deep);
+  position: relative;
+  z-index: 2;
+  margin-top: -2.5rem;
+  border-radius: var(--radius) var(--radius) 0 0;
+  background:
+    radial-gradient(50rem 22rem at 92% -30%, rgba(76, 175, 120, 0.2), transparent 60%),
+    var(--pine-deep);
   color: var(--paper-on-dark);
-  border-block: 1px solid var(--pine-deeper);
+  box-shadow: var(--shadow-lift);
 }
 
 .kpi-grid {
@@ -728,7 +802,7 @@ a.card:hover {
 
 .card h3 {
   margin-bottom: 0.1rem;
-  font-size: 1.22rem;
+  font-size: var(--fs-h4);
 }
 
 .card p {
@@ -774,6 +848,16 @@ a.card:hover .card-more {
   transition: inherit;
 }
 
+/* Im Glossar liegt der Link innerhalb von .card-more. Ohne diese Regel macht
+   die Basisregel `svg { display: block }` den Pfeil zum Blockelement und er
+   rutscht unter den Text. */
+.card-more > a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: inherit;
+}
+
 /* ---------- Prozess / Schritte ---------- */
 .steps {
   counter-reset: step;
@@ -810,7 +894,7 @@ a.card:hover .card-more {
 }
 
 .step h3 {
-  font-size: 1.15rem;
+  font-size: var(--fs-h4);
   margin-bottom: 0.35rem;
 }
 
@@ -834,7 +918,7 @@ a.card:hover .card-more {
 .feature-list {
   display: grid;
   gap: 1.25rem;
-  grid-template-columns: repeat(auto-fit, minmax(min(17rem, 100%), 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(20rem, 100%), 1fr));
   padding: 0;
   margin: 0;
   list-style: none;
@@ -868,7 +952,7 @@ a.card:hover .card-more {
 }
 
 .feature h3 {
-  font-size: 1.12rem;
+  font-size: var(--fs-h4);
   margin-bottom: 0.25rem;
 }
 
@@ -910,7 +994,7 @@ a.card:hover .card-more {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(19rem, 100%), 1fr));
   gap: clamp(2rem, 5vw, 4rem);
-  align-items: center;
+  align-items: start;
 }
 
 .split-media {
@@ -920,6 +1004,8 @@ a.card:hover .card-more {
 
 /* ---------- Förderungs-Callout ---------- */
 .callout {
+  position: relative;
+  z-index: 2;
   display: grid;
   grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
   gap: clamp(1.5rem, 4vw, 3rem);
@@ -928,7 +1014,7 @@ a.card:hover .card-more {
   color: var(--paper-on-dark);
   border-radius: calc(var(--radius) + 6px);
   padding: clamp(1.8rem, 4vw, 3.2rem);
-  box-shadow: var(--shadow-pop);
+  box-shadow: var(--shadow-lift);
 }
 
 .callout h2 {
@@ -971,7 +1057,7 @@ a.card:hover .card-more {
 .quote-grid {
   display: grid;
   gap: 1.25rem;
-  grid-template-columns: repeat(auto-fit, minmax(min(17rem, 100%), 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(20rem, 100%), 1fr));
 }
 
 .quote {
@@ -998,7 +1084,7 @@ a.card:hover .card-more {
 .quote blockquote,
 .quote .quote-text {
   margin: 0;
-  font-size: 1.02rem;
+  font-size: var(--fs-ui);
   color: var(--ink-soft);
   flex: 1;
 }
@@ -1068,7 +1154,7 @@ a.card:hover .card-more {
   gap: 1rem;
   padding: 1.1rem 1.3rem;
   font-weight: 600;
-  font-size: 1.02rem;
+  font-size: var(--fs-ui);
 }
 
 .faq summary::-webkit-details-marker {
@@ -1172,7 +1258,7 @@ a.card:hover .card-more {
 }
 
 .contact-card h3 {
-  font-size: 1.05rem;
+  font-size: var(--fs-ui);
   margin-bottom: 0.15rem;
 }
 
@@ -1328,7 +1414,7 @@ a.card:hover .card-more {
 }
 
 .team-card h3 {
-  font-size: 1.1rem;
+  font-size: var(--fs-h4);
   margin-bottom: 0.15rem;
 }
 
@@ -1343,11 +1429,24 @@ a.card:hover .card-more {
 
 /* ---------- Seiten-Hero (Unterseiten) ---------- */
 .page-hero {
+  position: relative;
+  overflow: clip;
   background:
-    radial-gradient(45rem 22rem at 90% -30%, rgba(76, 175, 120, 0.13), transparent 60%),
-    var(--paper);
-  padding-block: clamp(3rem, 6vw, 5rem) clamp(2.5rem, 5vw, 4rem);
-  border-bottom: 1px solid var(--hairline);
+    radial-gradient(48rem 24rem at 88% -25%, rgba(76, 175, 120, 0.22), transparent 62%),
+    radial-gradient(34rem 20rem at 4% 118%, rgba(232, 163, 61, 0.13), transparent 60%),
+    var(--sage);
+  padding-block: clamp(3.2rem, 6vw, 5.5rem) clamp(2.8rem, 5vw, 4.5rem);
+}
+
+/* Feiner Messraster-Anklang – nimmt die technische Zeichnung auf */
+.page-hero::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--pine) 0 12%, transparent 12% 100%),
+    linear-gradient(90deg, var(--amber) 0 4%, transparent 4% 100%);
+  opacity: 0.55;
 }
 
 .page-hero .lead {
@@ -1399,7 +1498,7 @@ a.card:hover .card-more {
 }
 
 .prose h3 {
-  font-size: 1.15rem;
+  font-size: var(--fs-h4);
   margin-top: 1.6em;
 }
 
@@ -1597,7 +1696,9 @@ a.card:hover .card-more {
   color: var(--paper-on-dark);
   border-radius: var(--radius);
   padding: clamp(1.4rem, 3vw, 2.1rem);
-  box-shadow: var(--shadow-pop);
+  box-shadow: var(--shadow-lift);
+  position: relative;
+  z-index: 2;
 }
 
 .calc-headline {
@@ -1675,7 +1776,7 @@ a.card:hover .card-more {
 
 .calc-facts {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(10.5rem, 100%), 1fr));
   gap: 1px;
   background: var(--hairline-dark);
   border: 1px solid var(--hairline-dark);
@@ -1701,6 +1802,8 @@ a.card:hover .card-more {
 
 .calc-fact span {
   font-family: var(--font-mono);
+  overflow-wrap: normal;
+  hyphens: none;
   font-size: 0.68rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -2004,16 +2107,21 @@ a.card.card--photo,
   opacity: 0;
   transform: translateY(22px);
   transition: opacity 0.6s ease, transform 0.6s ease;
-  /* Selbstheilung: Sollte das Skript nie laufen (deaktiviert, Ladefehler,
-     blockiert), werden die Inhalte nach kurzer Zeit trotzdem sichtbar. */
-  animation: reveal-fallback 0.01s linear 2.5s forwards;
+  /* Selbstheilung bei Skriptausfall: erst nach 9 s, damit die
+     Scroll-Choreografie nicht vorzeitig überschrieben wird. Der Keyframe
+     setzt bewusst nur opacity – transform bleibt der .in-Regel überlassen. */
+  animation: reveal-fallback 0.01s linear 9s forwards;
 }
 
 @keyframes reveal-fallback {
   to {
     opacity: 1;
-    transform: none;
   }
+}
+
+/* Sobald das Skript die Elemente uebernimmt, ist kein Fallback noetig */
+.js-on .reveal {
+  animation: none;
 }
 
 /* Browser ohne Skriptausführung zeigen alles sofort */
@@ -2331,21 +2439,6 @@ a.card:hover .card-icon,
   position: relative;
   overflow: hidden;
   isolation: isolate;
-}
-
-.btn::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background: linear-gradient(105deg, transparent 35%, rgba(255, 255, 255, 0.28) 50%, transparent 65%);
-  transform: translateX(-120%);
-  transition: transform 0.6s ease;
-}
-
-.btn:hover::after,
-.btn:focus-visible::after {
-  transform: translateX(120%);
 }
 
 .btn svg {
