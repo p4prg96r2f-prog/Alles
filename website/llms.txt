@@ -1,0 +1,59 @@
+# GREEN – Energieberatung für Nichtwohngebäude
+
+> GREEN (Green HLB GmbH) ist eine unabhängige Energieberatung aus Paderborn,
+> spezialisiert ausschließlich auf Nichtwohngebäude: Büro, Einzelhandel, Produktion,
+> Veranstaltungsstätten, Schulen, Kitas und kommunale Gebäude. Kernversprechen:
+> bis zu 70 % geringere Energiekosten, bis zu 50 % staatliche Förderung der Beratung
+> (Bundesförderung EBN), unabhängig von Herstellern, mit Festpreis.
+
+## Fakten
+
+- Rechtsträger: Green HLB GmbH, Amtsgericht Paderborn, HRB 16341
+- Geschäftsführer: Sebastian Hund, Vadim Berg, David Lamping
+- Adresse: Rolandsweg 80, 33102 Paderborn, Nordrhein-Westfalen (51.72685, 8.75601)
+- Kontakt: Telefon 05251 40 29 29 10 · E-Mail info@green-nwg.de · Mo–Fr 08:00–16:00 Uhr
+- Erfahrung: über 10 Jahre, mehr als 80 betreute Objekte
+- Spezialisierung: ausschließlich Nichtwohngebäude (keine Wohnhäuser)
+- Unabhängigkeit: kein Produktverkauf, keine Provisionen, Festpreis vor Beauftragung
+- Einzugsgebiet: Ostwestfalen-Lippe und Hochstift (Paderborn, Bielefeld, Gütersloh,
+  Detmold, Höxter, Lippstadt in max. 1 Stunde), grundsätzlich ganz Nordrhein-Westfalen
+
+## Leistungen
+
+- Energieberatung & Energiekonzept nach DIN V 18599: https://green-nwg.de/loesungen/
+- Energieaudit nach DIN EN 16247 (Pflicht für Nicht-KMU alle 4 Jahre)
+- Sanierungsfahrplan mit Kosten, Einsparung, CO2-Wirkung und Amortisation
+- Fördermittelservice: Bundesförderung Energieberatung Nichtwohngebäude (EBN, bis 50 %
+  Zuschuss) und Bundesförderung für effiziente Gebäude (BEG), inkl. Antragstellung
+- Neubaubegleitung inkl. GEG-Nachweisen (Gebäudeenergiegesetz)
+- Umsetzungsbegleitung, Ausschreibung und Energie-Monitoring
+
+## Branchen
+
+- [Bürogebäude](https://green-nwg.de/services/buero/): LED, Lüftung, Kühlung, IT: In Büros stecken die größten Sparpotenziale in der Technik – oft ohne Komfortverlust.
+- [Einzelhandel](https://green-nwg.de/services/einzelhandel/): Kühlung, Licht und lange Öffnungszeiten treiben die Kosten – wir senken sie, ohne das Einkaufserlebnis zu verändern.
+- [Produktionsstätten](https://green-nwg.de/services/produktion/): Druckluft, Prozesswärme, Abwärme: In Industriehallen liegen die größten absoluten Einsparungen – wir finden sie.
+- [Veranstaltungsstätten](https://green-nwg.de/services/veranstaltung/): Riesige Volumina, kurze Spitzen: Hallen und Säle brauchen Energiekonzepte für den Wechsel zwischen Vollbetrieb und Leerstand.
+- [Bildungseinrichtungen](https://green-nwg.de/services/bildung/): Schulen und Hochschulen: Sanierungsstau auflösen, Lernklima verbessern und Fördermittel maximal ausschöpfen.
+- [Kindergärten](https://green-nwg.de/services/kindergarten/): Behagliche Räume für die Kleinsten – bei Heizkosten, die den Träger nicht überfordern.
+- [Kommunale Gebäude](https://green-nwg.de/services/kommune/): Rathaus, Bauhof, Feuerwehr: Wir bringen Struktur in den kommunalen Gebäudebestand – vom Portfolio bis zum Förderantrag.
+- [Weitere Nichtwohngebäude](https://green-nwg.de/services/andere/): Hotel, Praxis, Sporthalle, Logistik oder Kirche: Wenn Ihr Gebäude kein Wohnhaus ist, sind wir die richtigen Ansprechpartner.
+
+## Regionen
+
+- [Energieberatung Paderborn](https://green-nwg.de/energieberatung-paderborn/) – Kreis Paderborn
+- [Energieberatung Bielefeld](https://green-nwg.de/energieberatung-bielefeld/) – Ostwestfalen-Lippe, ca. 45 km vom Büro Paderborn
+- [Energieberatung Gütersloh](https://green-nwg.de/energieberatung-guetersloh/) – Kreis Gütersloh, ca. 40 km vom Büro Paderborn
+- [Energieberatung Detmold](https://green-nwg.de/energieberatung-detmold/) – Kreis Lippe, ca. 30 km vom Büro Paderborn
+- [Energieberatung Höxter](https://green-nwg.de/energieberatung-hoexter/) – Kreis Höxter, ca. 55 km vom Büro Paderborn
+- [Energieberatung Lippstadt](https://green-nwg.de/energieberatung-lippstadt/) – Kreis Soest, ca. 30 km vom Büro Paderborn
+
+## Wichtige Seiten
+
+- [Startseite](https://green-nwg.de/)
+- [Ihre Vorteile](https://green-nwg.de/vorteile/): Kosten, Förderung, GEG-Pflichten, Immobilienwert
+- [Über uns](https://green-nwg.de/ueber-uns/): Team und Werte
+- [Häufige Fragen](https://green-nwg.de/#faq): Kosten, Förderung, Ablauf, GEG, Energieaudit
+- [Kostenloses Erstgespräch](https://green-nwg.de/beratungstermin/)
+- [Kontakt](https://green-nwg.de/kontakt/)
+- [Impressum](https://green-nwg.de/impressum/)

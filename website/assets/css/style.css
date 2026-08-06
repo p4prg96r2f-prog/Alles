@@ -1479,6 +1479,64 @@ a.card:hover .card-more {
   }
 }
 
+/* ---------- Stadt-Chips (Einzugsgebiet) ---------- */
+.city-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  padding: 0;
+  margin: 1.4rem 0 0;
+  list-style: none;
+}
+
+.city-chips li {
+  margin: 0;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  padding: 0.55rem 1.05rem;
+  border: 1.5px solid var(--hairline);
+  border-radius: 999px;
+  background: var(--surface);
+  font-weight: 600;
+  font-size: var(--fs-sm);
+  color: var(--pine-deep);
+  text-decoration: none;
+  transition: border-color 0.15s ease, background 0.15s ease, transform 0.15s ease;
+}
+
+.chip:hover {
+  border-color: var(--leaf);
+  background: var(--leaf-soft);
+  color: var(--pine-deep);
+  transform: translateY(-1px);
+}
+
+.chip .chip-km {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--ink-faint);
+  letter-spacing: 0.03em;
+}
+
+.radar-figure {
+  max-width: 30rem;
+  margin-inline: auto;
+}
+
+.radar-figure figcaption {
+  margin-top: 0.8rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.05em;
+  color: var(--ink-faint);
+  text-align: center;
+}
+
 /* ---------- Scroll-Reveal ---------- */
 .reveal {
   opacity: 0;

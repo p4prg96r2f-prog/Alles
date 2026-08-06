@@ -16,7 +16,167 @@ COMPANY = {
     "tax": "Steuernummer: 5339/5818/2470",
     "managers": "Sebastian Hund, Vadim Berg, David Lamping",
     "base_url": "https://green-nwg.de",
+    # Geokoordinaten Rolandsweg 80, 33102 Paderborn (OpenStreetMap/Nominatim)
+    "lat": "51.72685",
+    "lon": "8.75601",
 }
+
+# Einzugsgebiet: Stadt-Landingpages für die lokale Suche.
+# bearing = Richtung ab Paderborn in Grad (0 = Nord), km = ca. Straßenentfernung.
+CITIES = [
+    {
+        "slug": "energieberatung-paderborn",
+        "city": "Paderborn",
+        "region": "Kreis Paderborn",
+        "km": 0,
+        "bearing": 0,
+        "claim": "Unser Heimatstandort – kurze Wege, schnelle Termine.",
+        "intro": (
+            "Paderborn ist unser Zuhause: Vom Rolandsweg aus betreuen wir Unternehmen, Träger und "
+            "die öffentliche Hand in der Dom- und Universitätsstadt und im gesamten Kreis Paderborn. "
+            "Die Wirtschaft der Region ist geprägt von IT- und Elektrotechnik, Maschinenbau, Handel "
+            "und einem starken Mittelstand – und damit von genau den Gebäuden, auf die wir "
+            "spezialisiert sind: Büros, Produktionshallen, Verkaufsflächen, Schulen und Verwaltungen.",
+            "Für Paderborner Kunden sind wir besonders schnell greifbar: Ortstermine lassen sich "
+            "kurzfristig einrichten, und die Gegebenheiten vor Ort – vom Gewerbegebiet bis zum "
+            "innerstädtischen Bestand – kennen wir aus über einem Jahrzehnt Projektarbeit.",
+        ),
+        "industries": ("buero", "produktion", "kommune"),
+        "faq": (
+            ("Wie schnell bekomme ich in Paderborn einen Termin?",
+             "In der Regel innerhalb weniger Werktage – auf Ihre Anfrage antworten wir spätestens am nächsten Werktag. Das Erstgespräch ist kostenlos und kann bei Ihnen im Gebäude, in unserem Büro am Rolandsweg 80 oder online stattfinden."),
+            ("Betreut GREEN auch Gemeinden im Kreis Paderborn?",
+             "Ja – neben der Stadt Paderborn beraten wir Unternehmen und Kommunen im gesamten Kreis, etwa in Delbrück, Salzkotten, Büren, Bad Lippspringe und Hövelhof."),
+        ),
+    },
+    {
+        "slug": "energieberatung-bielefeld",
+        "city": "Bielefeld",
+        "region": "Ostwestfalen-Lippe",
+        "km": 45,
+        "bearing": 340,
+        "claim": "Die größte Stadt OWLs – vom Gründerzeit-Büro bis zur Industriehalle.",
+        "intro": (
+            "Bielefeld ist mit über 330.000 Einwohnern das wirtschaftliche Zentrum "
+            "Ostwestfalen-Lippes: Maschinenbau, Lebensmittelindustrie, große Klinik- und "
+            "Hochschulstandorte und ein dichter Besatz an Büro- und Handelsimmobilien. "
+            "Entsprechend vielfältig ist der Gebäudebestand – vom sanierungsbedürftigen "
+            "Gründerzeitbüro über Nachkriegs-Verwaltungsbauten bis zur modernen Logistikhalle.",
+            "Genau diese Mischung ist unser Terrain: Wir analysieren Bielefelder Nichtwohngebäude "
+            "unabhängig, entwickeln Sanierungsfahrpläne und begleiten Unternehmen wie Träger bei "
+            "Förderanträgen – rund 45 Minuten von unserem Paderborner Büro entfernt und damit "
+            "jederzeit kurzfristig vor Ort.",
+        ),
+        "industries": ("buero", "produktion", "bildung"),
+        "faq": (
+            ("Kommt GREEN für Ortstermine nach Bielefeld?",
+             "Selbstverständlich – Bielefeld liegt rund 45 Autominuten von unserem Büro entfernt. Begehungen, Messungen und Abstimmungstermine führen wir regelmäßig in ganz OWL durch; für das Erstgespräch entstehen Ihnen keine Kosten."),
+            ("Welche Gebäudetypen betreut GREEN in Bielefeld?",
+             "Schwerpunkte sind Büro- und Verwaltungsgebäude, Produktions- und Logistikhallen, Handelsflächen sowie Schulen und Hochschulbauten – also alle Nichtwohngebäude."),
+        ),
+    },
+    {
+        "slug": "energieberatung-guetersloh",
+        "city": "Gütersloh",
+        "region": "Kreis Gütersloh",
+        "km": 40,
+        "bearing": 310,
+        "claim": "Starker Mittelstand, große Werke – Energieeffizienz für den Kreis Gütersloh.",
+        "intro": (
+            "Der Kreis Gütersloh gehört zu den wirtschaftsstärksten Regionen Nordrhein-Westfalens: "
+            "geprägt von international tätigen Familienunternehmen aus Medien-, Hausgeräte- und "
+            "Möbelindustrie und einem breiten produzierenden Mittelstand. Produktionshallen, "
+            "Logistikzentren und Verwaltungsgebäude bestimmen den Bestand – Gebäude mit hohen "
+            "Energieverbräuchen und ebenso hohen Einsparpotenzialen.",
+            "Wir unterstützen Unternehmen in Gütersloh, Rheda-Wiedenbrück, Verl, Harsewinkel und "
+            "Umgebung mit Energieaudits nach DIN EN 16247, Abwärme- und Druckluftanalysen sowie "
+            "geförderten Sanierungskonzepten – herstellerunabhängig und mit Festpreis.",
+        ),
+        "industries": ("produktion", "buero", "einzelhandel"),
+        "faq": (
+            ("Führt GREEN Energieaudits für Unternehmen im Kreis Gütersloh durch?",
+             "Ja – wir führen normkonforme Energieaudits nach DIN EN 16247 durch, wie sie für Nicht-KMU alle vier Jahre vorgeschrieben sind, und machen daraus zugleich einen belastbaren Investitionsfahrplan."),
+            ("Lohnt sich eine Energieberatung auch für kleinere Betriebe?",
+             "Gerade dort: Für kleine und mittlere Unternehmen ist die Beratung über die Bundesförderung EBN mit bis zu 50 % bezuschusst, und Maßnahmen wie LED, Druckluft-Optimierung oder PV amortisieren sich oft in wenigen Jahren."),
+        ),
+    },
+    {
+        "slug": "energieberatung-detmold",
+        "city": "Detmold",
+        "region": "Kreis Lippe",
+        "km": 30,
+        "bearing": 20,
+        "claim": "Verwaltungs- und Hochschulstadt mit viel historischer Bausubstanz.",
+        "intro": (
+            "Detmold ist Kreisstadt des Kreises Lippe, Verwaltungs- und Hochschulstandort – und "
+            "eine Stadt mit außergewöhnlich viel historischer Bausubstanz. Genau hier liegt die "
+            "energetische Herausforderung: Denkmalgeschützte und ältere Gebäude brauchen "
+            "Effizienzkonzepte, die Bauphysik, Gestaltung und Wirtschaftlichkeit zusammen denken.",
+            "Wir beraten in Detmold und im Kreis Lippe Verwaltungen, Bildungseinrichtungen und "
+            "Unternehmen – von der behutsamen Sanierung im Bestand über Heizungsmodernisierung "
+            "nach GEG bis zur Photovoltaik auf kommunalen Dächern. Von Paderborn aus sind wir in "
+            "rund 30 Minuten vor Ort.",
+        ),
+        "industries": ("kommune", "bildung", "buero"),
+        "faq": (
+            ("Berät GREEN auch bei denkmalgeschützten Gebäuden?",
+             "Ja – gerade im lippischen Bestand ist das häufig gefragt. Wir entwickeln Maßnahmen, die Effizienz und Denkmalschutz vereinbaren, und stimmen das Vorgehen auf Wunsch mit den zuständigen Behörden ab."),
+            ("Ist GREEN im gesamten Kreis Lippe tätig?",
+             "Ja – neben Detmold zum Beispiel in Lemgo, Lage, Bad Salzuflen und Blomberg. Ortstermine vereinbaren wir kurzfristig."),
+        ),
+    },
+    {
+        "slug": "energieberatung-hoexter",
+        "city": "Höxter",
+        "region": "Kreis Höxter",
+        "km": 55,
+        "bearing": 95,
+        "claim": "Weserbergland: Mittelstand, Kommunen und Tourismus effizient machen.",
+        "intro": (
+            "Der Kreis Höxter im Weserbergland ist ländlich geprägt – mit einem bodenständigen "
+            "Mittelstand, vielen kommunalen Liegenschaften und Tourismusbetrieben rund um "
+            "Sehenswürdigkeiten wie das UNESCO-Welterbe Corvey. Verstreute Liegenschaften, ältere "
+            "Heizzentralen und knappe Haushalte machen Energieeffizienz hier zur besonders "
+            "lohnenden Aufgabe.",
+            "Wir kennen die Region aus dem Hochstift heraus: Von Paderborn erreichen wir Höxter, "
+            "Brakel, Bad Driburg, Warburg und Beverungen in unter einer Stunde – für "
+            "Bestandsanalysen, Sanierungsfahrpläne und Förderanträge, die auch in kleineren "
+            "Kommunen und Betrieben funktionieren.",
+        ),
+        "industries": ("kommune", "andere", "veranstaltung"),
+        "faq": (
+            ("Arbeitet GREEN auch für kleinere Kommunen im Kreis Höxter?",
+             "Ja – gerade kleinere Kommunen profitieren von gebündelten Sanierungsfahrplänen über mehrere Liegenschaften und von Förderquoten, die Investitionen erst möglich machen. Wir liefern Beschlussvorlagen, die im Rat bestehen."),
+            ("Betreut GREEN Hotels und Gastronomie im Weserbergland?",
+             "Ja – Beherbergungs- und Gastronomiebetriebe zählen zu den Nichtwohngebäuden mit den höchsten spezifischen Energiekosten. Warmwasser, Küche und Wellness bieten meist große, schnell wirksame Einsparhebel."),
+        ),
+    },
+    {
+        "slug": "energieberatung-lippstadt",
+        "city": "Lippstadt",
+        "region": "Kreis Soest",
+        "km": 30,
+        "bearing": 265,
+        "claim": "Industrie- und Hochschulstadt an der Lippe – Effizienz für die Produktion.",
+        "intro": (
+            "Lippstadt ist die größte Stadt des Kreises Soest und stark industriell geprägt – "
+            "insbesondere durch Automobilzulieferer und Lichttechnik sowie einen breiten "
+            "produzierenden Mittelstand, ergänzt um den Campus der Hochschule Hamm-Lippstadt. "
+            "Werkhallen, Prüffelder und Logistikflächen stehen hier für hohe Strom- und "
+            "Wärmebedarfe rund um die Uhr.",
+            "Unsere Schwerpunkte in Lippstadt und Umgebung: Druckluft- und Abwärmeanalysen, "
+            "Lastmanagement, Hallenbeleuchtung und Energieaudits nach DIN EN 16247 – rund "
+            "30 Autominuten von Paderborn entfernt, auch für Erwitte, Geseke und Soest.",
+        ),
+        "industries": ("produktion", "buero", "andere"),
+        "faq": (
+            ("Unterstützt GREEN bei der Energieaudit-Pflicht?",
+             "Ja – Unternehmen, die kein KMU sind, müssen alle vier Jahre ein Energieaudit nach DIN EN 16247 nachweisen. Wir führen das Audit durch und priorisieren die Maßnahmen so, dass aus der Pflicht ein Renditeprojekt wird."),
+            ("Ist GREEN auch westlich von Lippstadt tätig?",
+             "Ja – unser Einzugsgebiet reicht über Soest hinaus; grundsätzlich beraten wir Nichtwohngebäude in ganz Nordrhein-Westfalen."),
+        ),
+    },
+]
 
 # Reihenfolge = Anzeige-Reihenfolge im Branchen-Raster
 INDUSTRIES = [
@@ -318,6 +478,13 @@ FAQS = [
         "durchzuführen (alternativ: Energiemanagementsystem). Ein gutes Audit ist aber mehr als "
         "Pflichterfüllung: Es zeigt schwarz auf weiß, wo sich Investitionen zuerst lohnen. Wir führen "
         "Audits normkonform und pragmatisch durch.",
+    ),
+    (
+        "In welchen Regionen ist GREEN tätig?",
+        "Unser Büro sitzt in Paderborn, unser Kerngebiet ist Ostwestfalen-Lippe und das Hochstift: "
+        "Paderborn, Bielefeld, Gütersloh, Detmold, Höxter und Lippstadt erreichen wir in maximal "
+        "einer Stunde. Grundsätzlich beraten wir Nichtwohngebäude in ganz Nordrhein-Westfalen – "
+        "Erstgespräche führen wir auf Wunsch auch online.",
     ),
     (
         "Lohnt sich Photovoltaik auf unserem Gebäude?",

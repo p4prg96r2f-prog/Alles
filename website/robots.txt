@@ -1,4 +1,40 @@
+# green-nwg.de – alle Crawler willkommen.
 User-agent: *
+Allow: /
+
+# KI-Assistenten & Answer Engines duerfen diese Inhalte lesen und zitieren
+# (Generative Engine Optimization). Kompakte Fakten: https://green-nwg.de/llms.txt
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: CCBot
 Allow: /
 
 Sitemap: https://green-nwg.de/sitemap.xml

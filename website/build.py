@@ -7,10 +7,10 @@ Keine Abhängigkeiten außer der Python-Standardbibliothek.
 """
 
 import json
+import math
 import os
-import shutil
 
-from content import COMPANY, FAQS, INDUSTRIES, TEAM, TESTIMONIALS
+from content import CITIES, COMPANY, FAQS, INDUSTRIES, TEAM, TESTIMONIALS
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 BASE = COMPANY["base_url"]
@@ -168,6 +168,55 @@ def hero_schematic():
 </svg>"""
 
 
+def region_radar():
+    """Schematische Einsatzgebiets-Karte: Städte als Punkte um Paderborn."""
+    cx = cy = 240
+    scale = 190 / 75  # 75 km → 190 px
+    mono = "font-family='IBM Plex Mono, monospace' letter-spacing='.05em'"
+
+    parts = [
+        f'<circle cx="{cx}" cy="{cy}" r="216" fill="none" stroke="#dbe4dc" stroke-dasharray="4 7"/>',
+        f"<text x='{cx}' y='34' text-anchor='middle' {mono} font-size='9.5' fill='#64796e'>NRW-WEIT T&#196;TIG</text>",
+    ]
+    for km in (25, 50, 75):
+        r = km * scale
+        parts.append(f'<circle cx="{cx}" cy="{cy}" r="{r:.0f}" fill="none" stroke="#dbe4dc"/>')
+        parts.append(
+            f"<text x='{cx + 5}' y='{cy - r - 5:.0f}' {mono} font-size='9' fill='#a8c4b2'>{km} km</text>"
+        )
+
+    for c in CITIES:
+        if c["km"] == 0:
+            continue
+        th = math.radians(c["bearing"])
+        x = cx + c["km"] * scale * math.sin(th)
+        y = cy - c["km"] * scale * math.cos(th)
+        anchor = "end" if x < cx - 15 else "start"
+        tx = x - 11 if anchor == "end" else x + 11
+        parts.append(
+            f'<line x1="{cx}" y1="{cy}" x2="{x:.0f}" y2="{y:.0f}" stroke="#a8c4b2" stroke-dasharray="3 5"/>'
+        )
+        parts.append(f'<circle cx="{x:.0f}" cy="{y:.0f}" r="5" fill="#1e5b3f"/>')
+        parts.append(
+            f"<text x='{tx:.0f}' y='{y + 4.5:.0f}' text-anchor='{anchor}' "
+            f"font-family='IBM Plex Sans, sans-serif' font-weight='600' font-size='13.5' fill='#14231d'>{c['city']}</text>"
+        )
+
+    # Standort Paderborn
+    parts.append(f'<rect x="{cx - 6}" y="{cy - 6}" width="12" height="12" rx="3" fill="#e8a33d" stroke="#0d3b2a" stroke-width="2"/>')
+    parts.append(
+        f"<text x='{cx}' y='{cy + 26}' text-anchor='middle' font-family='IBM Plex Sans, sans-serif' "
+        f"font-weight='600' font-size='13.5' fill='#0d3b2a'>Paderborn</text>"
+    )
+    parts.append(f"<text x='{cx}' y='{cy + 41}' text-anchor='middle' {mono} font-size='8.5' fill='#64796e'>B&#220;RO &#183; ROLANDSWEG 80</text>")
+
+    return (
+        '<svg viewBox="0 0 480 480" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" '
+        'aria-label="Karte des Einzugsgebiets: Paderborn im Zentrum, Bielefeld, G&#252;tersloh, Detmold, '
+        'H&#246;xter und Lippstadt im Umkreis von 75 Kilometern">' + "".join(parts) + "</svg>"
+    )
+
+
 # ---------------------------------------------------------------------------
 # Seitengerüst
 # ---------------------------------------------------------------------------
@@ -225,6 +274,7 @@ def footer(p):
         <ul>
           <li><a href="{p}vorteile/">Ihre Vorteile</a></li>
           <li><a href="{p}ueber-uns/">Über uns</a></li>
+          <li><a href="{p}einzugsgebiet/">Einzugsgebiet OWL &amp; NRW</a></li>
           <li><a href="{p}kontakt/">Kontakt</a></li>
           <li><a href="{p}beratungstermin/">Beratungstermin</a></li>
         </ul>
@@ -280,6 +330,11 @@ def page(path, title, desc, body, active="", schema=None, depth=None):
   <meta property="og:locale" content="de_DE">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="theme-color" content="#0d3b2a">
+  <meta name="geo.region" content="DE-NW">
+  <meta name="geo.placename" content="Paderborn">
+  <meta name="geo.position" content="{COMPANY['lat']};{COMPANY['lon']}">
+  <meta name="ICBM" content="{COMPANY['lat']}, {COMPANY['lon']}">
+  <link rel="manifest" href="{p}manifest.webmanifest">
   <link rel="icon" href="{p}assets/img/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="{p}assets/img/apple-touch-icon.png">
   <link rel="preload" href="{p}assets/fonts/bricolage-grotesque-400-800-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
@@ -316,6 +371,19 @@ def page_hero(p, crumbs, eyebrow, h1, lead):
     <p class="lead">{lead}</p>
   </div>
 </section>"""
+
+
+def city_chips(p, current_slug=None):
+    chips = []
+    for c in CITIES:
+        if c["slug"] == current_slug:
+            continue
+        km = "Sitz" if c["km"] == 0 else f"ca. {c['km']} km"
+        chips.append(
+            f'<li><a class="chip" href="{p}{c["slug"]}/">{c["city"]} <span class="chip-km">{km}</span></a></li>'
+        )
+    chips.append(f'<li><a class="chip" href="{p}einzugsgebiet/">Ganz NRW <span class="chip-km">Übersicht</span></a></li>')
+    return f'<ul class="city-chips">{"".join(chips)}</ul>'
 
 
 def cta_band(p, title="Bereit für niedrigere Energiekosten?",
@@ -511,7 +579,24 @@ def render_home():
   </div>
 </section>
 
-<section class="section">
+<section class="section" id="region">
+  <div class="container split">
+    <div class="reveal">
+      <p class="eyebrow">Einzugsgebiet</p>
+      <h2>In Paderborn zuhause, in ganz NRW im Einsatz</h2>
+      <p class="lead">Unser Büro liegt in Paderborn – Bielefeld, Gütersloh, Detmold,
+      Höxter und Lippstadt erreichen wir in unter einer Stunde. Und wenn Ihr Gebäude
+      woanders in Nordrhein-Westfalen steht: Wir kommen trotzdem gern.</p>
+      {city_chips("")}
+    </div>
+    <figure class="radar-figure reveal reveal-d1">
+      {region_radar()}
+      <figcaption>Abb. 02 – Einzugsgebiet ab Büro Paderborn (Entfernungen ca., Straße)</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="section section--surface">
   <div class="container">
     <div class="section-head reveal">
       <p class="eyebrow">Referenzen</p>
@@ -521,7 +606,7 @@ def render_home():
   </div>
 </section>
 
-<section class="section section--surface" id="faq">
+<section class="section" id="faq">
   <div class="container">
     <div class="section-head reveal">
       <p class="eyebrow">Häufige Fragen</p>
@@ -542,7 +627,10 @@ def render_home():
                 "@id": f"{BASE}/#organization",
                 "name": "GREEN – Energieberatung für Nichtwohngebäude",
                 "legalName": COMPANY["name"],
+                "alternateName": ["GREEN", "Green NWG", "Green HLB GmbH"],
                 "url": f"{BASE}/",
+                "logo": f"{BASE}/assets/img/apple-touch-icon.png",
+                "image": f"{BASE}/assets/img/og-image.png",
                 "email": COMPANY["email"],
                 "telephone": "+49 5251 40292910",
                 "description": "Unabhängige Energieberatung für Nichtwohngebäude: Energiekonzepte, Energieaudits, Sanierungsfahrpläne und Fördermittelservice für Unternehmen und Kommunen in NRW.",
@@ -551,7 +639,13 @@ def render_home():
                     "streetAddress": COMPANY["street"],
                     "postalCode": "33102",
                     "addressLocality": "Paderborn",
+                    "addressRegion": "Nordrhein-Westfalen",
                     "addressCountry": "DE",
+                },
+                "geo": {
+                    "@type": "GeoCoordinates",
+                    "latitude": COMPANY["lat"],
+                    "longitude": COMPANY["lon"],
                 },
                 "openingHoursSpecification": {
                     "@type": "OpeningHoursSpecification",
@@ -559,7 +653,34 @@ def render_home():
                     "opens": "08:00",
                     "closes": "16:00",
                 },
-                "areaServed": "Nordrhein-Westfalen",
+                "areaServed": [
+                    {"@type": "State", "name": "Nordrhein-Westfalen"},
+                    {"@type": "AdministrativeArea", "name": "Ostwestfalen-Lippe"},
+                ] + [{"@type": "City", "name": c["city"]} for c in CITIES],
+                "serviceArea": {
+                    "@type": "GeoCircle",
+                    "geoMidpoint": {
+                        "@type": "GeoCoordinates",
+                        "latitude": COMPANY["lat"],
+                        "longitude": COMPANY["lon"],
+                    },
+                    "geoRadius": "100000",
+                },
+                "hasOfferCatalog": {
+                    "@type": "OfferCatalog",
+                    "name": "Leistungen",
+                    "itemListElement": [
+                        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": n}}
+                        for n in [
+                            "Energieberatung für Nichtwohngebäude (DIN V 18599)",
+                            "Energieaudit nach DIN EN 16247",
+                            "Sanierungsfahrplan",
+                            "Fördermittelservice (EBN/BEG)",
+                            "Neubaubegleitung",
+                            "Umsetzungsbegleitung & Energie-Monitoring",
+                        ]
+                    ],
+                },
                 "knowsAbout": [
                     "Energieberatung", "Nichtwohngebäude", "Energieaudit DIN EN 16247",
                     "DIN V 18599", "Gebäudeenergiegesetz", "Fördermittel", "Photovoltaik",
@@ -1122,6 +1243,187 @@ def render_termin():
 
 
 # ---------------------------------------------------------------------------
+# Einzugsgebiet & Stadt-Landingpages (lokale Suche / Geo-SEO)
+# ---------------------------------------------------------------------------
+
+def render_einzugsgebiet():
+    p = "../"
+    city_cards = "".join(
+        f"""<a class="card reveal" href="{p}{c['slug']}/">
+      <span class="card-icon">{icon('pin')}</span>
+      <h3>{c['city']}</h3>
+      <p>{c['claim']}</p>
+      <span class="card-more">{'Unser Standort' if c['km'] == 0 else f"ca. {c['km']} km ab Paderborn"} {icon('arrow')}</span>
+    </a>"""
+        for c in CITIES
+    )
+    body = f"""
+{page_hero(p, [("einzugsgebiet/", "Einzugsgebiet")], "Einzugsgebiet",
+           "Energieberatung in OWL, im Hochstift und in ganz NRW",
+           "Von unserem Büro in Paderborn aus betreuen wir Nichtwohngebäude in ganz "
+           "Ostwestfalen-Lippe und darüber hinaus – mit kurzen Wegen, schnellen Ortsterminen "
+           "und Erstgesprächen auch online.")}
+
+<section class="section">
+  <div class="container split">
+    <div class="reveal">
+      <p class="eyebrow">Kernregion</p>
+      <h2>Eine Stunde Fahrzeit – das ganze Kerngebiet</h2>
+      <p>Paderborn, Bielefeld, Gütersloh, Detmold, Höxter und Lippstadt erreichen wir in
+      maximal einer Stunde. Das heißt für Sie: Begehungen, Messungen und Baustellentermine
+      ohne lange Vorläufe – und ein Berater, der die Region und ihre Gebäude kennt.</p>
+      <p>Ihr Gebäude steht woanders in Nordrhein-Westfalen? Kein Problem: Analyse und
+      Konzept erfordern ohnehin nur wenige Termine vor Ort, alles Weitere klären wir
+      effizient per Video und Telefon.</p>
+    </div>
+    <figure class="radar-figure reveal reveal-d1">
+      {region_radar()}
+      <figcaption>Einzugsgebiet ab Büro Paderborn – Entfernungen ca. (Straße)</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="section section--surface">
+  <div class="container">
+    <div class="section-head reveal">
+      <p class="eyebrow">Standort-Infos</p>
+      <h2>Ihre Region im Detail</h2>
+    </div>
+    <div class="card-grid card-grid--wide">{city_cards}</div>
+  </div>
+</section>
+
+{cta_band(p)}
+"""
+    schema = {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "Start", "item": f"{BASE}/"},
+            {"@type": "ListItem", "position": 2, "name": "Einzugsgebiet", "item": f"{BASE}/einzugsgebiet/"},
+        ],
+    }
+    return page(
+        "einzugsgebiet/",
+        "Einzugsgebiet: Energieberatung in OWL & NRW | GREEN",
+        "GREEN berät Nichtwohngebäude in Paderborn, Bielefeld, Gütersloh, Detmold, Höxter, Lippstadt und ganz NRW – Ortstermine in der Kernregion binnen einer Stunde erreichbar.",
+        body,
+        active=None,
+        schema=schema,
+    )
+
+
+def render_city(c):
+    p = "../"
+    inds = [i for i in INDUSTRIES if i["slug"] in c["industries"]]
+    industry_cards = "".join(
+        f"""<a class="card reveal" href="{p}services/{i['slug']}/">
+      <span class="card-icon">{icon(i['slug'])}</span>
+      <h3>{i['name']}</h3>
+      <p>{i['card']}</p>
+      <span class="card-more">Zur Branchenlösung {icon('arrow')}</span>
+    </a>"""
+        for i in inds
+    )
+    faq_items = "".join(
+        f"""<details class="faq reveal">
+      <summary>{q}</summary>
+      <div class="faq-body"><p>{a}</p></div>
+    </details>"""
+        for q, a in c["faq"]
+    )
+    intro_ps = "".join(f"<p>{para}</p>" for para in c["intro"])
+    distance = "Unser Standort" if c["km"] == 0 else f"ca. {c['km']} km / unter 1 Std. ab Büro Paderborn"
+
+    body = f"""
+{page_hero(p, [("einzugsgebiet/", "Einzugsgebiet"), (f"{c['slug']}/", c['city'])],
+           f"Energieberatung · {c['region']}",
+           f"Energieberatung für Nichtwohngebäude in {c['city']}",
+           c['claim'])}
+
+<section class="section">
+  <div class="container split">
+    <div class="reveal">
+      <p class="eyebrow">Vor Ort in {c['city']}</p>
+      <h2>Was Ihre Region auszeichnet</h2>
+      {intro_ps}
+    </div>
+    <div class="reveal reveal-d1">
+      <div class="card" style="gap:0.9rem">
+        <h3>Auf einen Blick</h3>
+        <p><strong>Region:</strong> {c['region']}</p>
+        <p><strong>Anfahrt:</strong> {distance}</p>
+        <p><strong>Reaktionszeit:</strong> Antwort spätestens am nächsten Werktag</p>
+        <p><strong>Erstgespräch:</strong> kostenlos – vor Ort, telefonisch oder online</p>
+        <p><strong>Förderung:</strong> bis zu 50&#8239;% Zuschuss zur Beratung (EBN)</p>
+      </div>
+      {city_chips(p, c['slug'])}
+    </div>
+  </div>
+</section>
+
+<section class="section section--surface">
+  <div class="container">
+    <div class="section-head reveal">
+      <p class="eyebrow">Häufig gefragt in {c['city']}</p>
+      <h2>Typische Lösungen für {c['city']}</h2>
+    </div>
+    <div class="card-grid card-grid--wide">{industry_cards}</div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head reveal">
+      <p class="eyebrow">Fragen aus der Region</p>
+      <h2>Gut zu wissen</h2>
+    </div>
+    <div class="faq-list">{faq_items}</div>
+  </div>
+</section>
+
+{cta_band(p, f"Energiekosten senken in {c['city']}?",
+          "Im kostenlosen Erstgespräch klären wir Potenzial, Förderung und nächste Schritte für Ihr Gebäude – unverbindlich und auf den Punkt.")}
+"""
+    schema = {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "Service",
+                "name": f"Energieberatung für Nichtwohngebäude in {c['city']}",
+                "serviceType": "Energieberatung",
+                "url": f"{BASE}/{c['slug']}/",
+                "provider": {"@id": f"{BASE}/#organization"},
+                "areaServed": {"@type": "City", "name": c["city"]},
+            },
+            {
+                "@type": "BreadcrumbList",
+                "itemListElement": [
+                    {"@type": "ListItem", "position": 1, "name": "Start", "item": f"{BASE}/"},
+                    {"@type": "ListItem", "position": 2, "name": "Einzugsgebiet", "item": f"{BASE}/einzugsgebiet/"},
+                    {"@type": "ListItem", "position": 3, "name": c["city"], "item": f"{BASE}/{c['slug']}/"},
+                ],
+            },
+            {
+                "@type": "FAQPage",
+                "mainEntity": [
+                    {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}}
+                    for q, a in c["faq"]
+                ],
+            },
+        ],
+    }
+    return page(
+        f"{c['slug']}/",
+        f"Energieberatung {c['city']}: Nichtwohngebäude | GREEN",
+        f"Unabhängige Energieberatung für Nichtwohngebäude in {c['city']} ({c['region']}): Analyse, Sanierungskonzept, bis 50 % Förderung. {distance}. Jetzt Erstgespräch sichern.",
+        body,
+        active=None,
+        schema=schema,
+    )
+
+
+# ---------------------------------------------------------------------------
 # Rechtstexte
 # ---------------------------------------------------------------------------
 
@@ -1362,11 +1664,124 @@ def render_sitemap(paths):
 """
 
 
-ROBOTS = f"""User-agent: *
+ROBOTS = f"""# green-nwg.de – alle Crawler willkommen.
+User-agent: *
+Allow: /
+
+# KI-Assistenten & Answer Engines duerfen diese Inhalte lesen und zitieren
+# (Generative Engine Optimization). Kompakte Fakten: {BASE}/llms.txt
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: CCBot
 Allow: /
 
 Sitemap: {BASE}/sitemap.xml
 """
+
+
+def render_llms_txt():
+    """llms.txt: kompakte, zitierfähige Fakten für KI-Assistenten (GEO)."""
+    industries = "\n".join(
+        f"- [{i['name']}]({BASE}/services/{i['slug']}/): {i['card']}" for i in INDUSTRIES
+    )
+    cities = "\n".join(
+        f"- [Energieberatung {c['city']}]({BASE}/{c['slug']}/) – {c['region']}"
+        + ("" if c["km"] == 0 else f", ca. {c['km']} km vom Büro Paderborn")
+        for c in CITIES
+    )
+    return f"""# GREEN – Energieberatung für Nichtwohngebäude
+
+> GREEN (Green HLB GmbH) ist eine unabhängige Energieberatung aus Paderborn,
+> spezialisiert ausschließlich auf Nichtwohngebäude: Büro, Einzelhandel, Produktion,
+> Veranstaltungsstätten, Schulen, Kitas und kommunale Gebäude. Kernversprechen:
+> bis zu 70 % geringere Energiekosten, bis zu 50 % staatliche Förderung der Beratung
+> (Bundesförderung EBN), unabhängig von Herstellern, mit Festpreis.
+
+## Fakten
+
+- Rechtsträger: Green HLB GmbH, Amtsgericht Paderborn, HRB 16341
+- Geschäftsführer: Sebastian Hund, Vadim Berg, David Lamping
+- Adresse: Rolandsweg 80, 33102 Paderborn, Nordrhein-Westfalen (51.72685, 8.75601)
+- Kontakt: Telefon 05251 40 29 29 10 · E-Mail info@green-nwg.de · Mo–Fr 08:00–16:00 Uhr
+- Erfahrung: über 10 Jahre, mehr als 80 betreute Objekte
+- Spezialisierung: ausschließlich Nichtwohngebäude (keine Wohnhäuser)
+- Unabhängigkeit: kein Produktverkauf, keine Provisionen, Festpreis vor Beauftragung
+- Einzugsgebiet: Ostwestfalen-Lippe und Hochstift (Paderborn, Bielefeld, Gütersloh,
+  Detmold, Höxter, Lippstadt in max. 1 Stunde), grundsätzlich ganz Nordrhein-Westfalen
+
+## Leistungen
+
+- Energieberatung & Energiekonzept nach DIN V 18599: {BASE}/loesungen/
+- Energieaudit nach DIN EN 16247 (Pflicht für Nicht-KMU alle 4 Jahre)
+- Sanierungsfahrplan mit Kosten, Einsparung, CO2-Wirkung und Amortisation
+- Fördermittelservice: Bundesförderung Energieberatung Nichtwohngebäude (EBN, bis 50 %
+  Zuschuss) und Bundesförderung für effiziente Gebäude (BEG), inkl. Antragstellung
+- Neubaubegleitung inkl. GEG-Nachweisen (Gebäudeenergiegesetz)
+- Umsetzungsbegleitung, Ausschreibung und Energie-Monitoring
+
+## Branchen
+
+{industries}
+
+## Regionen
+
+{cities}
+
+## Wichtige Seiten
+
+- [Startseite]({BASE}/)
+- [Ihre Vorteile]({BASE}/vorteile/): Kosten, Förderung, GEG-Pflichten, Immobilienwert
+- [Über uns]({BASE}/ueber-uns/): Team und Werte
+- [Häufige Fragen]({BASE}/#faq): Kosten, Förderung, Ablauf, GEG, Energieaudit
+- [Kostenloses Erstgespräch]({BASE}/beratungstermin/)
+- [Kontakt]({BASE}/kontakt/)
+- [Impressum]({BASE}/impressum/)
+"""
+
+
+MANIFEST = json.dumps(
+    {
+        "name": "GREEN – Energieberatung für Nichtwohngebäude",
+        "short_name": "GREEN",
+        "start_url": "/",
+        "display": "browser",
+        "background_color": "#f7f8f4",
+        "theme_color": "#0d3b2a",
+        "icons": [
+            {"src": "/assets/img/apple-touch-icon.png", "sizes": "180x180", "type": "image/png"}
+        ],
+    },
+    ensure_ascii=False,
+    indent=2,
+)
 
 
 # ---------------------------------------------------------------------------
@@ -1389,6 +1804,7 @@ def main():
         "loesungen/index.html": render_loesungen(),
         "vorteile/index.html": render_vorteile(),
         "ueber-uns/index.html": render_ueber_uns(),
+        "einzugsgebiet/index.html": render_einzugsgebiet(),
         "kontakt/index.html": render_kontakt(),
         "beratungstermin/index.html": render_termin(),
         "impressum/index.html": render_impressum(),
@@ -1398,6 +1814,8 @@ def main():
     }
     for ind in INDUSTRIES:
         pages[f"services/{ind['slug']}/index.html"] = render_industry(ind)
+    for c in CITIES:
+        pages[f"{c['slug']}/index.html"] = render_city(c)
 
     for rel, html in pages.items():
         write(rel, html)
@@ -1407,6 +1825,8 @@ def main():
     )
     write("sitemap.xml", render_sitemap(canonical_paths))
     write("robots.txt", ROBOTS)
+    write("llms.txt", render_llms_txt())
+    write("manifest.webmanifest", MANIFEST)
 
     # Favicon (identisch mit Logo-Mark)
     write("assets/img/favicon.svg", LOGO_MARK.replace("aria-hidden=\"true\"", 'xmlns="http://www.w3.org/2000/svg"') if "xmlns" not in LOGO_MARK else LOGO_MARK)

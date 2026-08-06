@@ -14,6 +14,8 @@ Nichtwohngebäude, Paderborn) als schnelle, statische Website ohne WordPress.
 | **Konversion** | Verstreute CTAs | Klare Conversion-Strecke: Hero → Förder-Callout → FAQ → Terminformular auf jeder Seite |
 | **Barrierefreiheit** | – | Skip-Link, ARIA, Fokus-Stile, Kontraste, `prefers-reduced-motion` |
 | **Wartung** | Plugin-Updates, Sicherheitslücken | Keine Angriffsfläche; Inhalte zentral in `content.py` |
+| **Lokale Suche (Geo-SEO)** | keine Standort-Signale | 6 Stadt-Landingpages (Paderborn, Bielefeld, Gütersloh, Detmold, Höxter, Lippstadt) + Einzugsgebiet-Seite, `geo.*`/ICBM-Meta, LocalBusiness-Schema mit Koordinaten, areaServed & GeoCircle |
+| **KI-Suche (GEO)** | – | `llms.txt` mit zitierfähigen Fakten, explizite AI-Crawler-Freigaben in `robots.txt` (GPTBot, ClaudeBot, PerplexityBot …), FAQ-/Service-Schema für Answer Engines |
 
 ## Struktur
 
@@ -22,9 +24,11 @@ website/
 ├── build.py            # Statischer Site-Generator (nur Python-Standardbibliothek)
 ├── content.py          # ALLE Inhalte: Firmendaten, Branchen, FAQ, Team, Zitate
 ├── index.html          # … und alle weiteren generierten Seiten (nicht von Hand editieren!)
-├── loesungen/ vorteile/ ueber-uns/ kontakt/ beratungstermin/
+├── loesungen/ vorteile/ ueber-uns/ einzugsgebiet/ kontakt/ beratungstermin/
 ├── services/{buero,einzelhandel,produktion,veranstaltung,bildung,kindergarten,kommune,andere}/
-├── impressum/ datenschutz/ agb/  404.html  sitemap.xml  robots.txt
+├── energieberatung-{paderborn,bielefeld,guetersloh,detmold,hoexter,lippstadt}/   # lokale Landingpages
+├── impressum/ datenschutz/ agb/  404.html
+├── sitemap.xml  robots.txt  llms.txt  manifest.webmanifest
 └── assets/
     ├── css/style.css   # Design-System (Farb-Tokens, Typo, Komponenten)
     ├── js/main.js      # Mobile-Nav, Scroll-Reveal, Zähler, Formular (mailto)

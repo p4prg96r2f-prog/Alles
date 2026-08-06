@@ -1,0 +1,15 @@
+{
+  "name": "GREEN – Energieberatung für Nichtwohngebäude",
+  "short_name": "GREEN",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#f7f8f4",
+  "theme_color": "#0d3b2a",
+  "icons": [
+    {
+      "src": "/assets/img/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ]
+}
