@@ -6,15 +6,24 @@
   var toggle = document.querySelector('.nav-toggle');
   var nav = document.getElementById('site-nav');
   if (toggle && nav) {
-    toggle.addEventListener('click', function () {
-      var open = nav.classList.toggle('is-open');
+    var setNav = function (open, refocus) {
+      nav.classList.toggle('is-open', open);
       toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      toggle.setAttribute('aria-label', open ? 'Menü schließen' : 'Menü öffnen');
+      if (refocus) toggle.focus();
+    };
+    toggle.addEventListener('click', function () {
+      setNav(!nav.classList.contains('is-open'));
     });
     nav.addEventListener('click', function (e) {
-      if (e.target.closest('a')) {
-        nav.classList.remove('is-open');
-        toggle.setAttribute('aria-expanded', 'false');
-      }
+      if (e.target.closest('a')) setNav(false);
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && nav.classList.contains('is-open')) setNav(false, true);
+    });
+    document.addEventListener('click', function (e) {
+      if (!nav.classList.contains('is-open')) return;
+      if (!nav.contains(e.target) && !toggle.contains(e.target)) setNav(false);
     });
   }
 
@@ -55,7 +64,13 @@
 
   /* Zähler-Animation in KPI-Kacheln */
   var counters = document.querySelectorAll('[data-count]');
-  if (counters.length && 'IntersectionObserver' in window && !reduceMotion) {
+  /* Ohne Animation (reduzierte Bewegung oder fehlender Observer) muss der
+     Endwert sofort dastehen – sonst zeigt die Seite dauerhaft "0". */
+  if (counters.length && (reduceMotion || !('IntersectionObserver' in window))) {
+    counters.forEach(function (el) {
+      el.textContent = el.getAttribute('data-count');
+    });
+  } else if (counters.length) {
     var cio = new IntersectionObserver(
       function (entries) {
         entries.forEach(function (entry) {
@@ -63,6 +78,7 @@
           cio.unobserve(entry.target);
           var el = entry.target;
           var target = parseInt(el.getAttribute('data-count'), 10);
+          el.textContent = '0';
           var start = null;
           var dur = 1100;
           var startVal = 0;
@@ -88,9 +104,45 @@
      (Bei Bedarf einfach durch einen Form-Endpoint ersetzen, siehe README.) */
   var form = document.getElementById('contact-form');
   if (form) {
+    var markErrors = function () {
+      var first = null;
+      Array.prototype.forEach.call(form.elements, function (f) {
+        if (!f.name || f.type === 'submit') return;
+        var wrap = f.closest('.form-field');
+        var msgId = f.id + '-error';
+        var old = document.getElementById(msgId);
+        if (f.checkValidity()) {
+          f.removeAttribute('aria-invalid');
+          f.removeAttribute('aria-describedby');
+          if (old) old.remove();
+          return;
+        }
+        f.setAttribute('aria-invalid', 'true');
+        f.setAttribute('aria-describedby', msgId);
+        if (!old && wrap) {
+          var msg = document.createElement('p');
+          msg.id = msgId;
+          msg.className = 'field-error';
+          msg.textContent = f.validationMessage || 'Bitte prüfen Sie diese Angabe.';
+          wrap.appendChild(msg);
+        } else if (old) {
+          old.textContent = f.validationMessage || 'Bitte prüfen Sie diese Angabe.';
+        }
+        if (!first) first = f;
+      });
+      return first;
+    };
+
     form.addEventListener('submit', function (e) {
       e.preventDefault();
-      if (!form.reportValidity()) return;
+      if (!form.checkValidity()) {
+        var first = markErrors();
+        var status = document.getElementById('form-status');
+        if (status) status.textContent = 'Bitte ergänzen Sie die markierten Pflichtfelder.';
+        if (first) first.focus();
+        return;
+      }
+      markErrors();
 
       var get = function (name) {
         var f = form.elements[name];
@@ -187,6 +239,20 @@
       /* Balken: Ist = 100 %, Nachher anteilig */
       el('r-bar-neu').style.width = Math.max(6, (1 - quote) * 100) + '%';
       el('r-bar-ist').style.width = '100%';
+
+      /* Eine gebündelte Ansage statt sechs einzelner Feldänderungen */
+      var live = el('r-live');
+      if (live) {
+        clearTimeout(rechne._t);
+        rechne._t = setTimeout(function () {
+          live.textContent =
+            'Ergebnis für ' + t.label + ', ' + fmt(flaeche) + ' Quadratmeter: ' +
+            'Energiekosten heute rund ' + eur(kostenIst) + ' pro Jahr, ' +
+            'nach Sanierung rund ' + eur(kostenNeu) + '. ' +
+            'Mögliche Ersparnis ' + eur(sparen) + ' pro Jahr, das entspricht ' +
+            Math.round(quote * 100) + ' Prozent.';
+        }, 700);
+      }
     }
 
     calc.addEventListener('input', rechne);

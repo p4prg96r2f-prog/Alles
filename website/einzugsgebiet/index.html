@@ -28,9 +28,10 @@
   <link rel="manifest" href="../manifest.webmanifest">
   <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
-  <link rel="preload" href="../assets/fonts/bricolage-grotesque-400-800-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="../assets/fonts/ibm-plex-sans-400-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="../assets/css/style.css">
+  <noscript><style>.reveal{opacity:1;transform:none;animation:none}
+    .site-nav{position:static;display:flex;box-shadow:none;border-bottom:0}
+    .nav-toggle{display:none}</style></noscript>
   <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://green-nwg.de/#organization", "name": "GREEN – Energieberatung für Nichtwohngebäude", "legalName": "Green HLB GmbH", "url": "https://green-nwg.de/", "logo": "https://green-nwg.de/assets/img/apple-touch-icon.png", "telephone": "+49 5251 40292910", "email": "info@green-nwg.de", "address": {"@type": "PostalAddress", "streetAddress": "Rolandsweg 80", "postalCode": "33102", "addressLocality": "Paderborn", "addressRegion": "Nordrhein-Westfalen", "addressCountry": "DE"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Start", "item": "https://green-nwg.de/"}, {"@type": "ListItem", "position": 2, "name": "Einzugsgebiet", "item": "https://green-nwg.de/einzugsgebiet/"}]}]}</script>
 </head>
 <body>
@@ -46,7 +47,7 @@
 </svg>
       <span class="brand-name"><b>GREEN</b><span>Energieberatung&nbsp;NWG</span></span>
     </a>
-    <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Menü öffnen">
+    <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Menü öffnen">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
     </button>
     <nav class="site-nav" id="site-nav" aria-label="Hauptnavigation">
@@ -56,7 +57,7 @@
     </nav>
   </div>
 </header>
-  <main id="main">
+  <main id="main" tabindex="-1">
 
 <section class="page-hero">
   <div class="container">
@@ -85,7 +86,7 @@
         <svg viewBox="0 0 480 480" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Karte des Einzugsgebiets: Paderborn im Zentrum, Bielefeld, G&#252;tersloh, Detmold, H&#246;xter und Lippstadt im Umkreis von 75 Kilometern"><circle cx="240" cy="240" r="216" fill="none" stroke="#dbe4dc" stroke-dasharray="4 7"/><text x='240' y='34' text-anchor='middle' font-family='IBM Plex Mono, monospace' letter-spacing='.05em' font-size='9.5' fill='#64796e'>NRW-WEIT T&#196;TIG</text><circle cx="240" cy="240" r="63" fill="none" stroke="#dbe4dc"/><text x='245' y='172' font-family='IBM Plex Mono, monospace' letter-spacing='.05em' font-size='9' fill='#a8c4b2'>25 km</text><circle cx="240" cy="240" r="127" fill="none" stroke="#dbe4dc"/><text x='245' y='108' font-family='IBM Plex Mono, monospace' letter-spacing='.05em' font-size='9' fill='#a8c4b2'>50 km</text><circle cx="240" cy="240" r="190" fill="none" stroke="#dbe4dc"/><text x='245' y='45' font-family='IBM Plex Mono, monospace' letter-spacing='.05em' font-size='9' fill='#a8c4b2'>75 km</text><line x1="240" y1="240" x2="201" y2="133" stroke="#a8c4b2" stroke-dasharray="3 5"/><circle cx="201" cy="133" r="5" fill="#1e5b3f"/><text x='190' y='137' text-anchor='end' font-family='IBM Plex Sans, sans-serif' font-weight='600' font-size='13.5' fill='#14231d'>Bielefeld</text><line x1="240" y1="240" x2="162" y2="175" stroke="#a8c4b2" stroke-dasharray="3 5"/><circle cx="162" cy="175" r="5" fill="#1e5b3f"/><text x='151' y='179' text-anchor='end' font-family='IBM Plex Sans, sans-serif' font-weight='600' font-size='13.5' fill='#14231d'>Gütersloh</text><line x1="240" y1="240" x2="266" y2="169" stroke="#a8c4b2" stroke-dasharray="3 5"/><circle cx="266" cy="169" r="5" fill="#1e5b3f"/><text x='277' y='173' text-anchor='start' font-family='IBM Plex Sans, sans-serif' font-weight='600' font-size='13.5' fill='#14231d'>Detmold</text><line x1="240" y1="240" x2="379" y2="252" stroke="#a8c4b2" stroke-dasharray="3 5"/><circle cx="379" cy="252" r="5" fill="#1e5b3f"/><text x='390' y='257' text-anchor='start' font-family='IBM Plex Sans, sans-serif' font-weight='600' font-size='13.5' fill='#14231d'>Höxter</text><line x1="240" y1="240" x2="164" y2="247" stroke="#a8c4b2" stroke-dasharray="3 5"/><circle cx="164" cy="247" r="5" fill="#1e5b3f"/><text x='153' y='251' text-anchor='end' font-family='IBM Plex Sans, sans-serif' font-weight='600' font-size='13.5' fill='#14231d'>Lippstadt</text><rect x="234" y="234" width="12" height="12" rx="3" fill="#e8a33d" stroke="#0d3b2a" stroke-width="2"/><text x='240' y='266' text-anchor='middle' font-family='IBM Plex Sans, sans-serif' font-weight='600' font-size='13.5' fill='#0d3b2a'>Paderborn</text><text x='240' y='281' text-anchor='middle' font-family='IBM Plex Mono, monospace' letter-spacing='.05em' font-size='8.5' fill='#64796e'>B&#220;RO &#183; ROLANDSWEG 80</text></svg>
         <figcaption>Einzugsgebiet ab Büro Paderborn – Entfernungen ca. (Straße)</figcaption>
       </figure>
-      <figure class="photo illus--pad"><img src="../assets/img/fotos/nichtwohngebaeude-1000.webp" srcset="../assets/img/fotos/nichtwohngebaeude-500.webp 500w, ../assets/img/fotos/nichtwohngebaeude-1000.webp 1000w" sizes="(max-width: 860px) 92vw, 46vw" width="1000" height="562" alt="Moderne Glasfassade eines mehrgeschossigen Nichtwohngebäudes" loading="lazy" decoding="async"></figure>
+      <figure class="photo illus--pad"><img src="../assets/img/fotos/nichtwohngebaeude-700.webp" srcset="../assets/img/fotos/nichtwohngebaeude-350.webp 350w, ../assets/img/fotos/nichtwohngebaeude-700.webp 700w, ../assets/img/fotos/nichtwohngebaeude-1000.webp 1000w" sizes="(max-width: 860px) calc(100vw - 2.5rem), 540px" width="1000" height="562" alt="Moderne Glasfassade eines mehrgeschossigen Nichtwohngebäudes" loading="lazy" decoding="async"></figure>
     </div>
   </div>
 </section>

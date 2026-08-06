@@ -2,6 +2,14 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url><loc>https://green-nwg.de/</loc><lastmod>2026-08-06</lastmod><changefreq>monthly</changefreq><priority>1.0</priority>
+    <image:image><image:loc>https://green-nwg.de/assets/img/fotos/bildung-1000.webp</image:loc><image:title>Bürogebäude mit großflächiger Glasfassade und Gewerbeflächen</image:title></image:image>
+    <image:image><image:loc>https://green-nwg.de/assets/img/fotos/buero-1000.webp</image:loc><image:title>Hell beleuchtete Obst- und Gemüseabteilung in einem Supermarkt</image:title></image:image>
+    <image:image><image:loc>https://green-nwg.de/assets/img/fotos/einzelhandel-1000.webp</image:loc><image:title>Automatisierte Fertigungslinie mit Industrierobotern in einer Produktionshalle</image:title></image:image>
+    <image:image><image:loc>https://green-nwg.de/assets/img/fotos/kindergarten-1000.webp</image:loc><image:title>Bestuhlter Saal einer Veranstaltungsstätte mit ansteigenden Sitzreihen</image:title></image:image>
+    <image:image><image:loc>https://green-nwg.de/assets/img/fotos/kommune-1000.webp</image:loc><image:title>Moderner Campusbau einer Bildungseinrichtung mit Glas- und Ziegelfassade</image:title></image:image>
+    <image:image><image:loc>https://green-nwg.de/assets/img/fotos/logistik-1000.webp</image:loc><image:title>Heller Gruppenraum einer Kindertagesstätte</image:title></image:image>
+    <image:image><image:loc>https://green-nwg.de/assets/img/fotos/produktion-1000.webp</image:loc><image:title>Historisches Rathaus an einem innerstädtischen Platz</image:title></image:image>
+    <image:image><image:loc>https://green-nwg.de/assets/img/fotos/veranstaltung-1000.webp</image:loc><image:title>Regallager mit Hallenbeleuchtung und Mitarbeiter bei der Kommissionierung</image:title></image:image>
   </url>
   <url><loc>https://green-nwg.de/agb/</loc><lastmod>2026-08-06</lastmod><changefreq>monthly</changefreq><priority>0.9</priority>
   </url>
@@ -50,6 +58,14 @@
   <url><loc>https://green-nwg.de/kontakt/</loc><lastmod>2026-08-06</lastmod><changefreq>monthly</changefreq><priority>0.9</priority>
   </url>
   <url><loc>https://green-nwg.de/loesungen/</loc><lastmod>2026-08-06</lastmod><changefreq>monthly</changefreq><priority>0.9</priority>
+    <image:image><image:loc>https://green-nwg.de/assets/img/fotos/bildung-1000.webp</image:loc><image:title>Bürogebäude mit großflächiger Glasfassade und Gewerbeflächen</image:title></image:image>
+    <image:image><image:loc>https://green-nwg.de/assets/img/fotos/buero-1000.webp</image:loc><image:title>Hell beleuchtete Obst- und Gemüseabteilung in einem Supermarkt</image:title></image:image>
+    <image:image><image:loc>https://green-nwg.de/assets/img/fotos/einzelhandel-1000.webp</image:loc><image:title>Automatisierte Fertigungslinie mit Industrierobotern in einer Produktionshalle</image:title></image:image>
+    <image:image><image:loc>https://green-nwg.de/assets/img/fotos/kindergarten-1000.webp</image:loc><image:title>Bestuhlter Saal einer Veranstaltungsstätte mit ansteigenden Sitzreihen</image:title></image:image>
+    <image:image><image:loc>https://green-nwg.de/assets/img/fotos/kommune-1000.webp</image:loc><image:title>Moderner Campusbau einer Bildungseinrichtung mit Glas- und Ziegelfassade</image:title></image:image>
+    <image:image><image:loc>https://green-nwg.de/assets/img/fotos/logistik-1000.webp</image:loc><image:title>Heller Gruppenraum einer Kindertagesstätte</image:title></image:image>
+    <image:image><image:loc>https://green-nwg.de/assets/img/fotos/produktion-1000.webp</image:loc><image:title>Historisches Rathaus an einem innerstädtischen Platz</image:title></image:image>
+    <image:image><image:loc>https://green-nwg.de/assets/img/fotos/veranstaltung-1000.webp</image:loc><image:title>Regallager mit Hallenbeleuchtung und Mitarbeiter bei der Kommissionierung</image:title></image:image>
   </url>
   <url><loc>https://green-nwg.de/services/andere/</loc><lastmod>2026-08-06</lastmod><changefreq>monthly</changefreq><priority>0.7</priority>
     <image:image><image:loc>https://green-nwg.de/assets/img/fotos/logistik-1000.webp</image:loc><image:title>Regallager mit Hallenbeleuchtung und Mitarbeiter bei der Kommissionierung</image:title></image:image>

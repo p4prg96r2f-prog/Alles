@@ -28,9 +28,10 @@
   <link rel="manifest" href="../manifest.webmanifest">
   <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
-  <link rel="preload" href="../assets/fonts/bricolage-grotesque-400-800-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="../assets/fonts/ibm-plex-sans-400-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="../assets/css/style.css">
+  <noscript><style>.reveal{opacity:1;transform:none;animation:none}
+    .site-nav{position:static;display:flex;box-shadow:none;border-bottom:0}
+    .nav-toggle{display:none}</style></noscript>
   <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://green-nwg.de/#organization", "name": "GREEN – Energieberatung für Nichtwohngebäude", "legalName": "Green HLB GmbH", "url": "https://green-nwg.de/", "logo": "https://green-nwg.de/assets/img/apple-touch-icon.png", "telephone": "+49 5251 40292910", "email": "info@green-nwg.de", "address": {"@type": "PostalAddress", "streetAddress": "Rolandsweg 80", "postalCode": "33102", "addressLocality": "Paderborn", "addressRegion": "Nordrhein-Westfalen", "addressCountry": "DE"}}, {"@type": "Service", "name": "Energieberatung für Nichtwohngebäude in Detmold", "serviceType": "Energieberatung", "url": "https://green-nwg.de/energieberatung-detmold/", "provider": {"@id": "https://green-nwg.de/#organization"}, "areaServed": {"@type": "City", "name": "Detmold"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Start", "item": "https://green-nwg.de/"}, {"@type": "ListItem", "position": 2, "name": "Einzugsgebiet", "item": "https://green-nwg.de/einzugsgebiet/"}, {"@type": "ListItem", "position": 3, "name": "Detmold", "item": "https://green-nwg.de/energieberatung-detmold/"}]}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Berät GREEN auch bei denkmalgeschützten Gebäuden?", "acceptedAnswer": {"@type": "Answer", "text": "Ja – gerade im lippischen Bestand ist das häufig gefragt. Wir entwickeln Maßnahmen, die Effizienz und Denkmalschutz vereinbaren, und stimmen das Vorgehen auf Wunsch mit den zuständigen Behörden ab."}}, {"@type": "Question", "name": "Ist GREEN im gesamten Kreis Lippe tätig?", "acceptedAnswer": {"@type": "Answer", "text": "Ja – neben Detmold zum Beispiel in Lemgo, Lage, Bad Salzuflen und Blomberg. Ortstermine vereinbaren wir kurzfristig."}}]}]}</script>
 </head>
 <body>
@@ -46,7 +47,7 @@
 </svg>
       <span class="brand-name"><b>GREEN</b><span>Energieberatung&nbsp;NWG</span></span>
     </a>
-    <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Menü öffnen">
+    <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Menü öffnen">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
     </button>
     <nav class="site-nav" id="site-nav" aria-label="Hauptnavigation">
@@ -56,7 +57,7 @@
     </nav>
   </div>
 </header>
-  <main id="main">
+  <main id="main" tabindex="-1">
 
 <section class="page-hero">
   <div class="container">

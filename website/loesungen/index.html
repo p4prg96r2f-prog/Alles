@@ -28,9 +28,10 @@
   <link rel="manifest" href="../manifest.webmanifest">
   <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
-  <link rel="preload" href="../assets/fonts/bricolage-grotesque-400-800-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="../assets/fonts/ibm-plex-sans-400-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="../assets/css/style.css">
+  <noscript><style>.reveal{opacity:1;transform:none;animation:none}
+    .site-nav{position:static;display:flex;box-shadow:none;border-bottom:0}
+    .nav-toggle{display:none}</style></noscript>
   <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://green-nwg.de/#organization", "name": "GREEN – Energieberatung für Nichtwohngebäude", "legalName": "Green HLB GmbH", "url": "https://green-nwg.de/", "logo": "https://green-nwg.de/assets/img/apple-touch-icon.png", "telephone": "+49 5251 40292910", "email": "info@green-nwg.de", "address": {"@type": "PostalAddress", "streetAddress": "Rolandsweg 80", "postalCode": "33102", "addressLocality": "Paderborn", "addressRegion": "Nordrhein-Westfalen", "addressCountry": "DE"}}, {"@type": "CollectionPage", "name": "Branchenlösungen der Energieberatung", "url": "https://green-nwg.de/loesungen/", "inLanguage": "de", "mainEntity": {"@type": "ItemList", "numberOfItems": 8, "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Bürogebäude", "url": "https://green-nwg.de/services/buero/"}, {"@type": "ListItem", "position": 2, "name": "Einzelhandel", "url": "https://green-nwg.de/services/einzelhandel/"}, {"@type": "ListItem", "position": 3, "name": "Produktionsstätten", "url": "https://green-nwg.de/services/produktion/"}, {"@type": "ListItem", "position": 4, "name": "Veranstaltungsstätten", "url": "https://green-nwg.de/services/veranstaltung/"}, {"@type": "ListItem", "position": 5, "name": "Bildungseinrichtungen", "url": "https://green-nwg.de/services/bildung/"}, {"@type": "ListItem", "position": 6, "name": "Kindergärten", "url": "https://green-nwg.de/services/kindergarten/"}, {"@type": "ListItem", "position": 7, "name": "Kommunale Gebäude", "url": "https://green-nwg.de/services/kommune/"}, {"@type": "ListItem", "position": 8, "name": "Weitere Nichtwohngebäude", "url": "https://green-nwg.de/services/andere/"}]}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Start", "item": "https://green-nwg.de/"}, {"@type": "ListItem", "position": 2, "name": "Lösungen", "item": "https://green-nwg.de/loesungen/"}]}]}</script>
 </head>
 <body>
@@ -46,7 +47,7 @@
 </svg>
       <span class="brand-name"><b>GREEN</b><span>Energieberatung&nbsp;NWG</span></span>
     </a>
-    <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Menü öffnen">
+    <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Menü öffnen">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
     </button>
     <nav class="site-nav" id="site-nav" aria-label="Hauptnavigation">
@@ -56,7 +57,7 @@
     </nav>
   </div>
 </header>
-  <main id="main">
+  <main id="main" tabindex="-1">
 
 <section class="page-hero">
   <div class="container">
@@ -83,56 +84,56 @@
       typischen Energiefresser und die passenden Maßnahmen zu sehen.</p>
     </div>
     <div class="card-grid card-grid--wide"><a class="card card--photo reveal" href="../services/buero/">
-      <img src="../assets/img/fotos/buero-500.webp" srcset="../assets/img/fotos/buero-500.webp 500w, ../assets/img/fotos/buero-1000.webp 1000w" sizes="(max-width: 700px) 92vw, 30vw" width="1000" height="562" alt="Bürogebäude mit großflächiger Glasfassade und Gewerbeflächen" loading="lazy" decoding="async">
+      <img src="../assets/img/fotos/buero-350.webp" srcset="../assets/img/fotos/buero-350.webp 350w, ../assets/img/fotos/buero-700.webp 700w, ../assets/img/fotos/buero-1000.webp 1000w" sizes="(max-width: 700px) calc(100vw - 2.5rem), 280px" width="1000" height="562" alt="Bürogebäude mit großflächiger Glasfassade und Gewerbeflächen" loading="lazy" decoding="async">
       <div class="card-body">
         <h3>Bürogebäude</h3>
         <p>LED, Lüftung, Kühlung, IT: In Büros stecken die größten Sparpotenziale in der Technik – oft ohne Komfortverlust.</p>
         <span class="card-more">Zur Branchenlösung <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span>
       </div>
     </a><a class="card card--photo reveal" href="../services/einzelhandel/">
-      <img src="../assets/img/fotos/einzelhandel-500.webp" srcset="../assets/img/fotos/einzelhandel-500.webp 500w, ../assets/img/fotos/einzelhandel-1000.webp 1000w" sizes="(max-width: 700px) 92vw, 30vw" width="1000" height="562" alt="Hell beleuchtete Obst- und Gemüseabteilung in einem Supermarkt" loading="lazy" decoding="async">
+      <img src="../assets/img/fotos/einzelhandel-350.webp" srcset="../assets/img/fotos/einzelhandel-350.webp 350w, ../assets/img/fotos/einzelhandel-700.webp 700w, ../assets/img/fotos/einzelhandel-1000.webp 1000w" sizes="(max-width: 700px) calc(100vw - 2.5rem), 280px" width="1000" height="562" alt="Hell beleuchtete Obst- und Gemüseabteilung in einem Supermarkt" loading="lazy" decoding="async">
       <div class="card-body">
         <h3>Einzelhandel</h3>
         <p>Kühlung, Licht und lange Öffnungszeiten treiben die Kosten – wir senken sie, ohne das Einkaufserlebnis zu verändern.</p>
         <span class="card-more">Zur Branchenlösung <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span>
       </div>
     </a><a class="card card--photo reveal" href="../services/produktion/">
-      <img src="../assets/img/fotos/produktion-500.webp" srcset="../assets/img/fotos/produktion-500.webp 500w, ../assets/img/fotos/produktion-1000.webp 1000w" sizes="(max-width: 700px) 92vw, 30vw" width="1000" height="562" alt="Automatisierte Fertigungslinie mit Industrierobotern in einer Produktionshalle" loading="lazy" decoding="async">
+      <img src="../assets/img/fotos/produktion-350.webp" srcset="../assets/img/fotos/produktion-350.webp 350w, ../assets/img/fotos/produktion-700.webp 700w, ../assets/img/fotos/produktion-1000.webp 1000w" sizes="(max-width: 700px) calc(100vw - 2.5rem), 280px" width="1000" height="562" alt="Automatisierte Fertigungslinie mit Industrierobotern in einer Produktionshalle" loading="lazy" decoding="async">
       <div class="card-body">
         <h3>Produktionsstätten</h3>
         <p>Druckluft, Prozesswärme, Abwärme: In Industriehallen liegen die größten absoluten Einsparungen – wir finden sie.</p>
         <span class="card-more">Zur Branchenlösung <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span>
       </div>
     </a><a class="card card--photo reveal" href="../services/veranstaltung/">
-      <img src="../assets/img/fotos/veranstaltung-500.webp" srcset="../assets/img/fotos/veranstaltung-500.webp 500w, ../assets/img/fotos/veranstaltung-1000.webp 1000w" sizes="(max-width: 700px) 92vw, 30vw" width="1000" height="562" alt="Bestuhlter Saal einer Veranstaltungsstätte mit ansteigenden Sitzreihen" loading="lazy" decoding="async">
+      <img src="../assets/img/fotos/veranstaltung-350.webp" srcset="../assets/img/fotos/veranstaltung-350.webp 350w, ../assets/img/fotos/veranstaltung-700.webp 700w, ../assets/img/fotos/veranstaltung-1000.webp 1000w" sizes="(max-width: 700px) calc(100vw - 2.5rem), 280px" width="1000" height="562" alt="Bestuhlter Saal einer Veranstaltungsstätte mit ansteigenden Sitzreihen" loading="lazy" decoding="async">
       <div class="card-body">
         <h3>Veranstaltungsstätten</h3>
         <p>Riesige Volumina, kurze Spitzen: Hallen und Säle brauchen Energiekonzepte für den Wechsel zwischen Vollbetrieb und Leerstand.</p>
         <span class="card-more">Zur Branchenlösung <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span>
       </div>
     </a><a class="card card--photo reveal" href="../services/bildung/">
-      <img src="../assets/img/fotos/bildung-500.webp" srcset="../assets/img/fotos/bildung-500.webp 500w, ../assets/img/fotos/bildung-1000.webp 1000w" sizes="(max-width: 700px) 92vw, 30vw" width="1000" height="562" alt="Moderner Campusbau einer Bildungseinrichtung mit Glas- und Ziegelfassade" loading="lazy" decoding="async">
+      <img src="../assets/img/fotos/bildung-350.webp" srcset="../assets/img/fotos/bildung-350.webp 350w, ../assets/img/fotos/bildung-700.webp 700w, ../assets/img/fotos/bildung-1000.webp 1000w" sizes="(max-width: 700px) calc(100vw - 2.5rem), 280px" width="1000" height="562" alt="Moderner Campusbau einer Bildungseinrichtung mit Glas- und Ziegelfassade" loading="lazy" decoding="async">
       <div class="card-body">
         <h3>Bildungseinrichtungen</h3>
         <p>Schulen und Hochschulen: Sanierungsstau auflösen, Lernklima verbessern und Fördermittel maximal ausschöpfen.</p>
         <span class="card-more">Zur Branchenlösung <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span>
       </div>
     </a><a class="card card--photo reveal" href="../services/kindergarten/">
-      <img src="../assets/img/fotos/kindergarten-500.webp" srcset="../assets/img/fotos/kindergarten-500.webp 500w, ../assets/img/fotos/kindergarten-1000.webp 1000w" sizes="(max-width: 700px) 92vw, 30vw" width="1000" height="562" alt="Heller Gruppenraum einer Kindertagesstätte" loading="lazy" decoding="async">
+      <img src="../assets/img/fotos/kindergarten-350.webp" srcset="../assets/img/fotos/kindergarten-350.webp 350w, ../assets/img/fotos/kindergarten-700.webp 700w, ../assets/img/fotos/kindergarten-1000.webp 1000w" sizes="(max-width: 700px) calc(100vw - 2.5rem), 280px" width="1000" height="562" alt="Heller Gruppenraum einer Kindertagesstätte" loading="lazy" decoding="async">
       <div class="card-body">
         <h3>Kindergärten</h3>
         <p>Behagliche Räume für die Kleinsten – bei Heizkosten, die den Träger nicht überfordern.</p>
         <span class="card-more">Zur Branchenlösung <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span>
       </div>
     </a><a class="card card--photo reveal" href="../services/kommune/">
-      <img src="../assets/img/fotos/kommune-500.webp" srcset="../assets/img/fotos/kommune-500.webp 500w, ../assets/img/fotos/kommune-1000.webp 1000w" sizes="(max-width: 700px) 92vw, 30vw" width="1000" height="562" alt="Historisches Rathaus an einem innerstädtischen Platz" loading="lazy" decoding="async">
+      <img src="../assets/img/fotos/kommune-350.webp" srcset="../assets/img/fotos/kommune-350.webp 350w, ../assets/img/fotos/kommune-700.webp 700w, ../assets/img/fotos/kommune-1000.webp 1000w" sizes="(max-width: 700px) calc(100vw - 2.5rem), 280px" width="1000" height="562" alt="Historisches Rathaus an einem innerstädtischen Platz" loading="lazy" decoding="async">
       <div class="card-body">
         <h3>Kommunale Gebäude</h3>
         <p>Rathaus, Bauhof, Feuerwehr: Wir bringen Struktur in den kommunalen Gebäudebestand – vom Portfolio bis zum Förderantrag.</p>
         <span class="card-more">Zur Branchenlösung <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span>
       </div>
     </a><a class="card card--photo reveal" href="../services/andere/">
-      <img src="../assets/img/fotos/logistik-500.webp" srcset="../assets/img/fotos/logistik-500.webp 500w, ../assets/img/fotos/logistik-1000.webp 1000w" sizes="(max-width: 700px) 92vw, 30vw" width="1000" height="562" alt="Regallager mit Hallenbeleuchtung und Mitarbeiter bei der Kommissionierung" loading="lazy" decoding="async">
+      <img src="../assets/img/fotos/logistik-350.webp" srcset="../assets/img/fotos/logistik-350.webp 350w, ../assets/img/fotos/logistik-700.webp 700w, ../assets/img/fotos/logistik-1000.webp 1000w" sizes="(max-width: 700px) calc(100vw - 2.5rem), 280px" width="1000" height="562" alt="Regallager mit Hallenbeleuchtung und Mitarbeiter bei der Kommissionierung" loading="lazy" decoding="async">
       <div class="card-body">
         <h3>Weitere Nichtwohngebäude</h3>
         <p>Hotel, Praxis, Sporthalle, Logistik oder Kirche: Wenn Ihr Gebäude kein Wohnhaus ist, sind wir die richtigen Ansprechpartner.</p>

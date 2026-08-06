@@ -23,26 +23,29 @@ with open(os.path.join(ROOT, "photos.json"), encoding="utf-8") as _f:
 PHOTO_W, PHOTO_H = 1000, 562
 
 
-def photo(name, p, caption=None, cls="", sizes="(max-width: 860px) 92vw, 46vw", eager=False):
-    """Responsives Foto mit srcset, fester Größe (kein Layout-Shift) und Alt-Text."""
+def photo(name, p, caption=None, cls="", sizes="(max-width: 860px) calc(100vw - 2.5rem), 540px", eager=False):
+    """Responsives Foto. Drei Kandidaten, damit kleine Boxen keine 1000-px-Datei ziehen."""
     ph = PHOTOS[name]
     base = f"{p}assets/img/fotos/{name}"
     loading = "" if eager else ' loading="lazy" decoding="async"'
     fetch = ' fetchpriority="high"' if eager else ""
     img = (
-        f'<img src="{base}-1000.webp" srcset="{base}-500.webp 500w, {base}-1000.webp 1000w" '
+        f'<img src="{base}-700.webp" '
+        f'srcset="{base}-350.webp 350w, {base}-700.webp 700w, {base}-1000.webp 1000w" '
         f'sizes="{sizes}" width="{PHOTO_W}" height="{PHOTO_H}" alt="{ph["alt"]}"{loading}{fetch}>'
     )
     cap = f"<figcaption>{caption}</figcaption>" if caption else ""
     return f'<figure class="photo {cls}">{img}{cap}</figure>'
 
 
-def photo_img(name, p, sizes="(max-width: 700px) 92vw, 30vw"):
-    """Nacktes <img> für Karten (ohne figure-Rahmen)."""
+def photo_img(name, p, sizes="(max-width: 700px) calc(100vw - 2.5rem), 280px"):
+    """Nacktes <img> für Karten. sizes entspricht der echten Kachelbreite (~258 px),
+    nicht einer groben vw-Schätzung – sonst lädt der Browser unnötig große Dateien."""
     ph = PHOTOS[name]
     base = f"{p}assets/img/fotos/{name}"
     return (
-        f'<img src="{base}-500.webp" srcset="{base}-500.webp 500w, {base}-1000.webp 1000w" '
+        f'<img src="{base}-350.webp" '
+        f'srcset="{base}-350.webp 350w, {base}-700.webp 700w, {base}-1000.webp 1000w" '
         f'sizes="{sizes}" width="{PHOTO_W}" height="{PHOTO_H}" alt="{ph["alt"]}" '
         f'loading="lazy" decoding="async">'
     )
@@ -286,7 +289,7 @@ def header(p, active):
       {LOGO_MARK}
       <span class="brand-name"><b>GREEN</b><span>Energieberatung&nbsp;NWG</span></span>
     </a>
-    <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Menü öffnen">
+    <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Menü öffnen">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
     </button>
     <nav class="site-nav" id="site-nav" aria-label="Hauptnavigation">
@@ -447,15 +450,16 @@ def page(path, title, desc, body, active="", schema=None, depth=None,
   <link rel="manifest" href="{p}manifest.webmanifest">
   <link rel="icon" href="{p}assets/img/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="{p}assets/img/apple-touch-icon.png">
-  <link rel="preload" href="{p}assets/fonts/bricolage-grotesque-400-800-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="{p}assets/fonts/ibm-plex-sans-400-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="{p}assets/css/style.css">
+  <noscript><style>.reveal{{opacity:1;transform:none;animation:none}}
+    .site-nav{{position:static;display:flex;box-shadow:none;border-bottom:0}}
+    .nav-toggle{{display:none}}</style></noscript>
   {schema_tag}
 </head>
 <body>
   <a class="skip-link" href="#main">Zum Inhalt springen</a>
   {header(p, active)}
-  <main id="main">
+  <main id="main" tabindex="-1">
 {body}
   </main>
   {footer(p)}
@@ -656,10 +660,10 @@ def render_home():
 <section class="kpi-band" aria-label="Kennzahlen">
   <div class="container">
     <div class="kpi-grid">
-      <div class="kpi reveal"><div class="kpi-value"><span data-count="80">0</span><span class="unit">+</span></div><div class="kpi-label">betreute Objekte</div></div>
-      <div class="kpi reveal reveal-d1"><div class="kpi-value">−<span data-count="70">0</span><span class="unit">%</span></div><div class="kpi-label">Energiekosten möglich</div></div>
-      <div class="kpi reveal reveal-d2"><div class="kpi-value"><span data-count="50">0</span><span class="unit">%</span></div><div class="kpi-label">Förderung der Beratung</div></div>
-      <div class="kpi reveal reveal-d3"><div class="kpi-value"><span data-count="10">0</span><span class="unit">+ Jahre</span></div><div class="kpi-label">Erfahrung mit NWG</div></div>
+      <div class="kpi reveal"><div class="kpi-value"><span data-count="80">80</span><span class="unit">+</span></div><div class="kpi-label">betreute Objekte</div></div>
+      <div class="kpi reveal reveal-d1"><div class="kpi-value">−<span data-count="70">70</span><span class="unit">%</span></div><div class="kpi-label">Energiekosten möglich</div></div>
+      <div class="kpi reveal reveal-d2"><div class="kpi-value"><span data-count="50">50</span><span class="unit">%</span></div><div class="kpi-label">Förderung der Beratung</div></div>
+      <div class="kpi reveal reveal-d3"><div class="kpi-value"><span data-count="10">10</span><span class="unit">+ Jahre</span></div><div class="kpi-label">Erfahrung mit NWG</div></div>
     </div>
   </div>
 </section>
@@ -1252,10 +1256,10 @@ def render_ueber_uns():
 <section class="kpi-band" aria-label="Kennzahlen">
   <div class="container">
     <div class="kpi-grid">
-      <div class="kpi reveal"><div class="kpi-value"><span data-count="80">0</span><span class="unit">+</span></div><div class="kpi-label">betreute Objekte</div></div>
-      <div class="kpi reveal reveal-d1"><div class="kpi-value">−<span data-count="70">0</span><span class="unit">%</span></div><div class="kpi-label">Energiekosten erreicht</div></div>
-      <div class="kpi reveal reveal-d2"><div class="kpi-value">−<span data-count="80">0</span><span class="unit">%</span></div><div class="kpi-label">CO₂-Ausstoß erreicht</div></div>
-      <div class="kpi reveal reveal-d3"><div class="kpi-value"><span data-count="10">0</span><span class="unit">+ Jahre</span></div><div class="kpi-label">Erfahrung</div></div>
+      <div class="kpi reveal"><div class="kpi-value"><span data-count="80">80</span><span class="unit">+</span></div><div class="kpi-label">betreute Objekte</div></div>
+      <div class="kpi reveal reveal-d1"><div class="kpi-value">−<span data-count="70">70</span><span class="unit">%</span></div><div class="kpi-label">Energiekosten erreicht</div></div>
+      <div class="kpi reveal reveal-d2"><div class="kpi-value">−<span data-count="80">80</span><span class="unit">%</span></div><div class="kpi-label">CO₂-Ausstoß erreicht</div></div>
+      <div class="kpi reveal reveal-d3"><div class="kpi-value"><span data-count="10">10</span><span class="unit">+ Jahre</span></div><div class="kpi-label">Erfahrung</div></div>
     </div>
   </div>
 </section>
@@ -1388,6 +1392,8 @@ def render_kontakt():
     </div>
     <div class="reveal reveal-d1">
       <form class="form" id="contact-form" novalidate>
+        <p class="form-hint" style="margin:0 0 1rem">Mit <span class="req">*</span>
+        gekennzeichnete Felder sind Pflichtfelder.</p>
         <div class="form-grid">
           <div class="form-field">
             <label for="f-name">Name <span class="req" aria-hidden="true">*</span></label>
@@ -1485,6 +1491,8 @@ def render_termin():
     </div>
     <div class="reveal reveal-d1">
       <form class="form" id="contact-form" novalidate>
+        <p class="form-hint" style="margin:0 0 1rem">Mit <span class="req">*</span>
+        gekennzeichnete Felder sind Pflichtfelder.</p>
         <div class="form-grid">
           <div class="form-field">
             <label for="f-name">Name <span class="req" aria-hidden="true">*</span></label>
@@ -1604,6 +1612,7 @@ def render_rechner():
       <div class="calc-result reveal reveal-d1">
         <p class="calc-headline-label">Mögliche Ersparnis pro Jahr</p>
         <p class="calc-headline" id="r-sparen">–</p>
+        <p id="r-live" class="visually-hidden" role="status" aria-live="polite"></p>
 
         <div class="calc-bars">
           <div class="calc-bar-row">
@@ -1773,9 +1782,9 @@ def render_gmodg():
   </div>
   <div class="container illus--pad">
     <div class="photo-band">
-      {photo("gebaeudehuelle", p)}
-      {photo("nichtwohngebaeude", p)}
-      {photo("solarpark", p)}
+      {photo("gebaeudehuelle", p, sizes="(max-width: 700px) calc(100vw - 2.5rem), 360px")}
+      {photo("nichtwohngebaeude", p, sizes="(max-width: 700px) calc(100vw - 2.5rem), 360px")}
+      {photo("solarpark", p, sizes="(max-width: 700px) calc(100vw - 2.5rem), 360px")}
     </div>
   </div>
 </section>
@@ -1790,7 +1799,8 @@ def render_gmodg():
     </div>
     <div class="table-wrap reveal">
       <table class="data-table">
-        <thead><tr><th>Thema</th><th>GEG (bis 2026)</th><th>GModG (seit 29.07.2026)</th></tr></thead>
+        <caption>Gegenüberstellung der Anforderungen von GEG und GModG für Nichtwohngebäude</caption>
+        <thead><tr><th scope="col">Thema</th><th scope="col">GEG (bis 2026)</th><th scope="col">GModG (seit 29.07.2026)</th></tr></thead>
         <tbody>
           <tr><td>Neue Heizungen</td><td>65 % erneuerbare Energien vorgeschrieben</td>
               <td>Technologieoffen; Gas und Öl erlaubt, dafür Bio-Treppe 10 % (2029) bis 60 % (2040)</td></tr>
@@ -1938,11 +1948,12 @@ def render_foerderung():
     </div>
     <div class="table-wrap reveal">
       <table class="data-table">
-        <thead><tr><th>Nettogrundfläche</th><th>Fördersatz</th><th>Maximaler Zuschuss</th></tr></thead>
+        <caption>Fördersätze und Höchstbeträge der EBN nach Nettogrundfläche</caption>
+        <thead><tr><th scope="col">Nettogrundfläche</th><th scope="col">Fördersatz</th><th scope="col">Maximaler Zuschuss</th></tr></thead>
         <tbody>
-          <tr><td>unter 200 m²</td><td>50 %</td><td>850 €</td></tr>
-          <tr><td>200 – 500 m²</td><td>50 %</td><td>2.500 €</td></tr>
-          <tr><td>über 500 m²</td><td>50 %</td><td>4.000 €</td></tr>
+          <tr><th scope="row">unter 200 m²</th><td>50 %</td><td>850 €</td></tr>
+          <tr><th scope="row">200 – 500 m²</th><td>50 %</td><td>2.500 €</td></tr>
+          <tr><th scope="row">über 500 m²</th><td>50 %</td><td>4.000 €</td></tr>
         </tbody>
       </table>
     </div>
@@ -2113,7 +2124,8 @@ def render_energieausweis():
     </div>
     <div class="table-wrap reveal">
       <table class="data-table">
-        <thead><tr><th>Kriterium</th><th>Bedarfsausweis</th><th>Verbrauchsausweis</th></tr></thead>
+        <caption>Bedarfsausweis und Verbrauchsausweis im Vergleich</caption>
+        <thead><tr><th scope="col">Kriterium</th><th scope="col">Bedarfsausweis</th><th scope="col">Verbrauchsausweis</th></tr></thead>
         <tbody>
           <tr><td>Grundlage</td><td>Berechnete Bilanz nach DIN V 18599</td><td>Abrechnungen der letzten Jahre</td></tr>
           <tr><td>Einfluss der Nutzung</td><td>Neutralisiert – normierte Randbedingungen</td><td>Hoch – Ergebnis schwankt mit dem Verhalten</td></tr>
@@ -2829,7 +2841,8 @@ def render_bildnachweis():
     {COMPANY['name']}</strong>.</p>
     <div style="overflow-x:auto">
       <table class="data-table">
-        <thead><tr><th>Motiv</th><th>Urheber</th><th>Lizenz</th><th>Quelle</th></tr></thead>
+        <caption>Urheber, Lizenz und Quelle der verwendeten Fotografien</caption>
+        <thead><tr><th scope="col">Motiv</th><th scope="col">Urheber</th><th scope="col">Lizenz</th><th scope="col">Quelle</th></tr></thead>
         <tbody>{''.join(rows)}</tbody>
       </table>
     </div>
@@ -2893,8 +2906,10 @@ def render_sitemap(paths, pages, lastmod):
     for path in paths:
         key = (path + "index.html") if path else "index.html"
         html = pages.get(key, "")
-        imgs = sorted(set(_re.findall(r'src="(?:\.\./)*(assets/img/fotos/[^"]+-1000\.webp)"', html)))
-        alts = _re.findall(r'src="(?:\.\./)*assets/img/fotos/[^"]+-1000\.webp"[^>]*?alt="([^"]*)"', html)
+        imgs = sorted(set(
+            n.replace("-350.webp", "-1000.webp").replace("-700.webp", "-1000.webp")
+            for n in _re.findall(r'src="(?:\.\./)*(assets/img/fotos/[^"]+\.webp)"', html)))
+        alts = _re.findall(r'src="(?:\.\./)*assets/img/fotos/[^"]+\.webp"[^>]*?alt="([^"]*)"', html)
         img_xml = "".join(
             f"\n    <image:image><image:loc>{BASE}/{u}</image:loc>"
             f"<image:title>{alts[i] if i < len(alts) else ''}</image:title></image:image>"

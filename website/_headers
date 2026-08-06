@@ -7,8 +7,22 @@
   Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'
   Strict-Transport-Security: max-age=31536000; includeSubDomains
 
-/assets/*
+# Schriften und Fotos sind inhaltsstabil: Ändert sich ein Motiv, ändert sich
+# auch der Dateiname. Sie dürfen daher dauerhaft zwischengespeichert werden.
+/assets/fonts/*
   Cache-Control: public, max-age=31536000, immutable
+
+/assets/img/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# CSS und JS tragen KEINEN Inhalts-Hash im Dateinamen. Mit "immutable" würden
+# wiederkehrende Besucher nach einem Deploy bis zu einem Jahr die alte Version
+# sehen. Deshalb kurz cachen und danach revalidieren.
+/assets/css/*
+  Cache-Control: public, max-age=3600, must-revalidate
+
+/assets/js/*
+  Cache-Control: public, max-age=3600, must-revalidate
 
 /sitemap.xml
   Cache-Control: public, max-age=3600

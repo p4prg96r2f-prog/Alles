@@ -28,9 +28,10 @@
   <link rel="manifest" href="../manifest.webmanifest">
   <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
-  <link rel="preload" href="../assets/fonts/bricolage-grotesque-400-800-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="../assets/fonts/ibm-plex-sans-400-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="../assets/css/style.css">
+  <noscript><style>.reveal{opacity:1;transform:none;animation:none}
+    .site-nav{position:static;display:flex;box-shadow:none;border-bottom:0}
+    .nav-toggle{display:none}</style></noscript>
   <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://green-nwg.de/#organization", "name": "GREEN – Energieberatung für Nichtwohngebäude", "legalName": "Green HLB GmbH", "url": "https://green-nwg.de/", "logo": "https://green-nwg.de/assets/img/apple-touch-icon.png", "telephone": "+49 5251 40292910", "email": "info@green-nwg.de", "address": {"@type": "PostalAddress", "streetAddress": "Rolandsweg 80", "postalCode": "33102", "addressLocality": "Paderborn", "addressRegion": "Nordrhein-Westfalen", "addressCountry": "DE"}}, {"@type": "AboutPage", "name": "Über GREEN – Ingenieurbüro für Energieeffizienz", "url": "https://green-nwg.de/ueber-uns/", "inLanguage": "de", "mainEntity": {"@id": "https://green-nwg.de/#organization"}}, {"@type": "Person", "name": "Vadim Berg", "jobTitle": "Geschäftsführer", "worksFor": {"@id": "https://green-nwg.de/#organization"}}, {"@type": "Person", "name": "David Lamping", "jobTitle": "Geschäftsführer", "worksFor": {"@id": "https://green-nwg.de/#organization"}}, {"@type": "Person", "name": "Sebastian Hund", "jobTitle": "Geschäftsführer", "worksFor": {"@id": "https://green-nwg.de/#organization"}}, {"@type": "Person", "name": "Katrin Voß", "jobTitle": "Teamleitung", "worksFor": {"@id": "https://green-nwg.de/#organization"}}, {"@type": "Person", "name": "Monika Rutkowski", "jobTitle": "Beratung & Organisation", "worksFor": {"@id": "https://green-nwg.de/#organization"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Start", "item": "https://green-nwg.de/"}, {"@type": "ListItem", "position": 2, "name": "Über uns", "item": "https://green-nwg.de/ueber-uns/"}]}]}</script>
 </head>
 <body>
@@ -46,7 +47,7 @@
 </svg>
       <span class="brand-name"><b>GREEN</b><span>Energieberatung&nbsp;NWG</span></span>
     </a>
-    <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Menü öffnen">
+    <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Menü öffnen">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
     </button>
     <nav class="site-nav" id="site-nav" aria-label="Hauptnavigation">
@@ -56,7 +57,7 @@
     </nav>
   </div>
 </header>
-  <main id="main">
+  <main id="main" tabindex="-1">
 
 <section class="page-hero">
   <div class="container">
@@ -83,7 +84,7 @@
       und einem Faible für ehrliche Zahlen.</p>
     </div>
     <div class="reveal reveal-d1">
-      <figure class="photo "><img src="../assets/img/fotos/beratung-gespraech-1000.webp" srcset="../assets/img/fotos/beratung-gespraech-500.webp 500w, ../assets/img/fotos/beratung-gespraech-1000.webp 1000w" sizes="(max-width: 860px) 92vw, 46vw" width="1000" height="562" alt="Beratungsgespräch zwischen Fachleuten in einem Bürogebäude" fetchpriority="high"><figcaption>Beratung heißt bei uns: gemeinsam vor Ort, nicht per Formular.</figcaption></figure>
+      <figure class="photo "><img src="../assets/img/fotos/beratung-gespraech-700.webp" srcset="../assets/img/fotos/beratung-gespraech-350.webp 350w, ../assets/img/fotos/beratung-gespraech-700.webp 700w, ../assets/img/fotos/beratung-gespraech-1000.webp 1000w" sizes="(max-width: 860px) calc(100vw - 2.5rem), 540px" width="1000" height="562" alt="Beratungsgespräch zwischen Fachleuten in einem Bürogebäude" fetchpriority="high"><figcaption>Beratung heißt bei uns: gemeinsam vor Ort, nicht per Formular.</figcaption></figure>
       <figure class="illus reveal illus--pad"><svg viewBox="0 0 640 400" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Schema: Bürostandort Paderborn, Rolandsweg 80, mit Einsatzrichtungen OWL, Hochstift und NRW">
 <rect x="8" y="8" width="624" height="384" rx="10" fill="#ffffff" stroke="#dbe4dc"/>
 <g stroke="#dbe4dc" stroke-width="1"><line x1="48" y1="8" x2="48" y2="13"/><line x1="48" y1="387" x2="48" y2="392"/><line x1="92" y1="8" x2="92" y2="13"/><line x1="92" y1="387" x2="92" y2="392"/><line x1="136" y1="8" x2="136" y2="13"/><line x1="136" y1="387" x2="136" y2="392"/><line x1="180" y1="8" x2="180" y2="13"/><line x1="180" y1="387" x2="180" y2="392"/><line x1="224" y1="8" x2="224" y2="13"/><line x1="224" y1="387" x2="224" y2="392"/><line x1="268" y1="8" x2="268" y2="13"/><line x1="268" y1="387" x2="268" y2="392"/><line x1="312" y1="8" x2="312" y2="13"/><line x1="312" y1="387" x2="312" y2="392"/><line x1="356" y1="8" x2="356" y2="13"/><line x1="356" y1="387" x2="356" y2="392"/><line x1="400" y1="8" x2="400" y2="13"/><line x1="400" y1="387" x2="400" y2="392"/><line x1="444" y1="8" x2="444" y2="13"/><line x1="444" y1="387" x2="444" y2="392"/><line x1="488" y1="8" x2="488" y2="13"/><line x1="488" y1="387" x2="488" y2="392"/><line x1="532" y1="8" x2="532" y2="13"/><line x1="532" y1="387" x2="532" y2="392"/><line x1="576" y1="8" x2="576" y2="13"/><line x1="576" y1="387" x2="576" y2="392"/><line x1="8" y1="48" x2="13" y2="48"/><line x1="627" y1="48" x2="632" y2="48"/><line x1="8" y1="92" x2="13" y2="92"/><line x1="627" y1="92" x2="632" y2="92"/><line x1="8" y1="136" x2="13" y2="136"/><line x1="627" y1="136" x2="632" y2="136"/><line x1="8" y1="180" x2="13" y2="180"/><line x1="627" y1="180" x2="632" y2="180"/><line x1="8" y1="224" x2="13" y2="224"/><line x1="627" y1="224" x2="632" y2="224"/><line x1="8" y1="268" x2="13" y2="268"/><line x1="627" y1="268" x2="632" y2="268"/><line x1="8" y1="312" x2="13" y2="312"/><line x1="627" y1="312" x2="632" y2="312"/><line x1="8" y1="356" x2="13" y2="356"/><line x1="627" y1="356" x2="632" y2="356"/></g>
@@ -117,10 +118,10 @@
 <section class="kpi-band" aria-label="Kennzahlen">
   <div class="container">
     <div class="kpi-grid">
-      <div class="kpi reveal"><div class="kpi-value"><span data-count="80">0</span><span class="unit">+</span></div><div class="kpi-label">betreute Objekte</div></div>
-      <div class="kpi reveal reveal-d1"><div class="kpi-value">−<span data-count="70">0</span><span class="unit">%</span></div><div class="kpi-label">Energiekosten erreicht</div></div>
-      <div class="kpi reveal reveal-d2"><div class="kpi-value">−<span data-count="80">0</span><span class="unit">%</span></div><div class="kpi-label">CO₂-Ausstoß erreicht</div></div>
-      <div class="kpi reveal reveal-d3"><div class="kpi-value"><span data-count="10">0</span><span class="unit">+ Jahre</span></div><div class="kpi-label">Erfahrung</div></div>
+      <div class="kpi reveal"><div class="kpi-value"><span data-count="80">80</span><span class="unit">+</span></div><div class="kpi-label">betreute Objekte</div></div>
+      <div class="kpi reveal reveal-d1"><div class="kpi-value">−<span data-count="70">70</span><span class="unit">%</span></div><div class="kpi-label">Energiekosten erreicht</div></div>
+      <div class="kpi reveal reveal-d2"><div class="kpi-value">−<span data-count="80">80</span><span class="unit">%</span></div><div class="kpi-label">CO₂-Ausstoß erreicht</div></div>
+      <div class="kpi reveal reveal-d3"><div class="kpi-value"><span data-count="10">10</span><span class="unit">+ Jahre</span></div><div class="kpi-label">Erfahrung</div></div>
     </div>
   </div>
 </section>
