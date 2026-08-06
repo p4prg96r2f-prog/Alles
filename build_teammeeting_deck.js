@@ -216,7 +216,7 @@ function divider(num, kicker, title, bullets) {
   const items = [
     ["01", "Das GModG gilt", "Was ab sofort zählt, was zum 01.01.2027 kommt\nund welches Förderfenster gerade offen ist", GREEN_DARK],
     ["02", "Praxis und Markt", "Förderanträge, Preise, Sichtbarkeit, Werkzeuge\nund wo wir als Nächstes hingehen", GREEN],
-    ["03", "Team", "Code of Conduct, Personelles und was ansteht", MUTE],
+    ["03", "Team", "Code of Conduct, Personelles, wen wir suchen\nund was in den nächsten Wochen ansteht", MUTE],
   ];
 
   let y = 2.05;
@@ -1199,7 +1199,76 @@ divider("02", "Kapitel 2 · Praxis, Markt und Werkzeuge", "Was wir daraus machen
 }
 
 /* ================================================================== *
- * 19 - RUND UMS TEAM
+ * 19 - JOBS: HANDWERKER / HAUSMEISTER
+ * ================================================================== */
+{
+  const s = contentSlide("Kapitel 3 · Jobs", "Wir suchen Verstärkung", {
+    sub: "Und ihr seid dabei unser bester Kanal - besser als jede Anzeige.",
+  });
+
+  // Die Stelle
+  card(s, M, 2.00, (CW - 0.34) / 2, 2.45, INK);
+  s.addText("OFFENE STELLE", {
+    x: M + 0.34, y: 2.20, w: 4.6, h: 0.28,
+    fontFace: BODY, fontSize: 10.5, bold: true, charSpacing: 1.6, color: SAGE, margin: 0, valign: "middle",
+  });
+  s.addText("Handwerker /\nHausmeister", {
+    x: M + 0.34, y: 2.50, w: (CW - 0.34) / 2 - 0.68, h: 1.24,
+    fontFace: HEAD, fontSize: 34, bold: true, color: WHITE, margin: 0, valign: "top", lineSpacing: 41,
+  });
+  s.addText("Jemand, der anpackt, mitdenkt und zuverlässig ist. Handwerkliches Geschick und Führerschein bringt er oder sie mit.", {
+    x: M + 0.34, y: 3.80, w: (CW - 0.34) / 2 - 0.68, h: 0.58,
+    fontFace: BODY, fontSize: 12.5, color: "C9D2CA", margin: 0, valign: "top", lineSpacing: 17,
+  });
+
+  // Der Aufruf
+  const rx = M + (CW - 0.34) / 2 + 0.34;
+  card(s, rx, 2.00, (CW - 0.34) / 2, 2.45, GREEN_LT);
+  s.addText("Kennt ihr jemanden?", {
+    x: rx + 0.34, y: 2.24, w: (CW - 0.34) / 2 - 0.68, h: 0.44,
+    fontFace: HEAD, fontSize: 24, bold: true, color: GREEN_DARK, margin: 0, valign: "middle",
+  });
+  s.addText(
+    [
+      { text: "Denkt an Nachbarn, ehemalige Kollegen, Handwerker von der Baustelle, Bekannte aus dem Verein.", options: { bullet: true, breakLine: true } },
+      { text: "Eine Empfehlung von euch sagt mehr über einen Menschen aus als jede Bewerbungsmappe.", options: { bullet: true, breakLine: true } },
+      { text: "Es reicht völlig, mir einen Namen und eine Nummer zu geben - den Rest übernehme ich.", options: { bullet: true } },
+    ],
+    {
+      x: rx + 0.38, y: 2.78, w: (CW - 0.34) / 2 - 0.76, h: 1.52,
+      fontFace: BODY, fontSize: 12.5, color: INK, paraSpaceAfter: 10, margin: 0, valign: "top",
+    }
+  );
+
+  // Warum wir jemanden brauchen
+  card(s, M, 4.68, CW, 1.02, PAPER, { shadow: true });
+  s.addText("Warum jetzt", {
+    x: M + 0.34, y: 4.80, w: CW - 0.68, h: 0.30,
+    fontFace: HEAD, fontSize: 15, bold: true, color: GREEN_DARK, margin: 0, valign: "middle",
+  });
+  s.addText("Wir wachsen - mit Kassel, mit Dortmund ab Oktober und mit immer mehr Objekten, die betreut werden wollen. Vieles davon erledigen wir bisher nebenher. Das soll jemand machen, der es richtig kann.", {
+    x: M + 0.34, y: 5.10, w: CW - 0.68, h: 0.48,
+    fontFace: BODY, fontSize: 12.5, color: INK, margin: 0, valign: "top", lineSpacing: 16,
+  });
+
+  noteBox(s, M, 5.94, CW, 0.68, "So geht's:",
+    "Sprecht mich direkt an oder schreibt mir kurz in Teams. Auch ein „Ich frage mal rum\" hilft schon - Hauptsache, es bleibt nicht bei einem Nicken hier im Raum.");
+
+  s.addNotes(
+    "PLATZHALTER-HINWEIS: Bitte vor dem Meeting ergaenzen, was du konkret sagen moechtest - " +
+    "Vollzeit oder Teilzeit, ab wann, Einsatzort, und ob es eine Praemie fuer eine erfolgreiche " +
+    "Empfehlung gibt. Die Folie ist bewusst offen gehalten, weil ich die Eckdaten nicht kenne.\n\n" +
+    "Eine Praemie waere hier der wirksamste Hebel - wenn es eine gibt, unbedingt nennen.\n\n" +
+    "Wichtig beim Vortragen: nicht als Randnotiz abhandeln. Kurz Stille lassen, " +
+    "damit die Leute wirklich ueberlegen. Und am besten direkt fragen, " +
+    "ob jemand spontan einen Namen im Kopf hat.\n\n" +
+    "Wer etwas sagt: sofort notieren, nicht auf spaeter vertroesten."
+  );
+  footer(s, "Meldet euch gerne auch nach dem Meeting");
+}
+
+/* ================================================================== *
+ * 20 - RUND UMS TEAM
  * ================================================================== */
 {
   const s = contentSlide("Kapitel 3 · Termine", "Und sonst so", {
@@ -1286,7 +1355,7 @@ divider("02", "Kapitel 2 · Praxis, Markt und Werkzeuge", "Was wir daraus machen
 }
 
 /* ================================================================== *
- * 20 - ZUM MITNEHMEN
+ * 21 - ZUM MITNEHMEN
  * ================================================================== */
 {
   const s = pres.addSlide();
@@ -1309,24 +1378,25 @@ divider("02", "Kapitel 2 · Praxis, Markt und Werkzeuge", "Was wir daraus machen
     "Laden im Mehrparteienhaus: bis 2.000 € je Stellplatz - aber nur noch bis zum 10.11.2026.",
     "Puffer in die BzA. Wir haben keinen Nachteil, wenn mehr drinsteht.",
     "Ab dem 01.10. sind wir auch in Dortmund.",
+    "Wir suchen einen Handwerker oder Hausmeister - denkt bitte nach, wen ihr kennt.",
   ];
 
-  let y = 1.70;
+  let y = 1.62;
   takeaways.forEach((t, i) => {
-    badge(s, M, y + 0.06, 0.40, String(i + 1), GREEN_DARK, WHITE, 13);
+    badge(s, M, y + 0.04, 0.38, String(i + 1), GREEN_DARK, WHITE, 12.5);
     s.addText(t, {
-      x: M + 0.62, y, w: 9.6, h: 0.52,
-      fontFace: BODY, fontSize: 14, color: WHITE, margin: 0, valign: "middle",
+      x: M + 0.60, y, w: 9.7, h: 0.48,
+      fontFace: BODY, fontSize: 13.5, color: WHITE, margin: 0, valign: "middle",
     });
-    y += 0.66;
+    y += 0.60;
   });
 
   s.addText("Fragen und Diskussion", {
-    x: M, y: 5.35, w: 8, h: 0.55,
+    x: M, y: 5.42, w: 8, h: 0.52,
     fontFace: HEAD, fontSize: 26, bold: true, color: GREEN, margin: 0, valign: "middle",
   });
   s.addText("Alle Schulungsunterlagen liegen in Teams. Fragen aus euren Projekten sammeln wir dort - die Antworten pflege ich ein.", {
-    x: M, y: 5.90, w: 9.6, h: 0.50,
+    x: M, y: 5.98, w: 9.7, h: 0.50,
     fontFace: BODY, fontSize: 13, color: "C9D2CA", margin: 0, valign: "top", lineSpacing: 17,
   });
 
@@ -1336,9 +1406,11 @@ divider("02", "Kapitel 2 · Praxis, Markt und Werkzeuge", "Was wir daraus machen
   });
 
   s.addNotes(
-    "Die fuenf Punkte laut vorlesen - das sind die Saetze, die im Kopf bleiben sollen.\n\n" +
+    "Die sechs Punkte laut vorlesen - das sind die Saetze, die im Kopf bleiben sollen.\n\n" +
     "Punkt 3 ist der mit dem Zeitdruck: bitte noch einmal betonen, dass das Foerderfenster " +
     "am 10. November zufaellt.\n\n" +
+    "Punkt 6 zum Schluss noch einmal ernst meinen - nicht nur vorlesen. " +
+    "Wer heute einen Namen nennt, spart uns Wochen.\n\n" +
     "Dann Raum fuer Fragen. Was ich nicht beantworten kann, notiere ich und pflege es nach."
   );
 }
