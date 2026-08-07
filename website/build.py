@@ -2,23 +2,27 @@
 """Statischer Site-Generator für green-nwg.de.
 
 Erzeugt alle HTML-Seiten, sitemap.xml und robots.txt aus content.py.
-Aufruf:  python3 build.py
+Aufruf:  python3 build.py [zielordner]
+Ohne Argument landen die Seiten neben dem Skript. Mit Argument (z. B.
+"python3 build.py ../website") liegen Quellen und Ausgabe getrennt.
 Keine Abhängigkeiten außer der Python-Standardbibliothek.
 """
 
 import json
 import math
 import os
+import sys
 
 from content import CITIES, COMPANY, FAQS, INDUSTRIES, TEAM, TESTIMONIALS
 from illustrations import ILLUSTRATIONS
 
-ROOT = os.path.dirname(os.path.abspath(__file__))
+SRC = os.path.dirname(os.path.abspath(__file__))
+ROOT = os.path.abspath(sys.argv[1]) if len(sys.argv) > 1 else SRC
 BASE = COMPANY["base_url"]
 BUILD_DATE = "2026-08-06"  # Stand der Inhalte (sitemap lastmod, Article-Schema)
 
 # Fotos: Metadaten (Alt-Text, Lizenz, Urheber) aus photos.json
-with open(os.path.join(ROOT, "photos.json"), encoding="utf-8") as _f:
+with open(os.path.join(SRC, "photos.json"), encoding="utf-8") as _f:
     PHOTOS = {p["name"]: p for p in json.load(_f)}
 PHOTO_W, PHOTO_H = 1000, 562
 
