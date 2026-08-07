@@ -472,7 +472,7 @@ def page(path, title, desc, body, active="", schema=None, depth=None,
   {footer(p)}
   <div class="sticky-cta">
     <a class="btn btn--light" href="{p}beratungstermin/">Kostenloses Erstgespräch</a>
-    <a class="btn btn--ghost-light" href="tel:{COMPANY['phone_link']}" aria-label="Anrufen">{icon('phone')}</a>
+    <a class="btn btn--ghost-light" href="tel:{COMPANY['phone_link']}" aria-label="Anrufen: {COMPANY['phone_display']}">{icon('phone')}</a>
   </div>
   <script src="{p}assets/js/main.js" defer></script>
 </body>

@@ -89,7 +89,10 @@
 
   --radius: 16px;
   --radius-sm: 10px;
-  --container: 1180px;
+  /* Bis 1600px unverändert 1180px. Darüber darf die Bühne mitwachsen, damit
+     sehr breite Displays nicht wie eine schmale Spalte in einer leeren Fläche
+     wirken. Fließtext bleibt über die 62ch-Grenze an p/li trotzdem lesbar. */
+  --container: clamp(1180px, 1180px + (100vw - 1600px) * 0.34, 1440px);
   --gutter: clamp(1.25rem, 4vw, 2.5rem);
   --section-pad: clamp(4rem, 8vw, 7rem);
 
@@ -930,6 +933,13 @@ a.card:hover .card-more {
   margin: 0;
 }
 
+/* Ohne min-width:0 nimmt die Textspalte als Flex-Kind die Breite ihres
+   längsten Wortes als Minimum an – lange Komposita ("Emissionsminderungs-
+   zuschlag") sprengen dann auf 320px die Zeile. */
+.feature > div {
+  min-width: 0;
+}
+
 .feature-icon {
   flex: none;
   width: 2.6rem;
@@ -1481,6 +1491,8 @@ a.card:hover .card-more {
 .breadcrumb a {
   color: var(--ink-faint);
   text-decoration: none;
+  display: inline-block;
+  padding-block: 0.2rem;
 }
 
 .breadcrumb a:hover {
@@ -1549,12 +1561,16 @@ a.card:hover .card-more {
 }
 
 .footer-col li {
-  margin-bottom: 0.55rem;
+  margin-bottom: 0.4rem;
 }
 
+/* Fingerfreundlich: die Linkfläche wächst auf mindestens 24px Höhe
+   (WCAG 2.2, 2.5.8), ohne den optischen Abstand zu verändern. */
 .footer-col a {
   color: var(--faint-on-dark);
   text-decoration: none;
+  display: inline-block;
+  padding-block: 0.15rem;
 }
 
 .footer-col a:hover {
