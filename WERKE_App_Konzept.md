@@ -553,7 +553,120 @@ Neues tun muss.
 
 ---
 
-## 14. Nächste Schritte
+## 14. Umsetzbarkeit mit KI-Unterstützung und Weg in den App Store
+
+Die nützliche Frage ist nicht *„was lässt sich mit KI bauen"* – fast alles hier –,
+sondern **wo der Aufwand tatsächlich liegt.** Bei der Mehrzahl der Funktionen
+liegt er nicht im Code.
+
+### 14.1 Kategorie A – der Code ist die ganze Arbeit
+
+Schnell, gut und mit hoher Qualität umsetzbar. Alles hier ist rechnerisch
+abgeschlossen, braucht keine fremden Systeme und ist vollständig testbar:
+
+- **Heizlast-Schnellcheck und Heizflächen-Check** – reine Formeln, keine externen
+  Daten. Jede Rechnung lässt sich gegen eine Handrechnung prüfen. Idealer Start.
+- **Wärmepumpen-Eignungsampel** – Regelwerk mit klaren Verzweigungen
+- **Preisrechner und Netto-Ergebnis in einer Zahl** – trivial, hohe Wirkung
+- **CO₂-Kostenaufteilung** – die zehn Stufen stehen fest im Gesetz. Kleine,
+  abgeschlossene Rechnung mit großem Verkaufswert: **das beste
+  Aufwand-Nutzen-Verhältnis im ganzen Katalog**
+- **Zählerstandserfassung** inkl. Foto-Texterkennung – auf dem Gerät gelöst
+- **Gebäudeakte, Portal, Fahrplan-Ansicht, Dokumentenablage** – viel Fläche, aber
+  keine Unbekannten
+- **Bauphysik-Warnsystem** und **Fristen-/Förder-Wächter** – Regel- und
+  Terminlogik; die Regeln kommen aus eurem Fachwissen, das Bauen ist einfach
+
+### 14.2 Kategorie B – Code einfach, Aufwand in Daten und Fachprüfung
+
+- **Förderrechner/-optimierer:** Das Rechnen ist leicht. Das Regelwerk aktuell,
+  versioniert und geprüft zu halten ist **dauerhafte Arbeit bei euch**. Ohne feste
+  Zuständigkeit veraltet es und wird vom Feature zum Risiko.
+- **GModG-Betroffenheitscheck:** dito, plus fachliche Freigabe jeder Aussage
+- **Berichtsentwurf:** Textgenerierung ist stark; Layout und fachliche
+  Endkontrolle bleiben Handarbeit
+- **Projektgedächtnis:** Die Suche ist einfach – sie ist nur so gut wie die
+  Digitalisierung eurer Altprojekte
+- **Angebots-/Förderfallenprüfung:** Texterkennung und Extraktion funktionieren
+  gut, aber jede Prüfregel muss fachlich definiert werden
+
+### 14.3 Kategorie C – nicht der KI-Anteil ist das Problem
+
+Machbar, aber aufwendig und mit Risiko. Bewusst später:
+
+- **Offline-Sync der Feldaufnahme mit Konfliktauflösung** – der klassische
+  Projektfriedhof. Echte Ingenieurarbeit, die Tests im realen Keller braucht.
+- **Foto → Bauteil per KI** – braucht eigene Trainingsdaten. Ergibt sich aus
+  Kategorie A von selbst, sobald genug eigene Fotos in der Akte liegen.
+- **Export in die Nachweissoftware** – hängt an fremden Schnittstellen
+- **Wärmeplanungs-Abgleich** – die Geodaten der Kommunen sind uneinheitlich
+  verfügbar; der Aufwand ist Datenbeschaffung, nicht Programmierung
+- **Klassensprung-Simulator** – braucht eine belastbare Bilanzierung, also
+  entweder eine Anbindung oder eine klar gekennzeichnete Näherung
+- **Messgeräte-Anbindung** – proprietäre Schnittstellen
+
+### 14.4 Zur Optik
+
+„Sieht gut aus" ist mit KI-Unterstützung heute der **einfachste** Teil – unter
+einer Bedingung: **erst das Designsystem, dann die Screens.** Farben, Typografie,
+Abstände und Komponenten (Karte, Kennzahl, Ampel, Diagramm) einmal festlegen,
+dann sind vierzig Bildschirme konsistent statt vierzig Einzelentwürfe. In der
+umgekehrten Reihenfolge entsteht ein Flickenteppich, und der lässt sich
+nachträglich nur teuer reparieren. WERK.E hat eine Marke mit Wiedererkennung –
+die gehört in die Gestaltungsgrundlagen, bevor der erste Screen entsteht.
+
+### 14.5 App Store – was vorher feststehen muss
+
+- **Guideline 4.2 (Minimum Functionality):** Eine in eine App verpackte Website
+  wird abgelehnt. Die Aufteilung im Konzept ist deshalb ohnehin richtig:
+  **Kundenportal als Web-App** (Eigentümer installieren nichts) und **Team-App
+  nativ** mit Kamera, Offline und Push. Cross-Platform (React Native/Expo,
+  Flutter) ist unproblematisch – entscheidend ist nicht die Technik, sondern dass
+  es sich nativ anfühlt.
+- **Interne App braucht vielleicht gar keinen öffentlichen Store.** Für ein
+  reines Kollegenwerkzeug sind Apple Business Manager / Custom Apps oder
+  TestFlight der bessere Weg: keine öffentliche Review, keine
+  Marketing-Anforderungen, deutlich weniger Reibung. Der öffentliche Store lohnt
+  erst, wenn Kunden die App wirklich installieren sollen.
+- **EU-Händlerstatus nach DSA ist Pflicht.** Apple entfernt seit Februar 2025
+  Apps ohne verifizierten Trader-Status automatisch aus allen 27
+  EU-Storefronts. Firmenname, Anschrift, Telefon und E-Mail werden veröffentlicht.
+  Für eine GmbH unproblematisch, muss aber vor der Einreichung erledigt sein.
+- **Demo-Zugang für die Review**, wenn Inhalte hinter einem Login liegen – einer
+  der häufigsten Ablehnungsgründe überhaupt.
+- **Account-Löschung in der App**, sobald Nutzer Konten anlegen können.
+- **Privacy Labels und DSGVO** – bei Gebäude- und Verbrauchsdaten ernst zu
+  nehmen; AVV, Löschkonzept und EU-Hosting stehen in Kapitel 12.
+- **Apple Developer Program:** jährliche Gebühr, Firmenkonto braucht eine
+  D-U-N-S-Nummer. Das dauert gelegentlich Wochen und wird regelmäßig vergessen –
+  früh beantragen.
+
+### 14.6 Empfehlung für Version 1.0
+
+Nicht mit der Gebäudeakte anfangen. Sie ist groß, unsichtbar und belohnt spät.
+Stattdessen mit dem, was sofort im Termin wirkt – und vollständig aus Kategorie A
+besteht:
+
+1. Heizlast-Schnellcheck inklusive Heizflächen-Check
+2. Wärmepumpen-Eignungsampel
+3. Förder- und Preisergebnis in einer Zahl
+4. CO₂-Kostenaufteilung für Vermieterobjekte
+5. Ergebnis als PDF im WERK.E-Layout, direkt aus der App teilbar
+
+Kein fremdes System, keine Regelwerkspflege außer den Fördersätzen, alles
+testbar – und am Ende ein Werkzeug, das ein Kollege am Küchentisch aufklappt und
+das sofort fachlich überzeugt. Die Gebäudeakte wächst darunter von allein, sobald
+jede Berechnung gespeichert wird.
+
+Mit KI-Unterstützung ist dieser Umfang in Wochen auf einen vorzeigbaren Stand zu
+bringen. Was **nicht** schneller wird, sind zwei Dinge: die fachliche Prüfung der
+Rechenergebnisse gegen eigene Handrechnungen – bei Heizlastzahlen
+haftungsrelevant – und die organisatorischen Vorlaufzeiten (Entwicklerkonto,
+D-U-N-S, Trader-Status). Beides sollte parallel zum Bauen starten.
+
+---
+
+## 15. Nächste Schritte
 
 1. **Zwei Zahlen messen** (eine Woche, ohne Software): Wie viele Stunden gehen
    pro Projekt für Datenbeschaffung und Berichtserstellung drauf? Wie viele der
@@ -583,6 +696,8 @@ Neues tun muss.
 - Lüftungskonzept DIN 1946-6 (Drittel-Regel): https://immobilien-fachwissen.de/din-1946-6-lueftungskonzept-fenstertausch/ · https://www.energie-experten.org/haustechnik/wohnraumlueftung/kontrollierte-wohnraumlueftung/din-1946-6
 - CO2KostAufG Stufenmodell: https://www.ista.com/de/gesetze-und-verordnungen/kohlendioxidkostenaufteilungsgesetz-co2kostaufg/ · https://verbraucherzentrale-energieberatung.de/co2-aufteilung-mieter-vermieter/
 - Kommunale Wärmeplanung / WPG: https://www.energiewechsel.de/KAENEF/Redaktion/DE/FAQ/Waermeplanung/faq-waermeplanung-wpg.html
+- App Store Guideline 4.2 / Webview-Ablehnungen: https://www.mobiloud.com/blog/app-store-review-guidelines-webview-wrapper
+- EU-Händlerstatus (DSA) im App Store: https://developer.apple.com/news/upcoming-requirements/?id=02172025a
 - Marktübersicht Energieberater-Software: https://reduco.ai/blog/energieberater-software-vergleich · https://www.streit-software.de/wissen/energieberater-software
 
 *Alle Rechts- und Förderangaben: Stand August 2026, vor Verwendung prüfen.*
