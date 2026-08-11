@@ -171,7 +171,9 @@ Ablauf:
 | EnEfG-Novelle | Schwelle künftig verbrauchsbasiert (ab ca. 2,77 GWh/a), KMU-Kriterium entfällt |
 | Solarpflicht Nichtwohngebäude/öffentlich | gestaffelt: >2.000 m² bis Ende 2027, >750 m² bis Ende 2028, >250 m² bis Ende 2030 |
 | Heizungsalter | Austauschpflicht ab 30 Jahren |
-| GEG / EPBD-Umsetzung (GModG) | laufend – Änderungen als Feed |
+| GModG (löst GEG ab, setzt EPBD um) | Kabinett 13.05.2026, Inkrafttreten frühestens Herbst 2026 |
+| Nichtwohngebäude Klasse G (schlechteste 16 %) | Renovierungspflicht ab 01.01.2030 |
+| Verbrauchsausweis: 24 Monate lückenlose Monatswerte | Erfassung muss **zwei Jahre vorher** beginnen |
 
 Bußgeld beim Energieaudit: bis 50.000 €. Ein Werkzeug, das diese Frist zuver-
 lässig meldet, verkauft sich von allein – und der Anruf kommt von WERK.E, bevor
@@ -188,7 +190,118 @@ Einmal-Dienstleister.
 
 ---
 
-## 6. Wiederkehrende Umsätze
+## 6. Die drei Rechner: Förderung, GModG-Betroffenheit, Preis
+
+Zwei davon gibt es bereits auf werk-e.de. Die Frage ist nicht, ob sie in die App
+kommen, sondern was sie dort können, das die Website nicht kann.
+
+### 6.1 Förderrechner – vom Rechner zum Optimierer
+
+**Bestand:** BEG-Förderrechner 2026, anonym, Ergebnis in 60 Sekunden. Als
+öffentlicher Lead-Magnet genau richtig — der bleibt, wie er ist.
+
+**In der App wird er objektgebunden.** Drei Dinge, die anonym nicht funktionieren:
+
+- **Personenbezogene Boni.** Einkommensbonus und der neue Familienbonus hängen an
+  Haushaltsdaten. Die tippt niemand in ein offenes Formular auf einer Website —
+  im eingeloggten Portal schon.
+- **Deckelungen über mehrere Maßnahmen und Jahre.** Höchstgrenzen greifen über den
+  ganzen Fahrplan hinweg. Ein Einzelmaßnahmen-Rechner kann das strukturell nicht
+  sehen.
+- **Der neue iSFP-Bonus.** Seit 21.07.2026 gibt es die 5 % erst ab 30.000 €
+  förderfähigem Volumen — und nur auf den übersteigenden Betrag. Damit entscheiden
+  **Bündelung und Reihenfolge** über den Zuschuss, nicht mehr nur die Maßnahme.
+
+Daraus folgt der eigentliche Sprung. Ein Rechner beantwortet *„Was bekomme ich für
+X?"*. Ein Optimierer beantwortet *„Wie stelle ich X zusammen, damit ich das Maximum
+bekomme?"* — inklusive Reihenfolge und Jahr:
+
+> „Fassade allein: 26.000 € förderfähig → kein iSFP-Bonus.
+> Fassade + Fenster im selben Antrag: 41.000 € → 550 € zusätzlich."
+
+Diese Rechnung stellt kein Eigentümer selbst an. Sie ist der Grund, warum die
+App wertvoll ist — und nebenbei erhöht sie das Auftragsvolumen pro Kunde.
+
+**Architektur-Bedingung:** Fördersätze als **versionierte Regeldaten**, nie als
+Code. Die BEG-Richtlinie gilt zwar bis Ende 2030, aber Boni und Deckel wurden
+allein 2026 mehrfach angefasst. Jede Berechnung speichert, nach welchem Regelstand
+sie entstanden ist — sonst ist ein zwei Jahre alter Fahrplan nicht mehr erklärbar.
+
+### 6.2 GModG-Tool – kein Chatbot, ein Betroffenheits-Check
+
+**Stand:** Referentenentwurf 05.05.2026, Kabinettsbeschluss 13.05.2026,
+Inkrafttreten frühestens Herbst 2026. Deutschland hat die EPBD-Frist Ende Mai
+gerissen. Deshalb: **nicht als Rechtsauskunft bauen.**
+
+Die interessante Frage ist ohnehin nicht *„Was steht im GModG?"* — das googelt
+jeder in zwei Minuten. Sie lautet *„Was bedeutet das für **dieses** Gebäude?"*.
+Und die kann nur beantworten, wer die Gebäudedaten hat. Genau deshalb gehört das
+Tool in die App und nicht auf eine Infoseite.
+
+| GModG-Änderung | Was das für den Eigentümer heißt | Auftrag für WERK.E |
+|---|---|---|
+| Verbrauchsausweis braucht **24 Monate lückenlose Monatswerte** — Jahresabrechnungen reichen nicht mehr | Wer nicht heute anfängt zu erfassen, bekommt in zwei Jahren keinen | Monatliche Zählerstandserfassung in der App |
+| Nichtwohngebäude: EU-Skala A–G, Klasse G = schlechteste 16 %, Renovierungspflicht ab 01.01.2030 | Betroffenheit unbekannt, Frist läuft | Portfolio-Screening für Verwaltungen, Unternehmen, Kommunen |
+| Nichtwohngebäude bei Verkauf/Vermietung: **Bedarfsausweis zwingend** | Vorhandene Verbrauchsausweise werden dafür wertlos | Neuausstellung |
+| Vorlagepflicht neu auch bei **Mietvertragsverlängerung** und nach größeren Renovierungen, Bußgeld bis 10.000 € | Viel mehr Anlässe, viel mehr Risiko | Fristen-Wächter für Verwalter |
+| Zusätzliche Absolutkennwerte in MWh/a, Bindung an die 1977er-Verordnung entfällt | Ausweise werden inhaltlich anders | Neubewertung, Beratung |
+| Standard: **digitaler, maschinenlesbarer Ausweis** | Der Energieausweis wird zum Datensatz | Genau das Format, das die Gebäudeakte ohnehin spricht |
+
+**Die 24-Monats-Regel ist strategisch der wichtigste Punkt im ganzen Konzept.**
+Sie macht die App zur *Voraussetzung* einer Leistung, die der Kunde später
+zwingend braucht. Wer heute anfängt zu erfassen, ist in zwei Jahren Kunde. Wer
+nicht anfängt, kann es dann nicht nachholen — die Zeit lässt sich nicht
+rückwirkend erzeugen. So einen Mechanismus bekommt man selten geschenkt, und er
+rechtfertigt ein Abo ohne jedes Verkaufsargument.
+
+**Umsetzung in drei Stufen, bewusst vorsichtig:**
+
+1. **Intern zuerst.** Kuratierte Wissensbasis fürs Team; die KI antwortet
+   ausschließlich aus fachlich freigegebenen Quellen, mit Fundstelle und
+   Stand-Datum. Kein Haftungsproblem, sofortiger Nutzen im Kundengespräch.
+2. **Dann Betroffenheits-Check** im Kundenportal — objektbezogen, in klarer
+   Sprache, mit drei möglichen Ergebnissen: *betrifft dich / betrifft dich nicht /
+   unklar → Beratung*.
+3. **Öffentliches Q&A frühestens nach Inkrafttreten**, dann mit Stand-Datum,
+   Quelle und Vorbehalt an jeder einzelnen Antwort.
+
+Eine frei formulierende KI darf nie unbeaufsichtigt auf Gesetzestext antworten —
+schon gar nicht auf einen Entwurf. Bei Grenzfällen übergibt das Tool an die
+Beratung. Das ist kein Mangel des Tools, das ist das Geschäftsmodell.
+
+### 6.3 Preisrechner – die eine Zahl, die zählt
+
+**Bestand:** 3 % der Investitionssumme inkl. MwSt., davon 50 % über BAFA gefördert
+→ effektiv 1,5 %, mindestens 325 €. Offen kommuniziert, mit eigener Seite zur
+Preisstruktur. Das ist in dieser Branche ein seltener Vorteil, und er sollte
+prominenter genutzt werden.
+
+**Die Schwäche liegt nicht im Rechner, sondern in der Trennung.** Förderrechner
+und Honorarrechner stehen nebeneinander, und der Kunde muss selbst
+zusammenrechnen. Die einzige Zahl, die ihn wirklich interessiert, steht nirgends:
+
+> Investition − Förderung + Honorar (zur Hälfte gefördert)
+> = **das kostet dich unterm Strich**
+
+Zusammengelegt wird aus zwei Rechnern ein Abschluss-Werkzeug. Das Honorar
+erscheint dann neben einem meist fünfstelligen Förderbetrag — und in diesem
+Kontext liest sich 1,5 % als das, was es ist. Getrennt betrachtet wirkt derselbe
+Betrag wie eine zusätzliche Rechnung.
+
+**Zweiter Konversionsverlust:** Nach dem Rechenergebnis kommt heute „rufen Sie uns
+an". Dort bricht die Hälfte weg. Der Weg vom Ergebnis zum verbindlichen Angebot
+und zur digitalen Beauftragung sollte ein Klick sein, kein Telefonat.
+
+**Eine Gestaltungswarnung:** Weil das Honorar prozentual an der Investitionssumme
+hängt, wächst es sichtbar mit, sobald der Kunde im Fahrplan-Schieber Maßnahmen
+hinzunimmt. Das kann als Anreizkonflikt gelesen werden — auch wenn keiner
+vorliegt. Sauberer ist, das Honorar im Ergebnis auszuweisen statt live
+mitlaufen zu lassen, und für Portfolio- und Abo-Kunden ohnehin Festpreise
+anzubieten.
+
+---
+
+## 7. Wiederkehrende Umsätze
 
 Heute: Projektgeschäft. Mit App möglich:
 
@@ -205,7 +318,7 @@ Auftragsgeschäft.
 
 ---
 
-## 7. Was WERK.E danach hat, was sonst keiner hat
+## 8. Was WERK.E danach hat, was sonst keiner hat
 
 1. **Belegbare Umsetzungsquote.** „X % unserer Sanierungsfahrpläne werden
    tatsächlich umgesetzt" – niemand in der Branche kann das messen. Stärkstes
@@ -221,13 +334,17 @@ es sich, früh anzufangen – auch mit einem kleinen Funktionsumfang.
 
 ---
 
-## 8. Ausbaustufen
+## 9. Ausbaustufen
 
 **Stufe 1 – MVP (das Fundament)**
 Gebäudeakte, Dokumentenablage, Kundenportal mit lesbarem Fahrplan,
-Termin-Vorbereitungs-Checkliste.
+Termin-Vorbereitungs-Checkliste — und **monatliche Zählerstandserfassung**.
 → Wirkt sofort: weniger Rückfragen, professioneller Auftritt, Datenbasis wächst
 ab Tag 1.
+→ Die Zählerstände sind hier bewusst schon dabei, obwohl sie erst später Geld
+verdienen: Wegen der 24-Monats-Regel des GModG ist jeder Monat, der nicht erfasst
+wird, dauerhaft verloren. Das ist der einzige Teil des Konzepts, bei dem Warten
+echte Kosten verursacht.
 
 **Stufe 2 – Feld & Fristen**
 Offline-Aufnahme, Fotoerfassung, Berichtsentwurf, Fristen-Wächter B2B.
@@ -244,7 +361,7 @@ aus, auch wenn die nächste nie kommt.
 
 ---
 
-## 9. Technische Leitplanken
+## 10. Technische Leitplanken
 
 - **Kundenportal:** Web / PWA. Kein App-Store-Zwang – Hauseigentümer installieren
   keine App für ein Projekt alle zehn Jahre.
@@ -262,7 +379,7 @@ aus, auch wenn die nächste nie kommt.
 
 ---
 
-## 10. Risiken – ehrlich benannt
+## 11. Risiken – ehrlich benannt
 
 | Risiko | Gegenmaßnahme |
 |---|---|
@@ -279,7 +396,7 @@ Neues tun muss.
 
 ---
 
-## 11. Nächste Schritte
+## 12. Nächste Schritte
 
 1. **Zwei Zahlen messen** (eine Woche, ohne Software): Wie viele Stunden gehen
    pro Projekt für Datenbeschaffung und Berichtserstellung drauf? Wie viele der
@@ -287,8 +404,12 @@ Neues tun muss.
    Diese zwei Zahlen begründen die gesamte Investition – oder widerlegen sie.
 2. **Schnittstelle der vorhandenen Nachweissoftware prüfen.** Entscheidet über
    den Zuschnitt von Modul B.
-3. **Fünf Bestandskunden fragen**, was sie nach der Beratung vermisst haben.
-4. Erst dann: Stufe 1 bauen, mit fünf Pilotkunden und dem eigenen Team.
+3. **Bestandskunden auf GModG-Betroffenheit screenen** – vor allem
+   Nichtwohngebäude (Klasse-G-Risiko, Frist 2030) und Verwaltungsobjekte. Das geht
+   heute schon manuell und ist der schnellste Umsatz aus diesem Konzept, ganz ohne
+   Software.
+4. **Fünf Bestandskunden fragen**, was sie nach der Beratung vermisst haben.
+5. Erst dann: Stufe 1 bauen, mit fünf Pilotkunden und dem eigenen Team.
 
 ---
 
@@ -298,6 +419,8 @@ Neues tun muss.
 - iSFP-Förderung und Änderungen 2026: https://erneuerbare-energien-aktuell.de/allgemein/energetisch-sanieren/isfp-foerderung-kosten/ · https://www.mvn.energy/post/bafa-foerderung-isfp-2026-aenderungen
 - Absenkung Einzelmaßnahmen-Förderung: https://reduco.ai/blog/foerderung/sanierung-einzelmassnahmen-21-juli-2026-aenderungen
 - Energieaudit DIN EN 16247 / EnEfG: https://www.c-ober.de/blog/edl-g-enefg-novelle-2026-energieaudit-pflicht/ · https://www.tuvsud.com/de-de/branchen/real-estate/immobilien/energie-und-nachhaltigkeit-bei-immobilien/energieaudit-nach-din-en-16247
+- Bestehende WERK.E-Rechner: https://werk-e.de/beg-foerderrechner-2026/ · https://werk-e.de/preisstruktur-beg-antragstellung-transparent-erklaert/ · https://werk-e.de/neue-foerderbedingungen-2026-was-jetzt-bei-kfw-und-bafa-gilt/
+- GModG (Referentenentwurf 05.05.2026, Kabinett 13.05.2026): https://www.roedl.com/insights/neues-gebaeudemodernisierungsgesetz-gmodg-systemwechsel-gegenueber-gebaeudeenergiegesetz/ · https://www.energieausweise.de/info/neu2026/neuerungen/ · https://table.media/assets/climate/260505_refe-gmodg.pdf
 - EPBD / GEG-Umsetzung: https://www.bbsr-geg.bund.de/GEGPortal/DE/ErgaenzendeRegelungen/EPBD/epbd_node.html · https://www.haufe.de/immobilien/wirtschaft-politik/green-deal-eu-liefert-investitionsplan-fuer-gebaeudesektor_84342_507868.html
 - Marktübersicht Energieberater-Software: https://reduco.ai/blog/energieberater-software-vergleich · https://www.streit-software.de/wissen/energieberater-software
 
