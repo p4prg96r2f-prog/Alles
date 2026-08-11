@@ -301,7 +301,164 @@ anzubieten.
 
 ---
 
-## 7. Wiederkehrende Umsätze
+## 7. Heizlast-Schnellcheck – das Werkzeug für den Küchentisch
+
+### 7.1 Die Abgrenzung zuerst
+
+**Was das Tool ist:** eine Plausibilitätsabschätzung im Kundengespräch, in zwei
+Minuten, vor Ort.
+
+**Was es nie sein darf:** die Auslegungsgrundlage. Für die
+Wärmepumpen-Förderung und den hydraulischen Abgleich braucht es die raumweise
+Heizlast nach **DIN EN 12831**. Der Schnellcheck ersetzt sie nicht.
+
+Und genau das ist der Punkt: **Er verkauft sie.** Der Schnellcheck liefert die
+Zahl, die das Gespräch öffnet, und macht im selben Moment sichtbar, warum die
+richtige Berechnung nötig ist. Eine zu große Wärmepumpe taktet, verbraucht zu
+viel und kostet unnötig; eine zu kleine wird im Februar zum Reklamationsfall.
+Diese beiden Sätze verkaufen die DIN-Berechnung besser als jedes Angebot.
+
+### 7.2 Weg A – aus dem Verbrauch
+
+Wenn Abrechnungen vorliegen:
+
+> **Heizlast [kW] ≈ (Jahresverbrauch [kWh] × Nutzungsgrad) ÷ Vollbenutzungsstunden**
+
+Den Unterschied zwischen Faustformel und brauchbarer Schätzung machen die
+Korrekturen, und die gehören alle ins Tool:
+
+- **Mittelwert über 2–3 Jahre** statt eines einzelnen kalten oder milden Jahres
+- **Warmwasseranteil herausrechnen.** Wer ihn drin lässt, bekommt eine zu hohe
+  Heizlast – der häufigste Fehler bei Faustformeln, und er führt systematisch zu
+  überdimensionierten Wärmepumpen
+- **Kesselnutzungsgrad** ansetzen (alter Standardkessel ≈ 75 %, NT/Brennwert höher)
+- **Vollbenutzungsstunden** 1.800–2.000 h/a, Standardwert 1.900 h
+- **Witterungsbereinigung** über die Gradtagzahlen des Standorts
+- Korrekturfragen zu Leerstand, Nutzerverhalten, unbeheizten Bereichen
+
+### 7.3 Weg B – aus wenigen Fragen
+
+Wenn keine Abrechnung greifbar ist: spezifische Heizlast [W/m²] nach Baujahr und
+Sanierungsstand × beheizte Fläche. Sechs bis acht Fragen reichen — Baujahr,
+Fläche, Gebäudetyp (freistehend/Doppel/Reihe), Dach gedämmt?, Fenster erneuert?,
+Fassade gedämmt?, Keller beheizt?
+
+**Ergebnis immer als Spanne, nie als Punktwert.** Eine Spanne ist ehrlich und
+schützt vor der einen Zahl, die der Kunde sich merkt und später zitiert.
+
+### 7.4 Der eigentliche Wert liegt nicht in der Zahl
+
+- **Heizflächen-Check.** Die entscheidende Frage vor jeder Wärmepumpe ist nicht
+  die Heizlast, sondern ob die vorhandenen Heizkörper diese Last bei 55 °C statt
+  70 °C Vorlauf noch abgeben. Foto pro Heizkörper plus Maße → überschlägige
+  Leistung bei verschiedenen Vorlauftemperaturen. **Daran scheitern
+  Wärmepumpenprojekte, und kaum jemand beantwortet es vor Ort.**
+- **Vorher/Nachher.** Heizlast heute gegen Heizlast nach den Maßnahmen des
+  Fahrplans. Zeigt in einem Bild, warum erst dämmen und dann tauschen billiger
+  ist – die teuerste Fehlentscheidung im Bestand.
+- **Anschluss statt Sackgasse.** Alle Eingaben landen in der Gebäudeakte, damit
+  die spätere DIN-Berechnung darauf aufsetzt statt neu anzufangen.
+
+**Pflichtangabe in jeder Ausgabe:** Verfahren, Annahmen (Vollbenutzungsstunden,
+Nutzungsgrad, Warmwasseranteil) und Unsicherheitsspanne. Eine Heizlastzahl ohne
+ihre Annahmen ist wertlos – und im Streitfall gefährlich.
+
+---
+
+## 8. Zehn weitere Funktionen mit Hebel
+
+**1. Wärmepumpen-Eignungscheck.**
+Setzt direkt auf dem Heizlast-Schnellcheck auf: Vorlauftemperatur, Heizflächen,
+Aufstellort, Schallabstand zum Nachbarn, Platz für Speicher, Wärmestromtarif.
+Ergebnis als Ampel – geht / geht nicht / geht mit diesen Maßnahmen. Aus einem
+Check entstehen drei Aufträge: DIN-Heizlast, hydraulischer Abgleich,
+Förderantrag.
+
+**2. Abgleich mit der kommunalen Wärmeplanung.**
+Kommunen über 100.000 Einwohner mussten bis 30.06.2026 liefern, alle übrigen bis
+30.06.2028 – für PB, HX, GT und LIP entsteht das also **gerade jetzt**. Die App
+zeigt, in welcher Gebietskategorie ein Objekt liegt: Wärmenetz, Wasserstoffnetz,
+dezentral oder Prüfgebiet. Wichtig und gut zu erklären: Das ist eine Prognose,
+keine Anschlusspflicht – Verbindlichkeit entsteht erst über eine Ausweisung nach
+§ 26 WPG. Genau deshalb braucht es jemanden, der es einordnet. Und Wärmenetze
+macht ihr selbst.
+
+**3. Förder-Fallenwächter.**
+Der häufigste Grund, warum eine Förderung platzt, ist banal: **beauftragt vor
+beantragt**. Die App prüft Angebote vor der Unterschrift auf förderschädliche
+Punkte – Datum, nicht förderfähige Positionen, fehlende Fachunternehmererklärung,
+verfehlte Mindestanforderungen. Ein einziger verhinderter Förderausfall zahlt das
+Honorar um ein Vielfaches. Und es ist die Geschichte, die der Kunde weitererzählt.
+
+**4. Antrags- und Nachweis-Cockpit.**
+BzA/TPB → Antrag → Bewilligung → Umsetzungsfrist → Verwendungsnachweis →
+Bestätigung nach Durchführung. Die BnD ist bei euch eine eigene Leistung und
+heute vermutlich ein Kalendereintrag. Als Workflow mit Fristen wird daraus
+planbarer Umsatz – und kein Kunde läuft mehr in eine Frist.
+
+**5. Bauphysik-Warnsystem.**
+Prüft den Fahrplan automatisch auf Folgefehler. Der wichtigste: Ein
+**Lüftungskonzept nach DIN 1946-6** ist Pflicht, sobald mehr als ein Drittel der
+Fenster getauscht oder mehr als ein Drittel der Dachfläche gedämmt wird. Das wird
+ständig übersehen und endet in Schimmel, Streit und Haftung. Dazu
+Innendämmung/Feuchte, Wärmebrücken, Heizungstausch vor Dämmung. Verhindert
+Schäden – und erzeugt nebenbei den Auftrag „Lüftungskonzept".
+
+**6. Vermieter-Modul: CO₂-Kosten und Modernisierungsumlage.**
+Nach dem CO2KostAufG tragen Vermieter bei schlechten Gebäuden (ab 52 kg CO₂/m²·a)
+bis zu **95 %** der CO₂-Kosten; bei gutem Standard (unter 12 kg, EH-55-Niveau)
+zahlt der Mieter alles. Zehn Stufen, je 5 kg ein Sprung von 10 Prozentpunkten.
+Die App rechnet aus, wie viel eine Maßnahme an CO₂-Kostenanteil verschiebt – in
+Euro pro Jahr. **Das überzeugendste Argument gegenüber Hausverwaltungen
+überhaupt**, weil es nicht mit Klimaschutz argumentiert, sondern mit der
+Nebenkostenabrechnung.
+
+**7. Messtechnik-Assistent (Blower-Door und Thermografie).**
+Die Geräte habt ihr. Die App führt durch die Randbedingungen (Thermografie nur
+bei ausreichender Temperaturdifferenz, ohne Sonneneinstrahlung, in der
+Heizperiode), verortet Leckagen und Wärmebrücken per Foto auf dem Grundriss und
+hängt sie ans Bauteil in der Gebäudeakte. Ergebnis: Protokoll ohne Abendarbeit –
+und Vorher/Nachher-Bilder, die besser verkaufen als jede Tabelle.
+
+**8. Regionale Benchmarks und Nachbarschaftsaktionen.**
+Nach genug Objekten: „Häuser wie deins, Baujahr 1965, Paderborn" mit echten
+Kosten und tatsächlich erreichten Einsparungen. Zweiter Teil: Sammelaktionen im
+Straßenzug oder Baugebiet – gleiche Bauweise, gleiche Maßnahme, bessere
+Handwerkerpreise. So wird aus einem Beratungstermin ein halbes Dutzend.
+
+**9. Energieausweis- und Klassensprung-Simulator.**
+„Welche Maßnahme bringt dieses Gebäude aus Klasse G heraus?" Mit dem GModG
+bekommt diese Frage Zähne: Nichtwohngebäude der Klasse G – die schlechtesten
+16 % – haben ab 01.01.2030 eine Renovierungspflicht. Der Simulator macht aus
+einer abstrakten Pflicht eine konkrete Maßnahmenliste mit Kosten. Aus jedem
+Screening-Treffer wird ein Angebot.
+
+**10. Projektgedächtnis fürs Team.**
+Volltextsuche über alle bisherigen Projekte: „Fachwerk, Innendämmung, Denkmal –
+was haben wir da gemacht, und was ist daraus geworden?" Nach über zehn Jahren
+Firmengeschichte steckt dieses Wissen in Köpfen und Aktenordnern. Nutzen doppelt:
+Einarbeitung neuer Kollegen und Qualitätssicherung.
+
+### Bewusst nicht dabei
+
+- **Routen- und Tourenplanung.** Klingt naheliegend bei vier Kreisen, spart real
+  aber weniger als gedacht, weil Kundentermine ohnehin nach Verfügbarkeit liegen.
+  Eine Kalenderansicht mit Kartenlayer reicht.
+- **Öffentlicher KI-Chatbot zu Förder- und Rechtsfragen** vor Inkrafttreten des
+  GModG – siehe Kapitel 6.2. Haftungsrisiko ohne Gegenwert.
+- **Gamification / CO₂-Punkte / Badges.** Passt nicht zu Eigentümern, die eine
+  fünfstellige Investition abwägen, und beschädigt den fachlichen Anspruch.
+
+### Wenn nur drei davon kommen
+
+**Heizlast-Schnellcheck (Kap. 7)**, weil er im Termin sofort wirkt und die
+DIN-Berechnung verkauft. **Nr. 5 Bauphysik-Warnsystem**, weil es billig zu bauen
+ist und teure Schäden verhindert. **Nr. 6 CO₂-Modul**, weil es der direkteste Weg
+in den B2B-Bestand ist.
+
+---
+
+## 9. Wiederkehrende Umsätze
 
 Heute: Projektgeschäft. Mit App möglich:
 
@@ -318,7 +475,7 @@ Auftragsgeschäft.
 
 ---
 
-## 8. Was WERK.E danach hat, was sonst keiner hat
+## 10. Was WERK.E danach hat, was sonst keiner hat
 
 1. **Belegbare Umsetzungsquote.** „X % unserer Sanierungsfahrpläne werden
    tatsächlich umgesetzt" – niemand in der Branche kann das messen. Stärkstes
@@ -334,7 +491,7 @@ es sich, früh anzufangen – auch mit einem kleinen Funktionsumfang.
 
 ---
 
-## 9. Ausbaustufen
+## 11. Ausbaustufen
 
 **Stufe 1 – MVP (das Fundament)**
 Gebäudeakte, Dokumentenablage, Kundenportal mit lesbarem Fahrplan,
@@ -361,7 +518,7 @@ aus, auch wenn die nächste nie kommt.
 
 ---
 
-## 10. Technische Leitplanken
+## 12. Technische Leitplanken
 
 - **Kundenportal:** Web / PWA. Kein App-Store-Zwang – Hauseigentümer installieren
   keine App für ein Projekt alle zehn Jahre.
@@ -379,7 +536,7 @@ aus, auch wenn die nächste nie kommt.
 
 ---
 
-## 11. Risiken – ehrlich benannt
+## 13. Risiken – ehrlich benannt
 
 | Risiko | Gegenmaßnahme |
 |---|---|
@@ -396,7 +553,7 @@ Neues tun muss.
 
 ---
 
-## 12. Nächste Schritte
+## 14. Nächste Schritte
 
 1. **Zwei Zahlen messen** (eine Woche, ohne Software): Wie viele Stunden gehen
    pro Projekt für Datenbeschaffung und Berichtserstellung drauf? Wie viele der
@@ -422,6 +579,10 @@ Neues tun muss.
 - Bestehende WERK.E-Rechner: https://werk-e.de/beg-foerderrechner-2026/ · https://werk-e.de/preisstruktur-beg-antragstellung-transparent-erklaert/ · https://werk-e.de/neue-foerderbedingungen-2026-was-jetzt-bei-kfw-und-bafa-gilt/
 - GModG (Referentenentwurf 05.05.2026, Kabinett 13.05.2026): https://www.roedl.com/insights/neues-gebaeudemodernisierungsgesetz-gmodg-systemwechsel-gegenueber-gebaeudeenergiegesetz/ · https://www.energieausweise.de/info/neu2026/neuerungen/ · https://table.media/assets/climate/260505_refe-gmodg.pdf
 - EPBD / GEG-Umsetzung: https://www.bbsr-geg.bund.de/GEGPortal/DE/ErgaenzendeRegelungen/EPBD/epbd_node.html · https://www.haufe.de/immobilien/wirtschaft-politik/green-deal-eu-liefert-investitionsplan-fuer-gebaeudesektor_84342_507868.html
+- Heizlast aus Verbrauch / Vollbenutzungsstunden: https://greenox-group.de/waermepumpe-dimensionieren-gasverbrauch/ · https://www.ikz.de/detail/news/detail/auslegung-einer-waermepumpe/
+- Lüftungskonzept DIN 1946-6 (Drittel-Regel): https://immobilien-fachwissen.de/din-1946-6-lueftungskonzept-fenstertausch/ · https://www.energie-experten.org/haustechnik/wohnraumlueftung/kontrollierte-wohnraumlueftung/din-1946-6
+- CO2KostAufG Stufenmodell: https://www.ista.com/de/gesetze-und-verordnungen/kohlendioxidkostenaufteilungsgesetz-co2kostaufg/ · https://verbraucherzentrale-energieberatung.de/co2-aufteilung-mieter-vermieter/
+- Kommunale Wärmeplanung / WPG: https://www.energiewechsel.de/KAENEF/Redaktion/DE/FAQ/Waermeplanung/faq-waermeplanung-wpg.html
 - Marktübersicht Energieberater-Software: https://reduco.ai/blog/energieberater-software-vergleich · https://www.streit-software.de/wissen/energieberater-software
 
 *Alle Rechts- und Förderangaben: Stand August 2026, vor Verwendung prüfen.*
