@@ -759,7 +759,124 @@ Daraus folgt pragmatisch:
 
 ---
 
-## 16. Nächste Schritte
+## 16. Die öffentliche Rechner-Ebene
+
+### 16.1 Präzisierung zu Kapitel 15.4
+
+Der Ausschluss des Heizlast-Rechners dort galt dem **Kundenportal** – als
+Selbstbedienung für jemanden, der bereits in Beratung ist. Dort stiftet er
+Verwirrung, weil er neben der echten Berechnung steht.
+
+**Öffentlich, vor der Beratung, ist er etwas völlig anderes:** einer der
+stärksten Lead-Magnete, die dieser Markt hergibt. Das Konzept braucht deshalb
+nicht zwei Ebenen, sondern drei:
+
+| Ebene | Wer | Login | Zweck |
+|---|---|---|---|
+| **Öffentlich** | Interessent | nein | Eine Frage beantworten – der Kontakt entsteht als Nebenprodukt |
+| **Portal** | Kunde | ja | Orientierung im laufenden Projekt |
+| **Team** | Berater | ja | Erfassung und Fachtiefe |
+
+Alle drei rechnen mit **demselben Kern**, nur in unterschiedlicher Tiefe. Das ist
+auch technisch der richtige Schnitt: Formeln einmal bauen, drei Detailgrade
+ausspielen. Damit kann das öffentliche Ergebnis dem Beraterergebnis nie
+widersprechen – ein Peinlichkeitsfall, den man sonst garantiert erlebt.
+
+### 16.2 Heizlast-Schnellrechner, öffentlich
+
+*„Wie viel kW Wärmepumpe brauche ich?"* ist eine der meistgestellten Fragen im
+Sanierungsmarkt. Wer sie gut beantwortet, wird gefunden.
+
+Die beiden Eingabewege stehen schon in Kapitel 7 (Verbrauch oder wenige Fragen).
+Entscheidend ist nicht die Rechnung, sondern **die Ausgabe**:
+
+- Spanne, nie Punktwert
+- Annahmen offen sichtbar: Vollbenutzungsstunden, Nutzungsgrad, Warmwasseranteil
+- und dann der Satz, der konvertiert:
+
+> „Die Heizlast liegt bei X–Y kW. Über Ihre Wärmepumpe entscheidet aber eine
+> andere Frage: ob Ihre vorhandenen Heizkörper diese Last bei 55 °C statt 70 °C
+> abgeben. Das kann kein Online-Rechner beantworten – das sehen wir vor Ort."
+
+Das ist keine Verkaufsmasche, sondern fachlich schlicht wahr. Genau deshalb wirkt
+es.
+
+**Ehrlich zum Risiko:** Manche nehmen die Zahl und gehen damit zum
+Heizungsbauer. Das passiert ohnehin – heute nur mit einer schlechteren Zahl aus
+einer beliebigen Quelle.
+
+### 16.3 Fördermittelrechner – nicht neu bauen, sondern anschließen
+
+Ihr habt ihn bereits, er funktioniert, er hat Besucher. Ein zweiter wäre
+Verschwendung. Zwei Ergänzungen machen den Unterschied:
+
+1. **Netto-Ergebnis** statt reinem Förderbetrag (Kapitel 6.3)
+2. **„Ergebnis sichern"** – aus dem Rechenstand wird ein Objekt mit Konto
+
+Punkt 2 ist die fehlende Brücke im ganzen Funnel. Heute endet der Rechner im
+Nichts: Der Interessent sieht eine Zahl, schließt den Tab, und ihr erfahrt nie
+davon. Er sollte stattdessen in einem gespeicherten Gebäude enden – ab da kann
+der Förder-Wächter arbeiten, **noch bevor jemand Kunde ist**.
+
+> Der Förderrechner ist nicht das Ende des Funnels. Er ist der Anfang der
+> Gebäudeakte.
+
+### 16.4 GModG-Anforderungsvergleich – ja, aber in der richtigen Bauform
+
+Hier liegt der Unterschied, der alles entscheidet:
+
+- **Regeln anwenden** – deterministisch, prüfbar, verantwortbar → bauen
+- **Recht auslegen** – freier Chatbot → nicht bauen
+
+Gleiches Gesetz, völlig unterschiedliches Risiko. Mein Vorbehalt aus Kapitel 6.2
+galt dem zweiten, nicht dem ersten.
+
+Der Anforderungsvergleich ist ein **Soll-Ist**: Was verlangt das Regelwerk von
+diesem Gebäude, wo steht es heute, was fehlt? Prüfbare Punkte:
+
+- **Nachrüstpflichten** (oberste Geschossdecke, Rohrleitungsdämmung) – bleiben
+  nach aktuellem Stand bestehen
+- **Bedingte Anforderungen bei Bauteiländerung** samt Bagatellgrenze: Sie greifen
+  erst, wenn mehr als **10 %** der jeweiligen Bauteilgruppe betroffen sind. Hoch
+  praxisrelevant und bei Eigentümern praktisch unbekannt.
+- **Nichtwohngebäude Klasse G** → Renovierungspflicht ab 01.01.2030
+- **Verbrauchsausweis** → 24 Monate lückenlose Monatswerte
+- **Vorlage- und Übergabepflichten** samt Bußgeldrahmen
+
+**Und der Punkt, der gerade jetzt am meisten wert ist:** Nach dem beschlossenen
+Entwurf entfallen die 65-%-Erneuerbaren-Pflicht für neue Heizungen und das
+30-Jahre-Betriebsverbot für Konstanttemperaturkessel. Ein großer Teil der
+Eigentümer glaubt weiterhin an Regeln, die gerade wegfallen – und trifft auf
+dieser Grundlage fünfstellige Investitionsentscheidungen. Ein Werkzeug, das
+sauber zwischen **gilt / entfällt / kommt neu** trennt, hat in diesem Jahr einen
+Wert, den es in zwei Jahren nicht mehr hat.
+
+**Bauform:** kein Freitext. Gebäudedaten hinein, Liste heraus – jede Zeile mit
+Ampel, Fundstelle, Stand-Datum und dem Vermerk „Entwurfsstand", solange das
+Gesetz nicht in Kraft ist. Sobald es gilt, wird derselbe Vergleich zum
+Standardeinstieg jeder Beratung, intern wie öffentlich.
+
+### 16.5 Was alle drei brauchen
+
+- Spanne statt Punktwert
+- Annahmen sichtbar, nicht im Kleingedruckten
+- Stand-Datum und Regelversion an **jedem** Ergebnis
+- „Ergebnis sichern" als einziger Konversionsschritt – kein Formular vorab, kein
+  Zwang
+- Und die harte Bedingung: Dasselbe Ergebnis muss beim Berater exakt so wieder
+  auftauchen
+
+### 16.6 Reihenfolge
+
+1. **Fördermittelrechner erweitern** um Netto-Ergebnis und „Ergebnis sichern" –
+   kleinster Aufwand, wirkt sofort, weil der Rechner bereits Besucher hat
+2. **Heizlast-Schnellrechner öffentlich** – neuer Kanal, hohes Suchinteresse,
+   rein rechnerisch und damit Kategorie A
+3. **GModG-Vergleich** – zuerst intern fürs Team, öffentlich mit Inkrafttreten
+
+---
+
+## 17. Nächste Schritte
 
 1. **Zwei Zahlen messen** (eine Woche, ohne Software): Wie viele Stunden gehen
    pro Projekt für Datenbeschaffung und Berichtserstellung drauf? Wie viele der
@@ -789,6 +906,8 @@ Daraus folgt pragmatisch:
 - Lüftungskonzept DIN 1946-6 (Drittel-Regel): https://immobilien-fachwissen.de/din-1946-6-lueftungskonzept-fenstertausch/ · https://www.energie-experten.org/haustechnik/wohnraumlueftung/kontrollierte-wohnraumlueftung/din-1946-6
 - CO2KostAufG Stufenmodell: https://www.ista.com/de/gesetze-und-verordnungen/kohlendioxidkostenaufteilungsgesetz-co2kostaufg/ · https://verbraucherzentrale-energieberatung.de/co2-aufteilung-mieter-vermieter/
 - Kommunale Wärmeplanung / WPG: https://www.energiewechsel.de/KAENEF/Redaktion/DE/FAQ/Waermeplanung/faq-waermeplanung-wpg.html
+- Bedingte Anforderungen / Bagatellgrenze 10 %, Nachrüstpflichten: https://www.bbsr-geg.bund.de/GEGPortal/DE/GEGRegelungen/Gebaeudebestand/Nachruestungspflichten/Nachruestungspflichten-node.html · https://www.gesetze-im-internet.de/geg/__47.html
+- GModG: Wegfall 65-%-Regel und 30-Jahre-Betriebsverbot (Entwurfsstand): https://www.grantthornton.de/themen/2026/gebaeudemodernisierungsgesetz-beschlossen-die-wichtigsten-aenderungen-im-neuen-heizungsgesetz-gmodg/
 - Web-Push auf iOS nur für Home-Screen-Web-Apps: https://www.magicbell.com/blog/pwa-ios-limitations-safari-support-complete-guide
 - App Store Guideline 4.2 / Webview-Ablehnungen: https://www.mobiloud.com/blog/app-store-review-guidelines-webview-wrapper
 - EU-Händlerstatus (DSA) im App Store: https://developer.apple.com/news/upcoming-requirements/?id=02172025a
