@@ -3,6 +3,11 @@
 **Ziel:** Eine App, die für WERK.E gleichzeitig Aufträge bringt, die Beratung
 schneller macht und aus Einmal-Beratungen wiederkehrende Umsätze macht.
 
+**Leitbild:** *„Ich will mein Haus sanieren, lade die App herunter – und sie führt
+mich hindurch."* Ein kleines Schweizer Taschenmesser mit einem Griff, an dem die
+Klingen hängen. Ausgearbeitet in **Kapitel 17**; die Kapitel davor liefern die
+Bausteine.
+
 **Entscheidung (vorab getroffen):** Eine Plattform, drei Oberflächen –
 Kundenportal, Team-App fürs Feld, B2B-Portfolio-Sicht. Alle drei greifen auf
 **dieselben Gebäudedaten** zu. Genau darin liegt der Hebel: Was der Berater vor
@@ -876,7 +881,128 @@ Standardeinstieg jeder Beratung, intern wie öffentlich.
 
 ---
 
-## 17. Nächste Schritte
+## 17. Leitbild: die App als Begleiter durch die Sanierung
+
+### 17.1 Das bessere Leitbild
+
+> „Ich will mein Haus sanieren, lade die App herunter – und sie führt mich
+> hindurch. Ein kleines Schweizer Taschenmesser."
+
+Das ist ein stärkeres Leitbild als alles bisher Beschriebene, weil es aus
+Kundensicht formuliert ist statt aus Firmensicht. Es ordnet den ganzen Katalog
+neu: Die Frage ist nicht mehr *„welche Funktionen bieten wir an"*, sondern
+*„welche Frage steht beim Kunden gerade an"*.
+
+Es korrigiert auch eine frühere Empfehlung. In Kapitel 15.5 stand, eine native
+Endkunden-App lohne sich vorerst nicht. Das gilt für ein **Portal**, das man
+einmal im Quartal aufruft. Für einen **Begleiter über achtzehn Monate** – mit
+Kamera, Erinnerungen, Offline-Notizen auf der Baustelle – gilt es nicht. Wenn der
+Download der Einstieg ist, ist die native App richtig.
+
+### 17.2 Der Griff des Taschenmessers: die Sanierungsreise
+
+Ein Taschenmesser ohne Griff ist eine Handvoll loser Klingen. Der Griff ist die
+**Reise mit Phasen**. Die Werkzeuge hängen an der Phase, in der jemand gerade
+steckt – nicht an einem Werkzeugkasten-Bildschirm mit fünfzehn Symbolen.
+
+| Phase | Die Frage des Kunden | Werkzeuge, die dann sichtbar sind | Wo WERK.E dazukommt |
+|---|---|---|---|
+| **1 Orientierung** | Lohnt sich das überhaupt? | Selbst-Check, Heizlast-Schnellrechner, Förderrechner, GModG-Betroffenheit | noch niemand |
+| **2 Planen** | In welcher Reihenfolge, mit welchem Budget? | Fahrplan, Förder-Optimierer, Bauphysik-Warnungen | iSFP (gefördert) |
+| **3 Fördern** | Wie komme ich an das Geld, ohne es zu verlieren? | Antragsstrecke, „Antrag vor Auftrag"-Warnung, Fristen | Energieeffizienz-Experte ist Pflicht |
+| **4 Beauftragen** | Wem gebe ich den Auftrag, ist das Angebot in Ordnung? | Angebotsprüfung, Vergleich, Handwerkernetz | fachliche Einordnung |
+| **5 Bauen** | Läuft es richtig? | Fotodokumentation, Mängelliste, Rechnungen sammeln | Baubegleitung |
+| **6 Nachweisen** | Wie wird die Förderung ausgezahlt? | Verwendungsnachweis, Unterlagen-Checkliste | Bestätigung nach Durchführung |
+| **7 Danach** | Hat es gewirkt, was kommt als Nächstes? | Zählerstände, Soll-Ist, nächste Maßnahme | nächste Stufe des Fahrplans |
+
+Der wichtigste Befund dieser Tabelle: **Die App kann gar nicht bis zum Ende
+führen, ohne dass eine Fachperson dazukommt.** Die BEG-Förderung verlangt in
+weiten Teilen einen Energieeffizienz-Experten. Das ist kein Konstruktionsfehler
+des Leitbilds – das **ist** das Geschäftsmodell. Die App führt ehrlich bis zu dem
+Punkt, an dem es fachlich nicht mehr allein geht. Und dort steht ihr.
+
+### 17.3 „Klein" ist die schwerste Anforderung
+
+Das Risiko dieses Leitbilds ist exakt sein Gegenteil: ein Taschenmesser mit
+dreißig Klingen, das niemand mehr aufbekommt. Die Gegendisziplin ist leicht zu
+formulieren und schwer zu halten:
+
+- **Pro Phase höchstens drei sichtbare Werkzeuge.** Der Rest bleibt verborgen,
+  bis er an der Reihe ist.
+- **Immer genau eine nächste Aufgabe** auf dem Startbildschirm (Kapitel 15.2).
+- **Kein leerer Zustand.** Adresse, Baujahr, Wohnfläche, Heizung – und sofort ein
+  erstes Bild: geschätzte Effizienzklasse, Förderpotenzial, Betroffenheit. Wer
+  erst zwanzig Felder ausfüllen muss, bevor etwas passiert, ist weg.
+- **Kein Konto vor dem ersten Nutzen.** Registrierung erst bei „Ergebnis sichern".
+
+Die Funktionen aus den Kapiteln 3 bis 8 ändern sich dadurch nicht. Es ändert sich
+nur, **wann** sie auftauchen.
+
+### 17.4 Die drei Momente, in denen sich die App beweist
+
+Wenn nur drei Dinge zuverlässig funktionieren, dann diese:
+
+1. **Antrag vor Auftrag.** Unmissverständlich warnen, bevor jemand unterschreibt.
+   Wer das einmal verhindert hat, hat einen Kunden fürs Leben.
+2. **Die richtige Reihenfolge.** Heizung vor Dämmung ist die teuerste
+   Fehlentscheidung im Bestand – die App muss es sagen, bevor es passiert.
+3. **Keine verpasste Frist.** Bewilligung, Umsetzungszeitraum, Nachweis.
+
+Alle drei sind **Warnungen, keine Rechner**. Das Versprechen „führt mich hindurch"
+wird nicht durch Funktionsumfang eingelöst, sondern durch rechtzeitige Zurufe.
+
+### 17.5 Zwei offene Punkte, die über die Wirtschaftlichkeit entscheiden
+
+**Reichweite gegen Region.** Eine Download-App ist bundesweit, WERK.E berät in
+PB, HX, GT und LIP. Der größte Teil der Nutzer wird also nie Kunde. Zwei saubere
+Antworten:
+
+- *Regional zuschneiden:* Die App funktioniert überall, aber die Übergabe an die
+  Beratung ist regional. Nutzer außerhalb kosten wenig und liefern trotzdem
+  Referenzdaten und Sichtbarkeit.
+- *Später ein Partnernetz* von Energieberatern in anderen Regionen – dann ist die
+  App ein eigenes Produkt und nicht mehr nur euer Marketing.
+
+Empfehlung: mit dem Ersten anfangen, das Zweite offenhalten – aber die
+Architektur **von Anfang an mandantenfähig** bauen. Nachträglich ist das teuer.
+
+**Erlösmodell und Apple.** Zwei Regeln, die den Aufbau bestimmen:
+
+- Der Verkauf **eurer Beratungsleistung** über die App ist vom In-App-Kauf
+  ausgenommen – reale Leistungen außerhalb der App dürfen über normale
+  Zahlungswege laufen. Beratung, iSFP und Baubegleitung sind also unproblematisch.
+- Ein **digitales Abo** (Monitoring, Fristen-Wächter) wäre dagegen ein
+  In-App-Kauf, mit Apples Anteil und zusätzlichen Auflagen.
+
+Praktische Folge: Die App bleibt kostenlos und verdient über die Leistungen; der
+Wächter ist Teil der Kundenbeziehung statt ein verkauftes Digitalprodukt. Das ist
+auch inhaltlich der bessere Weg – ein kostenpflichtiger Fristenwächter ist schwer
+zu verkaufen, ein kostenloser bindet.
+
+### 17.6 Was das für Version 1.0 heißt
+
+Kapitel 14.6 empfahl das Beraterwerkzeug zuerst. Das Leitbild verschiebt die
+Gewichtung, hebt die Empfehlung aber nicht auf – der Rechenkern ist derselbe:
+
+1. **Zuerst Phase 1 vollständig**, öffentlich und ohne Konto: Selbst-Check,
+   Heizlast, Förderrechner mit Netto-Ergebnis, GModG-Betroffenheit, „Ergebnis
+   sichern".
+2. **Dann der Reise-Rahmen** mit Phasen und Nächster-Schritt-Bildschirm. Ab da
+   fühlt es sich wie ein Begleiter an, auch wenn die späteren Phasen noch dünn
+   sind.
+3. **Dann die drei Warnungen** aus 17.4 – billig zu bauen, und sie tragen das
+   Versprechen.
+4. Die Beraterseite läuft parallel auf demselben Rechenkern.
+
+Eine App, die Phase 1 und 2 wirklich gut macht und bei Phase 3 ehrlich sagt
+*„ab hier brauchst du einen Energieeffizienz-Experten – hier sind wir"*, ist
+vollständig genug für den Store und schon ein Werkzeug, das weiterempfohlen wird.
+Vollständigkeit über alle sieben Phasen ist ein Ziel für Jahre, kein
+Startkriterium.
+
+---
+
+## 18. Nächste Schritte
 
 1. **Zwei Zahlen messen** (eine Woche, ohne Software): Wie viele Stunden gehen
    pro Projekt für Datenbeschaffung und Berichtserstellung drauf? Wie viele der
