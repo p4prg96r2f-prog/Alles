@@ -666,7 +666,100 @@ D-U-N-S, Trader-Status). Beides sollte parallel zum Bauen starten.
 
 ---
 
-## 15. Nächste Schritte
+## 15. Mindestumfang für Endkunden
+
+### 15.1 Die Ausgangslage bestimmt die Auswahl
+
+Ein Hauseigentümer öffnet eine Energieberatungs-App **nicht** wöchentlich. Ohne
+Anlass vielleicht vier Mal im Jahr. Daraus folgt eine harte Regel:
+
+> Jede Endkunden-Funktion muss entweder **in den ersten 60 Sekunden liefern**
+> oder sich **von selbst melden**. Ein Portal, das auf einen Login wartet, ist tot.
+
+Das schließt die Mehrzahl der naheliegenden Ideen aus – und macht die Auswahl
+einfach.
+
+### 15.2 Die fünf, die rein müssen
+
+**1. Der „Nächster Schritt"-Bildschirm.**
+Der Startbildschirm zeigt genau eine Sache: was jetzt ansteht, **wer am Zug ist**
+(Sie / WERK.E / Handwerker / Förderstelle) und bis wann. Nicht eine Übersicht,
+nicht ein Dashboard – ein Satz und ein Knopf.
+
+Während einer Sanierung ist das dominierende Gefühl beim Kunden Unsicherheit:
+*Wo stehe ich? Muss ich etwas tun? Habe ich eine Frist verpasst?* Wer diese Frage
+zuverlässig beantwortet, hat die App gerechtfertigt – alles andere ist Beiwerk.
+
+Nebeneffekt: Die **Termin-Vorbereitung** aus Kapitel 3.3 braucht kein eigenes
+Feature. Sie ist einfach der nächste Schritt, wenn er gerade ansteht
+(„Bitte Heizungstypenschild fotografieren – bis Donnerstag").
+
+**2. Der Dokumententresor.**
+Energieausweis, iSFP, BzA/TPB, Bewilligungsbescheid, Fachunternehmererklärungen,
+Rechnungen, Fotos – an einem Ort, durchsuchbar, als Paket exportierbar.
+
+Das ist der Grund, warum die App in acht Jahren noch installiert ist. Spätestens
+beim **Hausverkauf** fragt der Käufer nach genau diesen Unterlagen, und niemand
+findet sie. Wer sie dann in dreißig Sekunden exportiert, erzählt das weiter.
+
+**3. Der Sanierungsfahrplan mit der einen Zahl.**
+Maßnahmen als Karten – Kosten, Förderung, Einsparung, empfohlenes Jahr – mit
+Status zum Abhaken. Darüber das Ergebnis, das den Kunden wirklich interessiert:
+*Investition − Förderung + Honorar = das kostet mich unterm Strich.*
+
+Für Version 1 reicht die **Ansicht**. Die Was-wäre-wenn-Schieber aus Kapitel 3.1
+sind großartig, aber teuer – die kommen später.
+
+**4. Der Wächter, der sich von selbst meldet.**
+Fördersätze, die sich verschlechtern; ablaufende Energieausweise; Umsetzungs-
+und Nachweisfristen. **Ohne diesen aktiven Teil wird jede Endkunden-App tot** –
+weil niemand ohne Anlass hineinschaut.
+
+**5. Zählerstand in dreißig Sekunden.**
+Foto vom Zähler, Wert erkannt, fertig. Zwei Gründe: Wegen der 24-Monats-Regel des
+GModG braucht ihr die Daten (Kapitel 6.2) – und es ist der **einzige Anlass, der
+regelmäßig in die App führt**. Ein monatlicher Kontaktpunkt von dreißig Sekunden
+hält die Beziehung am Leben, ohne zu nerven.
+
+### 15.3 Die sechste, wenn Budget bleibt
+
+**Ein Rückfragen-Kanal am Objekt.** Fragen, Fotos und Antworten hängen am
+Gebäude statt in einem E-Mail-Verlauf, den beide Seiten durchsuchen müssen.
+Spart eurem Team messbar Zeit und erspart dem Kunden das Gefühl, hinterhertelefo-
+nieren zu müssen.
+
+### 15.4 Was bewusst draußen bleibt
+
+- **Heizlast-Rechner für Endkunden.** Gehört ins Beratungsgespräch. Allein
+  abgegeben erzeugt er falsche Erwartungen und Diskussionen über Zahlen, die ohne
+  ihre Annahmen nichts bedeuten.
+- **Simulationsschieber** in Version 1 – schön, aber aufwendig, und der Fahrplan
+  wirkt auch ohne.
+- **Chatbot** – siehe Kapitel 6.2.
+- **Login-Zwang vor dem Selbst-Check.** Der öffentliche Rechner muss ohne Konto
+  funktionieren, sonst ist er als Lead-Magnet wertlos.
+
+### 15.5 Die Kanalfrage entscheidet über die Technik
+
+Punkt 4 und 5 hängen an Benachrichtigungen – und da gibt es eine harte Grenze:
+**Auf iOS funktioniert Web-Push nur, wenn der Nutzer die Seite zuvor auf den
+Home-Bildschirm gelegt hat.** In einem normalen Safari-Tab kommt keine
+Benachrichtigung an, auch bei erteilter Erlaubnis. Der Anteil, der diesen Schritt
+geht, ist klein.
+
+Daraus folgt pragmatisch:
+
+- **E-Mail ist der verlässliche Kanal** für Wächter und Erinnerungen. Nicht
+  modern, aber es kommt an – und für vier bis zwölf Nachrichten im Jahr völlig
+  ausreichend.
+- **Web-Portal ohne Installation** für alles andere. Kein Store, keine Hürde.
+- Eine **native App für Endkunden** lohnt erst, wenn die monatliche
+  Zählerstandserfassung wirklich laufen soll. Dann ist sie gerechtfertigt – vorher
+  nicht.
+
+---
+
+## 16. Nächste Schritte
 
 1. **Zwei Zahlen messen** (eine Woche, ohne Software): Wie viele Stunden gehen
    pro Projekt für Datenbeschaffung und Berichtserstellung drauf? Wie viele der
@@ -696,6 +789,7 @@ D-U-N-S, Trader-Status). Beides sollte parallel zum Bauen starten.
 - Lüftungskonzept DIN 1946-6 (Drittel-Regel): https://immobilien-fachwissen.de/din-1946-6-lueftungskonzept-fenstertausch/ · https://www.energie-experten.org/haustechnik/wohnraumlueftung/kontrollierte-wohnraumlueftung/din-1946-6
 - CO2KostAufG Stufenmodell: https://www.ista.com/de/gesetze-und-verordnungen/kohlendioxidkostenaufteilungsgesetz-co2kostaufg/ · https://verbraucherzentrale-energieberatung.de/co2-aufteilung-mieter-vermieter/
 - Kommunale Wärmeplanung / WPG: https://www.energiewechsel.de/KAENEF/Redaktion/DE/FAQ/Waermeplanung/faq-waermeplanung-wpg.html
+- Web-Push auf iOS nur für Home-Screen-Web-Apps: https://www.magicbell.com/blog/pwa-ios-limitations-safari-support-complete-guide
 - App Store Guideline 4.2 / Webview-Ablehnungen: https://www.mobiloud.com/blog/app-store-review-guidelines-webview-wrapper
 - EU-Händlerstatus (DSA) im App Store: https://developer.apple.com/news/upcoming-requirements/?id=02172025a
 - Marktübersicht Energieberater-Software: https://reduco.ai/blog/energieberater-software-vergleich · https://www.streit-software.de/wissen/energieberater-software
