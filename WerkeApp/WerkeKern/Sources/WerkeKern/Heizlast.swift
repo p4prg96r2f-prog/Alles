@@ -196,6 +196,64 @@ public struct Heizlastrechner {
         )
     }
 
+    // MARK: Beide Wege gegeneinander
+
+    public enum Abweichung: String, Sendable, Equatable {
+        case stimmigZusammen
+        case verbrauchDeutlichNiedriger
+        case verbrauchDeutlichHoeher
+    }
+
+    public struct Vergleich: Sendable, Equatable {
+        public let abweichung: Abweichung
+        public let aussage: String
+        /// Welcher Wert ist der belastbarere?
+        public let empfohlenesVerfahren: Heizlastverfahren
+    }
+
+    /// Liegen beide Wege vor, muss die App dazu etwas sagen können.
+    ///
+    /// Zwei Zahlen, die um den Faktor drei auseinanderliegen, wirken sonst wie
+    /// ein Fehler. Tatsächlich sind sie eine Aussage: Der gemessene Verbrauch
+    /// ist das belastbarere Signal, und eine große Abweichung deutet auf einen
+    /// anderen Gebäudezustand hin als die Eckdaten vermuten lassen.
+    public func vergleiche(
+        ausVerbrauch: Heizlastergebnis,
+        ausGebaeudedaten: Heizlastergebnis
+    ) -> Vergleich {
+        let gemessen = ausVerbrauch.spanne.mitte
+        let geschaetzt = ausGebaeudedaten.spanne.mitte
+        guard geschaetzt > 0 else {
+            return Vergleich(
+                abweichung: .stimmigZusammen,
+                aussage: "Beide Wege führen zu einem ähnlichen Ergebnis.",
+                empfohlenesVerfahren: .ausVerbrauch
+            )
+        }
+
+        let verhaeltnis = gemessen / geschaetzt
+
+        if verhaeltnis < 0.7 {
+            return Vergleich(
+                abweichung: .verbrauchDeutlichNiedriger,
+                aussage: "Ihr tatsächlicher Verbrauch liegt deutlich unter dem, was Baujahr und Angaben erwarten lassen. Das spricht dafür, dass am Haus bereits mehr gedämmt wurde als hinterlegt ist – oder dass sparsam geheizt wird. Für die Auslegung zählt der gemessene Wert.",
+                empfohlenesVerfahren: .ausVerbrauch
+            )
+        }
+        if verhaeltnis > 1.4 {
+            return Vergleich(
+                abweichung: .verbrauchDeutlichHoeher,
+                aussage: "Ihr tatsächlicher Verbrauch liegt deutlich über dem, was Baujahr und Angaben erwarten lassen. Mögliche Gründe: hohe Raumtemperaturen, eine schlecht eingestellte Anlage oder ein zusätzlich beheizter Bereich. Das lohnt einen genaueren Blick.",
+                empfohlenesVerfahren: .ausVerbrauch
+            )
+        }
+        return Vergleich(
+            abweichung: .stimmigZusammen,
+            aussage: "Beide Wege führen zu einem ähnlichen Ergebnis – das erhöht das Vertrauen in die Abschätzung.",
+            empfohlenesVerfahren: .ausVerbrauch
+        )
+    }
+
     // MARK: Hilfen
 
     func spezifischeHeizlast(baujahr: Int) -> Double {

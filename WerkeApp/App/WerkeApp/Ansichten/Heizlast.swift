@@ -51,6 +51,7 @@ struct HeizlastAnsicht: View {
 
                 if let ergebnis {
                     ergebniskarte(ergebnis)
+                    if let vergleich { vergleichskarte(vergleich) }
                     heizflaechen(ergebnis)
                     vorbehaltskarte(ergebnis)
                     Nebenknopf(titel: "Als PDF teilen", symbol: "square.and.arrow.up") {
@@ -64,6 +65,7 @@ struct HeizlastAnsicht: View {
             }
             .padding(Gestaltung.Abstand.normal)
         }
+        .scrollDismissesKeyboard(.interactively)
         .background(Gestaltung.Farbe.hintergrund)
         .navigationTitle("Heizlast")
         .navigationBarTitleDisplayMode(.inline)
@@ -123,6 +125,38 @@ struct HeizlastAnsicht: View {
                 .stilAbschnittstitel()
             Text("Baujahr, Fläche, Gebäudetyp und der Dämmzustand aus „Mein Haus“. Je mehr davon ausgefüllt ist, desto enger die Spanne.")
                 .stilNebentext()
+        }
+    }
+
+    // MARK: Beide Wege gegeneinander
+
+    /// Liegen Verbrauchsdaten vor, wird immer auch gegen die Gebäudeangaben
+    /// gerechnet. Zwei stark abweichende Zahlen kommentarlos nebeneinander zu
+    /// stellen, wirkt wie ein Fehler – dabei ist die Abweichung eine Aussage.
+    private var vergleich: Heizlastrechner.Vergleich? {
+        guard weg == .verbrauch,
+              let gebaeude = zustand.gebaeude,
+              let ausVerbrauch = ergebnis else { return nil }
+        let ausDaten = zustand.heizlastrechner.ausGebaeudedaten(gebaeude)
+        return zustand.heizlastrechner.vergleiche(
+            ausVerbrauch: ausVerbrauch, ausGebaeudedaten: ausDaten
+        )
+    }
+
+    private func vergleichskarte(_ vergleich: Heizlastrechner.Vergleich) -> some View {
+        let ampel: Ampel = vergleich.abweichung == .stimmigZusammen ? .gruen : .gelb
+        return Karte {
+            Ampelzeile(
+                ampel: ampel,
+                titel: "Abgleich mit Ihren Gebäudeangaben",
+                aussage: vergleich.aussage
+            )
+            if let gebaeude = zustand.gebaeude {
+                betragszeile(
+                    "Aus den Gebäudeangaben",
+                    Formate.kilowattSpanne(zustand.heizlastrechner.ausGebaeudedaten(gebaeude).spanne)
+                )
+            }
         }
     }
 

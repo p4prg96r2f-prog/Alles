@@ -18,6 +18,13 @@ let package = Package(
         .testTarget(
             name: "WerkeKernTests",
             dependencies: ["WerkeKern"]
+        ),
+        // Spielt die vollständige Nutzungsstrecke durch und gibt sie aus.
+        // Bewusst kein Produkt, damit Xcode es nicht mitbaut:
+        //     swift run WerkeDemo
+        .executableTarget(
+            name: "WerkeDemo",
+            dependencies: ["WerkeKern"]
         )
     ]
 )

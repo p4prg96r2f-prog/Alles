@@ -42,15 +42,24 @@ weiterverwenden.
 
 ---
 
-## Bauen
+## Bauen und ausprobieren
 
 ```bash
-# Rechenkern prüfen (überall, auch ohne Xcode)
+# Rechenkern prüfen (überall, auch ohne Xcode und ohne Mac)
 cd WerkeKern && swift test
+
+# Die vollständige Nutzungsstrecke durchspielen und ausgeben
+cd WerkeKern && swift run WerkeDemo
 
 # App öffnen
 open App/WerkeApp.xcodeproj
 ```
+
+`WerkeDemo` läuft den ganzen Ablauf durch – erster Start, Einstieg,
+Förderabschätzung, Optimierungshinweis, Heizlast über beide Wege,
+Heizflächenprüfung, 24 Monate Zählerstände, Anforderungsvergleich,
+CO₂-Kosten, Speichern und Löschen – und gibt aus, was ein Mensch dabei zu
+sehen bekäme. Ohne Gerät, ohne Netz.
 
 Das Projekt bindet `WerkeKern` als lokales Swift-Paket ein; Xcode löst das beim
 Öffnen selbst auf. Erforderlich sind **Xcode 16** oder neuer und **iOS 17** als
@@ -132,13 +141,41 @@ zwischen 45 und 70 ist und oft im Keller steht.
 ## Prüfstand
 
 ```
-89 Testfälle, 0 Fehler
+139 Testfälle, 0 Fehler
 ```
 
-Abgedeckt sind unter anderem: Grundförderung und Höchstgrenzen, der iSFP-Bonus
-in seiner neuen Systematik (erst ab 30.000 €, nur auf den übersteigenden
-Betrag), Bündelungseffekte, Boni und Deckelung beim Heizungstausch, das Honorar
-mit Mindest-Eigenanteil, die Heizlast gegen eine nachgerechnete Handrechnung,
-der Warmwasserabzug, Heizflächen bei abgesenkter Vorlauftemperatur, alle zehn
-Stufen der CO₂-Kostenaufteilung, jeder Prüfpunkt des Anforderungsvergleichs
-sowie die Zählerstandserkennung samt Plausibilitätsprüfung.
+**Rechnen:** Grundförderung und Höchstgrenzen, der iSFP-Bonus in seiner neuen
+Systematik (erst ab 30.000 €, nur auf den übersteigenden Betrag),
+Bündelungseffekte, Boni und Deckelung beim Heizungstausch, Honorar mit
+Mindest-Eigenanteil, Heizlast gegen eine nachgerechnete Handrechnung,
+Warmwasserabzug, Heizflächen bei abgesenkter Vorlauftemperatur, alle zehn Stufen
+der CO₂-Kostenaufteilung, jeder Prüfpunkt des Anforderungsvergleichs.
+
+**Reise:** erster Start ohne Konto, Einstieg mit und ohne Anschrift, Reihenfolge
+der nächsten Aufgabe, Zählerstände über 24 Monate, Lücken in der Reihe,
+zukünftig datierte Einträge, mehrere Zählerarten, Mehrfamilienhaus,
+Nichtwohngebäude, Denkmal, Neubau, Grenzwerte von 40 bis 600 m², Speichern und
+Laden, beschädigte Datei, ältere Ablage ohne neue Felder, Löschen.
+
+**Darstellung:** Zahlenformate exakt, einschließlich Rundungsübertrag und
+Unabhängigkeit von der Gerätesprache.
+
+### Was der Durchlauf ans Licht gebracht hat
+
+Vier Fehler, die kein einzelner Unit-Test gefunden hätte:
+
+1. **Zahlen mit Nachkommastelle wurden nicht gerundet** ausgegeben („7,351 kW“
+   statt „7,4 kW“). Ursache war der zugekaufte Zahlenformatierer. Die
+   Formatierung rechnet jetzt selbst und ist exakt geprüft.
+2. **Der Hinweis auf den Sanierungsfahrplan nannte 950 € statt 3.800 €** – er
+   berücksichtigte nur den Bonussatz, nicht die zusätzlich verdoppelte
+   Höchstgrenze. Der Hinweis rechnet jetzt beide Fälle wirklich durch.
+3. **Direkt nach dem Einstieg erschien „Zählerstand erfassen“** statt der
+   Förderabschätzung – dabei ist genau dafür die App geladen worden.
+4. **Die beiden Heizlast-Wege standen kommentarlos nebeneinander**, teils im
+   Verhältnis 1:3. Das wirkt wie ein Fehler, ist aber eine Aussage; die App
+   gleicht die Wege jetzt ab und erklärt die Abweichung.
+
+Dazu kam beim Testen der Zählerstandserkennung ein fünfter: **„m³“ enthält eine
+hochgestellte Ziffer**, die Swift als Zahl zählt – das hätte jede Ablesung an
+einem Gaszähler zerstört.

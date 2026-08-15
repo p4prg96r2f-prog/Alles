@@ -34,6 +34,7 @@ struct Einstieg: View {
                     }
                     .padding(Gestaltung.Abstand.weit)
                 }
+                .scrollDismissesKeyboard(.interactively)
 
                 fussleiste
             }
@@ -237,8 +238,7 @@ struct Einstieg: View {
         VStack(spacing: Gestaltung.Abstand.eng) {
             Hauptknopf(titel: schritt == 0 ? "Loslegen" : (schritt == letzterSchritt ? "Ergebnis ansehen" : "Weiter")) {
                 if schritt == letzterSchritt {
-                    zustand.setzeGebaeude(gebaeude)
-                    zustand.einstiegAbschliessen()
+                    zustand.einstiegAbschliessen(mit: gebaeude)
                 } else {
                     withAnimation(.snappy) { schritt += 1 }
                 }

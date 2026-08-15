@@ -11,7 +11,14 @@ struct FoerderrechnerAnsicht: View {
     @State private var zeigeHaushalt = false
 
     private var massnahmen: [Massnahme] {
-        ausgewaehlt.sorted { $0.rawValue < $1.rawValue }.map {
+        massnahmen(aus: ausgewaehlt, kosten: kosten)
+    }
+
+    /// Ausdrücklich aus übergebenen Werten gebildet: Nach einer Änderung soll
+    /// gespeichert werden, was der Nutzer gerade gewählt hat – nicht das, was
+    /// der Zustand zufällig schon kennt.
+    private func massnahmen(aus auswahl: Set<Massnahmenart>, kosten: [Massnahmenart: Double]) -> [Massnahme] {
+        auswahl.sorted { $0.rawValue < $1.rawValue }.map {
             Massnahme(art: $0, kosten: kosten[$0] ?? richtwert(fuer: $0))
         }
     }
@@ -32,6 +39,7 @@ struct FoerderrechnerAnsicht: View {
             }
             .padding(Gestaltung.Abstand.normal)
         }
+        .scrollDismissesKeyboard(.interactively)
         .background(Gestaltung.Farbe.hintergrund)
         .navigationTitle("Förderung")
         .navigationBarTitleDisplayMode(.inline)
@@ -80,13 +88,17 @@ struct FoerderrechnerAnsicht: View {
                         symbol: symbol(fuer: art),
                         ausgewaehlt: ausgewaehlt.contains(art)
                     ) {
-                        if ausgewaehlt.contains(art) {
-                            ausgewaehlt.remove(art)
+                        var neueAuswahl = ausgewaehlt
+                        var neueKosten = kosten
+                        if neueAuswahl.contains(art) {
+                            neueAuswahl.remove(art)
                         } else {
-                            ausgewaehlt.insert(art)
-                            if kosten[art] == nil { kosten[art] = richtwert(fuer: art) }
+                            neueAuswahl.insert(art)
+                            if neueKosten[art] == nil { neueKosten[art] = richtwert(fuer: art) }
                         }
-                        zustand.setzeMassnahmen(massnahmen)
+                        ausgewaehlt = neueAuswahl
+                        kosten = neueKosten
+                        zustand.setzeMassnahmen(massnahmen(aus: neueAuswahl, kosten: neueKosten))
                     }
                 }
             }
@@ -113,8 +125,20 @@ struct FoerderrechnerAnsicht: View {
                     }
                     Slider(
                         value: Binding(
-                            get: { kosten[art] ?? richtwert(fuer: art) },
-                            set: { kosten[art] = $0; zustand.setzeMassnahmen(massnahmen) }
+                            get: {
+                                // Ein gespeicherter Wert kann außerhalb der
+                                // heutigen Spanne liegen – dann wird er
+                                // eingefangen statt zu springen.
+                                let bereich = spanne(fuer: art)
+                                let wert = kosten[art] ?? richtwert(fuer: art)
+                                return min(max(wert, bereich.lowerBound), bereich.upperBound)
+                            },
+                            set: { neu in
+                                var neueKosten = kosten
+                                neueKosten[art] = neu
+                                kosten = neueKosten
+                                zustand.setzeMassnahmen(massnahmen(aus: ausgewaehlt, kosten: neueKosten))
+                            }
                         ),
                         in: spanne(fuer: art),
                         step: 500
@@ -132,7 +156,9 @@ struct FoerderrechnerAnsicht: View {
     // MARK: Richtwerte
 
     private func richtwert(fuer art: Massnahmenart) -> Double {
-        let flaeche = zustand.gebaeude?.wohnflaeche ?? 140
+        // Untergrenze, damit auch bei fehlerhaft kleinen Flächenangaben
+        // brauchbare Richtwerte und gültige Schieberbereiche entstehen.
+        let flaeche = max(40, zustand.gebaeude?.wohnflaeche ?? 140)
         switch art {
         case .dach: return (flaeche * 180).gerundetAuf(500)
         case .fassade: return (flaeche * 220).gerundetAuf(500)
@@ -148,7 +174,11 @@ struct FoerderrechnerAnsicht: View {
 
     private func spanne(fuer art: Massnahmenart) -> ClosedRange<Double> {
         let r = richtwert(fuer: art)
-        return max(1_000, r * 0.3)...(r * 2.2)
+        let unten = max(1_000, r * 0.3)
+        // Ein leerer oder umgekehrter Bereich lässt SwiftUI abstürzen – deshalb
+        // wird die Obergrenze immer über der Untergrenze gehalten.
+        let oben = max(unten + 1_000, r * 2.2)
+        return unten...oben
     }
 
     private func symbol(fuer art: Massnahmenart) -> String {

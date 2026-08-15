@@ -232,3 +232,75 @@ final class FoerderrechnerTests: XCTestCase {
         XCTAssertEqual(ergebnis.eigenanteilGesamt, 0)
     }
 }
+
+// MARK: - Der Hinweis muss stimmen, nicht nur plausibel klingen
+
+extension FoerderrechnerTests {
+
+    /// Ein Sanierungsfahrplan hebt zusätzlich die Höchstgrenze der förderfähigen
+    /// Kosten. Ein Hinweis, der nur den Bonussatz ansetzt, nennt dem Kunden
+    /// einen viel zu kleinen Betrag.
+    func testHinweisEntsprichtDerTatsaechlichenDifferenz() {
+        let ohne = Gebaeude(hatSanierungsfahrplan: false)
+        var mit = ohne
+        mit.hatSanierungsfahrplan = true
+
+        let massnahmen = [
+            Massnahme(art: .fassade, kosten: 31_000),
+            Massnahme(art: .fenster, kosten: 18_000)
+        ]
+
+        let a = rechner.berechne(gebaeude: ohne, massnahmen: massnahmen)
+        let b = rechner.berechne(gebaeude: mit, massnahmen: massnahmen)
+
+        let hinweis = a.hinweise.first { $0.titel.contains("Sanierungsfahrplan") }
+        XCTAssertNotNil(hinweis)
+        XCTAssertEqual(hinweis!.moeglicherMehrbetrag, b.zuschussGesamt - a.zuschussGesamt, accuracy: 0.01)
+    }
+
+    /// Genau der Fall aus dem Durchlauf: 49.000 € Volumen.
+    /// Ohne Fahrplan greift die Grenze bei 30.000 € → 4.500 €.
+    /// Mit Fahrplan sind 49.000 € förderfähig → 7.350 € + 950 € Bonus = 8.300 €.
+    func testHoechstgrenzeVerdoppeltSichMitFahrplan() {
+        let massnahmen = [
+            Massnahme(art: .fassade, kosten: 31_000),
+            Massnahme(art: .fenster, kosten: 18_000)
+        ]
+
+        let ohne = rechner.berechne(gebaeude: Gebaeude(hatSanierungsfahrplan: false), massnahmen: massnahmen)
+        let mit = rechner.berechne(gebaeude: Gebaeude(hatSanierungsfahrplan: true), massnahmen: massnahmen)
+
+        XCTAssertEqual(ohne.zuschussGesamt, 4_500, accuracy: 0.01)
+        XCTAssertEqual(mit.zuschussGesamt, 8_300, accuracy: 0.01)
+    }
+
+    func testKeinFahrplanhinweisWennSchonEinerVorliegt() {
+        let ergebnis = rechner.berechne(
+            gebaeude: Gebaeude(hatSanierungsfahrplan: true),
+            massnahmen: [Massnahme(art: .fassade, kosten: 45_000)]
+        )
+        XCTAssertNil(ergebnis.hinweise.first { $0.titel.contains("Mit Sanierungsfahrplan") })
+    }
+
+    func testKeinFahrplanhinweisBeiReinemHeizungstausch() {
+        // Die Heizungsförderung kennt den iSFP-Bonus nicht – dann darf auch
+        // kein Mehrbetrag versprochen werden.
+        let ergebnis = rechner.berechne(
+            gebaeude: Gebaeude(hatSanierungsfahrplan: false),
+            massnahmen: [Massnahme(art: .heizungstausch, kosten: 28_000)]
+        )
+        XCTAssertNil(ergebnis.hinweise.first { $0.titel.contains("Sanierungsfahrplan") })
+    }
+
+    func testHinweisNennNiemalsEinenNegativenBetrag() {
+        for kosten in stride(from: 2_000.0, through: 120_000.0, by: 2_000.0) {
+            let ergebnis = rechner.berechne(
+                gebaeude: Gebaeude(hatSanierungsfahrplan: false),
+                massnahmen: [Massnahme(art: .fassade, kosten: kosten)]
+            )
+            for hinweis in ergebnis.hinweise {
+                XCTAssertGreaterThanOrEqual(hinweis.moeglicherMehrbetrag, 0, "bei \(kosten) €")
+            }
+        }
+    }
+}

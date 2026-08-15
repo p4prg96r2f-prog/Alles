@@ -3,12 +3,12 @@ import WerkeKern
 
 /// Der Startbildschirm zeigt genau **eine** nächste Aufgabe.
 ///
-/// Während einer Sanierung ist das beherrschende Gefühl Unsicherheit: Wo stehe
-/// ich, muss ich etwas tun, habe ich eine Frist verpasst? Wer diese Frage
-/// zuverlässig beantwortet, hat die App gerechtfertigt.
+/// Welche das ist, entscheidet `Aufgabe.naechste` im Rechenkern – dort ist die
+/// Reihenfolge mit Testfällen abgesichert. Diese Ansicht stellt sie nur dar.
 struct HeuteAnsicht: View {
 
     @EnvironmentObject private var zustand: AppZustand
+    @Binding var bereich: Wurzel.Bereich
     @State private var zeigeZaehler = false
     @State private var zeigeRechner = false
 
@@ -41,52 +41,8 @@ struct HeuteAnsicht: View {
 
     // MARK: Die eine Aufgabe
 
-    private var aufgabe: Aufgabe {
-        // Reihenfolge = Dringlichkeit. Die erste zutreffende gewinnt.
-        if zustand.brauchtZaehlerstandDiesenMonat {
-            let fehlend = max(0, zustand.regeln.gebaeude.verbrauchsausweisMonate - zustand.monateMitZaehlerstand)
-            return Aufgabe(
-                titel: "Zählerstand für \(aktuellerMonat) erfassen",
-                erlaeuterung: fehlend > 0
-                    ? "Noch \(fehlend) von \(zustand.regeln.gebaeude.verbrauchsausweisMonate) Monaten, bis ein Verbrauchsausweis möglich ist. Diese Zeit lässt sich nicht nachholen."
-                    : "Ihre Verbrauchsreihe ist vollständig – weiter so, damit sie es bleibt.",
-                knopf: "Zähler abfotografieren",
-                symbol: "camera",
-                aktion: { zeigeZaehler = true }
-            )
-        }
-
-        if zustand.massnahmen.isEmpty {
-            return Aufgabe(
-                titel: "Erste Förderabschätzung machen",
-                erlaeuterung: "Wählen Sie aus, was Sie vorhaben – Sie sehen sofort, welcher Zuschuss dafür in Frage kommt und was unterm Strich bleibt.",
-                knopf: "Förderung berechnen",
-                symbol: "eurosign.circle",
-                aktion: { zeigeRechner = true }
-            )
-        }
-
-        if let g = zustand.gebaeude, g.angabenVollstaendigkeit < 1 {
-            return Aufgabe(
-                titel: "Ergebnis genauer machen",
-                erlaeuterung: "Ihr Ergebnis wird als Spanne angezeigt, weil noch Angaben fehlen. Jede Ergänzung zu Dach, Fassade oder Fenstern verengt sie.",
-                knopf: "Angaben ergänzen",
-                symbol: "square.and.pencil",
-                aktion: nil
-            )
-        }
-
-        return Aufgabe(
-            titel: "Alles erledigt",
-            erlaeuterung: "Wir melden uns, wenn sich an Ihrer Förderung etwas ändert oder eine Frist näher rückt.",
-            knopf: nil,
-            symbol: "checkmark.circle",
-            aktion: nil
-        )
-    }
-
     private var aufgabenkarte: some View {
-        let a = aufgabe
+        let aufgabe = zustand.naechsteAufgabe
         return Karte {
             Text("Jetzt dran")
                 .font(.caption.weight(.semibold))
@@ -94,11 +50,11 @@ struct HeuteAnsicht: View {
                 .textCase(.uppercase)
                 .kerning(0.8)
 
-            Text(a.titel)
+            Text(aufgabe.titel)
                 .font(.system(.title2, design: .rounded, weight: .bold))
                 .fixedSize(horizontal: false, vertical: true)
 
-            Text(a.erlaeuterung)
+            Text(aufgabe.erlaeuterung)
                 .font(.callout)
                 .foregroundStyle(Gestaltung.Farbe.textLeise)
                 .fixedSize(horizontal: false, vertical: true)
@@ -110,8 +66,21 @@ struct HeuteAnsicht: View {
                 )
             }
 
-            if let knopf = a.knopf, let aktion = a.aktion {
-                Hauptknopf(titel: knopf, symbol: a.symbol, aktion: aktion)
+            if let knopf = aufgabe.knopf {
+                Hauptknopf(titel: knopf, symbol: aufgabe.symbol) {
+                    switch aufgabe.art {
+                    case .zaehlerstand:
+                        zeigeZaehler = true
+                    case .ersteBerechnung:
+                        zeigeRechner = true
+                    case .angabenErgaenzen:
+                        // Ergänzt werden die Angaben in der Gebäudeakte,
+                        // nicht im Rechner.
+                        bereich = .haus
+                    case .einstieg, .nichtsZuTun:
+                        break
+                    }
+                }
             }
         }
     }
@@ -148,23 +117,6 @@ struct HeuteAnsicht: View {
             .background(Gestaltung.Farbe.flaeche)
             .clipShape(RoundedRectangle(cornerRadius: Gestaltung.Radius.normal, style: .continuous))
         }
-    }
-
-    // MARK: Hilfen
-
-    private struct Aufgabe {
-        let titel: String
-        let erlaeuterung: String
-        let knopf: String?
-        let symbol: String
-        let aktion: (() -> Void)?
-    }
-
-    private var aktuellerMonat: String {
-        let f = DateFormatter()
-        f.locale = Formate.sprache
-        f.dateFormat = "LLLL"
-        return f.string(from: Date())
     }
 
     private func kurzdatum(_ datum: Date) -> String {

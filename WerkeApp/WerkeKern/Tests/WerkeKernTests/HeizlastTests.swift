@@ -201,3 +201,51 @@ final class HeizlastTests: XCTestCase {
         XCTAssertGreaterThan(warm.verfuegbareLeistungKW, kalt.verfuegbareLeistungKW)
     }
 }
+
+// MARK: - Beide Wege gegeneinander
+
+extension HeizlastTests {
+
+    /// Der Fall aus dem Durchlauf: Ein Haus von 1968, das nur 2.050 m³ Gas
+    /// braucht, ist offensichtlich besser als seine Eckdaten vermuten lassen.
+    /// Zwei Zahlen im Verhältnis 1:3 dürfen nicht kommentarlos nebeneinander
+    /// stehen.
+    func testGrosseAbweichungWirdErklaert() throws {
+        let haus = Gebaeude(baujahr: 1968, wohnflaeche: 140)
+        let ausDaten = rechner.ausGebaeudedaten(haus)
+        let ausVerbrauch = try XCTUnwrap(rechner.ausVerbrauch(
+            Verbrauchsangabe(brennstoff: .gasKubikmeter, jahreswerte: [2_050], personenImHaushalt: 3)
+        ))
+
+        let vergleich = rechner.vergleiche(ausVerbrauch: ausVerbrauch, ausGebaeudedaten: ausDaten)
+
+        XCTAssertEqual(vergleich.abweichung, .verbrauchDeutlichNiedriger)
+        XCTAssertEqual(vergleich.empfohlenesVerfahren, .ausVerbrauch)
+        XCTAssertFalse(vergleich.aussage.isEmpty)
+    }
+
+    func testHoherVerbrauchWirdErkannt() throws {
+        let haus = Gebaeude(baujahr: 2015, wohnflaeche: 140)
+        let ausDaten = rechner.ausGebaeudedaten(haus)
+        let ausVerbrauch = try XCTUnwrap(rechner.ausVerbrauch(
+            Verbrauchsangabe(brennstoff: .gasKubikmeter, jahreswerte: [3_500], personenImHaushalt: 3)
+        ))
+
+        XCTAssertEqual(
+            rechner.vergleiche(ausVerbrauch: ausVerbrauch, ausGebaeudedaten: ausDaten).abweichung,
+            .verbrauchDeutlichHoeher
+        )
+    }
+
+    func testStimmigeWerteWerdenAlsSolcheBenannt() throws {
+        // Unsanierter Altbau mit entsprechend hohem Verbrauch.
+        let haus = Gebaeude(baujahr: 1968, wohnflaeche: 140)
+        let ausDaten = rechner.ausGebaeudedaten(haus)
+        let ausVerbrauch = try XCTUnwrap(rechner.ausVerbrauch(
+            Verbrauchsangabe(brennstoff: .gasKubikmeter, jahreswerte: [6_000], personenImHaushalt: 3)
+        ))
+
+        let vergleich = rechner.vergleiche(ausVerbrauch: ausVerbrauch, ausGebaeudedaten: ausDaten)
+        XCTAssertEqual(vergleich.abweichung, .stimmigZusammen)
+    }
+}

@@ -29,6 +29,14 @@ struct ErgebnisKarte: View {
             vorbehalt
             aktionen
         }
+        // Ändert der Nutzer seine Auswahl, ist das gesicherte Ergebnis ein
+        // anderes – der Knopf darf dann nicht weiter „Gesichert“ anzeigen.
+        .onChange(of: ergebnis.zuschussGesamt) { _, _ in
+            gesichert = false
+        }
+        .onChange(of: ergebnis.investitionGesamt) { _, _ in
+            gesichert = false
+        }
     }
 
     // MARK: Zuschuss

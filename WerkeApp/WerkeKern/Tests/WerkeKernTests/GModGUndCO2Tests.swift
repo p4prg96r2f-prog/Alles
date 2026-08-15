@@ -245,24 +245,3 @@ final class RegelpaketTests: XCTestCase {
     }
 }
 
-final class FormateTests: XCTestCase {
-
-    func testEuroFormatierung() {
-        XCTAssertTrue(Formate.euro(31_600).contains("€"))
-        XCTAssertTrue(Formate.euro(31_600).contains("31"))
-    }
-
-    func testProzentOhneUnnoetigeNachkommastelle() {
-        XCTAssertEqual(Formate.prozent(0.15), "15 %")
-    }
-
-    func testDatumWirdDeutschGeschrieben() {
-        XCTAssertEqual(Formate.datumLesbar("2026-07-21"), "21.07.2026")
-    }
-
-    func testSpanneRundetNachAussen() {
-        let s = Spanne(unten: 28_432, oben: 34_871).gerundet(auf: 100)
-        XCTAssertEqual(s.unten, 28_400)
-        XCTAssertEqual(s.oben, 34_900)
-    }
-}

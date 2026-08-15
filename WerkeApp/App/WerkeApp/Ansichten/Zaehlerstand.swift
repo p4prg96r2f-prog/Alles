@@ -24,7 +24,7 @@ struct ZaehlerstandAnsicht: View {
     }
 
     private var letzterWert: Zaehlerstand? {
-        zustand.zaehlerstaende.first { $0.art == art }
+        zustand.letzterStand(art: art)
     }
 
     var body: some View {

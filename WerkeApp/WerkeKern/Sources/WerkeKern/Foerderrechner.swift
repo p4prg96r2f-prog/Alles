@@ -92,6 +92,15 @@ public struct Foerderrechner {
         massnahmen: [Massnahme],
         haushalt: Haushalt = Haushalt()
     ) -> Foerderergebnis {
+        berechne(gebaeude: gebaeude, massnahmen: massnahmen, haushalt: haushalt, mitHinweisen: true)
+    }
+
+    private func berechne(
+        gebaeude: Gebaeude,
+        massnahmen: [Massnahme],
+        haushalt: Haushalt,
+        mitHinweisen: Bool
+    ) -> Foerderergebnis {
 
         let f = regeln.foerderung
         var posten: [Foerderposten] = []
@@ -203,22 +212,37 @@ public struct Foerderrechner {
             ))
         }
 
-        // --- Optimierungshinweise
-        if let hinweis = isfpSchwellenhinweis(huelleKosten: huelleKosten, gebaeude: gebaeude) {
-            hinweise.append(hinweis)
-        }
-        if !gebaeude.hatSanierungsfahrplan, huelleKosten > f.isfpBonusSchwelle {
-            let moeglich = (min(huelleKosten, f.hoechstkostenProWohneinheitMitISFP * Double(gebaeude.wohneinheiten)) - f.isfpBonusSchwelle) * f.isfpBonusSatz
-            hinweise.append(Optimierungshinweis(
-                titel: "Mit Sanierungsfahrplan mehr Förderung",
-                erlaeuterung: "Für Ihr Vorhaben käme mit einem individuellen Sanierungsfahrplan ein zusätzlicher Bonus in Frage. Der Fahrplan selbst wird ebenfalls bezuschusst.",
-                moeglicherMehrbetrag: max(0, moeglich)
-            ))
-        }
-
         // --- Summen
         let investition = massnahmen.reduce(0) { $0 + $1.kosten }
         let zuschuss = posten.reduce(0) { $0 + $1.zuschuss }
+
+        // --- Optimierungshinweise
+        if mitHinweisen {
+            if let hinweis = isfpSchwellenhinweis(huelleKosten: huelleKosten, gebaeude: gebaeude) {
+                hinweise.append(hinweis)
+            }
+            if !gebaeude.hatSanierungsfahrplan, huelleKosten > 0 {
+                // Nicht überschlagen, sondern wirklich durchrechnen: Ein
+                // Sanierungsfahrplan hebt zusätzlich die Höchstgrenze der
+                // förderfähigen Kosten. Wer nur den Bonussatz ansetzt, nennt
+                // dem Kunden einen zu kleinen Betrag – und verkauft damit die
+                // eigene Leistung unter Wert.
+                var mitFahrplan = gebaeude
+                mitFahrplan.hatSanierungsfahrplan = true
+                let vergleich = berechne(
+                    gebaeude: mitFahrplan, massnahmen: massnahmen,
+                    haushalt: haushalt, mitHinweisen: false
+                )
+                let mehr = vergleich.zuschussGesamt - zuschuss
+                if mehr > 0 {
+                    hinweise.append(Optimierungshinweis(
+                        titel: "Mit Sanierungsfahrplan mehr Förderung",
+                        erlaeuterung: "Ein individueller Sanierungsfahrplan erhöht nicht nur den Fördersatz, sondern auch die Grenze der förderfähigen Kosten. Der Fahrplan selbst wird ebenfalls bezuschusst.",
+                        moeglicherMehrbetrag: mehr
+                    ))
+                }
+            }
+        }
         let hon = honorar(fuerInvestition: investition)
         let eigenanteil = investition - zuschuss + hon.eigenanteil
 

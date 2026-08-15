@@ -20,7 +20,9 @@ struct Wurzel: View {
                 .transition(.opacity)
         } else {
             TabView(selection: $bereich) {
-                HeuteAnsicht()
+                // Der Startbildschirm kann in die anderen Bereiche wechseln –
+                // etwa wenn die nächste Aufgabe lautet, Angaben zu ergänzen.
+                HeuteAnsicht(bereich: $bereich)
                     .tabItem { Label("Heute", systemImage: "sun.horizon") }
                     .tag(Bereich.heute)
 
