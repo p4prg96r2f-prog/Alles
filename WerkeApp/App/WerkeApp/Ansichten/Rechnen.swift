@@ -36,6 +36,19 @@ struct RechnenAnsicht: View {
                     .buttonStyle(.plain)
 
                     NavigationLink {
+                        RaumaufmassAnsicht()
+                    } label: {
+                        Werkzeugkachel(
+                            titel: "Raumaufmaß",
+                            beschreibung: Raumscan.unterstuetzt
+                                ? "Räume scannen und raumweise Heizlast rechnen – abgeglichen mit Ihren Ablesungen."
+                                : "Räume erfassen und raumweise Heizlast rechnen.",
+                            symbol: "camera.viewfinder"
+                        )
+                    }
+                    .buttonStyle(.plain)
+
+                    NavigationLink {
                         AnforderungenAnsicht()
                     } label: {
                         Werkzeugkachel(

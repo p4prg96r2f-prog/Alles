@@ -65,6 +65,58 @@ public struct Regelpaket: Codable, Sendable, Equatable {
         }
     }
 
+    public struct UWertStufe: Codable, Sendable, Equatable {
+        public var bisBaujahr: Int
+        public var uWert: Double
+    }
+
+    /// U-Werte für die raumweise Rechnung über die Hüllflächen.
+    public struct UWerte: Codable, Sendable, Equatable {
+        public var aussenwandUngedaemmt: [UWertStufe]
+        public var aussenwandGedaemmt: Double
+        public var dachUngedaemmt: [UWertStufe]
+        public var dachGedaemmt: Double
+        public var fenster: [UWertStufe]
+        public var tuer: Double
+        public var kellerdeckeUngedaemmt: [UWertStufe]
+        public var kellerdeckeGedaemmt: Double
+        public var bodenplatteUngedaemmt: [UWertStufe]
+        public var bodenplatteGedaemmt: Double
+        public var innenbauteil: Double
+
+        /// Ohne Klimadaten im Paket greift diese Fassung, damit die raumweise
+        /// Rechnung nicht ausfällt.
+        public static let standard = UWerte(
+            aussenwandUngedaemmt: [
+                .init(bisBaujahr: 1918, uWert: 1.7), .init(bisBaujahr: 1978, uWert: 1.4),
+                .init(bisBaujahr: 1994, uWert: 0.8), .init(bisBaujahr: 2001, uWert: 0.5),
+                .init(bisBaujahr: 2009, uWert: 0.4), .init(bisBaujahr: 2100, uWert: 0.28)
+            ],
+            aussenwandGedaemmt: 0.25,
+            dachUngedaemmt: [
+                .init(bisBaujahr: 1978, uWert: 2.0), .init(bisBaujahr: 1994, uWert: 0.6),
+                .init(bisBaujahr: 2009, uWert: 0.3), .init(bisBaujahr: 2100, uWert: 0.2)
+            ],
+            dachGedaemmt: 0.20,
+            fenster: [
+                .init(bisBaujahr: 1978, uWert: 3.0), .init(bisBaujahr: 1994, uWert: 2.8),
+                .init(bisBaujahr: 2009, uWert: 1.6), .init(bisBaujahr: 2100, uWert: 1.1)
+            ],
+            tuer: 3.0,
+            kellerdeckeUngedaemmt: [
+                .init(bisBaujahr: 1978, uWert: 1.2), .init(bisBaujahr: 1994, uWert: 0.8),
+                .init(bisBaujahr: 2100, uWert: 0.5)
+            ],
+            kellerdeckeGedaemmt: 0.30,
+            bodenplatteUngedaemmt: [
+                .init(bisBaujahr: 1978, uWert: 1.0), .init(bisBaujahr: 1994, uWert: 0.7),
+                .init(bisBaujahr: 2100, uWert: 0.4)
+            ],
+            bodenplatteGedaemmt: 0.30,
+            innenbauteil: 1.5
+        )
+    }
+
     public struct CO2Stufe: Codable, Sendable, Equatable {
         /// Untere Grenze der Stufe in kg CO₂ je Quadratmeter und Jahr.
         public var abKilogrammProQuadratmeter: Double
@@ -105,6 +157,8 @@ public struct Regelpaket: Codable, Sendable, Equatable {
     public var gebaeude: GebaeudeRegeln
     /// Gradtagzahlen und Normaußentemperaturen für die Energiesignatur.
     public var klimaregionen: [Klimaregion]
+    /// U-Werte für die raumweise Rechnung.
+    public var uWerte: UWerte
 
     /// Ein älteres Regelpaket ohne Klimadaten bleibt lesbar – es fehlt dann nur
     /// die Energiesignatur, nicht die ganze App.
@@ -120,6 +174,7 @@ public struct Regelpaket: Codable, Sendable, Equatable {
         co2Stufen = try c.decode([CO2Stufe].self, forKey: .co2Stufen)
         gebaeude = try c.decode(GebaeudeRegeln.self, forKey: .gebaeude)
         klimaregionen = try c.decodeIfPresent([Klimaregion].self, forKey: .klimaregionen) ?? []
+        uWerte = try c.decodeIfPresent(UWerte.self, forKey: .uWerte) ?? .standard
     }
 }
 
