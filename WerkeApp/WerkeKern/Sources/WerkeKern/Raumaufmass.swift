@@ -40,19 +40,37 @@ public enum Flaechenart: String, Codable, Sendable, CaseIterable {
 public enum Grenze: String, Codable, Sendable, CaseIterable {
     case aussenluft
     case erdreich
+    /// Erdberührte Wand – kälter als der Boden darunter.
+    case erdreichWand
+    /// Allseits umschlossener, wenig belüfteter Raum – der übliche Keller.
     case unbeheizt
+    /// Belüfteter Dachraum. Dort stellt sich fast Außenlufttemperatur ein.
+    case dachraum
     case beheizt
 
     public var bezeichnung: String {
         switch self {
         case .aussenluft: return "nach außen"
         case .erdreich: return "gegen Erdreich"
+        case .erdreichWand: return "Wand gegen Erdreich"
         case .unbeheizt: return "gegen unbeheizt"
+        case .dachraum: return "gegen Dachraum"
         case .beheizt: return "gegen beheizt"
         }
     }
 
     /// Temperaturkorrekturfaktor nach der Systematik der DIN EN 12831.
+    ///
+    /// Die Unterscheidung zwischen `unbeheizt` und `dachraum` ist kein Detail:
+    /// 0,5 gilt nur für allseits umschlossene, **wenig belüftete** Räume – den
+    /// Keller. In einem belüfteten Dachraum stellt sich nahezu
+    /// Außenlufttemperatur ein, dort sind 0,9 anzusetzen. Da die oberste
+    /// Geschossdecke die volle Grundfläche des Gebäudes ausmacht, kostet die
+    /// Verwechslung rund ein Achtel der Gesamtheizlast.
+    ///
+    /// Ebenso beim Erdreich: Für den Fußboden sind 0,35 richtig, für die
+    /// erdberührte Kellerwand liegt der Faktor bei etwa 0,45 – sie steht in
+    /// deutlich kälterem Erdreich als der Boden mehrere Meter tiefer.
     ///
     /// Für `beheizt` steht hier 0,00, weil zwei gleich warme Räume nichts
     /// austauschen. Sobald sich die Solltemperaturen unterscheiden – Bad gegen
@@ -62,7 +80,9 @@ public enum Grenze: String, Codable, Sendable, CaseIterable {
         switch self {
         case .aussenluft: return 1.00
         case .erdreich: return 0.35
+        case .erdreichWand: return 0.45
         case .unbeheizt: return 0.50
+        case .dachraum: return 0.90
         case .beheizt: return 0.00
         }
     }
@@ -72,18 +92,31 @@ public struct Huellflaeche: Codable, Sendable, Equatable, Identifiable {
     public var id: UUID
     public var art: Flaechenart
     public var quadratmeter: Double
-    public var grenze: Grenze
+
+    /// Woran grenzt die Fläche? `nil` heißt **noch nicht zugeordnet**.
+    ///
+    /// Das muss ein eigener Zustand sein und darf nicht durch einen der Fälle
+    /// mitvertreten werden. Ein Scanner liefert Wandflächen, aber keine
+    /// Zuordnung – und „grenzt an einen beheizten Nachbarraum“ ist eine
+    /// gültige, abschließende Antwort, kein Platzhalter. Wer beides auf
+    /// denselben Wert legt, baut eine Sperre, die sich nicht mehr öffnen lässt:
+    /// Der Nutzer beantwortet die Frage wahrheitsgemäß und gilt weiterhin als
+    /// unfertig.
+    public var grenze: Grenze?
+
     /// Überschreibt den aus Baujahr und Zustand abgeleiteten U-Wert.
     public var uWert: Double?
 
     public init(id: UUID = UUID(), art: Flaechenart, quadratmeter: Double,
-                grenze: Grenze, uWert: Double? = nil) {
+                grenze: Grenze?, uWert: Double? = nil) {
         self.id = id
         self.art = art
         self.quadratmeter = max(0, quadratmeter)
         self.grenze = grenze
         self.uWert = uWert
     }
+
+    public var istZugeordnet: Bool { grenze != nil }
 }
 
 public struct Raum: Codable, Sendable, Equatable, Identifiable {
@@ -192,12 +225,17 @@ public struct Huellflaechenrechner {
     /// Flur kleinrechnen, obwohl der Zugewinn verschwindet, sobald nebenan
     /// jemand die Tür schließt oder das Zimmer nicht heizt. Deshalb wird er bei
     /// null abgeschnitten.
+    /// Eine noch nicht zugeordnete Fläche wird wie eine Außenwand gerechnet.
+    /// Falsch ist beides, aber nur diese Richtung ist ungefährlich: Sie macht
+    /// die Zahl zu groß, nie zu klein. Die Oberfläche zeigt ein Ergebnis mit
+    /// offenen Zuordnungen ohnehin nicht als fertig an.
     public func korrekturfaktor(
         fuer flaeche: Huellflaeche,
         raum: Raum,
         normaussentemperatur: Double
     ) -> Double {
-        guard flaeche.grenze == .beheizt else { return flaeche.grenze.korrekturfaktor }
+        guard let grenze = flaeche.grenze else { return Grenze.aussenluft.korrekturfaktor }
+        guard grenze == .beheizt else { return grenze.korrekturfaktor }
         let differenz = raum.solltemperatur - normaussentemperatur
         guard differenz > 0 else { return 0 }
         return max(0, (raum.solltemperatur - Self.nachbarraumtemperatur) / differenz)
@@ -230,7 +268,7 @@ public struct Huellflaechenrechner {
                 // Innenbauteile bekommen ihn nicht, auch wenn sie wegen eines
                 // Temperaturunterschieds mitrechnen.
                 if flaeche.grenze != .beheizt { huellflaeche += flaeche.quadratmeter }
-                if flaeche.art == .aussenwand && flaeche.grenze == .beheizt { unbestaetigt += 1 }
+                if flaeche.grenze == nil { unbestaetigt += 1 }
             }
 
             let waermebruecken = waermebrueckenzuschlag * huellflaeche

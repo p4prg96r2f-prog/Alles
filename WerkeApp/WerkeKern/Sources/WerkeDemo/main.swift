@@ -109,7 +109,7 @@ zeile("Nächste Aufgabe", Aufgabe.naechste(ablage: ablage, regeln: regeln, heute
 ueberschrift("6 · Heizlast im Kundengespräch")
 let heizlast = Heizlastrechner(regeln: regeln)
 
-// Ein Haus von 1968, das nur 2.520 m³ Gas braucht, ist längst teilsaniert.
+// Ein Haus von 1968, das nur 2.050 m³ Gas braucht, ist längst teilsaniert.
 // Nur weiß die App das noch nicht – in der Gebäudeakte steht bisher nichts
 // außer Anschrift, Baujahr und Fläche.
 var hausMitZustand = haus
@@ -129,7 +129,7 @@ let ausFragenGefuellt = heizlast.ausGebaeudedaten(hausMitZustand)
 zeile("… mit ausgefüllter Gebäudeakte", Formate.kilowattSpanne(ausFragenGefuellt.spanne))
 
 if let ausVerbrauch = heizlast.ausVerbrauch(Verbrauchsangabe(
-    brennstoff: .gasKubikmeter, jahreswerte: [2_520, 2_440, 2_610],
+    brennstoff: .gasKubikmeter, jahreswerte: [2_050, 1_980, 2_120],
     kesselart: .standardkessel, warmwasserEnthalten: true, personenImHaushalt: 3
 )) {
     zeile("Aus dem Verbrauch", Formate.kilowattSpanne(ausVerbrauch.spanne))
@@ -164,18 +164,23 @@ if let ausVerbrauch = heizlast.ausVerbrauch(Verbrauchsangabe(
 // MARK: - 7. Zählerstände über zwei Jahre
 
 ueberschrift("7 · Zählerstände über 24 Monate")
-// Die Ablesungen folgen einem echten Gebäude: 270 W/K Wärmeverlust,
-// 4,2 kWh Warmwasser am Tag. Genau das soll die Energiesignatur später
-// aus den Zahlen zurückgewinnen, ohne es zu kennen.
+// Die Ablesungen folgen einem echten Gebäude: 270 W/K bei
+// Auslegungsbedingungen, 4,2 kWh Warmwasser am Tag.
 //
-// Die 270 W/K sind nicht frei gewählt: Sie sind das, was die
-// Hüllflächenrechnung für dieses Haus mit den hinterlegten Bauteilzuständen
-// ergibt, abzüglich der üblichen Reserve. Ein Demolauf, dessen "Wahrheit"
-// physikalisch nicht zum beschriebenen Haus passt, prüft nichts.
+// Wichtig ist die Unterscheidung, an der sich alles entscheidet: Der Zähler
+// sieht nicht die 270 W/K. Über die Heizperiode helfen Sonne und innere
+// Wärmequellen mit, und kein Haus hält 20 Grad im Schlafzimmer, im Flur und
+// im Treppenhaus. Was in den Verbräuchen steckt, ist deshalb der *wirksame*
+// Wert – rund ein Viertel darunter.
+//
+// Genau diese Umrechnung muss die App leisten. Ein Demolauf, dessen Zahlen
+// den Unterschied nicht abbilden, würde die Verwechslung nicht auffangen,
+// sondern festschreiben.
 let regionPB = regeln.klimaregion(fuerPLZ: haus.plz) ?? regeln.klimaregionen[0]
 let wahrerWaermeverlust = 270.0
+let wirksamerWaermeverlust = wahrerWaermeverlust / Energiesignatur.auslegungszuschlag
 let wahreGrundlast = 4.2
-let steigung = wahrerWaermeverlust * 24 / 1000 / regeln.heizlast.kesselnutzungsgradStandard
+let steigung = wirksamerWaermeverlust * 24 / 1000 / regeln.heizlast.kesselnutzungsgradStandard
 
 var stand = 24_781.0
 var ablesetag = tag(2026, 9, 1)
@@ -209,7 +214,8 @@ ueberschrift("7b · Energiesignatur aus denselben Ablesungen")
 if let region = regeln.klimaregion(fuerPLZ: haus.plz),
    let signatur = heizlast.ausZaehlerstaenden(ablage.zaehlerstaende, region: region) {
     zeile("Klimaregion", region.name)
-    zeile("Wärmeverlust des Hauses", "\(Formate.zahl(signatur.waermeverlustkoeffizient, stellen: 0)) W/K")
+    zeile("Wärmeverlust, gemessen", "\(Formate.zahl(signatur.waermeverlustkoeffizient, stellen: 0)) W/K über die Heizperiode")
+    zeile("Wärmeverlust, Auslegung", "\(Formate.zahl(signatur.waermeverlustkoeffizientAuslegung, stellen: 0)) W/K")
     zeile("Warmwasser, aus Daten ermittelt", "\(Formate.zahl(signatur.grundverbrauchProJahr, stellen: 0)) kWh im Jahr")
     zeile("Güte der Anpassung", Formate.prozent(signatur.bestimmtheitsmass))
     zeile("Heizlast", Formate.kilowattSpanne(signatur.heizlast))
@@ -229,6 +235,11 @@ let nachtRegion = regionPB
 
 // Zwei Ablesungen, abends und morgens. Das Haus hat 270 W/K – dieselbe
 // Wahrheit wie oben, jetzt aber in acht Stunden statt in zwei Jahren gemessen.
+//
+// Und mit einem Vorteil, der leicht übersehen wird: Nachts scheint keine
+// Sonne, die Innentemperatur wird gehalten. Die Nachtmessung trifft damit
+// unmittelbar den Auslegungswert – sie braucht keine Umrechnung wie die
+// Energiesignatur.
 func kalteNacht(aussen: Double, tagImJanuar: Int) -> Nachtmessung {
     let beginn = kalender.date(from: DateComponents(year: 2027, month: 1, day: tagImJanuar, hour: 22))!
     let stunden = 8.0

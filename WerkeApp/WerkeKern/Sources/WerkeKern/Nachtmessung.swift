@@ -24,8 +24,9 @@ import Foundation
 /// gibt: **eine Nacht statt zwei Jahre.** Und weil bei Kälte gemessen wird,
 /// ist der Weg bis zur Auslegungstemperatur kurz – anders als bei jeder
 /// Hochrechnung aus Jahresverbräuchen.
-public struct Nachtmessung: Codable, Sendable, Equatable {
+public struct Nachtmessung: Codable, Sendable, Equatable, Identifiable {
 
+    public var id: UUID
     public var beginn: Date
     public var ende: Date
     public var zaehlerVorher: Double
@@ -38,6 +39,7 @@ public struct Nachtmessung: Codable, Sendable, Equatable {
     public var kesselart: Kesselart
 
     public init(
+        id: UUID = UUID(),
         beginn: Date, ende: Date,
         zaehlerVorher: Double, zaehlerNachher: Double,
         brennstoff: Brennstoff = .gasKubikmeter,
@@ -45,6 +47,7 @@ public struct Nachtmessung: Codable, Sendable, Equatable {
         innentemperatur: Double = 20,
         kesselart: Kesselart = .standardkessel
     ) {
+        self.id = id
         self.beginn = beginn
         self.ende = ende
         self.zaehlerVorher = zaehlerVorher

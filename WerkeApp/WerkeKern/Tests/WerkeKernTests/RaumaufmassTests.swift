@@ -226,6 +226,65 @@ final class RaumaufmassTests: XCTestCase {
         XCTAssertEqual(e.raeume[0].transmission, 0, accuracy: 0.001)
     }
 
+    // MARK: Zuordnung
+
+    /// Der teuerste Irrtum des ganzen Verfahrens: Ein belüfteter Dachboden ist
+    /// kein Keller. Die oberste Geschossdecke ist die volle Grundfläche des
+    /// Gebäudes – mit 0,5 statt 0,9 fehlt daran fast die Hälfte.
+    func testDachraumZaehltFastWieAussenluft() {
+        let haus = Gebaeude(baujahr: 1968)
+        let decke = { (grenze: Grenze) in
+            Raum(name: "Oben", grundflaeche: 100, flaechen: [
+                Huellflaeche(art: .dach, quadratmeter: 100, grenze: grenze, uWert: 1.0)
+            ])
+        }
+        let e = rechner.berechne(
+            raeume: [decke(.dachraum), decke(.unbeheizt)],
+            gebaeude: haus, normaussentemperatur: -12
+        )
+
+        XCTAssertEqual(e.raeume[0].transmission, 100 * 1.0 * 0.90 * 32, accuracy: 1)
+        XCTAssertEqual(e.raeume[1].transmission, 100 * 1.0 * 0.50 * 32, accuracy: 1)
+    }
+
+    /// Eine erdberührte Kellerwand steht in kälterem Erdreich als der Boden
+    /// mehrere Meter darunter.
+    func testErdberuehrteWandLiegtUeberDerBodenplatte() {
+        XCTAssertGreaterThan(Grenze.erdreichWand.korrekturfaktor, Grenze.erdreich.korrekturfaktor)
+    }
+
+    /// „Noch nicht zugeordnet“ ist ein eigener Zustand und darf nicht mit
+    /// „grenzt an einen beheizten Nachbarraum“ zusammenfallen. Sonst kann eine
+    /// wahrheitsgemäße Antwort die Sperre nie öffnen.
+    func testNochNichtZugeordneteFlaechenWerdenGezaehlt() {
+        let haus = Gebaeude(baujahr: 1968)
+        let raum = Raum(name: "Wohnen", grundflaeche: 20, flaechen: [
+            Huellflaeche(art: .aussenwand, quadratmeter: 12, grenze: nil),
+            Huellflaeche(art: .aussenwand, quadratmeter: 10, grenze: .beheizt),
+            Huellflaeche(art: .fenster, quadratmeter: 3, grenze: .aussenluft)
+        ])
+        let e = rechner.berechne(raeume: [raum], gebaeude: haus, normaussentemperatur: -12)
+
+        // Nur die eine offene Fläche zählt – die als „innen“ beantwortete nicht.
+        XCTAssertEqual(e.unbestaetigteFlaechen, 1)
+    }
+
+    /// Solange eine Fläche offen ist, wird sie wie eine Außenwand gerechnet.
+    /// Falsch ist das auch, aber nur in die ungefährliche Richtung.
+    func testOffeneFlaecheWirdWieAussenluftGerechnet() {
+        let haus = Gebaeude(baujahr: 1968)
+        let flaechen = { (grenze: Grenze?) in
+            Raum(name: "Wohnen", grundflaeche: 20, flaechen: [
+                Huellflaeche(art: .aussenwand, quadratmeter: 12, grenze: grenze)
+            ])
+        }
+        let e = rechner.berechne(
+            raeume: [flaechen(nil), flaechen(.aussenluft)],
+            gebaeude: haus, normaussentemperatur: -12
+        )
+        XCTAssertEqual(e.raeume[0].transmission, e.raeume[1].transmission, accuracy: 0.001)
+    }
+
     /// Der Wärmebrückenzuschlag gehört auf die äußere Hülle. Innenbauteile
     /// bekommen ihn nicht, auch wenn sie wegen eines Temperaturunterschieds
     /// mitrechnen.

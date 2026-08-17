@@ -97,6 +97,10 @@ public struct Ablage: Codable, Sendable, Equatable {
     public var massnahmen: [Massnahme]
     public var zaehlerstaende: [Zaehlerstand]
     public var heizkoerper: [Heizkoerper]
+    /// Erfasste Nachtmessungen. Sie gehören in die Ablage und nicht in den
+    /// Bildschirmzustand: Der Weg verlangt ausdrücklich mehrere Nächte, und
+    /// eine Nacht lässt sich nicht nachholen.
+    public var nachtmessungen: [Nachtmessung]
     public var dokumente: [Dokument]
     public var berechnungen: [GespeicherteBerechnung]
     public var verlauf: [Verlaufseintrag]
@@ -109,6 +113,7 @@ public struct Ablage: Codable, Sendable, Equatable {
         massnahmen: [Massnahme] = [],
         zaehlerstaende: [Zaehlerstand] = [],
         heizkoerper: [Heizkoerper] = [],
+        nachtmessungen: [Nachtmessung] = [],
         dokumente: [Dokument] = [],
         berechnungen: [GespeicherteBerechnung] = [],
         verlauf: [Verlaufseintrag] = [],
@@ -120,6 +125,7 @@ public struct Ablage: Codable, Sendable, Equatable {
         self.massnahmen = massnahmen
         self.zaehlerstaende = zaehlerstaende
         self.heizkoerper = heizkoerper
+        self.nachtmessungen = nachtmessungen
         self.dokumente = dokumente
         self.berechnungen = berechnungen
         self.verlauf = verlauf
@@ -135,6 +141,7 @@ public struct Ablage: Codable, Sendable, Equatable {
         massnahmen = try c.decodeIfPresent([Massnahme].self, forKey: .massnahmen) ?? []
         zaehlerstaende = try c.decodeIfPresent([Zaehlerstand].self, forKey: .zaehlerstaende) ?? []
         heizkoerper = try c.decodeIfPresent([Heizkoerper].self, forKey: .heizkoerper) ?? []
+        nachtmessungen = try c.decodeIfPresent([Nachtmessung].self, forKey: .nachtmessungen) ?? []
         dokumente = try c.decodeIfPresent([Dokument].self, forKey: .dokumente) ?? []
         berechnungen = try c.decodeIfPresent([GespeicherteBerechnung].self, forKey: .berechnungen) ?? []
         verlauf = try c.decodeIfPresent([Verlaufseintrag].self, forKey: .verlauf) ?? []

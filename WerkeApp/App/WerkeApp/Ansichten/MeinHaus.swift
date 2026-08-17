@@ -1,4 +1,5 @@
 import SwiftUI
+import UniformTypeIdentifiers
 import WerkeKern
 
 /// Die Gebäudeakte. Genauigkeit wird belohnt, nicht verlangt: Jede Ergänzung
@@ -16,6 +17,7 @@ struct MeinHausAnsicht: View {
                 if let gebaeude = zustand.gebaeude {
                     kopf(gebaeude)
                     kennzahlen()
+                    anschrift(gebaeude)
                     bauteile(gebaeude)
                     heizung(gebaeude)
                     nutzung(gebaeude)
@@ -55,6 +57,17 @@ struct MeinHausAnsicht: View {
             }
             .padding(.vertical, 4)
 
+            // Der Einstieg darf die Anschrift überspringen – dann muss es
+            // später eine Stelle geben, an der sie nachgetragen werden kann.
+            // Die Postleitzahl entscheidet über die Normaußentemperatur und
+            // damit über jede Heizlast in dieser App.
+            if gebaeude.plz.isEmpty {
+                Hinweisleiste(
+                    text: "Ohne Postleitzahl wird mit dem bundesweiten Mittel gerechnet. Die Klimaregion verschiebt die Heizlast um bis zu ein Zehntel.",
+                    symbol: "info.circle"
+                )
+            }
+
             if gebaeude.angabenVollstaendigkeit < 1 {
                 Fortschrittsbalken(
                     anteil: gebaeude.angabenVollstaendigkeit,
@@ -89,6 +102,37 @@ struct MeinHausAnsicht: View {
             }
             .listRowInsets(EdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 8))
             .listRowBackground(Color.clear)
+        }
+    }
+
+    // MARK: Anschrift
+
+    private func anschrift(_ gebaeude: Gebaeude) -> some View {
+        Section {
+            TextField("Straße und Hausnummer", text: Binding(
+                get: { gebaeude.strasse },
+                set: { neu in zustand.aendereGebaeude { $0.strasse = neu } }
+            ))
+            HStack(spacing: Gestaltung.Abstand.normal) {
+                TextField("PLZ", text: Binding(
+                    get: { gebaeude.plz },
+                    set: { neu in zustand.aendereGebaeude { $0.plz = String(neu.prefix(5)) } }
+                ))
+                .keyboardType(.numberPad)
+                .frame(width: 90)
+                TextField("Ort", text: Binding(
+                    get: { gebaeude.ort },
+                    set: { neu in zustand.aendereGebaeude { $0.ort = neu } }
+                ))
+            }
+        } header: {
+            Text("Anschrift")
+        } footer: {
+            if let region = zustand.regeln.klimaregion(fuerPLZ: gebaeude.plz) {
+                Text("Klimaregion: \(region.name), Normaußentemperatur \(Formate.zahl(region.normaussentemperatur, stellen: 0)) °C. Die Anschrift bleibt auf dem Gerät.")
+            } else {
+                Text("Die Anschrift bleibt auf dem Gerät.")
+            }
         }
     }
 
@@ -270,14 +314,23 @@ struct MeinHausAnsicht: View {
 struct DokumenteAnsicht: View {
     @EnvironmentObject private var zustand: AppZustand
 
+    @State private var zeigeAuswahl = false
+    @State private var art: Dokument.Dokumentart = .energieausweis
+    @State private var fehler: String?
+
     var body: some View {
         List {
             if zustand.dokumente.isEmpty {
-                ContentUnavailableView(
-                    "Noch keine Dokumente",
-                    systemImage: "folder",
-                    description: Text("Energieausweis, Sanierungsfahrplan, Förderbescheide und Rechnungen an einem Ort – spätestens beim Hausverkauf werden genau diese Unterlagen verlangt.")
-                )
+                // Ein leerer Zustand, der die Funktion bewirbt, aber keinen
+                // Weg anbietet, ist eine Sackgasse. Der Knopf gehört hierher.
+                ContentUnavailableView {
+                    Label("Noch keine Dokumente", systemImage: "folder")
+                } description: {
+                    Text("Energieausweis, Sanierungsfahrplan, Förderbescheide und Rechnungen an einem Ort – spätestens beim Hausverkauf werden genau diese Unterlagen verlangt.")
+                } actions: {
+                    Button("Dokument hinzufügen") { zeigeAuswahl = true }
+                        .buttonStyle(.borderedProminent)
+                }
             } else {
                 ForEach(zustand.dokumente) { dokument in
                     HStack(spacing: Gestaltung.Abstand.normal) {
@@ -301,5 +354,51 @@ struct DokumenteAnsicht: View {
         }
         .navigationTitle("Dokumente")
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Menu {
+                    Picker("Art", selection: $art) {
+                        ForEach(Dokument.Dokumentart.allCases, id: \.self) {
+                            Label($0.bezeichnung, systemImage: $0.symbol).tag($0)
+                        }
+                    }
+                    Button {
+                        zeigeAuswahl = true
+                    } label: {
+                        Label("Datei auswählen", systemImage: "plus")
+                    }
+                } label: {
+                    Image(systemName: "plus")
+                }
+                .accessibilityLabel("Dokument hinzufügen")
+            }
+        }
+        .fileImporter(
+            isPresented: $zeigeAuswahl,
+            allowedContentTypes: [.pdf, .image, .plainText, .data],
+            allowsMultipleSelection: true
+        ) { ergebnis in
+            switch ergebnis {
+            case .success(let dateien):
+                let misslungen = dateien.filter {
+                    !zustand.uebernehmeDokument(von: $0, titel: $0.deletingPathExtension().lastPathComponent, art: art)
+                }
+                if !misslungen.isEmpty {
+                    fehler = misslungen.count == 1
+                        ? "Eine Datei konnte nicht übernommen werden."
+                        : "\(misslungen.count) Dateien konnten nicht übernommen werden."
+                }
+            case .failure(let grund):
+                fehler = grund.localizedDescription
+            }
+        }
+        .alert("Nicht übernommen", isPresented: Binding(
+            get: { fehler != nil },
+            set: { if !$0 { fehler = nil } }
+        )) {
+            Button("Verstanden", role: .cancel) { fehler = nil }
+        } message: {
+            Text(fehler ?? "")
+        }
     }
 }

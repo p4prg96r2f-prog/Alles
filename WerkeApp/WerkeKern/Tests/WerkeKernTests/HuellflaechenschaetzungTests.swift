@@ -88,7 +88,10 @@ final class HuellflaechenschaetzungTests: XCTestCase {
         let flaecheWarm = rechner.flaechen(fuer: warm, gebaeude: Gebaeude()).first { $0.art == .dach }!
 
         XCTAssertEqual(flaecheKalt.quadratmeter, 80)          // Geschossdecke
-        XCTAssertEqual(flaecheKalt.grenze, .unbeheizt)
+        // Ein Dachboden ist belüftet – dort herrscht fast Außentemperatur.
+        // Der Kellerfaktor 0,5 wäre an dieser Fläche der teuerste Irrtum im
+        // ganzen Verfahren.
+        XCTAssertEqual(flaecheKalt.grenze, .dachraum)
         XCTAssertEqual(flaecheWarm.quadratmeter, 104)         // 80 × 1,30 Satteldach
         XCTAssertEqual(flaecheWarm.grenze, .aussenluft)
     }

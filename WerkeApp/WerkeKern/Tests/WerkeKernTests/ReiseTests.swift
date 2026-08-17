@@ -358,6 +358,11 @@ final class ReiseTests: XCTestCase {
         ablage.massnahmen = [Massnahme(art: .fassade, kosten: 31_000)]
         ablage.ergaenze(Zaehlerstand(art: .gas, wert: 24_781.3, datum: heute), heute: heute)
         ablage.heizkoerper = [Heizkoerper(raum: "Wohnen", nennleistungWatt: 2_000)]
+        ablage.nachtmessungen = [Nachtmessung(
+            beginn: heute, ende: heute.addingTimeInterval(8 * 3600),
+            zaehlerVorher: 24_781, zaehlerNachher: 24_795,
+            mittlereAussentemperatur: -4
+        )]
         ablage.ergaenze(Dokument(titel: "Ausweis", dateiname: "a.pdf", angelegt: heute, art: .energieausweis), heute: heute)
 
         let daten = try Ablagekodierung.kodiere(ablage)
@@ -366,6 +371,10 @@ final class ReiseTests: XCTestCase {
         XCTAssertEqual(zurueck, ablage)
         XCTAssertEqual(zurueck.gebaeude?.anschrift, "Rolandsweg 80, 33102 Paderborn")
         XCTAssertEqual(zurueck.zaehlerstaende.first?.wert, 24_781.3)
+        // Eine kalte Nacht lässt sich nicht nachholen – sie muss die Sitzung
+        // überleben.
+        XCTAssertEqual(zurueck.nachtmessungen.count, 1)
+        XCTAssertEqual(zurueck.nachtmessungen.first?.mittlereAussentemperatur, -4)
     }
 
     func testKaputteDateiFuehrtZuLeeremZustandStattAbsturz() {
@@ -390,6 +399,7 @@ final class ReiseTests: XCTestCase {
         XCTAssertTrue(ablage.einstiegAbgeschlossen)
         XCTAssertTrue(ablage.massnahmen.isEmpty)
         XCTAssertTrue(ablage.dokumente.isEmpty)
+        XCTAssertTrue(ablage.nachtmessungen.isEmpty)
         XCTAssertEqual(ablage.haushalt, Haushalt())
         // Ohne Gebäude bleibt der Einstieg trotzdem nötig.
         XCTAssertTrue(ablage.brauchtEinstieg)
@@ -437,5 +447,6 @@ final class ReiseTests: XCTestCase {
 
         ablage.loescheDokument(dokument.id)
         XCTAssertTrue(ablage.dokumente.isEmpty)
+        XCTAssertTrue(ablage.nachtmessungen.isEmpty)
     }
 }

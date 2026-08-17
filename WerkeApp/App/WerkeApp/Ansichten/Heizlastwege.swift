@@ -30,8 +30,10 @@ struct HeizlastwegeAnsicht: View {
     }
 
     private var wege: [Weg] {
-        let monate = zustand.monateMitZaehlerstand
         let signatur = zustand.energiesignatur()
+        // Der Sperrgrund stammt aus derselben Prüfung wie das Ergebnis – sonst
+        // nennt er Zahlen, die der Bildschirm selbst widerlegt.
+        let sperrgrund = zustand.signaturSperrgrund
 
         return [
             Weg(
@@ -41,9 +43,7 @@ struct HeizlastwegeAnsicht: View {
                 aufwand: "keine Eingabe nötig",
                 genauigkeit: 0.08,
                 verfuegbar: signatur != nil,
-                sperrgrund: signatur == nil
-                    ? "Dafür braucht es mindestens fünf monatliche Ablesungen. Sie haben \(monate)."
-                    : nil,
+                sperrgrund: sperrgrund,
                 voraussetzung: nil,
                 symbol: "chart.line.uptrend.xyaxis"
             ),

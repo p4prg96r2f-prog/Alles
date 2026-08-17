@@ -18,6 +18,8 @@ struct KurzcheckAnsicht: View {
     /// Bekanntes wird genau einmal übernommen. Liefe das bei jedem Erscheinen,
     /// würde ein Rücksprung die bereits gegebenen Antworten überschreiben.
     @State private var bekanntesUebernommen = false
+    @State private var zeigeUebernahme = false
+    @State private var uebernommen = false
 
     private let letzteFrage = 4
 
@@ -340,10 +342,60 @@ struct KurzcheckAnsicht: View {
                 Hinweisleiste(text: e.vorbehalt, symbol: "exclamationmark.triangle")
             }
 
-            Hauptknopf(titel: "In mein Haus übernehmen", symbol: "square.and.arrow.down") {
-                uebernehmeInsGebaeude()
+            if uebernommen {
+                Karte {
+                    Ampelzeile(
+                        ampel: .gruen,
+                        titel: "In „Mein Haus“ übernommen",
+                        aussage: "Baujahr, Gebäudetyp und Fläche stehen jetzt in Ihrer Gebäudeakte. Förderabschätzung und Anforderungen rechnen ab sofort damit."
+                    )
+                }
+            } else {
+                Hauptknopf(titel: "In mein Haus übernehmen", symbol: "square.and.arrow.down") {
+                    zeigeUebernahme = true
+                }
             }
         }
+        .confirmationDialog(
+            "In „Mein Haus“ übernehmen?",
+            isPresented: $zeigeUebernahme,
+            titleVisibility: .visible
+        ) {
+            Button("Übernehmen") { uebernehmeInsGebaeude() }
+            Button("Abbrechen", role: .cancel) {}
+        } message: {
+            Text(uebernahmetext)
+        }
+    }
+
+    /// Was sich durch die Übernahme ändert – vorher und nachher, im Klartext.
+    ///
+    /// Der Kurzcheck arbeitet mit Näherungen: einer Epoche statt eines
+    /// Baujahrs, abgeschrittenen Metern statt der Wohnfläche aus dem
+    /// Kaufvertrag. Diese Näherungen dürfen eine bestätigte Angabe nicht
+    /// stillschweigend ersetzen.
+    private var uebernahmetext: String {
+        let neu = rechner.gebaeudeAus(check)
+        let flaeche = rechner.huelleAus(check).beheizteFlaeche
+        guard let alt = zustand.gebaeude else {
+            return "Es wird ein neues Haus angelegt: \(neu.typ.bezeichnung), Baujahr \(neu.baujahr), \(Formate.zahl(flaeche, stellen: 0)) m²."
+        }
+
+        var zeilen: [String] = []
+        if alt.baujahr != neu.baujahr {
+            zeilen.append("Baujahr \(alt.baujahr) → \(neu.baujahr) (Mitte der Epoche)")
+        }
+        if alt.typ != neu.typ {
+            zeilen.append("Gebäudetyp \(alt.typ.bezeichnung) → \(neu.typ.bezeichnung)")
+        }
+        if abs(alt.wohnflaeche - flaeche) > 1 {
+            zeilen.append("Wohnfläche \(Formate.zahl(alt.wohnflaeche, stellen: 0)) → \(Formate.zahl(flaeche, stellen: 0)) m²")
+        }
+        if zeilen.isEmpty {
+            return "Es ändert sich nichts – die Angaben stimmen bereits überein. Unbekannte Bauteilzustände werden ergänzt."
+        }
+        return zeilen.joined(separator: "\n")
+            + "\n\nBauteilzustände werden nur ergänzt, wo bisher „unbekannt“ steht."
     }
 
     private func verfeinerungszeile(_ verfeinerung: Verfeinerung) -> some View {
@@ -444,6 +496,7 @@ struct KurzcheckAnsicht: View {
             version: zustand.regeln.version,
             stand: zustand.regeln.stand
         )
+        withAnimation(.snappy) { uebernommen = true }
     }
 
     private func anbau(fuer typ: Gebaeudetyp) -> Kurzcheck.Anbausituation {

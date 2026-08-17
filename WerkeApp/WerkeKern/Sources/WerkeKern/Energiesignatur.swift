@@ -41,7 +41,10 @@ public struct Energiesignatur: Sendable, Equatable {
         }
     }
 
-    /// Wärmeverlustkoeffizient des Gebäudes in Watt je Kelvin.
+    /// Wirksamer Wärmeverlustkoeffizient über die Heizperiode, in Watt je Kelvin.
+    ///
+    /// Das ist die gemessene Größe – aber **nicht** die, mit der ausgelegt wird.
+    /// Siehe `waermeverlustkoeffizientAuslegung`.
     public let waermeverlustkoeffizient: Double
     /// Verbrauch, der unabhängig von der Außentemperatur anfällt, in kWh im Jahr.
     public let grundverbrauchProJahr: Double
@@ -52,6 +55,38 @@ public struct Energiesignatur: Sendable, Equatable {
     public let guete: Guete
     public let annahmen: [Annahme]
     public let hinweis: String?
+
+    /// Vom gemessenen Heizperiodenwert auf den Auslegungswert.
+    ///
+    /// Die Steigung der Energiesignatur ist **kleiner** als der Wärmeverlust,
+    /// mit dem ausgelegt wird – aus zwei Gründen, die beide nichts mit der
+    /// Messgenauigkeit zu tun haben:
+    ///
+    /// 1. **Sonne und innere Wärmequellen.** Über die Heizperiode steuern sie
+    ///    ständig einige hundert Watt bei. Die Steigung sieht davon nur das,
+    ///    was die Heizung *nicht* liefern musste – rund acht Prozent zu wenig.
+    ///    Am Auslegungstag, nachts und bei Nebel, fällt dieser Beitrag weg.
+    /// 2. **Die wirkliche Raumtemperatur.** Gradtagzahlen sind auf 20 °C
+    ///    bezogen. Kaum ein Haus hält 20 °C im Schlafzimmer, im Flur und im
+    ///    Treppenhaus. Liegt das Mittel bei 18 °C, sind die tatsächlichen
+    ///    Gradtage rund ein Siebtel kleiner als die tabellierten – und die
+    ///    Steigung entsprechend zu klein. Ausgelegt wird aber für den Fall,
+    ///    dass jeder Raum seine Solltemperatur hält.
+    ///
+    /// Zusammen ergibt das rund ein Viertel. Die Zahl ist kein Sicherheitsbeiwert
+    /// und keine Schätzung ins Blaue: Sie ist genau der Faktor, der die
+    /// gebräuchlichen 1.800 Vollbenutzungsstunden erklärt. Mit 3.000 Kelvintagen
+    /// und 32 Kelvin Auslegungsdifferenz gilt
+    /// 3.000 · 24 / (1,25 · 32) = 1.800 h.
+    ///
+    /// Wer den Heizperiodenwert ungeprüft als Auslegungswert nimmt, legt eine
+    /// Wärmepumpe um ein Fünftel zu klein aus.
+    public static let auslegungszuschlag = 1.25
+
+    /// Wärmeverlustkoeffizient bei Auslegungsbedingungen, in Watt je Kelvin.
+    public var waermeverlustkoeffizientAuslegung: Double {
+        waermeverlustkoeffizient * Self.auslegungszuschlag
+    }
 }
 
 // MARK: - Klima
@@ -181,10 +216,15 @@ public extension Heizlastrechner {
         let auslegungsdifferenz = 20 - region.normaussentemperatur
         let roheHeizlast = koeffizient * auslegungsdifferenz / 1000
 
-        // Über die Heizperiode helfen Sonne und innere Wärmequellen mit; am
-        // Auslegungstag fallen sie weitgehend weg. Die Signatur unterschätzt
-        // die Heizlast deshalb systematisch etwas – das gehört in die Spanne.
-        let spanne = Spanne(unten: roheHeizlast, oben: roheHeizlast * 1.15)
+        // Die Spanne führt von „so viel verbraucht das Haus tatsächlich“ bis
+        // „so viel braucht es, wenn am kältesten Tag jeder Raum seine
+        // Solltemperatur hält und die Sonne nicht mithilft“. Beides ist
+        // richtig, und der Abstand dazwischen ist keine Ungenauigkeit, sondern
+        // der Unterschied zwischen Verbrauch und Auslegung.
+        let spanne = Spanne(
+            unten: roheHeizlast,
+            oben: roheHeizlast * Energiesignatur.auslegungszuschlag
+        )
 
         let guete: Energiesignatur.Guete
         var hinweis: String?
@@ -204,7 +244,8 @@ public extension Heizlastrechner {
             Annahme("Verfahren", "Energiesignatur aus \(punkte.count) Ablesezeiträumen der Heizperiode"),
             Annahme("Klimaregion", region.name),
             Annahme("Normaußentemperatur", "\(Formate.zahl(region.normaussentemperatur, stellen: 0)) °C"),
-            Annahme("Wärmeverlust", "\(Formate.zahl(koeffizient, stellen: 0)) W/K"),
+            Annahme("Wärmeverlust, gemessen", "\(Formate.zahl(koeffizient, stellen: 0)) W/K über die Heizperiode"),
+            Annahme("Wärmeverlust, Auslegung", "\(Formate.zahl(koeffizient * Energiesignatur.auslegungszuschlag, stellen: 0)) W/K ohne Sonne und bei voller Raumtemperatur"),
             Annahme("Güte der Anpassung", "\(Formate.zahl(bestimmtheit * 100, stellen: 0)) %"),
             Annahme("Kesselnutzungsgrad", Formate.prozent(nutzungsgrad))
         ]

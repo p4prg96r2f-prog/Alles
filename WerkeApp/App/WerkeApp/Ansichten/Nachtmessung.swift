@@ -9,7 +9,10 @@ struct NachtmessungAnsicht: View {
 
     @EnvironmentObject private var zustand: AppZustand
 
-    @State private var naechte: [Nachtmessung] = []
+    /// Die erfassten Nächte liegen in der Ablage, nicht im Bildschirmzustand.
+    /// Eine kalte Nacht lässt sich nicht nachholen – und der Bildschirm bittet
+    /// ausdrücklich um eine zweite und dritte.
+    private var naechte: [Nachtmessung] { zustand.nachtmessungen }
     @State private var abendstand = ""
     @State private var morgenstand = ""
     @State private var abends = NachtmessungAnsicht.standardAbend()
@@ -33,11 +36,30 @@ struct NachtmessungAnsicht: View {
         )
     }
 
-    private var eingabeGueltig: Bool {
-        guard let vorher = Double(abendstand.replacingOccurrences(of: ",", with: ".")),
-              let nachher = Double(morgenstand.replacingOccurrences(of: ",", with: ".")) else { return false }
-        return nachher > vorher && morgens > abends && innentemperatur - aussentemperatur > 5
+    private var abendwert: Double? { Double(abendstand.replacingOccurrences(of: ",", with: ".")) }
+    private var morgenwert: Double? { Double(morgenstand.replacingOccurrences(of: ",", with: ".")) }
+
+    /// Was der Auswertung gerade im Weg steht – im Klartext, nicht als graue
+    /// Schaltfläche.
+    private var hindernisse: [String] {
+        var gruende: [String] = []
+        if abendstand.isEmpty || morgenstand.isEmpty {
+            gruende.append("Tragen Sie beide Zählerstände ein – abends und am nächsten Morgen.")
+        } else if abendwert == nil || morgenwert == nil {
+            gruende.append("Ein Zählerstand ist keine Zahl. Nachkommastellen bitte mit Komma.")
+        } else if let a = abendwert, let m = morgenwert, m <= a {
+            gruende.append("Der Morgenwert muss größer sein als der Abendwert. Vermutlich sind die beiden Felder vertauscht.")
+        }
+        if morgens <= abends {
+            gruende.append("Die Uhrzeit am Morgen muss nach der Uhrzeit am Abend liegen.")
+        }
+        if innentemperatur - aussentemperatur <= 5 {
+            gruende.append("Der Unterschied zwischen innen und außen ist zu klein. Verlässlich wird die Messung ab etwa 15 Grad Unterschied.")
+        }
+        return gruende
     }
+
+    private var eingabeGueltig: Bool { hindernisse.isEmpty }
 
     var body: some View {
         ScrollView {
@@ -123,11 +145,11 @@ struct NachtmessungAnsicht: View {
             }
             .pickerStyle(.menu)
 
-            if innentemperatur - aussentemperatur <= 5 {
-                Hinweisleiste(
-                    text: "Der Unterschied zwischen innen und außen ist zu klein. Warten Sie auf eine kältere Nacht.",
-                    symbol: "exclamationmark.triangle"
-                )
+            // Ein grauer Knopf ohne Begründung ist im Keller bei schlechtem
+            // Licht und zwei achtstelligen Zahlen eine Sackgasse. Jede
+            // verletzte Bedingung wird deshalb benannt.
+            ForEach(hindernisse, id: \.self) { grund in
+                Hinweisleiste(text: grund, symbol: "exclamationmark.triangle")
             }
 
             Hauptknopf(titel: naechte.isEmpty ? "Auswerten" : "Weitere Nacht hinzufügen", symbol: "plus.circle") {
@@ -206,7 +228,7 @@ struct NachtmessungAnsicht: View {
         Karte {
             Text("Erfasste Nächte")
                 .stilAbschnittstitel()
-            ForEach(Array(naechte.enumerated()), id: \.offset) { index, nacht in
+            ForEach(naechte) { nacht in
                 HStack {
                     Text(datum(nacht.beginn)).font(.subheadline)
                     Spacer()
@@ -214,7 +236,7 @@ struct NachtmessungAnsicht: View {
                         .font(.caption.monospacedDigit())
                         .foregroundStyle(Gestaltung.Farbe.textLeise)
                     Button {
-                        naechte.remove(at: index)
+                        zustand.loescheNachtmessungen([nacht.id])
                     } label: {
                         Image(systemName: "trash")
                             .foregroundStyle(Gestaltung.Farbe.rot)
@@ -234,7 +256,7 @@ struct NachtmessungAnsicht: View {
         guard let vorher = Double(abendstand.replacingOccurrences(of: ",", with: ".")),
               let nachher = Double(morgenstand.replacingOccurrences(of: ",", with: ".")) else { return }
 
-        naechte.append(Nachtmessung(
+        zustand.ergaenzeNachtmessung(Nachtmessung(
             beginn: abends, ende: morgens,
             zaehlerVorher: vorher, zaehlerNachher: nachher,
             mittlereAussentemperatur: aussentemperatur,

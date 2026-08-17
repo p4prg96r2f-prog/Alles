@@ -158,11 +158,17 @@ public extension Huellflaechenrechner {
             // Bei unbeheiztem Dachraum geht die Wärme durch die oberste
             // Geschossdecke, nicht durch das Dach – und eine Holzbalkendecke
             // hat einen ganz anderen U-Wert als eine Dachfläche.
+            //
+            // Die Grenze ist `dachraum` und nicht `unbeheizt`: Ein Dachboden
+            // ist über Ziegel und Lüftungsöffnungen mit der Außenluft
+            // verbunden, dort herrscht fast Außentemperatur. Mit dem
+            // Kellerfaktor 0,5 gerechnet fehlt an dieser einen Fläche gut ein
+            // Achtel der Gesamtheizlast.
             let gedaemmt = gebaeude.obersteGeschossdecke == .gedaemmt
             flaechen.append(Huellflaeche(
                 art: .dach,
                 quadratmeter: huelle.grundflaeche,
-                grenze: .unbeheizt,
+                grenze: .dachraum,
                 uWert: gedaemmt ? 0.24 : 1.0
             ))
         }
@@ -173,11 +179,12 @@ public extension Huellflaechenrechner {
             flaechen.append(Huellflaeche(art: .kellerdecke, quadratmeter: huelle.grundflaeche, grenze: .unbeheizt))
         case .beheizterKeller:
             flaechen.append(Huellflaeche(art: .bodenplatte, quadratmeter: huelle.grundflaeche, grenze: .erdreich))
-            // Kellerwände gegen Erdreich
+            // Kellerwände gegen Erdreich – mit eigenem Faktor, weil eine Wand
+            // in deutlich kälterem Erdreich steht als der Boden darunter.
             flaechen.append(Huellflaeche(
                 art: .aussenwand,
                 quadratmeter: huelle.geschaetzterUmfang * huelle.geschosshoehe * 0.8,
-                grenze: .erdreich
+                grenze: .erdreichWand
             ))
         case .ohneKeller:
             flaechen.append(Huellflaeche(art: .bodenplatte, quadratmeter: huelle.grundflaeche, grenze: .erdreich))

@@ -29,7 +29,7 @@ WerkeApp/
 │   │   ├── Zaehlerablesung.swift   Auswertung erkannter Texte, Plausibilitätsprüfung
 │   │   ├── Formate.swift           Einheitliche Zahlen- und Datumsformate
 │   │   └── Ressourcen/regelpaket.json
-│   └── Tests/WerkeKernTests/       258 Testfälle
+│   └── Tests/WerkeKernTests/       267 Testfälle
 └── App/
     ├── WerkeApp.xcodeproj
     └── WerkeApp/
@@ -147,7 +147,7 @@ zwischen 45 und 70 ist und oft im Keller steht.
 ## Prüfstand
 
 ```
-258 Testfälle, 0 Fehler
+267 Testfälle, 0 Fehler
 ```
 
 **Rechnen:** Grundförderung und Höchstgrenzen, der iSFP-Bonus in seiner neuen
@@ -253,3 +253,59 @@ nicht 10,0), Einfachverglasung vor 1949 ist eine eigene Stufe (5,0 W/m²K statt
 −12 °C, die Gradtagzahlen im Hochsommer sind auf realistische Werte gesetzt, und
 die Kennwerte nach Baujahr sind gegen die Hüllflächenrechnung derselben App
 abgeglichen. Der Abgleich ist als Testfall festgehalten.
+
+
+### Was die Prüfung durch einen zweiten Blick gefunden hat
+
+Ein unabhängiger Durchgang über Rechenkern, App-Schicht und Physik – jeder
+Befund anschließend von einer zweiten Instanz gegengeprüft, die versuchen
+musste, ihn zu widerlegen. Fünfzehn Befunde haben das überstanden. Die drei
+schwersten waren keine Rechenfehler, sondern Sackgassen und Verwechslungen:
+
+**Das Raumaufmaß konnte nie zu einem Ergebnis führen.** „Grenzt an einen
+beheizten Nachbarraum“ und „noch nicht zugeordnet“ waren derselbe Wert. Wer die
+Decke zum Schlafzimmer wahrheitsgemäß als „innen“ markierte, blieb damit
+dauerhaft als unfertig gezählt – und der Bildschirm zeigte weiter „Noch 1 Fläche
+zuordnen“. Beim Scan traf es die Hälfte aller Wände. Die Zuordnung ist jetzt ein
+eigener Zustand (`Grenze?`); „innen“ ist eine vollwertige Antwort, und eine noch
+offene Fläche wird bis dahin wie eine Außenwand gerechnet – falsch, aber nur in
+die ungefährliche Richtung.
+
+**Heizperiodenwert und Auslegungswert wurden verwechselt.** Die Steigung der
+Energiesignatur ist der *wirksame* Wärmeverlust über die Heizperiode: Sonne,
+innere Wärmequellen und die tatsächlich gehaltenen Raumtemperaturen stecken
+schon drin. Das Aufmaß liefert dagegen den Auslegungswert. Direkt
+gegeneinandergestellt ergab das für ein völlig normales Haus einen Maßstab um
+0,7, die Meldung „sehr wahrscheinlich ist bereits mehr gedämmt worden“ – für ein
+Gebäude, an dem nichts gedämmt wurde – und eine um ein Fünftel zu kleine
+Heizlast. Danach wird eine Wärmepumpe ausgelegt. Es gibt jetzt einen
+dokumentierten Auslegungszuschlag von 1,25; er ist keine Sicherheitsmarge,
+sondern genau der Faktor, der die gebräuchlichen 1.800 Vollbenutzungsstunden
+erklärt: 3.000 · 24 / (1,25 · 32) = 1.800 h. Die Nachtmessung braucht ihn nicht –
+sie misst ohne Sonne bei gehaltener Innentemperatur und trifft den
+Auslegungswert unmittelbar.
+
+**Der Dachboden wurde wie ein Keller gerechnet.** Der Temperaturkorrekturfaktor
+0,5 gilt nur für allseits umschlossene, wenig belüftete Räume. In einem
+belüfteten Dachraum herrscht fast Außentemperatur, dort sind 0,9 anzusetzen. Da
+die oberste Geschossdecke die volle Grundfläche des Gebäudes ausmacht, kostete
+die Verwechslung gut ein Achtel der Gesamtheizlast. Erdberührte Kellerwände
+haben jetzt ebenfalls einen eigenen Faktor.
+
+Dazu sieben Sackgassen in der Bedienung, die alle dieselbe Form hatten – die App
+bewirbt etwas, das es nicht gibt:
+
+* Erfasste Nächte wurden nie gespeichert. Derselbe Bildschirm bat um eine zweite
+  und dritte Nacht.
+* „Anschrift später ergänzen“ – es gab später keine Stelle dafür. Dabei steuert
+  die Postleitzahl über die Klimaregion jede Heizlast in dieser App.
+* Der Dokumentenbereich warb mit „0 abgelegt“, hatte aber keinen Weg,
+  ein Dokument abzulegen.
+* Die prominenteste Empfehlung des Kurzchecks führte in ein Blatt ohne Aktion.
+* „In mein Haus übernehmen“ ersetzte bestätigte Angaben ohne Rückfrage und ohne
+  sichtbare Rückmeldung.
+* Ein gesperrter Weg begründete die Sperre mit „Sie brauchen fünf Ablesungen,
+  Sie haben 14“ – weil er Stromablesungen zählte, aber Gas erwartete.
+* Ein einziger erfasster Heizkörper genügte für das Urteil „die Heizflächen
+  reichen nicht aus“ – der Satz, an dem Wärmepumpenprojekte scheitern, gefällt
+  aus einem Zehntel der Daten.

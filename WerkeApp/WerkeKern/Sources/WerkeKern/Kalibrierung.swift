@@ -68,7 +68,20 @@ public extension Huellflaechenrechner {
 
         let differenz = 20 - normaussentemperatur
         let gerechnet = differenz > 0 ? aufmass.gesamtKW * 1000 / differenz : 0
-        let gemessen = signatur.waermeverlustkoeffizient
+
+        // Hier treffen zwei Größen aufeinander, die leicht zu verwechseln sind.
+        // Das Aufmaß liefert den Wärmeverlust bei **Auslegungsbedingungen**:
+        // jeder Raum auf Solltemperatur, keine Sonne. Die Steigung der
+        // Energiesignatur ist der **wirksame** Wert über die Heizperiode, in
+        // dem Sonne, innere Gewinne und die tatsächlich gehaltenen
+        // Raumtemperaturen bereits stecken.
+        //
+        // Wer die beiden direkt gegeneinanderstellt, bekommt für ein völlig
+        // normales Haus einen Maßstab um 0,7 und daraus die Meldung „besser als
+        // angenommen“ – für ein Gebäude, an dem nichts gedämmt wurde. Die
+        // Heizlast fiele um ein Fünftel zu klein aus, und danach wird eine
+        // Wärmepumpe ausgelegt.
+        let gemessen = signatur.waermeverlustkoeffizientAuslegung
 
         // Der Messwert enthält alles: Transmission, Wärmebrücken **und**
         // Lüftung. Unsicher sind aber nur die U-Werte – der Lüftungsanteil
@@ -141,7 +154,7 @@ public extension Huellflaechenrechner {
         annahmen.append(Annahme("Abgleich", "auf gemessenen Wärmeverlust skaliert"))
         annahmen.append(Annahme("Maßstab", Formate.zahl(maszstab, stellen: 2) + " auf Hülle und Wärmebrücken"))
         annahmen.append(Annahme("Lüftungsanteil", "\(Formate.zahl(lueftungAnteil, stellen: 0)) W/K, unverändert"))
-        annahmen.append(Annahme("Gemessen", "\(Formate.zahl(gemessen, stellen: 0)) W/K"))
+        annahmen.append(Annahme("Gemessen", "\(Formate.zahl(gemessen, stellen: 0)) W/K, auf Auslegung umgerechnet"))
         annahmen.append(Annahme("Gerechnet", "\(Formate.zahl(gerechnet, stellen: 0)) W/K"))
 
         return KalibriertesErgebnis(

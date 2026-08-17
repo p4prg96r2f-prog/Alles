@@ -302,23 +302,29 @@ public struct Heizlastrechner {
 
         let verhaeltnis = gemessen / geschaetzt
 
-        if verhaeltnis < 0.7 {
+        // Die Grenzen sind bewusst weit. Der Kennwert nach Baujahr beschreibt
+        // ein *durchschnittliches* Gebäude seiner Bauzeit; der Verbrauch
+        // beschreibt dieses eine Haus samt seiner Bewohner. Zwischen beiden
+        // liegt regelmäßig ein Drittel, ohne dass irgendetwas falsch wäre –
+        // eng gesetzte Grenzen würden bei fast jedem Haus Alarm schlagen und
+        // die Meldung damit wertlos machen.
+        if verhaeltnis < 0.55 {
             return Vergleich(
                 abweichung: .verbrauchDeutlichNiedriger,
-                aussage: "Ihr tatsächlicher Verbrauch liegt deutlich unter dem, was Baujahr und Angaben erwarten lassen. Das spricht dafür, dass am Haus bereits mehr gedämmt wurde als hinterlegt ist – oder dass sparsam geheizt wird. Für die Auslegung zählt der gemessene Wert.",
+                aussage: "Ihr Verbrauch liegt deutlich unter dem Richtwert für Ihr Baujahr. Der Richtwert beschreibt ein durchschnittliches, unsaniertes Gebäude dieser Bauzeit – Ihr Haus ist offenbar besser. Häufigste Gründe: Es wurde mehr gedämmt, als unter „Mein Haus“ hinterlegt ist, oder es werden nicht alle Räume voll beheizt. Für die Auslegung zählt der gemessene Wert.",
                 empfohlenesVerfahren: .ausVerbrauch
             )
         }
-        if verhaeltnis > 1.4 {
+        if verhaeltnis > 1.5 {
             return Vergleich(
                 abweichung: .verbrauchDeutlichHoeher,
-                aussage: "Ihr tatsächlicher Verbrauch liegt deutlich über dem, was Baujahr und Angaben erwarten lassen. Mögliche Gründe: hohe Raumtemperaturen, eine schlecht eingestellte Anlage oder ein zusätzlich beheizter Bereich. Das lohnt einen genaueren Blick.",
+                aussage: "Ihr Verbrauch liegt deutlich über dem Richtwert für Ihr Baujahr. Mögliche Gründe: hohe Raumtemperaturen, eine schlecht eingestellte Anlage, ein zusätzlich beheizter Bereich oder undichte Stellen. Das lohnt einen genaueren Blick.",
                 empfohlenesVerfahren: .ausVerbrauch
             )
         }
         return Vergleich(
             abweichung: .stimmigZusammen,
-            aussage: "Beide Wege führen zu einem ähnlichen Ergebnis – das erhöht das Vertrauen in die Abschätzung.",
+            aussage: "Verbrauch und Richtwert passen zusammen. Das ist keine Genauigkeitsaussage, aber es spricht dafür, dass die Angaben unter „Mein Haus“ zu Ihrem Gebäude passen.",
             empfohlenesVerfahren: .ausVerbrauch
         )
     }
@@ -388,11 +394,21 @@ public enum Heizflaechenrechner {
         return (oben - unten) / log(oben / unten)
     }
 
+    /// Prüft, ob die vorhandenen Heizflächen die Last bei abgesenkter
+    /// Vorlauftemperatur abgeben.
+    ///
+    /// `erwarteteRaeume` ist keine Feinheit, sondern verhindert die
+    /// schlimmste Fehlaussage dieses Rechners: Wer einen einzigen Heizkörper
+    /// erfasst, um zu sehen wie es funktioniert, bekommt sonst „reicht nicht
+    /// aus – entweder größere Heizkörper oder erst die Gebäudehülle
+    /// verbessern“. Das ist der Satz, an dem Wärmepumpenprojekte scheitern,
+    /// gefällt aus einem Zehntel der Daten.
     public static func pruefe(
         heizkoerper: [Heizkoerper],
         heizlastKW: Double,
         vorlauf: Double = 55,
-        ruecklauf: Double = 45
+        ruecklauf: Double = 45,
+        erwarteteRaeume: Int? = nil
     ) -> Heizflaechenergebnis {
 
         let normUeber = uebertemperatur(vorlauf: 75, ruecklauf: 65)
@@ -408,6 +424,10 @@ public enum Heizflaechenrechner {
         if heizkoerper.isEmpty {
             ampel = .neutral
             aussage = "Noch keine Heizkörper erfasst."
+        } else if let erwartet = erwarteteRaeume, heizkoerper.count < erwartet {
+            let fehlend = erwartet - heizkoerper.count
+            ampel = .neutral
+            aussage = "Erfasst sind \(heizkoerper.count) Heizkörper. Für ein Urteil müssen alle Heizflächen des Hauses drin sein – nach der Wohnfläche fehlen vermutlich noch etwa \(fehlend). Solange wird hier bewusst nichts bewertet."
         } else if verfuegbar >= heizlastKW * 1.1 {
             ampel = .gruen
             aussage = "Die vorhandenen Heizflächen reichen bei \(Int(vorlauf)) °C Vorlauf voraussichtlich aus."

@@ -86,10 +86,15 @@ extension Raumscan {
 
     /// Wandelt einen Scan in Flächen um.
     ///
-    /// Bewusst ohne Automatik bei der Zuordnung: Jede Wand kommt als eigene
-    /// Fläche mit der Grenze `beheizt` heraus, was so viel heißt wie *noch nicht
-    /// zugeordnet*. Erst wenn der Mensch sie zugeordnet hat, entsteht ein
-    /// Ergebnis. Lieber vier Tipps als eine falsche Zahl.
+    /// Bewusst ohne Automatik bei der Zuordnung: Jede Fläche kommt **ohne**
+    /// Grenze heraus (`grenze: nil`) und wartet auf den Menschen. Erst wenn er
+    /// sie zugeordnet hat, entsteht ein Ergebnis. Lieber vier Tipps als eine
+    /// falsche Zahl.
+    ///
+    /// Wichtig ist, dass „noch nicht zugeordnet“ ein eigener Wert ist und nicht
+    /// durch `beheizt` mitvertreten wird: Sonst wäre die wahrheitsgemäße
+    /// Antwort „grenzt an den Flur“ von „unbeantwortet“ nicht zu unterscheiden,
+    /// und der Scan-Weg endete nie in einem Ergebnis.
     static func inRaum(_ scan: CapturedRoom, name: String) -> Raum {
 
         let waende = scan.walls.map { flaeche($0) }
@@ -106,17 +111,17 @@ extension Raumscan {
             : 1
 
         var flaechen: [Huellflaeche] = waende.map {
-            Huellflaeche(art: .aussenwand, quadratmeter: $0 * anteilNetto, grenze: .beheizt)
+            Huellflaeche(art: .aussenwand, quadratmeter: $0 * anteilNetto, grenze: nil)
         }
-        flaechen += fenster.map { Huellflaeche(art: .fenster, quadratmeter: $0, grenze: .beheizt) }
-        flaechen += tueren.map { Huellflaeche(art: .tuer, quadratmeter: $0, grenze: .beheizt) }
+        flaechen += fenster.map { Huellflaeche(art: .fenster, quadratmeter: $0, grenze: nil) }
+        flaechen += tueren.map { Huellflaeche(art: .tuer, quadratmeter: $0, grenze: nil) }
 
         let grundflaeche = grundflaecheAusWaenden(scan)
         let hoehe = mittlereHoehe(scan)
 
         // Boden und Decke gehören dazu, ihre Zuordnung macht ebenfalls der Mensch.
-        flaechen.append(Huellflaeche(art: .kellerdecke, quadratmeter: grundflaeche, grenze: .beheizt))
-        flaechen.append(Huellflaeche(art: .decke, quadratmeter: grundflaeche, grenze: .beheizt))
+        flaechen.append(Huellflaeche(art: .kellerdecke, quadratmeter: grundflaeche, grenze: nil))
+        flaechen.append(Huellflaeche(art: .decke, quadratmeter: grundflaeche, grenze: nil))
 
         return Raum(
             name: name,

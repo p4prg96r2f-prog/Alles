@@ -262,9 +262,14 @@ struct HeizlastAnsicht: View {
 
     /// Die Frage, an der Wärmepumpenprojekte tatsächlich scheitern.
     private func heizflaechen(_ ergebnis: Heizlastergebnis) -> some View {
+        // Grobe Erwartung, wie viele Heizflächen ein Haus dieser Größe hat –
+        // etwa eine je zwanzig Quadratmeter. Damit urteilt der Rechner nicht
+        // über eine Liste, die erkennbar erst angefangen wurde.
+        let erwartet = zustand.gebaeude.map { max(1, Int(($0.wohnflaeche / 20).rounded())) }
         let pruefung = Heizflaechenrechner.pruefe(
             heizkoerper: zustand.heizkoerper,
-            heizlastKW: ergebnis.spanne.mitte
+            heizlastKW: ergebnis.spanne.mitte,
+            erwarteteRaeume: erwartet
         )
         return Karte {
             Text("Reichen Ihre Heizkörper?")

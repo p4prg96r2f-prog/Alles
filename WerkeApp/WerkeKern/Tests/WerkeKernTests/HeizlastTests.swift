@@ -355,4 +355,36 @@ extension HeizlastTests {
         let vergleich = rechner.vergleiche(ausVerbrauch: ausVerbrauch, ausGebaeudedaten: ausDaten)
         XCTAssertEqual(vergleich.abweichung, .stimmigZusammen)
     }
+    // MARK: Heizflächen
+
+    /// Der Satz „die Heizflächen reichen nicht aus“ ist der, an dem
+    /// Wärmepumpenprojekte scheitern. Er darf nicht aus einer Liste fallen, die
+    /// erkennbar erst angefangen wurde.
+    func testUnvollstaendigeHeizkoerperlisteWirdNichtBewertet() {
+        let einer = [Heizkoerper(raum: "Wohnen", nennleistungWatt: 1_500)]
+        let e = Heizflaechenrechner.pruefe(
+            heizkoerper: einer, heizlastKW: 12, erwarteteRaeume: 7
+        )
+
+        XCTAssertEqual(e.ampel, .neutral)
+        XCTAssertTrue(e.aussage.contains("fehlen"), e.aussage)
+        XCTAssertFalse(e.aussage.contains("reichen"), e.aussage)
+    }
+
+    /// Ist die Liste plausibel vollständig, wird wieder geurteilt.
+    func testVollstaendigeListeWirdBewertet() {
+        let alle = (1...7).map { Heizkoerper(raum: "Raum \($0)", nennleistungWatt: 1_500) }
+        let e = Heizflaechenrechner.pruefe(
+            heizkoerper: alle, heizlastKW: 12, erwarteteRaeume: 7
+        )
+        XCTAssertNotEqual(e.ampel, .neutral)
+    }
+
+    /// Ohne Angabe zur Gebäudegröße bleibt es beim bisherigen Verhalten.
+    func testOhneErwartungWirdWieBisherGeurteilt() {
+        let einer = [Heizkoerper(raum: "Wohnen", nennleistungWatt: 1_500)]
+        let e = Heizflaechenrechner.pruefe(heizkoerper: einer, heizlastKW: 12)
+        XCTAssertEqual(e.ampel, .rot)
+    }
+
 }

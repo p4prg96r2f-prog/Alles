@@ -36,9 +36,29 @@ final class AppZustand: ObservableObject {
     var co2rechner: CO2Rechner { CO2Rechner(regeln: regeln) }
     var gmodgPruefung: GModGPruefung { GModGPruefung(regeln: regeln) }
 
+    /// Welcher Zähler misst die Heizung dieses Hauses?
+    ///
+    /// Fest auf Gas zu rechnen war ein Fehler mit sichtbarer Folge: Wer als
+    /// Wärmepumpenbesitzer vierzehn Monate lang den Stromzähler erfasst,
+    /// bekommt die Signatur nicht – und als Begründung „Sie brauchen fünf
+    /// Ablesungen, Sie haben 14“.
+    var heizungszaehler: Zaehlerart {
+        switch gebaeude?.heizungsart {
+        case .waermepumpe, .nachtspeicher: return .strom
+        case .fernwaerme: return .waerme
+        default: return .gas
+        }
+    }
+
+    /// Wie viele Ablesungen des **heizungsrelevanten** Zählers liegen vor?
+    var ablesungenFuerHeizung: Int {
+        ablage.zaehlerstaende.filter { $0.art == heizungszaehler }.count
+    }
+
     /// Heizlast aus den ohnehin erfassten Zählerständen. Braucht keine einzige
     /// zusätzliche Eingabe und wird mit jeder Ablesung genauer.
-    func energiesignatur(art: Zaehlerart = .gas, kesselart: Kesselart = .standardkessel) -> Energiesignatur? {
+    func energiesignatur(art: Zaehlerart? = nil, kesselart: Kesselart = .standardkessel) -> Energiesignatur? {
+        let art = art ?? heizungszaehler
         guard let region = regeln.klimaregion(fuerPLZ: gebaeude?.plz ?? "") else { return nil }
         let brennstoff: Brennstoff
         switch art {
@@ -50,6 +70,26 @@ final class AppZustand: ObservableObject {
             ablage.zaehlerstaende, art: art, brennstoff: brennstoff,
             kesselart: kesselart, region: region
         )
+    }
+
+    /// Warum liefert die Energiesignatur gerade kein Ergebnis?
+    ///
+    /// Die Begründung wird aus derselben Prüfung abgeleitet, die auch das
+    /// Ergebnis erzeugt. Ein Sperrgrund, der eine Zahl nennt, die der Nutzer
+    /// auf demselben Bildschirm widerlegen kann, kostet mehr Vertrauen als die
+    /// gesperrte Funktion wert ist.
+    var signaturSperrgrund: String? {
+        guard energiesignatur() == nil else { return nil }
+        let passend = ablesungenFuerHeizung
+        let gesamt = ablage.zaehlerstaende.count
+
+        if passend < 5 && gesamt > passend {
+            return "Dafür werden Ablesungen des \(heizungszaehler.bezeichnung)zählers gebraucht – erfasst sind bisher \(passend). Insgesamt liegen \(gesamt) Ablesungen vor."
+        }
+        if passend < 5 {
+            return "Dafür braucht es mindestens fünf Ablesungen des \(heizungszaehler.bezeichnung)zählers. Sie haben \(passend)."
+        }
+        return "Die vorliegenden Ablesungen ergeben noch kein belastbares Bild – meist fehlen Werte aus der Heizperiode oder ein Zeitraum ist unplausibel."
     }
 
     /// Die Heizlast, die die App gerade am besten kennt – samt Herkunft.
@@ -146,12 +186,59 @@ final class AppZustand: ObservableObject {
         aendere { $0.heizkoerper = neu }
     }
 
+    // MARK: Nachtmessungen
+
+    /// Nächte werden gespeichert, nicht nur angezeigt. Der Weg verlangt
+    /// mehrere Nächte für ein belastbares Ergebnis – und eine kalte Nacht,
+    /// deren Zählerstände verloren sind, lässt sich nicht nachholen.
+    var nachtmessungen: [Nachtmessung] { ablage.nachtmessungen }
+
+    func ergaenzeNachtmessung(_ messung: Nachtmessung) {
+        aendere { $0.nachtmessungen.append(messung) }
+    }
+
+    func loescheNachtmessungen(_ ids: Set<UUID>) {
+        aendere { $0.nachtmessungen.removeAll { ids.contains($0.id) } }
+    }
+
     // MARK: Dokumente
 
     var dokumente: [Dokument] { ablage.dokumenteNeuesteZuerst }
 
     func ergaenzeDokument(_ dokument: Dokument) {
         aendere { $0.ergaenze(dokument) }
+    }
+
+    /// Übernimmt eine Datei in die Ablage der App.
+    ///
+    /// Kopiert wird bewusst, statt auf die Quelle zu verweisen: Ein Dokument in
+    /// „Mein Haus“ muss auch dann noch da sein, wenn der Nutzer die Datei aus
+    /// seiner Mail gelöscht hat. Der Zugriff auf die Quelle ist zeitlich
+    /// begrenzt – deshalb die Sicherheitsklammer.
+    @discardableResult
+    func uebernehmeDokument(von quelle: URL, titel: String, art: Dokument.Dokumentart) -> Bool {
+        let brauchtFreigabe = quelle.startAccessingSecurityScopedResource()
+        defer { if brauchtFreigabe { quelle.stopAccessingSecurityScopedResource() } }
+
+        guard let ordner = try? Speicher.dokumenteVerzeichnis() else { return false }
+        let endung = quelle.pathExtension.isEmpty ? "dat" : quelle.pathExtension
+        let dateiname = "\(UUID().uuidString).\(endung)"
+        let ziel = ordner.appendingPathComponent(dateiname)
+
+        do {
+            try FileManager.default.copyItem(at: quelle, to: ziel)
+        } catch {
+            return false
+        }
+
+        let name = titel.trimmingCharacters(in: .whitespaces)
+        ergaenzeDokument(Dokument(
+            titel: name.isEmpty ? quelle.deletingPathExtension().lastPathComponent : name,
+            dateiname: dateiname,
+            angelegt: Date(),
+            art: art
+        ))
+        return true
     }
 
     func loescheDokument(_ id: UUID) {

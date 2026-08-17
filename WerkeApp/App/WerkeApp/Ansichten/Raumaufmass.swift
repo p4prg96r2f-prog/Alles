@@ -39,8 +39,11 @@ struct RaumaufmassAnsicht: View {
         )
     }
 
+    /// Nur wirklich unbeantwortete Flächen. „Grenzt an einen beheizten
+    /// Nachbarraum“ ist eine gültige, abschließende Antwort – wer sie mitzählt,
+    /// baut eine Sperre, die sich nicht mehr öffnen lässt.
     private var offeneZuordnungen: Int {
-        raeume.flatMap(\.flaechen).filter { $0.grenze == .beheizt && $0.art != .innenwand }.count
+        raeume.flatMap(\.flaechen).filter { !$0.istZugeordnet }.count
     }
 
     var body: some View {
@@ -137,9 +140,7 @@ struct RaumaufmassAnsicht: View {
                     }
 
                     ForEach($raum.flaechen) { $flaeche in
-                        if flaeche.art != .innenwand {
-                            flaechenzeile($flaeche)
-                        }
+                        flaechenzeile($flaeche)
                     }
                 }
             }
@@ -147,24 +148,46 @@ struct RaumaufmassAnsicht: View {
     }
 
     private func flaechenzeile(_ flaeche: Binding<Huellflaeche>) -> some View {
-        VStack(alignment: .leading, spacing: 6) {
+        let wert = flaeche.wrappedValue
+        return VStack(alignment: .leading, spacing: 6) {
             HStack {
-                Text(flaeche.wrappedValue.art.bezeichnung)
+                Text(beschriftung(fuer: wert))
                     .font(.subheadline)
+                if !wert.istZugeordnet {
+                    Image(systemName: "questionmark.circle")
+                        .font(.caption)
+                        .foregroundStyle(Gestaltung.Farbe.gelb)
+                }
                 Spacer()
-                Text("\(Formate.zahl(flaeche.wrappedValue.quadratmeter, stellen: 1)) m²")
+                Text("\(Formate.zahl(wert.quadratmeter, stellen: 1)) m²")
                     .font(.subheadline.monospacedDigit())
                     .foregroundStyle(Gestaltung.Farbe.textLeise)
             }
+            // Ohne Auswahl ist der Picker leer – das ist die ehrliche
+            // Darstellung von „noch nicht beantwortet“.
             Picker("Grenze", selection: flaeche.grenze) {
-                Text("außen").tag(Grenze.aussenluft)
-                Text("unbeheizt").tag(Grenze.unbeheizt)
-                Text("Erdreich").tag(Grenze.erdreich)
-                Text("innen").tag(Grenze.beheizt)
+                Text("außen").tag(Grenze?.some(.aussenluft))
+                Text("Dachraum").tag(Grenze?.some(.dachraum))
+                Text("unbeheizt").tag(Grenze?.some(.unbeheizt))
+                Text("Erdreich").tag(Grenze?.some(.erdreich))
+                Text("innen").tag(Grenze?.some(.beheizt))
             }
             .pickerStyle(.segmented)
         }
         .padding(.vertical, 4)
+    }
+
+    /// Ein Scanner weiß nicht, ob eine Wand nach außen zeigt. Sie deshalb schon
+    /// vor der Zuordnung „Außenwand“ zu nennen, widerspricht der Frage, die
+    /// darunter gestellt wird.
+    private func beschriftung(fuer flaeche: Huellflaeche) -> String {
+        switch (flaeche.art, flaeche.grenze) {
+        case (.aussenwand, .none): return "Wand"
+        case (.aussenwand, .some(.beheizt)): return "Innenwand"
+        case (.decke, .some(.beheizt)): return "Decke zum Nachbarraum"
+        case (.kellerdecke, .some(.beheizt)): return "Boden zum Nachbarraum"
+        default: return flaeche.art.bezeichnung
+        }
     }
 
     private var zuordnungshinweis: some View {
@@ -172,7 +195,7 @@ struct RaumaufmassAnsicht: View {
             Ampelzeile(
                 ampel: .gelb,
                 titel: "Noch \(offeneZuordnungen) Flächen zuordnen",
-                aussage: "Ein Scan misst die Flächen, weiß aber nicht, wohin sie zeigen. Solange das offen ist, wird kein Ergebnis angezeigt – eine falsche Zahl wäre schlechter als keine."
+                aussage: "Ein Scan misst die Flächen, weiß aber nicht, wohin sie zeigen. Solange das offen ist, wird kein Ergebnis angezeigt – eine falsche Zahl wäre schlechter als keine. „Innen“ ist dabei eine vollwertige Antwort."
             )
         }
     }
@@ -314,10 +337,10 @@ struct RaumaufmassAnsicht: View {
             raumhoehe: 2.5,
             solltemperatur: Raum.solltemperatur(fuerRaumname: raumname),
             flaechen: [
-                Huellflaeche(art: .aussenwand, quadratmeter: 12, grenze: .beheizt),
-                Huellflaeche(art: .fenster, quadratmeter: 3, grenze: .beheizt),
-                Huellflaeche(art: .kellerdecke, quadratmeter: 20, grenze: .beheizt),
-                Huellflaeche(art: .decke, quadratmeter: 20, grenze: .beheizt)
+                Huellflaeche(art: .aussenwand, quadratmeter: 12, grenze: nil),
+                Huellflaeche(art: .fenster, quadratmeter: 3, grenze: nil),
+                Huellflaeche(art: .kellerdecke, quadratmeter: 20, grenze: nil),
+                Huellflaeche(art: .decke, quadratmeter: 20, grenze: nil)
             ]
         ))
         neuerRaumname = ""
