@@ -199,6 +199,111 @@ if let region = regeln.klimaregion(fuerPLZ: haus.plz),
 }
 
 
+
+// MARK: - 7c. Eine einzige kalte Nacht
+
+ueberschrift("7c · Heizlast aus einer einzigen kalten Nacht")
+let nachtBeginn = tag(2027, 1, 20)
+let nachtRegion = regionPB
+
+// Zwei Ablesungen, abends und morgens. Das Haus hat 210 W/K – dieselbe
+// Wahrheit wie oben, jetzt aber in acht Stunden statt in zwei Jahren gemessen.
+func kalteNacht(aussen: Double, tagImJanuar: Int) -> Nachtmessung {
+    let beginn = kalender.date(from: DateComponents(year: 2027, month: 1, day: tagImJanuar, hour: 22))!
+    let stunden = 8.0
+    let delta = 20 - aussen
+    let nutz = (wahrerWaermeverlust * delta - Heizlastrechner.naechtlicheGewinneWatt) * stunden / 1000
+    let end = nutz / regeln.heizlast.kesselnutzungsgradStandard
+    let m3 = end / regeln.heizlast.brennwertGasProKubikmeter
+    return Nachtmessung(
+        beginn: beginn, ende: beginn.addingTimeInterval(stunden * 3600),
+        zaehlerVorher: 30_000, zaehlerNachher: 30_000 + m3,
+        mittlereAussentemperatur: aussen, innentemperatur: 20
+    )
+}
+
+if let eineNacht = heizlast.ausNacht(kalteNacht(aussen: -6, tagImJanuar: 20),
+                                     normaussentemperatur: nachtRegion.normaussentemperatur) {
+    zeile("Nach einer Nacht", "\(Formate.zahl(eineNacht.waermeverlustkoeffizient, stellen: 0)) W/K")
+    zeile("Heizlast", Formate.kilowattSpanne(eineNacht.heizlast))
+    zeile("Einstufung", eineNacht.guete.bezeichnung)
+    if let h = eineNacht.hinweis { print("  → \(h)") }
+}
+
+if let dreiNaechte = heizlast.ausNaechten(
+    [kalteNacht(aussen: -8, tagImJanuar: 20),
+     kalteNacht(aussen: -2, tagImJanuar: 21),
+     kalteNacht(aussen: 4, tagImJanuar: 22)],
+    normaussentemperatur: nachtRegion.normaussentemperatur) {
+    print()
+    zeile("Nach drei Nächten", "\(Formate.zahl(dreiNaechte.waermeverlustkoeffizient, stellen: 0)) W/K")
+    zeile("Heizlast", Formate.kilowattSpanne(dreiNaechte.heizlast))
+    zeile("Einstufung", dreiNaechte.guete.bezeichnung)
+}
+
+// Abkühlkurve: Sie liefert die Trägheit, nicht die Heizlast.
+let abkuehlung = stride(from: 0.0, through: 10.0, by: 2.0).map { stunde in
+    (zeit: nachtBeginn.addingTimeInterval(stunde * 3600),
+     innentemperatur: -6 + 26 * exp(-stunde / 70))
+}
+if let traegheit = Abkuehlmessung.auswerten(
+    verlauf: abkuehlung, aussentemperatur: -6,
+    waermeverlustkoeffizient: wahrerWaermeverlust, beheizteFlaeche: haus.wohnflaeche) {
+    print()
+    zeile("Zeitkonstante", "\(Formate.zahl(traegheit.zeitkonstante, stellen: 0)) h")
+    zeile("Speicherfähigkeit", "\(Formate.zahl(traegheit.jeQuadratmeter ?? 0, stellen: 0)) Wh/m²K")
+    zeile("Einordnung", traegheit.bauart.bezeichnung)
+    print("  → \(traegheit.aussage)")
+}
+
+// MARK: - 7d. Hüllflächen ohne Aufmaß
+
+ueberschrift("7d · Heizlast aus Grundriss und Geschossen")
+let huellrechner = Huellflaechenrechner(regeln: regeln)
+let huelle = Gebaeudehuelle(grundflaeche: 80, vollgeschosse: 2, dachform: .sattel,
+                            dachgeschossBeheizt: false, kellerlage: .unbeheizterKeller)
+
+// Ein Haus von 1968, das nur 2.050 m³ Gas braucht, ist längst teilsaniert.
+// Sind die Bauteilzustände hinterlegt, passt die Rechnung zur Messung.
+var hausMitZustand = haus
+hausMitZustand.dach = .gedaemmt
+hausMitZustand.obersteGeschossdecke = .gedaemmt
+hausMitZustand.fassade = .teilweise
+hausMitZustand.kellerdecke = .ungedaemmt
+hausMitZustand.fensterBaujahr = 2000
+
+let ausHuelle = huellrechner.ausGebaeudehuelle(huelle, gebaeude: hausMitZustand,
+                                               normaussentemperatur: nachtRegion.normaussentemperatur)
+zeile("Umfang, geschätzt", "\(Formate.zahl(huelle.geschaetzterUmfang, stellen: 1)) m")
+zeile("Beheizte Fläche", "\(Formate.zahl(huelle.beheizteFlaeche, stellen: 0)) m²")
+zeile("Heizlast", Formate.kilowatt(ausHuelle.gesamtKW))
+zeile("Je Quadratmeter", "\(Formate.zahl(ausHuelle.jeQuadratmeter, stellen: 0)) W/m²")
+
+// Die Rechnung nimmt "1968, ungedämmt" an. Das gemessene Haus ist besser.
+// Genau dafür gibt es den Abgleich.
+if let signaturFuerAbgleich = heizlast.ausZaehlerstaenden(ablage.zaehlerstaende, region: regionPB) {
+    let abgeglichen = huellrechner.kalibriere(
+        ausHuelle, mit: signaturFuerAbgleich,
+        normaussentemperatur: nachtRegion.normaussentemperatur)
+    print()
+    zeile("Gerechnet aus Annahmen", "\(Formate.zahl(abgeglichen.kalibrierung.gerechneterWaermeverlust, stellen: 0)) W/K")
+    zeile("Gemessen aus Ablesungen", "\(Formate.zahl(abgeglichen.kalibrierung.gemessenerWaermeverlust, stellen: 0)) W/K")
+    zeile("Maßstab", Formate.zahl(abgeglichen.kalibrierung.maszstab, stellen: 2))
+    zeile("Angewendet", abgeglichen.kalibrierung.angewendet ? "ja" : "nein")
+    zeile("Heizlast nach Abgleich", Formate.kilowatt(abgeglichen.gesamtKW))
+    print("  → \(abgeglichen.kalibrierung.aussage)")
+
+    // Gegenprobe: Ohne hinterlegte Bauteilzustände wird nicht skaliert,
+    // sondern der Widerspruch benannt.
+    let ohneZustand = huellrechner.ausGebaeudehuelle(huelle, gebaeude: haus,
+                                                     normaussentemperatur: nachtRegion.normaussentemperatur)
+    let gegenprobe = huellrechner.kalibriere(
+        ohneZustand, mit: signaturFuerAbgleich,
+        normaussentemperatur: nachtRegion.normaussentemperatur)
+    print()
+    zeile("Gegenprobe ohne Zustände", "Maßstab \(Formate.zahl(gegenprobe.kalibrierung.maszstab, stellen: 2)), angewendet: \(gegenprobe.kalibrierung.angewendet ? "ja" : "nein")")
+}
+
 // MARK: - 8. Anforderungsvergleich
 
 ueberschrift("8 · Was gilt für dieses Haus?")

@@ -19,12 +19,16 @@ WerkeApp/
 │   │   ├── RegelpaketEingebettet   Notfallfassung, damit die App nie ohne Regeln dasteht
 │   │   ├── Foerderrechner.swift    Förderung, Honorar, Netto-Ergebnis, Optimierungshinweise
 │   │   ├── Heizlast.swift          Heizlast aus Verbrauch / aus Gebäudedaten, Heizflächen
-│   │   ├── Energiesignatur.swift   Heizlast aus den monatlichen Ablesungen (genauestes Verfahren)
+│   │   ├── Energiesignatur.swift   Heizlast aus den monatlichen Ablesungen
+│   │   ├── Nachtmessung.swift      Heizlast aus einer kalten Nacht, Abkühlkurve
+│   │   ├── Raumaufmass.swift       Raumweise Rechnung über die Hüllflächen
+│   │   ├── Huellflaechenschaetzung Hüllflächen aus Grundriss und Geschossen
+│   │   ├── Kalibrierung.swift      Aufmaß am gemessenen Wärmeverlust ausrichten
 │   │   ├── GModGPruefung.swift     Anforderungsvergleich + CO₂-Kostenaufteilung
 │   │   ├── Zaehlerablesung.swift   Auswertung erkannter Texte, Plausibilitätsprüfung
 │   │   ├── Formate.swift           Einheitliche Zahlen- und Datumsformate
 │   │   └── Ressourcen/regelpaket.json
-│   └── Tests/WerkeKernTests/       156 Testfälle
+│   └── Tests/WerkeKernTests/       203 Testfälle
 └── App/
     ├── WerkeApp.xcodeproj
     └── WerkeApp/
@@ -142,7 +146,7 @@ zwischen 45 und 70 ist und oft im Keller steht.
 ## Prüfstand
 
 ```
-156 Testfälle, 0 Fehler
+203 Testfälle, 0 Fehler
 ```
 
 **Rechnen:** Grundförderung und Höchstgrenzen, der iSFP-Bonus in seiner neuen
@@ -157,6 +161,13 @@ der nächsten Aufgabe, Zählerstände über 24 Monate, Lücken in der Reihe,
 zukünftig datierte Einträge, mehrere Zählerarten, Mehrfamilienhaus,
 Nichtwohngebäude, Denkmal, Neubau, Grenzwerte von 40 bis 600 m², Speichern und
 Laden, beschädigte Datei, ältere Ablage ohne neue Felder, Löschen.
+
+**Heizlast, fünf Wege:** Alle verbrauchsgestützten Verfahren sind gegen
+künstliche Daten mit **bekanntem** Wärmeverlust geprüft. Die Energiesignatur
+gewinnt 200 W/K aus 24 Ablesungen zurück, die Nachtmessung 220 W/K aus einer
+einzigen Nacht, die Abkühlkurve die Zeitkonstante. Die raumweise Rechnung ist
+gegen eine zeilenweise Handrechnung geprüft, die Kalibrierung gegen bekannte
+Maßstäbe – einschließlich der Weigerung, bei zu großer Abweichung zu skalieren.
 
 **Energiesignatur:** gegen künstliche Ablesungen mit **bekanntem**
 Wärmeverlust geprüft – das Verfahren gewinnt 200 W/K auf 3 W/K genau zurück,
