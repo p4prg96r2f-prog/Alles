@@ -17,14 +17,15 @@ extension Regelpaketlader {
     /// Wird durch `testEingebettetesPaketStimmtMitRessourceUeberein` abgesichert.
     public static let eingebettetJSON = """
     {
-      "version": 2,
-      "stand": "2026-08-14",
+      "version": 3,
+      "stand": "2026-08-17",
       "hinweis": "Fördersätze nach BEG-Systematik, Stand 21.07.2026. GModG-Angaben nach Kabinettsbeschluss vom 13.05.2026 und damit Entwurfsstand.",
       "zuPruefen": [
         "Alle Fördersätze und Höchstgrenzen sind vor Veröffentlichung durch WERK.E gegen die geltende BEG-Richtlinie zu bestätigen.",
         "Boni beim Heizungstausch (Klimageschwindigkeit, Einkommen, Familie) und ihre Höchstsätze sind fachlich zu verifizieren.",
         "GModG-Werte gelten erst mit Inkrafttreten; bis dahin ist jede Ausgabe als Entwurfsstand zu kennzeichnen.",
-        "Gradtagzahlen und Normaußentemperaturen der Klimaregionen sind Näherungen und vor Veröffentlichung gegen die Werte nach DIN EN 12831 Beiblatt bzw. DWD zu prüfen."
+        "Gradtagzahlen und Normaußentemperaturen der Klimaregionen sind Näherungen und vor Veröffentlichung gegen die Werte nach DIN EN 12831 Beiblatt bzw. DWD zu prüfen.",
+        "Die spezifischen Heizlasten nach Baujahr sind Erfahrungswerte für unsanierte Gebäude. Sie sind gegen die Hüllflächenrechnung derselben App abgeglichen und vor Veröffentlichung fachlich zu bestätigen."
       ],
       "foerderung": {
         "grundsatzEinzelmassnahme": 0.15,
@@ -53,40 +54,40 @@ extension Regelpaketlader {
         "kesselnutzungsgradStandard": 0.75,
         "kesselnutzungsgradBrennwert": 0.92,
         "warmwasserProPersonKWh": 500,
-        "brennwertGasProKubikmeter": 10.0,
+        "brennwertGasProKubikmeter": 10.9,
         "heizwertOelProLiter": 10.0,
         "spezifischeHeizlast": [
           {
             "bisBaujahr": 1918,
-            "wattProQuadratmeter": 180
+            "wattProQuadratmeter": 170
           },
           {
             "bisBaujahr": 1948,
-            "wattProQuadratmeter": 170
-          },
-          {
-            "bisBaujahr": 1957,
-            "wattProQuadratmeter": 170
-          },
-          {
-            "bisBaujahr": 1968,
             "wattProQuadratmeter": 160
           },
           {
-            "bisBaujahr": 1978,
+            "bisBaujahr": 1957,
             "wattProQuadratmeter": 150
           },
           {
+            "bisBaujahr": 1968,
+            "wattProQuadratmeter": 145
+          },
+          {
+            "bisBaujahr": 1978,
+            "wattProQuadratmeter": 140
+          },
+          {
             "bisBaujahr": 1983,
-            "wattProQuadratmeter": 115
+            "wattProQuadratmeter": 105
           },
           {
             "bisBaujahr": 1994,
-            "wattProQuadratmeter": 95
+            "wattProQuadratmeter": 100
           },
           {
             "bisBaujahr": 2001,
-            "wattProQuadratmeter": 80
+            "wattProQuadratmeter": 78
           },
           {
             "bisBaujahr": 2009,
@@ -94,11 +95,11 @@ extension Regelpaketlader {
           },
           {
             "bisBaujahr": 2015,
-            "wattProQuadratmeter": 55
+            "wattProQuadratmeter": 45
           },
           {
             "bisBaujahr": 2100,
-            "wattProQuadratmeter": 45
+            "wattProQuadratmeter": 30
           }
         ]
       },
@@ -161,13 +162,13 @@ extension Regelpaketlader {
             530,
             470,
             410,
-            280,
-            150,
-            55,
-            25,
-            30,
-            95,
-            235,
+            275,
+            135,
+            40,
+            10,
+            12,
+            70,
+            225,
             370,
             480
           ],
@@ -182,15 +183,37 @@ extension Regelpaketlader {
             500,
             450,
             395,
-            270,
-            145,
-            55,
-            25,
-            30,
-            90,
-            225,
+            265,
+            130,
+            40,
+            10,
+            12,
+            68,
+            215,
             355,
             455
+          ],
+          "normaussentemperatur": -10
+        },
+        {
+          "name": "Rheinland und Niederrhein",
+          "plzPraefixe": [
+            "4",
+            "5"
+          ],
+          "gradtagzahlen": [
+            490,
+            435,
+            380,
+            255,
+            120,
+            33,
+            8,
+            10,
+            60,
+            205,
+            340,
+            445
           ],
           "normaussentemperatur": -10
         },
@@ -198,21 +221,19 @@ extension Regelpaketlader {
           "name": "Westliches Binnenland",
           "plzPraefixe": [
             "3",
-            "4",
-            "5",
             "6"
           ],
           "gradtagzahlen": [
             525,
             465,
             405,
-            280,
-            150,
-            55,
-            25,
-            30,
-            95,
-            235,
+            275,
+            135,
+            40,
+            10,
+            12,
+            70,
+            225,
             365,
             475
           ],
@@ -228,13 +249,13 @@ extension Regelpaketlader {
             560,
             495,
             425,
-            285,
-            155,
-            55,
-            25,
-            30,
-            100,
-            245,
+            282,
+            140,
+            42,
+            11,
+            13,
+            74,
+            235,
             385,
             505
           ],
@@ -251,13 +272,13 @@ extension Regelpaketlader {
             570,
             505,
             440,
-            300,
-            170,
-            65,
-            30,
-            35,
-            110,
-            260,
+            295,
+            155,
+            50,
+            14,
+            16,
+            85,
+            250,
             395,
             515
           ],

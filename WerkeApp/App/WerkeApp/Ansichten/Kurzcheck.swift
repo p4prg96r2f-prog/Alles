@@ -15,6 +15,9 @@ struct KurzcheckAnsicht: View {
     @State private var schritt = 0
     @State private var flaecheText = ""
     @State private var offeneVerfeinerung: Verfeinerung?
+    /// Bekanntes wird genau einmal übernommen. Liefe das bei jedem Erscheinen,
+    /// würde ein Rücksprung die bereits gegebenen Antworten überschreiben.
+    @State private var bekanntesUebernommen = false
 
     private let letzteFrage = 4
 
@@ -403,6 +406,8 @@ struct KurzcheckAnsicht: View {
     }
 
     private func uebernehmeBekanntes() {
+        guard !bekanntesUebernommen else { return }
+        bekanntesUebernommen = true
         guard let gebaeude = zustand.gebaeude else { return }
         check.anbausituation = anbau(fuer: gebaeude.typ)
         check.epoche = epoche(fuer: gebaeude.baujahr)
@@ -600,6 +605,18 @@ struct VerfeinerungsAnsicht: View {
                 } footer: {
                     Text("Alle Fenster des Hauses, auch auf der Rückseite. Gerechnet wird mit gut anderthalb Quadratmetern je Fenster.")
                 }
+            case "nachtmessung":
+                Section {
+                    NavigationLink("Messung starten") { NachtmessungAnsicht() }
+                } footer: {
+                    Text("Zwei Ablesungen in einer kalten Nacht ersetzen alle Annahmen über die Dämmung. Das Ergebnis steht danach unter „Heizlast“.")
+                }
+            case "signatur":
+                Section {
+                    NavigationLink("Zählerstand erfassen") { ZaehlerstandAnsicht() }
+                } footer: {
+                    Text("Jeden Monat eine Zahl. Ab etwa fünf Ablesungen rechnet die App den Wärmeverlust aus dem Verlauf – gemessen statt geschätzt.")
+                }
             default:
                 Section {
                     Hinweisleiste(text: "Dieser Schritt wird im Bereich „Heizlast“ durchgeführt – dort führt die App durch die Messung.")
@@ -614,6 +631,20 @@ struct VerfeinerungsAnsicht: View {
             }
             ToolbarItem(placement: .confirmationAction) {
                 Button("Übernehmen") { uebernehmen() }
+            }
+        }
+        // Die Blätter starten mit dem, was schon eingetragen ist – wer eine
+        // Angabe noch einmal öffnet, findet seinen Wert vor und nicht den
+        // Vorgabewert.
+        .onAppear {
+            if let vorhanden = check.grundflaecheDirekt, flaecheText.isEmpty {
+                flaecheText = Formate.zahl(vorhanden, stellen: 0)
+            }
+            if let vorhanden = check.daemmstaerkeZentimeter {
+                daemmstaerke = vorhanden
+            }
+            if let vorhanden = check.fensteranteilGezaehlt, vorhanden > 0 {
+                fensterAnzahl = max(2, Int((vorhanden / 1.6).rounded()))
             }
         }
     }

@@ -80,6 +80,20 @@ public struct Heizlastergebnis: Codable, Sendable, Equatable {
 
     /// Der Satz, der in jeder Ausgabe steht. Ohne ihn ist die Zahl gefährlich.
     public let vorbehalt: String
+
+    public init(
+        spanne: Spanne,
+        verfahren: Heizlastverfahren,
+        annahmen: [Annahme],
+        regelVersion: Int,
+        vorbehalt: String = Heizlastrechner.vorbehalt
+    ) {
+        self.spanne = spanne
+        self.verfahren = verfahren
+        self.annahmen = annahmen
+        self.regelVersion = regelVersion
+        self.vorbehalt = vorbehalt
+    }
 }
 
 public struct Heizlastrechner {
@@ -106,13 +120,6 @@ public struct Heizlastrechner {
         let mittelwert = werte.reduce(0, +) / Double(werte.count)
         let endenergie = inKilowattstunden(mittelwert, brennstoff: angabe.brennstoff)
 
-        // Warmwasseranteil abziehen. Wer ihn drin lässt, bekommt systematisch eine
-        // zu hohe Heizlast – der häufigste Fehler bei Faustformeln.
-        let warmwasser = angabe.warmwasserEnthalten
-            ? h.warmwasserProPersonKWh * Double(angabe.personenImHaushalt)
-            : 0
-        let heizanteil = max(0, endenergie - warmwasser)
-
         let nutzungsgrad: Double
         switch angabe.kesselart {
         case .standardkessel: nutzungsgrad = h.kesselnutzungsgradStandard
@@ -120,7 +127,16 @@ public struct Heizlastrechner {
         case .fernwaerme: nutzungsgrad = 1.0
         }
 
-        let nutzwaerme = heizanteil * nutzungsgrad
+        // Warmwasseranteil abziehen. Wer ihn drin lässt, bekommt systematisch
+        // eine zu hohe Heizlast – der häufigste Fehler bei Faustformeln.
+        //
+        // Wichtig für die Einheiten: Die Pauschale ist **Nutzwärme**. Sie darf
+        // deshalb erst nach dem Nutzungsgrad abgezogen werden, nicht vorher von
+        // der Endenergie.
+        let warmwasser = angabe.warmwasserEnthalten
+            ? h.warmwasserProPersonKWh * Double(angabe.personenImHaushalt)
+            : 0
+        let nutzwaerme = max(0, endenergie * nutzungsgrad - warmwasser)
 
         // Die Spanne entsteht aus den Vollbenutzungsstunden: wenige Stunden
         // bedeuten eine höhere Last.
@@ -154,38 +170,89 @@ public struct Heizlastrechner {
 
     // MARK: Weg B – aus wenigen Gebäudeangaben
 
-    public func ausGebaeudedaten(_ gebaeude: Gebaeude) -> Heizlastergebnis {
-        let h = regeln.heizlast
+    /// Die Kennwerte in W/m² beziehen sich auf eine Auslegungsdifferenz von
+    /// 32 Kelvin (20 °C innen, −12 °C außen). Liegt das Gebäude in einer
+    /// milderen oder raueren Region, muss der Wert mitwandern – sonst ist er in
+    /// Köln zu hoch und im Erzgebirge zu niedrig.
+    public static let bezugsdifferenz = 32.0
+
+    /// Was darf man annehmen, solange der Zustand eines Bauteils **unbekannt**
+    /// ist?
+    ///
+    /// Bisher galt unbekannt wie ungedämmt. Das ist keine neutrale Annahme,
+    /// sondern die schlechteste denkbare – und bei einem Haus von 1968, das
+    /// 2026 noch bewohnt wird, ist sie fast immer falsch. In knapp sechzig
+    /// Jahren ist üblicherweise etwas passiert: die Fenster fast immer, das
+    /// Dach oft, die Fassade seltener, die Kellerdecke selten.
+    ///
+    /// Wer „unbekannt“ mit „nichts gemacht“ gleichsetzt, zeigt einem Kunden mit
+    /// leerer Gebäudeakte eine Heizlast, die um den Faktor zwei über dem liegt,
+    /// was sein Zähler hergibt. Er glaubt dann keiner der beiden Zahlen mehr.
+    ///
+    /// Ab Baujahr 1995 entfällt der Zuschlag: Dort steckt der Standard schon im
+    /// Kennwert, und ein zusätzlicher Abschlag wäre doppelt gezählt.
+    static func erwarteterZustand(baujahr: Int) -> (dach: Double, geschossdecke: Double,
+                                                    fassade: Double, kellerdecke: Double,
+                                                    fenster: Double) {
+        switch baujahr {
+        case ..<1979: return (0.35, 0.35, 0.20, 0.10, 0.55)
+        case ..<1995: return (0.20, 0.20, 0.10, 0.05, 0.35)
+        default:      return (0, 0, 0, 0, 0)
+        }
+    }
+
+    public func ausGebaeudedaten(
+        _ gebaeude: Gebaeude,
+        normaussentemperatur: Double = -12
+    ) -> Heizlastergebnis {
         let spezifisch = spezifischeHeizlast(baujahr: gebaeude.baujahr)
+        let erwartet = Self.erwarteterZustand(baujahr: gebaeude.baujahr)
+
+        /// Bekannter Zustand schlägt die Erwartung – sonst gilt die Erwartung.
+        func anteil(_ zustand: Bauteilzustand, erwartung: Double) -> Double {
+            zustand == .unbekannt ? erwartung : zustand.erledigtAnteil
+        }
 
         // Bereits erledigte Dämmmaßnahmen senken die spezifische Last.
         var minderung = 0.0
-        minderung += 0.12 * gebaeude.dach.erledigtAnteil
-        minderung += 0.06 * gebaeude.obersteGeschossdecke.erledigtAnteil
-        minderung += 0.18 * gebaeude.fassade.erledigtAnteil
-        minderung += 0.06 * gebaeude.kellerdecke.erledigtAnteil
+        minderung += 0.12 * anteil(gebaeude.dach, erwartung: erwartet.dach)
+        minderung += 0.06 * anteil(gebaeude.obersteGeschossdecke, erwartung: erwartet.geschossdecke)
+        minderung += 0.18 * anteil(gebaeude.fassade, erwartung: erwartet.fassade)
+        minderung += 0.06 * anteil(gebaeude.kellerdecke, erwartung: erwartet.kellerdecke)
         if let fj = gebaeude.fensterBaujahr {
             if fj >= 2010 { minderung += 0.10 }
             else if fj >= 1995 { minderung += 0.06 }
+        } else {
+            minderung += 0.10 * erwartet.fenster
         }
         minderung = min(minderung, 0.45)
 
-        let wattProM2 = spezifisch * (1 - minderung) * gebaeude.typ.kompaktheitsfaktor
+        let klimafaktor = max(0.5, (20 - normaussentemperatur) / Self.bezugsdifferenz)
+        let wattProM2 = spezifisch * (1 - minderung) * gebaeude.typ.kompaktheitsfaktor * klimafaktor
         let mitte = wattProM2 * gebaeude.wohnflaeche / 1000.0
 
         // Weg B ist naturgemäß gröber als Weg A – das muss die Spanne zeigen.
-        let unsicherheit = 0.25 - 0.08 * gebaeude.angabenVollstaendigkeit
+        // Und sie muss ehrlich zeigen, wie wenig bekannt ist: Mit leerer
+        // Gebäudeakte ist der Wert kaum mehr als eine Hausnummer, mit
+        // vollständiger Akte eine brauchbare Abschätzung.
+        let unsicherheit = 0.35 - 0.13 * gebaeude.angabenVollstaendigkeit
 
         var annahmen: [Annahme] = [
             Annahme("Verfahren", "Spezifische Heizlast nach Baujahr × Wohnfläche"),
             Annahme("Kennwert Baujahr \(gebaeude.baujahr)", "\(Int(spezifisch)) W/m²"),
             Annahme("Gebäudetyp", gebaeude.typ.bezeichnung),
-            Annahme("Beheizte Fläche", "\(Int(gebaeude.wohnflaeche)) m²")
+            Annahme("Beheizte Fläche", "\(Int(gebaeude.wohnflaeche)) m²"),
+            Annahme("Normaußentemperatur", "\(Formate.zahl(normaussentemperatur, stellen: 0)) °C")
         ]
         if minderung > 0 {
             annahmen.append(Annahme("Bereits gedämmt", "senkt den Kennwert um \(Formate.prozent(minderung))"))
         }
-        _ = h
+        if gebaeude.angabenVollstaendigkeit < 1 {
+            annahmen.append(Annahme(
+                "Unbekannte Bauteile",
+                "mit dem für Baujahr \(gebaeude.baujahr) üblichen Zustand angesetzt"
+            ))
+        }
 
         return Heizlastergebnis(
             spanne: Spanne(mitte: mitte, unsicherheit: unsicherheit),
@@ -223,10 +290,12 @@ public struct Heizlastrechner {
     ) -> Vergleich {
         let gemessen = ausVerbrauch.spanne.mitte
         let geschaetzt = ausGebaeudedaten.spanne.mitte
-        guard geschaetzt > 0 else {
+        // Ohne Wohnflächenangabe liefert der Gebäudeweg null – dann darf nicht
+        // "stimmt überein" gemeldet werden.
+        guard geschaetzt > 0.5, gemessen > 0.5 else {
             return Vergleich(
                 abweichung: .stimmigZusammen,
-                aussage: "Beide Wege führen zu einem ähnlichen Ergebnis.",
+                aussage: "Für einen Abgleich fehlen noch Angaben – ergänzen Sie die Wohnfläche unter „Mein Haus“.",
                 empfohlenesVerfahren: .ausVerbrauch
             )
         }

@@ -97,11 +97,30 @@ public struct Gebaeudehuelle: Codable, Sendable, Equatable {
         return 4.06 * grundflaeche.squareRoot()
     }
 
-    public var beheizteFlaeche: Double {
+    /// Bruttogrundfläche: überbaute Fläche mal beheizte Geschosse, gemessen an
+    /// den Außenkanten. Das ist die Größe, aus der die Hüllflächen folgen.
+    public var bruttogrundflaeche: Double {
         let geschosse = Double(vollgeschosse) + (dachgeschossBeheizt ? 0.7 : 0)
         let keller = kellerlage == .beheizterKeller ? 1.0 : 0.0
         return grundflaeche * (geschosse + keller)
     }
+
+    /// Beheizte Wohnfläche.
+    ///
+    /// Die Bruttogrundfläche ist **nicht** die Wohnfläche: Außenwände,
+    /// Innenwände und Treppenhaus zählen darin mit. Im Wohnungsbau bleiben
+    /// davon rund achtzig Prozent übrig. Der Unterschied ist keine Feinheit –
+    /// wer einen Kennwert in W/m² auf die Bruttofläche bezieht, weist ihn um
+    /// ein Fünftel zu niedrig aus und vergleicht ihn dann mit Erfahrungswerten,
+    /// die sich auf die Wohnfläche beziehen.
+    public var beheizteFlaeche: Double { bruttogrundflaeche * Self.wohnflaechenanteil }
+
+    /// Anteil der Wohnfläche an der Bruttogrundfläche.
+    public static let wohnflaechenanteil = 0.80
+
+    /// Lichte Raumhöhe. Die Geschosshöhe misst von Rohdecke zu Rohdecke – der
+    /// Deckenaufbau enthält keine Luft und gehört nicht ins Lüftungsvolumen.
+    public var lichteHoehe: Double { max(2.0, geschosshoehe - 0.25) }
 }
 
 public extension Huellflaechenrechner {
@@ -174,10 +193,13 @@ public extension Huellflaechenrechner {
         normaussentemperatur: Double
     ) -> Aufmassergebnis {
 
+        // Fläche und Höhe des Ersatzraums sind bewusst die *lichten* Maße: Aus
+        // ihnen folgt das Luftvolumen, und nur Luft wird gelüftet. Mit den
+        // Bruttomaßen fiele der Lüftungsanteil rund ein Drittel zu hoch aus.
         let raum = Raum(
             name: "Gesamtes Gebäude",
             grundflaeche: huelle.beheizteFlaeche,
-            raumhoehe: huelle.geschosshoehe,
+            raumhoehe: huelle.lichteHoehe,
             solltemperatur: 20,
             flaechen: flaechen(fuer: huelle, gebaeude: gebaeude)
         )
@@ -193,6 +215,10 @@ public extension Huellflaechenrechner {
         annahmen.append(Annahme("Fensteranteil", Formate.prozent(fensteranteil(baujahr: gebaeude.baujahr))))
         annahmen.append(Annahme("Dach", huelle.dachform.bezeichnung + (huelle.dachgeschossBeheizt ? ", beheizt" : ", unbeheizt")))
         annahmen.append(Annahme("Keller", huelle.kellerlage.bezeichnung))
+        annahmen.append(Annahme(
+            "Wohnfläche",
+            "\(Formate.zahl(huelle.beheizteFlaeche, stellen: 0)) m² von \(Formate.zahl(huelle.bruttogrundflaeche, stellen: 0)) m² brutto"
+        ))
 
         ergebnis = Aufmassergebnis(
             raeume: ergebnis.raeume,

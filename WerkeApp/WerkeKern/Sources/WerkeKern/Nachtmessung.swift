@@ -96,11 +96,39 @@ public extension Heizlastrechner {
     /// Innere Wärmequellen in der Nacht: schlafende Menschen, Kühlschrank,
     /// Bereitschaftsverbraucher. Sie heizen mit und müssen der gemessenen
     /// Heizleistung zugeschlagen werden.
+    ///
+    /// Der Wert entspricht `naechtlicheGewinne(beheizteFlaeche: 140)` und gilt,
+    /// solange die Fläche nicht bekannt ist.
     static let naechtlicheGewinneWatt = 150.0
 
+    /// Innere Wärmequellen in der Nacht, mit der Gebäudegröße wachsend.
+    ///
+    /// Ein Sockel von 80 W steht für Kühlschrank, Router und Bereitschaft – der
+    /// fällt in jedem Haushalt an. Die halben Watt je Quadratmeter stehen für
+    /// die Menschen und die verteilten Kleinverbraucher: In einem Haus mit 250
+    /// Quadratmetern schlafen im Mittel mehr Personen als in einer Wohnung mit
+    /// 70. Ein fester Betrag würde große Gebäude systematisch zu schlecht und
+    /// kleine zu gut rechnen.
+    static func naechtlicheGewinne(beheizteFlaeche: Double?) -> Double {
+        guard let flaeche = beheizteFlaeche, flaeche > 0 else { return naechtlicheGewinneWatt }
+        return min(400, max(100, 80 + 0.5 * flaeche))
+    }
+
+    /// Was der Kessel nachts unabhängig von der Kälte verbraucht:
+    /// Warmwasser-Bereitschaft, Speicherverluste, Zirkulation. Bei drei und
+    /// mehr Nächten ermittelt die Ausgleichsgerade diesen Anteil aus den Daten
+    /// selbst – bei einer einzigen Nacht muss er angesetzt werden, sonst wird
+    /// er als Wärmeverlust gedeutet und auf die Auslegung hochgerechnet.
+    static let naechtlicheGrundlastWatt = 250.0
+
     /// Auswertung einer einzelnen Nacht.
-    func ausNacht(_ messung: Nachtmessung, normaussentemperatur: Double) -> Nachtmessergebnis? {
-        ausNaechten([messung], normaussentemperatur: normaussentemperatur)
+    func ausNacht(
+        _ messung: Nachtmessung,
+        normaussentemperatur: Double,
+        beheizteFlaeche: Double? = nil
+    ) -> Nachtmessergebnis? {
+        ausNaechten([messung], normaussentemperatur: normaussentemperatur,
+                    beheizteFlaeche: beheizteFlaeche)
     }
 
     /// Auswertung mehrerer Nächte.
@@ -108,7 +136,11 @@ public extension Heizlastrechner {
     /// Ab drei Nächten mit unterschiedlicher Kälte wird nicht mehr gemittelt,
     /// sondern eine Gerade durch die Punkte gelegt: Die Steigung ist der
     /// Wärmeverlust, der Achsenabschnitt fängt Warmwasser und Grundlast ab.
-    func ausNaechten(_ messungen: [Nachtmessung], normaussentemperatur: Double) -> Nachtmessergebnis? {
+    func ausNaechten(
+        _ messungen: [Nachtmessung],
+        normaussentemperatur: Double,
+        beheizteFlaeche: Double? = nil
+    ) -> Nachtmessergebnis? {
 
         let brauchbar = messungen.filter {
             $0.stunden >= 3 && $0.stunden <= 16
@@ -117,19 +149,32 @@ public extension Heizlastrechner {
         }
         guard !brauchbar.isEmpty else { return nil }
 
+        let gewinne = Self.naechtlicheGewinne(beheizteFlaeche: beheizteFlaeche)
+
         // Punkte: (Temperaturdifferenz, Nutzwärmeleistung in Watt)
         let punkte: [(delta: Double, leistung: Double)] = brauchbar.map { messung in
             let menge = messung.zaehlerNachher - messung.zaehlerVorher
             let kilowattstunden = inKilowattstunden(menge, brennstoff: messung.brennstoff)
             let nutzungsgrad = nutzungsgrad(fuer: messung.kesselart)
             let leistung = kilowattstunden * nutzungsgrad * 1000 / messung.stunden
-            return (messung.temperaturdifferenz, leistung + Self.naechtlicheGewinneWatt)
+            return (messung.temperaturdifferenz, leistung + gewinne)
         }
+
+        // Ohne Ausgleichsgerade wird die Grundlast pauschal abgezogen.
+        let einzelpunkte: [(delta: Double, leistung: Double)] = punkte.map {
+            ($0.delta, max(0, $0.leistung - Self.naechtlicheGrundlastWatt))
+        }
+
+        // Eine Gerade braucht mehr als drei Punkte – sie braucht Punkte, die
+        // auseinanderliegen. Drei gleich kalte Nächte legen die Steigung nicht
+        // fest. Genau dieselbe Bedingung entscheidet weiter unten darüber, was
+        // in den Annahmen als Verfahren steht.
+        let mitAusgleichsgerade = punkte.count >= 3 && spreizung(punkte) >= 4
 
         let koeffizient: Double
         var grundlast = 0.0
 
-        if punkte.count >= 3, spreizung(punkte) >= 4 {
+        if mitAusgleichsgerade {
             // Ausgleichsgerade: Leistung = Grundlast + H · ΔT
             let n = Double(punkte.count)
             let summeX = punkte.reduce(0) { $0 + $1.delta }
@@ -142,8 +187,9 @@ public extension Heizlastrechner {
             koeffizient = (n * summeXY - summeX * summeY) / nenner
             grundlast = (summeY - koeffizient * summeX) / n
         } else {
-            // Einzelne Nacht oder zu wenig Spreizung: direkt teilen.
-            koeffizient = punkte.reduce(0) { $0 + $1.leistung / $1.delta } / Double(punkte.count)
+            // Einzelne Nacht oder zu wenig Spreizung: direkt teilen, nachdem
+            // die Grundlast abgezogen wurde.
+            koeffizient = einzelpunkte.reduce(0) { $0 + $1.leistung / $1.delta } / Double(einzelpunkte.count)
         }
 
         guard koeffizient > 0 else { return nil }
@@ -177,14 +223,22 @@ public extension Heizlastrechner {
         }
 
         var annahmen: [Annahme] = [
-            Annahme("Verfahren", brauchbar.count >= 3 ? "Ausgleichsgerade über \(brauchbar.count) Nächte" : "Direktmessung, \(brauchbar.count) Nacht(e)"),
+            Annahme("Verfahren", mitAusgleichsgerade
+                ? "Ausgleichsgerade über \(brauchbar.count) Nächte"
+                : "Direktmessung, \(brauchbar.count) Nacht(e)"),
             Annahme("Temperaturunterschied", "\(Formate.zahl(kaelteste, stellen: 1)) K"),
             Annahme("Wärmeverlust", "\(Formate.zahl(koeffizient, stellen: 0)) W/K"),
-            Annahme("Innere Gewinne", "\(Int(Self.naechtlicheGewinneWatt)) W angerechnet"),
+            Annahme("Innere Gewinne", "\(Formate.zahl(gewinne, stellen: 0)) W angerechnet"),
+            Annahme(
+                "Grundlast",
+                mitAusgleichsgerade
+                    ? "aus den Nächten ermittelt"
+                    : "\(Int(Self.naechtlicheGrundlastWatt)) W abgezogen, angenommen"
+            ),
             Annahme("Normaußentemperatur", "\(Formate.zahl(normaussentemperatur, stellen: 0)) °C")
         ]
         if grundlast != 0 {
-            annahmen.append(Annahme("Grundlast", "\(Formate.zahl(grundlast, stellen: 0)) W"))
+            annahmen.append(Annahme("Ermittelte Grundlast", "\(Formate.zahl(grundlast, stellen: 0)) W"))
         }
 
         return Nachtmessergebnis(
@@ -290,11 +344,26 @@ public enum Abkuehlmessung {
             }
         }
 
+        // Die Einordnung läuft über die Speicherfähigkeit je Quadratmeter, wenn
+        // sie bekannt ist – das sind Wattstunden je Kelvin und Quadratmeter,
+        // und dafür gibt es Erfahrungswerte (rund 50 leicht, 90 mittel, 130
+        // schwer nach DIN V 4108-6). Fehlt der Wärmeverlust, bleibt nur die
+        // Zeitkonstante in Stunden. Beides in denselben Vergleich zu werfen,
+        // wäre ein Einheitenfehler: Ein Haus mit 50 Stunden Zeitkonstante wäre
+        // dann „leicht“, obwohl 50 Stunden bereits schwer sind.
         let bauart: Bauart
-        switch jeQuadratmeter ?? zeitkonstante * 1.5 {
-        case ..<60: bauart = .leicht
-        case ..<120: bauart = .mittelschwer
-        default: bauart = .schwer
+        if let dichte = jeQuadratmeter {
+            switch dichte {
+            case ..<60: bauart = .leicht
+            case ..<120: bauart = .mittelschwer
+            default: bauart = .schwer
+            }
+        } else {
+            switch zeitkonstante {
+            case ..<40: bauart = .leicht
+            case ..<90: bauart = .mittelschwer
+            default: bauart = .schwer
+            }
         }
 
         let aussage: String

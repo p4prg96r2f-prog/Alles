@@ -29,7 +29,7 @@ WerkeApp/
 │   │   ├── Zaehlerablesung.swift   Auswertung erkannter Texte, Plausibilitätsprüfung
 │   │   ├── Formate.swift           Einheitliche Zahlen- und Datumsformate
 │   │   └── Ressourcen/regelpaket.json
-│   └── Tests/WerkeKernTests/       236 Testfälle
+│   └── Tests/WerkeKernTests/       258 Testfälle
 └── App/
     ├── WerkeApp.xcodeproj
     └── WerkeApp/
@@ -147,7 +147,7 @@ zwischen 45 und 70 ist und oft im Keller steht.
 ## Prüfstand
 
 ```
-236 Testfälle, 0 Fehler
+258 Testfälle, 0 Fehler
 ```
 
 **Rechnen:** Grundförderung und Höchstgrenzen, der iSFP-Bonus in seiner neuen
@@ -173,6 +173,13 @@ gewinnt 200 W/K aus 24 Ablesungen zurück, die Nachtmessung 220 W/K aus einer
 einzigen Nacht, die Abkühlkurve die Zeitkonstante. Die raumweise Rechnung ist
 gegen eine zeilenweise Handrechnung geprüft, die Kalibrierung gegen bekannte
 Maßstäbe – einschließlich der Weigerung, bei zu großer Abweichung zu skalieren.
+
+Dazu kommt eine Prüfung, die keinen einzelnen Weg betrifft, sondern ihr
+Verhältnis: Der grobe Kennwert nach Baujahr und die Hüllflächenrechnung müssen
+für dasselbe unsanierte Gebäude dieselbe Größenordnung liefern. Der Test läuft
+über acht Baujahre und vier Baukörper und lässt höchstens fünfzehn Prozent
+Abstand zu. Zwei Wege derselben App, die sich um den Faktor zwei widersprechen,
+kosten mehr Vertrauen, als der genauere Weg zurückgewinnt.
 
 **Energiesignatur:** gegen künstliche Ablesungen mit **bekanntem**
 Wärmeverlust geprüft – das Verfahren gewinnt 200 W/K auf 3 W/K genau zurück,
@@ -201,3 +208,48 @@ Vier Fehler, die kein einzelner Unit-Test gefunden hätte:
 Dazu kam beim Testen der Zählerstandserkennung ein fünfter: **„m³“ enthält eine
 hochgestellte Ziffer**, die Swift als Zahl zählt – das hätte jede Ablesung an
 einem Gaszähler zerstört.
+
+### Was die zweite Durchsicht gefunden hat
+
+Nachdem der Kurzcheck stand, wurde die gesamte Rechenstrecke noch einmal
+gegengelesen – Physik, Einheiten, Reihenfolge. Was dabei herauskam, war zum
+größten Teil nicht falscher Code, sondern falsche Physik in richtigem Code:
+
+1. **Die Energiesignatur rechnete über den Sommer mit.** In Monaten ohne
+   Heizung besteht der Verbrauch nur aus Warmwasser. Diese Punkte drücken die
+   Steigung – der Wärmeverlust fiel um rund ein Viertel zu klein aus. Es zählen
+   jetzt nur Zeiträume der Heizperiode, und die App sagt, wie viele sie
+   verworfen hat.
+2. **Die Kalibrierung skalierte die falsche Größe.** Der gemessene Wärmeverlust
+   enthält die Lüftung, unsicher sind aber nur die U-Werte. Der Lüftungsanteil
+   wird jetzt vor dem Abgleich abgezogen – sonst trifft das kalibrierte Ergebnis
+   den Messwert nicht.
+3. **Die Warmwasser-Pauschale wurde in der falschen Einheit abgezogen.** Sie ist
+   Nutzwärme und gehört hinter den Kesselnutzungsgrad, nicht davor.
+4. **Die Nachtmessung zählte die Kesselbereitschaft als Wärmeverlust** und
+   rechnete sie auf die Auslegung hoch.
+5. **Der Lüftungsverlust wurde mit dem Bruttovolumen gerechnet.** Gelüftet wird
+   Luft, nicht Beton – jetzt mit Wohnfläche und lichter Höhe.
+6. **Die Bruttogrundfläche wurde als Wohnfläche ausgegeben.** Ein Kennwert in
+   W/m² fiel dadurch um ein Fünftel zu niedrig aus und wurde dann mit
+   Erfahrungswerten verglichen, die sich auf die Wohnfläche beziehen.
+7. **Ein Bad mit 24 °C verlor über seine Innenwände nichts.** Der
+   Temperaturkorrekturfaktor gegen beheizt lag pauschal bei null. Er folgt jetzt
+   dem Temperaturunterschied – abgeschnitten bei null, damit ein mitgeheizter
+   Flur keine Gutschrift bekommt, die beim Schließen einer Tür verschwindet.
+8. **Der Wärmebrückenzuschlag sank auf 0,05 W/m²K, ohne dass jemand den dafür
+   nötigen Nachweis geführt hätte.** Er bleibt beim Pauschalwert.
+9. **„Unbekannt“ hieß „garantiert nichts gemacht“.** Ein Haus von 1968, das
+   heute noch bewohnt wird, hat fast immer neue Fenster. Wer die Gebäudeakte
+   noch nicht ausgefüllt hat, bekommt jetzt den für das Baujahr üblichen Zustand
+   angesetzt – und eine ehrlich breite Spanne dazu.
+10. **Die Abkühlkurve verglich Stunden mit Wattstunden je Kelvin und
+    Quadratmeter.** Ohne bekannten Wärmeverlust entscheidet jetzt die
+    Zeitkonstante in Stunden über die Bauart.
+
+Dazu Daten statt Code: Erdgas wird nach **Brennwert** abgerechnet (10,9 kWh/m³,
+nicht 10,0), Einfachverglasung vor 1949 ist eine eigene Stufe (5,0 W/m²K statt
+3,0), das Rheinland wird mit −10 °C ausgelegt und nicht wie Ostwestfalen mit
+−12 °C, die Gradtagzahlen im Hochsommer sind auf realistische Werte gesetzt, und
+die Kennwerte nach Baujahr sind gegen die Hüllflächenrechnung derselben App
+abgeglichen. Der Abgleich ist als Testfall festgehalten.

@@ -98,9 +98,15 @@ public struct Regelpaket: Codable, Sendable, Equatable {
                 .init(bisBaujahr: 2009, uWert: 0.3), .init(bisBaujahr: 2100, uWert: 0.2)
             ],
             dachGedaemmt: 0.20,
+            // Einfachverglasung gehört als eigene Stufe hierher: Vor 1949 war
+            // sie der Regelfall, und mit rund 5,0 W/m²K ist sie kein Sonderfall
+            // der Zweischeibenverglasung, sondern deren Vielfaches. Wer sie mit
+            // 3,0 ansetzt, rechnet die Fenster eines Altbaus um vierzig Prozent
+            // zu gut.
             fenster: [
-                .init(bisBaujahr: 1978, uWert: 3.0), .init(bisBaujahr: 1994, uWert: 2.8),
-                .init(bisBaujahr: 2009, uWert: 1.6), .init(bisBaujahr: 2100, uWert: 1.1)
+                .init(bisBaujahr: 1948, uWert: 5.0), .init(bisBaujahr: 1978, uWert: 3.0),
+                .init(bisBaujahr: 1994, uWert: 2.8), .init(bisBaujahr: 2009, uWert: 1.6),
+                .init(bisBaujahr: 2100, uWert: 1.1)
             ],
             tuer: 3.0,
             kellerdeckeUngedaemmt: [

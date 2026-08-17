@@ -24,7 +24,13 @@ struct NachtmessungAnsicht: View {
 
     private var ergebnis: Nachtmessergebnis? {
         guard !naechte.isEmpty else { return nil }
-        return zustand.heizlastrechner.ausNaechten(naechte, normaussentemperatur: normaussentemperatur)
+        // Die Wohnfläche geht nur in die inneren Gewinne ein: In einem großen
+        // Haus schlafen mehr Menschen und laufen mehr Geräte mit.
+        return zustand.heizlastrechner.ausNaechten(
+            naechte,
+            normaussentemperatur: normaussentemperatur,
+            beheizteFlaeche: zustand.gebaeude.map(\.wohnflaeche)
+        )
     }
 
     private var eingabeGueltig: Bool {

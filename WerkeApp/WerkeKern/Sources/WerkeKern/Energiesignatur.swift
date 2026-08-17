@@ -91,6 +91,10 @@ public extension Regelpaket {
 
 public extension Heizlastrechner {
 
+    /// Ab wie vielen Kelvintagen je Kalendertag gilt ein Ablesezeitraum als
+    /// Teil der Heizperiode?
+    static let heizperiodenschwelle = 3.0
+
     /// Berechnet die Energiesignatur aus aufeinanderfolgenden Zählerständen.
     ///
     /// Gibt `nil` zurück, wenn zu wenige oder unbrauchbare Daten vorliegen –
@@ -121,6 +125,19 @@ public extension Heizlastrechner {
             let verbrauch = inKilowattstunden(verbrauchsmenge, brennstoff: brennstoff)
             punkte.append((tage, gradtage, verbrauch))
         }
+
+        // Außerhalb der Heizperiode wird gar nicht geheizt. Nimmt man diese
+        // Zeiträume mit in die Ausgleichsrechnung, drückt der reine
+        // Warmwasserverbrauch die Steigung – und der Wärmeverlust fällt
+        // systematisch um rund ein Viertel zu klein aus.
+        //
+        // Die Schwelle von drei Kelvintagen je Tag trennt sauber: Ein echter
+        // Sommermonat liegt darunter (bundesweit unter einem), die
+        // Übergangsmonate März bis Mai und September bis Oktober darüber. Sie
+        // gehören dazu – ihre Punkte spannen die Gerade erst auf.
+        let ausserhalb = punkte.count
+        punkte = punkte.filter { $0.tage > 0 && $0.gradtage / $0.tage >= Self.heizperiodenschwelle }
+        let verworfen = ausserhalb - punkte.count
 
         guard punkte.count >= 4 else { return nil }
 
@@ -184,13 +201,19 @@ public extension Heizlastrechner {
         }
 
         var annahmen: [Annahme] = [
-            Annahme("Verfahren", "Energiesignatur aus \(punkte.count) Ablesezeiträumen"),
+            Annahme("Verfahren", "Energiesignatur aus \(punkte.count) Ablesezeiträumen der Heizperiode"),
             Annahme("Klimaregion", region.name),
             Annahme("Normaußentemperatur", "\(Formate.zahl(region.normaussentemperatur, stellen: 0)) °C"),
             Annahme("Wärmeverlust", "\(Formate.zahl(koeffizient, stellen: 0)) W/K"),
             Annahme("Güte der Anpassung", "\(Formate.zahl(bestimmtheit * 100, stellen: 0)) %"),
             Annahme("Kesselnutzungsgrad", Formate.prozent(nutzungsgrad))
         ]
+        if verworfen > 0 {
+            annahmen.append(Annahme(
+                "Außerhalb der Heizperiode",
+                "\(verworfen) Zeitraum/Zeiträume nicht verwendet"
+            ))
+        }
         let grundverbrauch = max(0, grundlastProTag * 365)
         if grundverbrauch > 0 {
             annahmen.append(Annahme(

@@ -15,7 +15,7 @@ struct MeinHausAnsicht: View {
             List {
                 if let gebaeude = zustand.gebaeude {
                     kopf(gebaeude)
-                    kennzahlen(gebaeude)
+                    kennzahlen()
                     bauteile(gebaeude)
                     heizung(gebaeude)
                     nutzung(gebaeude)
@@ -65,12 +65,15 @@ struct MeinHausAnsicht: View {
         }
     }
 
-    private func kennzahlen(_ gebaeude: Gebaeude) -> some View {
+    private func kennzahlen() -> some View {
         Section {
             HStack(spacing: Gestaltung.Abstand.eng) {
+                // Immer der beste bekannte Wert, nie der veraltete: Sobald
+                // genug Ablesungen da sind, steht hier der gemessene.
                 Kennzahlkachel(
-                    titel: "Heizlast, geschätzt",
-                    wert: Formate.kilowattSpanne(zustand.heizlastrechner.ausGebaeudedaten(gebaeude).spanne),
+                    titel: zustand.besteHeizlast.map { "Heizlast, \($0.gemessen ? "gemessen" : "geschätzt")" }
+                        ?? "Heizlast",
+                    wert: zustand.besteHeizlast.map { Formate.kilowattSpanne($0.spanne) } ?? "–",
                     symbol: "thermometer.medium"
                 )
                 Kennzahlkachel(
@@ -207,9 +210,13 @@ struct MeinHausAnsicht: View {
                 }
             }
             .onDelete { indizes in
-                for index in indizes {
-                    zustand.loescheZaehlerstand(zustand.zaehlerstaende[index].id)
+                // Erst alle Kennungen einsammeln: Beim Löschen über Indizes
+                // verschiebt sich die Liste unter der Schleife weg.
+                let sichtbar = Array(zustand.zaehlerstaende.prefix(6))
+                let kennungen = indizes.compactMap { index in
+                    sichtbar.indices.contains(index) ? sichtbar[index].id : nil
                 }
+                kennungen.forEach { zustand.loescheZaehlerstand($0) }
             }
         }
     }
@@ -284,9 +291,11 @@ struct DokumenteAnsicht: View {
                     }
                 }
                 .onDelete { indizes in
-                    for index in indizes {
-                        zustand.loescheDokument(zustand.dokumente[index].id)
+                    let sichtbar = zustand.dokumente
+                    let kennungen = indizes.compactMap { index in
+                        sichtbar.indices.contains(index) ? sichtbar[index].id : nil
                     }
+                    kennungen.forEach { zustand.loescheDokument($0) }
                 }
             }
         }

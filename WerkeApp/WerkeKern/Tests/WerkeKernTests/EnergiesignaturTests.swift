@@ -65,7 +65,9 @@ final class EnergiesignaturTests: XCTestCase {
         let signatur = try XCTUnwrap(rechner.ausZaehlerstaenden(daten, region: region))
 
         XCTAssertEqual(signatur.waermeverlustkoeffizient, 200, accuracy: 3)
-        XCTAssertEqual(signatur.verwendeteZeitraeume, 24)
+        // Sommermonate werden verworfen – dort wird gar nicht geheizt.
+        XCTAssertGreaterThan(signatur.verwendeteZeitraeume, 10)
+        XCTAssertLessThan(signatur.verwendeteZeitraeume, 20)
         XCTAssertGreaterThan(signatur.bestimmtheitsmass, 0.99)
         XCTAssertEqual(signatur.guete, .belastbar)
     }
@@ -147,8 +149,8 @@ final class EnergiesignaturTests: XCTestCase {
         }
         let signatur = try XCTUnwrap(rechner.ausZaehlerstaenden(daten, region: region))
 
-        // Der eine unmögliche Zeitraum wird verworfen, der Rest bleibt brauchbar.
-        XCTAssertEqual(signatur.verwendeteZeitraeume, 23)
+        // Der unmögliche Zeitraum wird verworfen, der Rest bleibt brauchbar.
+        XCTAssertGreaterThan(signatur.verwendeteZeitraeume, 10)
         XCTAssertEqual(signatur.waermeverlustkoeffizient, 200, accuracy: 5)
     }
 
@@ -158,6 +160,54 @@ final class EnergiesignaturTests: XCTestCase {
 
         XCTAssertNil(rechner.ausZaehlerstaenden(strom, art: .gas, region: region))
         XCTAssertNotNil(rechner.ausZaehlerstaenden(gas, art: .gas, region: region))
+    }
+
+    /// Der entscheidende Fall: Im Sommer wird **gar nicht** geheizt, es läuft
+    /// nur Warmwasser. Nimmt man diese Monate in die Ausgleichsrechnung, drückt
+    /// der Warmwasserverbrauch die Steigung und der Wärmeverlust fällt um rund
+    /// ein Viertel zu klein aus.
+    func testSommerOhneHeizungVerfaelschtDasErgebnisNicht() throws {
+        let waermeverlust = 300.0
+        let grundlastProTag = 5.0
+        let nutzungsgrad = 0.75
+        let steigung = waermeverlust * 24 / 1000 / nutzungsgrad
+
+        var staende: [Zaehlerstand] = []
+        var zaehler = 10_000.0
+        var datum = kalender.date(from: DateComponents(year: 2024, month: 10, day: 1))!
+        staende.append(Zaehlerstand(art: .gas, wert: zaehler, datum: datum))
+
+        for _ in 0..<24 {
+            let naechstes = kalender.date(byAdding: .month, value: 1, to: datum)!
+            let tage = naechstes.timeIntervalSince(datum) / 86_400
+            let gradtage = Klimarechnung.gradtagzahl(von: datum, bis: naechstes, region: region)
+
+            // Unterhalb der Heizgrenze bleibt der Kessel aus – es läuft nur
+            // Warmwasser. Die Schwelle ist dieselbe, an der die App die
+            // Heizperiode abgrenzt: Beides ist derselbe physikalische Begriff,
+            // einmal aus Sicht des Hauses, einmal aus Sicht der Auswertung.
+            let heizt = gradtage / tage >= Heizlastrechner.heizperiodenschwelle
+            let kwh = grundlastProTag * tage + (heizt ? steigung * gradtage : 0)
+            zaehler += kwh / regeln.heizlast.brennwertGasProKubikmeter
+            datum = naechstes
+            staende.append(Zaehlerstand(art: .gas, wert: zaehler.rounded(), datum: datum))
+        }
+
+        let signatur = try XCTUnwrap(rechner.ausZaehlerstaenden(staende, region: region))
+        XCTAssertEqual(signatur.waermeverlustkoeffizient, waermeverlust, accuracy: 12)
+
+        // Und der Filter hat wirklich gearbeitet: Von 24 Zeiträumen bleibt nur
+        // die Heizperiode übrig. Ohne diese Prüfung würde der Test auch dann
+        // grün, wenn die Sommermonate gar nicht erst aussortiert würden.
+        XCTAssertLessThan(signatur.verwendeteZeitraeume, 20)
+        XCTAssertGreaterThanOrEqual(signatur.verwendeteZeitraeume, 12)
+    }
+
+    func testVerworfeneZeitraeumeWerdenBenannt() throws {
+        let daten = staende(waermeverlust: 200, grundlastProTag: 4, monate: 24)
+        let signatur = try XCTUnwrap(rechner.ausZaehlerstaenden(daten, region: region))
+
+        XCTAssertTrue(signatur.annahmen.contains { $0.bezeichnung.contains("Heizperiode") })
     }
 
     // MARK: Gradtagzahlen und Regionen
@@ -204,6 +254,35 @@ final class EnergiesignaturTests: XCTestCase {
         XCTAssertEqual(regeln.klimaregion(fuerPLZ: "22765")?.name, "Nordwesten, küstennah")
         XCTAssertEqual(regeln.klimaregion(fuerPLZ: "80331")?.name, "Süddeutschland und Höhenlagen")
         XCTAssertEqual(regeln.klimaregion(fuerPLZ: "10115")?.name, "Ostdeutsches Binnenland")
+    }
+
+    /// Köln und Düsseldorf liegen im mildesten Winterklima Deutschlands. Sie
+    /// mit −12 °C auszulegen – wie Ostwestfalen – macht jede Wärmepumpe im
+    /// Rheinland um rund ein Zehntel zu groß.
+    func testRheinlandWirdMilderAusgelegtAlsOstwestfalen() throws {
+        let koeln = try XCTUnwrap(regeln.klimaregion(fuerPLZ: "50667"))
+        let duesseldorf = try XCTUnwrap(regeln.klimaregion(fuerPLZ: "40213"))
+        let paderborn = try XCTUnwrap(regeln.klimaregion(fuerPLZ: "33102"))
+
+        XCTAssertEqual(koeln.name, "Rheinland und Niederrhein")
+        XCTAssertEqual(duesseldorf.name, koeln.name)
+        XCTAssertEqual(koeln.normaussentemperatur, -10)
+        XCTAssertGreaterThan(koeln.normaussentemperatur, paderborn.normaussentemperatur)
+        XCTAssertLessThan(koeln.jahressumme, paderborn.jahressumme)
+    }
+
+    /// Im Hochsommer wird nicht geheizt. Stehen dort zweistellige Gradtagzahlen
+    /// je Tag in der Tabelle, rutschen Sommermonate durch den Filter der
+    /// Heizperiode – und verderben die Ausgleichsrechnung.
+    func testSommermonateLiegenUnterDerHeizgrenze() {
+        for r in regeln.klimaregionen {
+            let juli = r.gradtagzahlen[6] / 31
+            let august = r.gradtagzahlen[7] / 31
+            XCTAssertLessThan(juli, Heizlastrechner.heizperiodenschwelle, r.name)
+            XCTAssertLessThan(august, Heizlastrechner.heizperiodenschwelle, r.name)
+            // Januar dagegen muss deutlich darüber liegen.
+            XCTAssertGreaterThan(r.gradtagzahlen[0] / 31, 10, r.name)
+        }
     }
 
     func testUnbekannteOderLeerePLZErgibtDenMittelwert() {

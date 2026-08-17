@@ -376,10 +376,11 @@ public extension Huellflaechenrechner {
             }
         }
 
+        // Lichte Maße, nicht Bruttomaße: Gelüftet wird nur die Luft im Haus.
         let raum = Raum(
             name: "Gesamtes Gebäude",
             grundflaeche: huelle.beheizteFlaeche,
-            raumhoehe: huelle.geschosshoehe,
+            raumhoehe: huelle.lichteHoehe,
             solltemperatur: 20,
             flaechen: flaechenliste
         )

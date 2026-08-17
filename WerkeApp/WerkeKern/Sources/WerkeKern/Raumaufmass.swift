@@ -53,6 +53,11 @@ public enum Grenze: String, Codable, Sendable, CaseIterable {
     }
 
     /// Temperaturkorrekturfaktor nach der Systematik der DIN EN 12831.
+    ///
+    /// Für `beheizt` steht hier 0,00, weil zwei gleich warme Räume nichts
+    /// austauschen. Sobald sich die Solltemperaturen unterscheiden – Bad gegen
+    /// Wohnraum, Wohnraum gegen Flur –, gilt das nicht mehr; dafür gibt es
+    /// `Huellflaechenrechner.korrekturfaktor(fuer:raum:normaussentemperatur:)`.
     public var korrekturfaktor: Double {
         switch self {
         case .aussenluft: return 1.00
@@ -150,10 +155,52 @@ public struct Huellflaechenrechner {
     ist eine Berechnung nach DIN EN 12831 durch die Fachperson erforderlich.
     """
 
+    /// Pauschaler Wärmebrückenzuschlag ohne Nachweis.
+    ///
+    /// DIN V 4108 Beiblatt 2 erlaubt 0,05 W/m²K nur dann, wenn die Anschlüsse
+    /// nachweislich den dortigen Musterlösungen entsprechen. Das lässt sich in
+    /// einer App nicht feststellen und im Bestand fast nie belegen – deshalb
+    /// bleibt es beim Pauschalwert. Er liegt auf der sicheren Seite, und das
+    /// ist bei einer Auslegung die richtige Seite.
+    public static let waermebrueckenzuschlagOhneNachweis = 0.10
+
+    /// Temperatur, mit der ein angrenzender beheizter Raum angesetzt wird,
+    /// solange nichts anderes bekannt ist.
+    public static let nachbarraumtemperatur = 20.0
+
     public let regeln: Regelpaket
 
     public init(regeln: Regelpaket) {
         self.regeln = regeln
+    }
+
+    /// Temperaturkorrekturfaktor einer Fläche im Zusammenhang ihres Raums.
+    ///
+    /// Für alle Flächen nach außen, gegen Erdreich oder gegen unbeheizt gilt der
+    /// Faktor der Grenze. Bei Bauteilen **gegen beheizt** hängt er dagegen vom
+    /// Raum ab: Ein Bad mit 24 °C gibt über seine Innenwände real Wärme an die
+    /// Nachbarräume ab, und zwar mit
+    ///
+    ///     f = (T_Raum − T_Nachbar) / (T_Raum − T_außen)
+    ///
+    /// Wird dieser Anteil unterschlagen, fällt gerade der Raum zu klein aus, in
+    /// dem die Heizfläche erfahrungsgemäß ohnehin knapp ist.
+    ///
+    /// Umgekehrt – ein Flur mit 15 °C, der von den Nachbarräumen mitgeheizt
+    /// wird – ergäbe die Formel einen negativen Wert. Der ist physikalisch
+    /// richtig, für eine Auslegung aber gefährlich: Er würde die Heizfläche im
+    /// Flur kleinrechnen, obwohl der Zugewinn verschwindet, sobald nebenan
+    /// jemand die Tür schließt oder das Zimmer nicht heizt. Deshalb wird er bei
+    /// null abgeschnitten.
+    public func korrekturfaktor(
+        fuer flaeche: Huellflaeche,
+        raum: Raum,
+        normaussentemperatur: Double
+    ) -> Double {
+        guard flaeche.grenze == .beheizt else { return flaeche.grenze.korrekturfaktor }
+        let differenz = raum.solltemperatur - normaussentemperatur
+        guard differenz > 0 else { return 0 }
+        return max(0, (raum.solltemperatur - Self.nachbarraumtemperatur) / differenz)
     }
 
     public func berechne(
@@ -163,7 +210,7 @@ public struct Huellflaechenrechner {
         luftwechsel: Double = 0.5
     ) -> Aufmassergebnis {
 
-        let waermebrueckenzuschlag = gebaeude.istWeitgehendSaniert ? 0.05 : 0.10
+        let waermebrueckenzuschlag = Self.waermebrueckenzuschlagOhneNachweis
         var ergebnisse: [Raumheizlast] = []
         var unbestaetigt = 0
 
@@ -176,9 +223,13 @@ public struct Huellflaechenrechner {
 
             for flaeche in raum.flaechen {
                 let u = flaeche.uWert ?? uWert(fuer: flaeche.art, gebaeude: gebaeude)
-                let anteil = flaeche.grenze.korrekturfaktor
+                let anteil = korrekturfaktor(fuer: flaeche, raum: raum,
+                                             normaussentemperatur: normaussentemperatur)
                 transmission += u * flaeche.quadratmeter * anteil
-                if anteil > 0 { huellflaeche += flaeche.quadratmeter }
+                // Der Wärmebrückenzuschlag gehört auf die *äußere* Hülle.
+                // Innenbauteile bekommen ihn nicht, auch wenn sie wegen eines
+                // Temperaturunterschieds mitrechnen.
+                if flaeche.grenze != .beheizt { huellflaeche += flaeche.quadratmeter }
                 if flaeche.art == .aussenwand && flaeche.grenze == .beheizt { unbestaetigt += 1 }
             }
 
@@ -207,7 +258,7 @@ public struct Huellflaechenrechner {
             Annahme("Räume", "\(ergebnisse.count)"),
             Annahme("Normaußentemperatur", "\(Formate.zahl(normaussentemperatur, stellen: 0)) °C"),
             Annahme("Luftwechsel", "\(Formate.zahl(luftwechsel, stellen: 2)) 1/h"),
-            Annahme("Wärmebrückenzuschlag", "\(Formate.zahl(waermebrueckenzuschlag, stellen: 2)) W/m²K"),
+            Annahme("Wärmebrückenzuschlag", "\(Formate.zahl(waermebrueckenzuschlag, stellen: 2)) W/m²K, ohne Nachweis"),
             Annahme("U-Werte", "aus Baujahr \(gebaeude.baujahr) und Bauteilzustand")
         ]
 
@@ -257,13 +308,5 @@ public struct Huellflaechenrechner {
             return stufe.uWert
         }
         return sortiert.last?.uWert ?? 1.0
-    }
-}
-
-extension Gebaeude {
-    /// Grobe Einordnung für den Wärmebrückenzuschlag.
-    var istWeitgehendSaniert: Bool {
-        let gedaemmt = [dach, fassade, kellerdecke].filter { $0 == .gedaemmt }.count
-        return gedaemmt >= 2 || baujahr >= 2002
     }
 }

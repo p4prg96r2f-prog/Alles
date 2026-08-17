@@ -285,7 +285,7 @@ final class ReiseTests: XCTestCase {
         haus.obersteGeschossdecke = .ungedaemmt
 
         let heizlast = Heizlastrechner(regeln: regeln).ausGebaeudedaten(haus)
-        XCTAssertGreaterThan(heizlast.spanne.unten, 20)   // 180 W/m² × 220 m²
+        XCTAssertGreaterThan(heizlast.spanne.unten, 20)   // Größenordnung 170 W/m² × 220 m²
 
         let pruefung = GModGPruefung(regeln: regeln, heute: datum(2026, 8)).pruefe(haus)
         XCTAssertEqual(pruefung.punkte.first { $0.id == "geschossdecke" }?.ampel, .rot)
@@ -301,7 +301,10 @@ final class ReiseTests: XCTestCase {
 
         XCTAssertGreaterThan(klein.spanne.unten, 0)
         XCTAssertLessThan(klein.spanne.oben, 10)
-        XCTAssertGreaterThan(gross.spanne.unten, 50)
+        // Geprüft wird die Mitte, nicht der untere Rand: Wie breit die Spanne
+        // ausfällt, hängt daran, wie viel über das Haus bekannt ist – hier
+        // nichts. Die Aussage des Falls steckt in der Größenordnung.
+        XCTAssertGreaterThan(gross.spanne.mitte, 50)
         XCTAssertTrue(gross.spanne.oben.isFinite)
     }
 

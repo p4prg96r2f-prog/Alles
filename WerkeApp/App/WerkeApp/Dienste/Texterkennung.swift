@@ -3,6 +3,20 @@ import Vision
 import UIKit
 import WerkeKern
 
+/// Stellt sicher, dass eine Fortsetzung nur einmal ausgelöst wird.
+private final class Abschlusswaechter: @unchecked Sendable {
+    private let sperre = NSLock()
+    private var verbraucht = false
+
+    func beanspruchen() -> Bool {
+        sperre.lock()
+        defer { sperre.unlock() }
+        if verbraucht { return false }
+        verbraucht = true
+        return true
+    }
+}
+
 /// Texterkennung auf dem Gerät.
 ///
 /// Läuft über das Vision-Framework und funktioniert damit auf **allen**
@@ -24,13 +38,18 @@ enum Texterkennung {
         guard let cg = bild.cgImage else { return [] }
 
         return await withCheckedContinuation { fortsetzung in
+            // Der Abschluss darf genau einmal laufen: Kommt das Ergebnis und
+            // wirft `perform` anschließend trotzdem, wäre die zweite
+            // Fortsetzung ein harter Absturz.
+            let abgeschlossen = Abschlusswaechter()
+
             let anfrage = VNRecognizeTextRequest { anfrage, _ in
                 let beobachtungen = (anfrage.results as? [VNRecognizedTextObservation]) ?? []
                 let funde: [Fund] = beobachtungen.compactMap { beobachtung in
                     guard let beste = beobachtung.topCandidates(1).first else { return nil }
                     return Fund(text: beste.string, vertrauen: beste.confidence)
                 }
-                fortsetzung.resume(returning: funde)
+                if abgeschlossen.beanspruchen() { fortsetzung.resume(returning: funde) }
             }
             anfrage.recognitionLevel = .accurate
             anfrage.usesLanguageCorrection = false      // Zählerstände sind keine Wörter
@@ -40,7 +59,7 @@ enum Texterkennung {
             do {
                 try bearbeiter.perform([anfrage])
             } catch {
-                fortsetzung.resume(returning: [])
+                if abgeschlossen.beanspruchen() { fortsetzung.resume(returning: []) }
             }
         }
     }

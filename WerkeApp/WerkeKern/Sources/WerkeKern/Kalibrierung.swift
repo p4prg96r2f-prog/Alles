@@ -70,13 +70,31 @@ public extension Huellflaechenrechner {
         let gerechnet = differenz > 0 ? aufmass.gesamtKW * 1000 / differenz : 0
         let gemessen = signatur.waermeverlustkoeffizient
 
-        guard gerechnet > 0 else {
+        // Der Messwert enthält alles: Transmission, Wärmebrücken **und**
+        // Lüftung. Unsicher sind aber nur die U-Werte – der Lüftungsanteil
+        // folgt aus Volumen und Luftwechsel und ist gut bekannt. Deshalb wird
+        // er zuerst abgezogen und der Maßstab nur auf den Rest angewendet.
+        // Andernfalls trifft das kalibrierte Ergebnis den Messwert nicht.
+        let lueftungAnteil = differenz > 0
+            ? aufmass.raeume.reduce(0) { $0 + $1.lueftung } / differenz : 0
+        let huelleGerechnet = max(0, gerechnet - lueftungAnteil)
+        let huelleGemessen = gemessen - lueftungAnteil
+
+        guard gerechnet > 0, huelleGerechnet > 0 else {
             return unveraendert(aufmass, gerechnet: gerechnet, gemessen: gemessen,
                                 beurteilung: .unstimmig,
                                 aussage: "Ohne gerechneten Wärmeverlust ist kein Abgleich möglich.")
         }
 
-        let maszstab = gemessen / gerechnet
+        // Misst das Gebäude weniger als seine reine Lüftung verlangt, stimmt
+        // etwas Grundlegendes nicht.
+        guard huelleGemessen > 0 else {
+            return unveraendert(aufmass, gerechnet: gerechnet, gemessen: gemessen,
+                                beurteilung: .unstimmig,
+                                aussage: "Der gemessene Wärmeverlust liegt unter dem, was allein die Lüftung erklärt. Bitte Ablesungen und Raumangaben prüfen.")
+        }
+
+        let maszstab = huelleGemessen / huelleGerechnet
         let signaturTaugt = signatur.guete != .unsicher
 
         let beurteilung: Kalibrierung.Beurteilung
@@ -104,20 +122,25 @@ public extension Huellflaechenrechner {
                                     : "Die Ablesungen streuen zu stark für einen Abgleich. Es bleibt bei der reinen Rechnung.")
         }
 
-        let skaliert = aufmass.raeume.map { raum in
-            Raumheizlast(
+        let skaliert = aufmass.raeume.map { raum -> Raumheizlast in
+            let neu = raum.transmission * maszstab + raum.waermebruecken * maszstab + raum.lueftung
+            // Der Wert je Quadratmeter muss zum neuen Gesamtwert passen –
+            // mitskalieren würde ihn von der Summe abkoppeln.
+            let flaeche = raum.jeQuadratmeter > 0 ? raum.gesamt / raum.jeQuadratmeter : 0
+            return Raumheizlast(
                 raumID: raum.raumID,
                 name: raum.name,
                 transmission: raum.transmission * maszstab,
                 waermebruecken: raum.waermebruecken * maszstab,
-                lueftung: raum.lueftung,          // Lüftung hängt am Volumen, nicht an U-Werten
-                jeQuadratmeter: raum.jeQuadratmeter * maszstab
+                lueftung: raum.lueftung,          // hängt am Volumen, nicht an U-Werten
+                jeQuadratmeter: flaeche > 0 ? neu / flaeche : 0
             )
         }
 
         var annahmen = aufmass.annahmen
         annahmen.append(Annahme("Abgleich", "auf gemessenen Wärmeverlust skaliert"))
-        annahmen.append(Annahme("Maßstab", Formate.zahl(maszstab, stellen: 2)))
+        annahmen.append(Annahme("Maßstab", Formate.zahl(maszstab, stellen: 2) + " auf Hülle und Wärmebrücken"))
+        annahmen.append(Annahme("Lüftungsanteil", "\(Formate.zahl(lueftungAnteil, stellen: 0)) W/K, unverändert"))
         annahmen.append(Annahme("Gemessen", "\(Formate.zahl(gemessen, stellen: 0)) W/K"))
         annahmen.append(Annahme("Gerechnet", "\(Formate.zahl(gerechnet, stellen: 0)) W/K"))
 

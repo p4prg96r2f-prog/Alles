@@ -13,10 +13,17 @@ final class HeizlastTests: XCTestCase {
 
     // MARK: Weg A – aus dem Verbrauch
 
-    /// Handrechnung: 2.000 m³ Gas × 10 kWh = 20.000 kWh.
-    /// Warmwasser 3 Personen × 500 = 1.500 → 18.500 kWh Heizanteil.
-    /// × 0,75 Nutzungsgrad = 13.875 kWh Nutzwärme.
-    /// ÷ 1.800 h = 7,71 kW (oben) · ÷ 2.100 h = 6,61 kW (unten)
+    /// Handrechnung: 2.000 m³ Gas × 10,9 kWh = 21.800 kWh Endenergie.
+    /// × 0,75 Nutzungsgrad = 16.350 kWh Nutzwärme.
+    /// − Warmwasser 3 Personen × 500 = 1.500 → 14.850 kWh Heizwärme.
+    /// ÷ 1.800 h = 8,25 kW (oben) · ÷ 2.100 h = 7,07 kW (unten)
+    ///
+    /// Wichtig ist die Reihenfolge: Die Warmwasser-Pauschale ist Nutzwärme und
+    /// darf erst nach dem Nutzungsgrad abgezogen werden.
+    ///
+    /// Die 10,9 kWh je Kubikmeter sind Brennwert mal Zustandszahl – also das,
+    /// was auf der Gasrechnung steht. Der Heizwert von 10,0 wäre die falsche
+    /// Größe: Abgerechnet wird nach Brennwert.
     func testVerbrauchsverfahrenGegenHandrechnung() throws {
         let angabe = Verbrauchsangabe(
             brennstoff: .gasKubikmeter,
@@ -28,8 +35,8 @@ final class HeizlastTests: XCTestCase {
 
         let e = try XCTUnwrap(rechner.ausVerbrauch(angabe))
 
-        XCTAssertEqual(e.spanne.oben, 13_875.0 / 1_800.0, accuracy: 0.01)
-        XCTAssertEqual(e.spanne.unten, 13_875.0 / 2_100.0, accuracy: 0.01)
+        XCTAssertEqual(e.spanne.oben, 14_850.0 / 1_800.0, accuracy: 0.01)
+        XCTAssertEqual(e.spanne.unten, 14_850.0 / 2_100.0, accuracy: 0.01)
         XCTAssertEqual(e.verfahren, .ausVerbrauch)
     }
 
@@ -72,14 +79,19 @@ final class HeizlastTests: XCTestCase {
         XCTAssertGreaterThan(b.spanne.mitte, a.spanne.mitte)
     }
 
-    func testOelUmrechnung() throws {
+    /// Ein Liter Heizöl und ein Kubikmeter Erdgas sind nicht dasselbe: Öl wird
+    /// mit dem Heizwert von 10,0 kWh je Liter gerechnet, Gas mit dem Brennwert
+    /// von 10,9 kWh je Kubikmeter. Genau in diesem Verhältnis müssen sich zwei
+    /// sonst gleiche Rechnungen unterscheiden.
+    func testOelUndGasUnterscheidenSichUmDenEnergiegehalt() throws {
         let oel = Verbrauchsangabe(brennstoff: .oelLiter, jahreswerte: [2_000], warmwasserEnthalten: false)
         let gas = Verbrauchsangabe(brennstoff: .gasKubikmeter, jahreswerte: [2_000], warmwasserEnthalten: false)
 
         let a = try XCTUnwrap(rechner.ausVerbrauch(oel))
         let b = try XCTUnwrap(rechner.ausVerbrauch(gas))
 
-        XCTAssertEqual(a.spanne.mitte, b.spanne.mitte, accuracy: 0.01)
+        let erwartet = regeln.heizlast.brennwertGasProKubikmeter / regeln.heizlast.heizwertOelProLiter
+        XCTAssertEqual(b.spanne.mitte / a.spanne.mitte, erwartet, accuracy: 0.001)
     }
 
     func testKeinVerbrauchErgibtKeinErgebnis() {
@@ -128,11 +140,99 @@ final class HeizlastTests: XCTestCase {
         )
     }
 
+    /// Die Kennwerte in W/m² gelten für 32 Kelvin Auslegungsdifferenz. In einer
+    /// milderen Region muss der Wert mitwandern.
+    func testGebaeudeverfahrenSkaliertMitDerKlimaregion() {
+        let haus = Gebaeude(baujahr: 1968, wohnflaeche: 140)
+        let mild = rechner.ausGebaeudedaten(haus, normaussentemperatur: -10)
+        let rau = rechner.ausGebaeudedaten(haus, normaussentemperatur: -14)
+
+        XCTAssertLessThan(mild.spanne.mitte, rau.spanne.mitte)
+        XCTAssertEqual(rau.spanne.mitte / mild.spanne.mitte, 34.0 / 30.0, accuracy: 0.01)
+    }
+
+    func testOhneWohnflaecheMeldetDerVergleichKeineUebereinstimmung() throws {
+        let leer = Gebaeude(baujahr: 1968, wohnflaeche: 0)
+        let ausDaten = rechner.ausGebaeudedaten(leer)
+        let ausVerbrauch = try XCTUnwrap(rechner.ausVerbrauch(
+            Verbrauchsangabe(brennstoff: .gasKubikmeter, jahreswerte: [3_000])))
+
+        let vergleich = rechner.vergleiche(ausVerbrauch: ausVerbrauch, ausGebaeudedaten: ausDaten)
+        XCTAssertTrue(vergleich.aussage.contains("Wohnfläche"))
+    }
+
     func testKennwerteNachBaujahr() {
-        XCTAssertEqual(rechner.spezifischeHeizlast(baujahr: 1900), 180)
-        XCTAssertEqual(rechner.spezifischeHeizlast(baujahr: 1965), 160)
-        XCTAssertEqual(rechner.spezifischeHeizlast(baujahr: 1990), 95)
-        XCTAssertEqual(rechner.spezifischeHeizlast(baujahr: 2024), 45)
+        XCTAssertEqual(rechner.spezifischeHeizlast(baujahr: 1900), 170)
+        XCTAssertEqual(rechner.spezifischeHeizlast(baujahr: 1965), 145)
+        XCTAssertEqual(rechner.spezifischeHeizlast(baujahr: 1990), 100)
+        // Ein Neubau nach GEG liegt bei 30 W/m², nicht bei 45 – sonst wird jede
+        // Wärmepumpe im Neubau zu groß ausgelegt.
+        XCTAssertEqual(rechner.spezifischeHeizlast(baujahr: 2024), 30)
+    }
+
+    /// Die wichtigste Prüfung an dieser Stelle: Die App hat zwei Wege, die aus
+    /// Gebäudeangaben eine Heizlast machen – den groben Kennwert nach Baujahr
+    /// und die Hüllflächenrechnung. Widersprechen die beiden sich, glaubt der
+    /// Kunde keinem von beiden mehr.
+    ///
+    /// Verglichen wird für unsanierte Gebäude, denn dafür sind die Kennwerte
+    /// gemacht. Der Kennwert darf etwas darüber liegen – er muss auch weniger
+    /// kompakte und undichtere Häuser abdecken als die gerechnete Hülle.
+    func testKennwertUndHuellflaechenrechnungWidersprechenSichNicht() {
+        let huellen = Huellflaechenrechner(regeln: regeln)
+        let formen = [
+            Gebaeudehuelle(grundflaeche: 80, vollgeschosse: 2),
+            Gebaeudehuelle(grundflaeche: 90, vollgeschosse: 1, dachgeschossBeheizt: true),
+            Gebaeudehuelle(grundflaeche: 130, vollgeschosse: 1, dachform: .flach),
+            Gebaeudehuelle(grundflaeche: 90, vollgeschosse: 2, dachgeschossBeheizt: true)
+        ]
+
+        for jahr in [1912, 1935, 1955, 1965, 1975, 1982, 1990, 1998] {
+            let gerechnet = formen.map { huelle -> Double in
+                var g = Gebaeude(baujahr: jahr, wohnflaeche: huelle.beheizteFlaeche)
+                g.dach = .ungedaemmt
+                g.fassade = .ungedaemmt
+                g.kellerdecke = .ungedaemmt
+                g.obersteGeschossdecke = .ungedaemmt
+                g.fensterBaujahr = jahr
+                return huellen.ausGebaeudehuelle(huelle, gebaeude: g, normaussentemperatur: -12)
+                    .jeQuadratmeter
+            }
+            let mittel = gerechnet.reduce(0, +) / Double(gerechnet.count)
+            let kennwert = rechner.spezifischeHeizlast(baujahr: jahr)
+
+            XCTAssertGreaterThanOrEqual(kennwert, mittel * 0.95, "Baujahr \(jahr)")
+            XCTAssertLessThanOrEqual(kennwert, mittel * 1.15, "Baujahr \(jahr)")
+        }
+    }
+
+    /// „Unbekannt“ darf nicht heißen „garantiert nichts gemacht“. Ein Haus von
+    /// 1968, das 2026 noch bewohnt wird, hat fast immer neue Fenster.
+    func testUnbekannteBauteileWerdenNichtAlsSchlechtestFallGerechnet() {
+        var unbekannt = Gebaeude(baujahr: 1968, wohnflaeche: 140)
+        unbekannt.fensterBaujahr = nil
+
+        var ungedaemmt = unbekannt
+        ungedaemmt.dach = .ungedaemmt
+        ungedaemmt.fassade = .ungedaemmt
+        ungedaemmt.kellerdecke = .ungedaemmt
+        ungedaemmt.obersteGeschossdecke = .ungedaemmt
+        ungedaemmt.fensterBaujahr = 1968
+
+        let a = rechner.ausGebaeudedaten(unbekannt)
+        let b = rechner.ausGebaeudedaten(ungedaemmt)
+
+        XCTAssertLessThan(a.spanne.mitte, b.spanne.mitte)
+        // Und wer nichts weiß, bekommt eine ehrlich breite Spanne.
+        XCTAssertGreaterThan(a.spanne.oben / a.spanne.unten, b.spanne.oben / b.spanne.unten)
+    }
+
+    /// Ab 1995 steckt der Standard schon im Kennwert. Ein zusätzlicher Abschlag
+    /// für „unbekannt“ wäre doppelt gezählt.
+    func testNeuereGebaeudeBekommenKeinenErwartungsabschlag() {
+        let neu = Gebaeude(baujahr: 2005, wohnflaeche: 140)
+        let e = rechner.ausGebaeudedaten(neu)
+        XCTAssertFalse(e.annahmen.contains { $0.bezeichnung == "Bereits gedämmt" })
     }
 
     func testJedeAusgabeTraegtDenVorbehalt() {
@@ -238,8 +338,15 @@ extension HeizlastTests {
     }
 
     func testStimmigeWerteWerdenAlsSolcheBenannt() throws {
-        // Unsanierter Altbau mit entsprechend hohem Verbrauch.
-        let haus = Gebaeude(baujahr: 1968, wohnflaeche: 140)
+        // Unsanierter Altbau mit entsprechend hohem Verbrauch. Der Zustand ist
+        // hier ausdrücklich hinterlegt – ohne Angabe würde die App das Übliche
+        // annehmen, und das ist bei einem Haus von 1968 eben nicht „gar nichts“.
+        var haus = Gebaeude(baujahr: 1968, wohnflaeche: 140)
+        haus.dach = .ungedaemmt
+        haus.fassade = .ungedaemmt
+        haus.kellerdecke = .ungedaemmt
+        haus.obersteGeschossdecke = .ungedaemmt
+        haus.fensterBaujahr = 1968
         let ausDaten = rechner.ausGebaeudedaten(haus)
         let ausVerbrauch = try XCTUnwrap(rechner.ausVerbrauch(
             Verbrauchsangabe(brennstoff: .gasKubikmeter, jahreswerte: [6_000], personenImHaushalt: 3)

@@ -52,6 +52,36 @@ final class AppZustand: ObservableObject {
         )
     }
 
+    /// Die Heizlast, die die App gerade am besten kennt – samt Herkunft.
+    ///
+    /// Es gibt mehrere Wege zur selben Zahl, und sie sind unterschiedlich gut.
+    /// Wenn die App an einer Stelle den gemessenen Wert zeigt und an anderer
+    /// den groben Kennwert nach Baujahr, sieht der Unterschied wie ein Fehler
+    /// aus – dabei ist es nur ein veralteter Blick. Deshalb fragt jede Ansicht,
+    /// die eine Heizlast anzeigt, hier nach.
+    struct Heizlastueberblick {
+        let spanne: Spanne
+        let quelle: String
+        /// Ist der Wert gemessen oder aus Kennwerten geschätzt?
+        let gemessen: Bool
+    }
+
+    var besteHeizlast: Heizlastueberblick? {
+        if let signatur = energiesignatur() {
+            return Heizlastueberblick(
+                spanne: signatur.heizlast,
+                quelle: "aus Ihren Ablesungen",
+                gemessen: true
+            )
+        }
+        guard let gebaeude else { return nil }
+        return Heizlastueberblick(
+            spanne: heizlastrechner.ausGebaeudedaten(gebaeude).spanne,
+            quelle: "aus den Gebäudeangaben",
+            gemessen: false
+        )
+    }
+
     // MARK: Die eine nächste Aufgabe
 
     var naechsteAufgabe: Aufgabe {

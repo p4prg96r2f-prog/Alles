@@ -109,11 +109,27 @@ zeile("Nächste Aufgabe", Aufgabe.naechste(ablage: ablage, regeln: regeln, heute
 ueberschrift("6 · Heizlast im Kundengespräch")
 let heizlast = Heizlastrechner(regeln: regeln)
 
+// Ein Haus von 1968, das nur 2.520 m³ Gas braucht, ist längst teilsaniert.
+// Nur weiß die App das noch nicht – in der Gebäudeakte steht bisher nichts
+// außer Anschrift, Baujahr und Fläche.
+var hausMitZustand = haus
+hausMitZustand.dach = .gedaemmt
+hausMitZustand.obersteGeschossdecke = .gedaemmt
+hausMitZustand.fassade = .teilweise
+hausMitZustand.kellerdecke = .ungedaemmt
+hausMitZustand.fensterBaujahr = 2000
+
 let ausFragen = heizlast.ausGebaeudedaten(haus)
 zeile("Aus wenigen Fragen", Formate.kilowattSpanne(ausFragen.spanne))
 
+// Dasselbe Verfahren, sobald die Bauteile eingetragen sind. Das ist das
+// Versprechen der App in einer Zeile: Genauigkeit wird belohnt, nicht
+// verlangt – jede Angabe verengt die Spanne sichtbar.
+let ausFragenGefuellt = heizlast.ausGebaeudedaten(hausMitZustand)
+zeile("… mit ausgefüllter Gebäudeakte", Formate.kilowattSpanne(ausFragenGefuellt.spanne))
+
 if let ausVerbrauch = heizlast.ausVerbrauch(Verbrauchsangabe(
-    brennstoff: .gasKubikmeter, jahreswerte: [2_050, 1_980, 2_120],
+    brennstoff: .gasKubikmeter, jahreswerte: [2_520, 2_440, 2_610],
     kesselart: .standardkessel, warmwasserEnthalten: true, personenImHaushalt: 3
 )) {
     zeile("Aus dem Verbrauch", Formate.kilowattSpanne(ausVerbrauch.spanne))
@@ -148,11 +164,16 @@ if let ausVerbrauch = heizlast.ausVerbrauch(Verbrauchsangabe(
 // MARK: - 7. Zählerstände über zwei Jahre
 
 ueberschrift("7 · Zählerstände über 24 Monate")
-// Die Ablesungen folgen einem echten Gebäude: 210 W/K Wärmeverlust,
+// Die Ablesungen folgen einem echten Gebäude: 270 W/K Wärmeverlust,
 // 4,2 kWh Warmwasser am Tag. Genau das soll die Energiesignatur später
 // aus den Zahlen zurückgewinnen, ohne es zu kennen.
+//
+// Die 270 W/K sind nicht frei gewählt: Sie sind das, was die
+// Hüllflächenrechnung für dieses Haus mit den hinterlegten Bauteilzuständen
+// ergibt, abzüglich der üblichen Reserve. Ein Demolauf, dessen "Wahrheit"
+// physikalisch nicht zum beschriebenen Haus passt, prüft nichts.
 let regionPB = regeln.klimaregion(fuerPLZ: haus.plz) ?? regeln.klimaregionen[0]
-let wahrerWaermeverlust = 210.0
+let wahrerWaermeverlust = 270.0
 let wahreGrundlast = 4.2
 let steigung = wahrerWaermeverlust * 24 / 1000 / regeln.heizlast.kesselnutzungsgradStandard
 
@@ -206,7 +227,7 @@ ueberschrift("7c · Heizlast aus einer einzigen kalten Nacht")
 let nachtBeginn = tag(2027, 1, 20)
 let nachtRegion = regionPB
 
-// Zwei Ablesungen, abends und morgens. Das Haus hat 210 W/K – dieselbe
+// Zwei Ablesungen, abends und morgens. Das Haus hat 270 W/K – dieselbe
 // Wahrheit wie oben, jetzt aber in acht Stunden statt in zwei Jahren gemessen.
 func kalteNacht(aussen: Double, tagImJanuar: Int) -> Nachtmessung {
     let beginn = kalender.date(from: DateComponents(year: 2027, month: 1, day: tagImJanuar, hour: 22))!
@@ -262,15 +283,6 @@ ueberschrift("7d · Heizlast aus Grundriss und Geschossen")
 let huellrechner = Huellflaechenrechner(regeln: regeln)
 let huelle = Gebaeudehuelle(grundflaeche: 80, vollgeschosse: 2, dachform: .sattel,
                             dachgeschossBeheizt: false, kellerlage: .unbeheizterKeller)
-
-// Ein Haus von 1968, das nur 2.050 m³ Gas braucht, ist längst teilsaniert.
-// Sind die Bauteilzustände hinterlegt, passt die Rechnung zur Messung.
-var hausMitZustand = haus
-hausMitZustand.dach = .gedaemmt
-hausMitZustand.obersteGeschossdecke = .gedaemmt
-hausMitZustand.fassade = .teilweise
-hausMitZustand.kellerdecke = .ungedaemmt
-hausMitZustand.fensterBaujahr = 2000
 
 let ausHuelle = huellrechner.ausGebaeudehuelle(huelle, gebaeude: hausMitZustand,
                                                normaussentemperatur: nachtRegion.normaussentemperatur)

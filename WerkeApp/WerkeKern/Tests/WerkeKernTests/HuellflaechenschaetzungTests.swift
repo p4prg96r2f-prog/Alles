@@ -24,16 +24,33 @@ final class HuellflaechenschaetzungTests: XCTestCase {
         XCTAssertEqual(huelle.geschaetzterUmfang, 44)
     }
 
-    func testBeheizteFlaecheZaehltGeschosse() {
-        XCTAssertEqual(Gebaeudehuelle(grundflaeche: 80, vollgeschosse: 2).beheizteFlaeche, 160)
+    func testBruttogrundflaecheZaehltGeschosse() {
+        XCTAssertEqual(Gebaeudehuelle(grundflaeche: 80, vollgeschosse: 2).bruttogrundflaeche, 160)
         XCTAssertEqual(
-            Gebaeudehuelle(grundflaeche: 80, vollgeschosse: 2, dachgeschossBeheizt: true).beheizteFlaeche,
+            Gebaeudehuelle(grundflaeche: 80, vollgeschosse: 2, dachgeschossBeheizt: true).bruttogrundflaeche,
             80 * 2.7, accuracy: 0.1
         )
         XCTAssertEqual(
-            Gebaeudehuelle(grundflaeche: 80, vollgeschosse: 2, kellerlage: .beheizterKeller).beheizteFlaeche,
+            Gebaeudehuelle(grundflaeche: 80, vollgeschosse: 2, kellerlage: .beheizterKeller).bruttogrundflaeche,
             240
         )
+    }
+
+    /// Die Wohnfläche ist nicht die Bruttogrundfläche: Außenwände, Innenwände
+    /// und Treppenhaus gehen ab. Wer den Unterschied unterschlägt, weist den
+    /// Kennwert in W/m² um ein Fünftel zu niedrig aus – und vergleicht ihn dann
+    /// mit Erfahrungswerten, die sich auf die Wohnfläche beziehen.
+    func testWohnflaecheLiegtUnterDerBruttogrundflaeche() {
+        let huelle = Gebaeudehuelle(grundflaeche: 80, vollgeschosse: 2)
+        XCTAssertEqual(huelle.beheizteFlaeche, 128, accuracy: 0.01)
+        XCTAssertLessThan(huelle.beheizteFlaeche, huelle.bruttogrundflaeche)
+    }
+
+    /// Gelüftet wird Luft, nicht Beton: Das Lüftungsvolumen folgt aus lichter
+    /// Höhe und Wohnfläche, nicht aus Geschosshöhe und Bruttogrundfläche.
+    func testLichteHoeheLiegtUnterDerGeschosshoehe() {
+        let huelle = Gebaeudehuelle(grundflaeche: 80, geschosshoehe: 2.6)
+        XCTAssertEqual(huelle.lichteHoehe, 2.35, accuracy: 0.01)
     }
 
     func testFlaechenAddierenSichPlausibel() {

@@ -156,4 +156,88 @@ final class RaumaufmassTests: XCTestCase {
         haus.fensterBaujahr = 2015
         XCTAssertEqual(rechner.uWert(fuer: .fenster, gebaeude: haus), 1.1)
     }
+
+    /// Vor 1949 war Einfachverglasung der Regelfall. Mit rund 5,0 W/m²K ist sie
+    /// kein Sonderfall der Zweischeibenverglasung, sondern deren Vielfaches.
+    func testEinfachverglasungImAltbauWirdEigenAngesetzt() {
+        XCTAssertEqual(rechner.uWert(fuer: .fenster, gebaeude: Gebaeude(baujahr: 1930)), 5.0)
+        XCTAssertEqual(rechner.uWert(fuer: .fenster, gebaeude: Gebaeude(baujahr: 1960)), 3.0)
+    }
+
+    // MARK: Wärmebrücken und Innenbauteile
+
+    /// Der pauschale Zuschlag von 0,05 W/m²K setzt einen Nachweis nach
+    /// DIN V 4108 Beiblatt 2 voraus. Den kann eine App nicht führen – also
+    /// bleibt es beim Pauschalwert, auch für ein saniertes Haus.
+    func testWaermebrueckenzuschlagBleibtOhneNachweisBeiZehnHundertstel() {
+        var saniert = Gebaeude(baujahr: 2015)
+        saniert.dach = .gedaemmt
+        saniert.fassade = .gedaemmt
+        saniert.kellerdecke = .gedaemmt
+
+        let raum = Raum(name: "Wohnen", grundflaeche: 20, flaechen: [
+            Huellflaeche(art: .aussenwand, quadratmeter: 20, grenze: .aussenluft)
+        ])
+        let e = rechner.berechne(raeume: [raum], gebaeude: saniert, normaussentemperatur: -12)
+
+        XCTAssertTrue(e.annahmen.contains {
+            $0.bezeichnung == "Wärmebrückenzuschlag" && $0.wert.contains("0,10")
+        })
+        // 0,10 W/m²K × 20 m² × 32 K = 64 W
+        XCTAssertEqual(e.raeume[0].waermebruecken, 64, accuracy: 0.5)
+    }
+
+    /// Ein Bad mit 24 °C gibt über seine Innenwände real Wärme an die
+    /// Nachbarräume ab. Wird das unterschlagen, fällt gerade der Raum zu klein
+    /// aus, in dem die Heizfläche ohnehin knapp ist.
+    func testBadVerliertWaermeUeberInnenwaendeAnDieNachbarraeume() {
+        let haus = Gebaeude(baujahr: 1968)
+        let innenwand = Huellflaeche(art: .innenwand, quadratmeter: 15, grenze: .beheizt)
+
+        let ohne = Raum(name: "Bad", grundflaeche: 8, solltemperatur: 24, flaechen: [])
+        let mit = Raum(name: "Bad", grundflaeche: 8, solltemperatur: 24, flaechen: [innenwand])
+
+        let e = rechner.berechne(raeume: [ohne, mit], gebaeude: haus, normaussentemperatur: -12)
+
+        // f = (24 − 20) / (24 + 12) = 0,111
+        // 1,5 W/m²K × 15 m² × 0,111 × 36 K = 90 W
+        XCTAssertEqual(e.raeume[1].transmission - e.raeume[0].transmission, 90, accuracy: 2)
+    }
+
+    /// Zwei gleich warme Räume tauschen nichts aus – das muss so bleiben.
+    func testGleichWarmeNachbarraeumeTauschenNichts() {
+        let haus = Gebaeude(baujahr: 1968)
+        let raum = Raum(name: "Wohnen", grundflaeche: 20, solltemperatur: 20, flaechen: [
+            Huellflaeche(art: .innenwand, quadratmeter: 15, grenze: .beheizt)
+        ])
+        let e = rechner.berechne(raeume: [raum], gebaeude: haus, normaussentemperatur: -12)
+        XCTAssertEqual(e.raeume[0].transmission, 0, accuracy: 0.001)
+    }
+
+    /// Der Flur mit 15 °C wird von den Nachbarräumen mitgeheizt. Physikalisch
+    /// wäre der Faktor negativ – für eine Auslegung ist das gefährlich, denn
+    /// der Zugewinn verschwindet, sobald nebenan die Tür zugeht.
+    func testMitgeheizterFlurBekommtKeineGutschrift() {
+        let haus = Gebaeude(baujahr: 1968)
+        let raum = Raum(name: "Flur", grundflaeche: 10, solltemperatur: 15, flaechen: [
+            Huellflaeche(art: .innenwand, quadratmeter: 20, grenze: .beheizt)
+        ])
+        let e = rechner.berechne(raeume: [raum], gebaeude: haus, normaussentemperatur: -12)
+        XCTAssertEqual(e.raeume[0].transmission, 0, accuracy: 0.001)
+    }
+
+    /// Der Wärmebrückenzuschlag gehört auf die äußere Hülle. Innenbauteile
+    /// bekommen ihn nicht, auch wenn sie wegen eines Temperaturunterschieds
+    /// mitrechnen.
+    func testInnenwaendeErhoehenDenWaermebrueckenzuschlagNicht() {
+        let haus = Gebaeude(baujahr: 1968)
+        let aussen = Huellflaeche(art: .aussenwand, quadratmeter: 10, grenze: .aussenluft)
+        let innen = Huellflaeche(art: .innenwand, quadratmeter: 15, grenze: .beheizt)
+
+        let a = Raum(name: "Bad A", grundflaeche: 8, solltemperatur: 24, flaechen: [aussen])
+        let b = Raum(name: "Bad B", grundflaeche: 8, solltemperatur: 24, flaechen: [aussen, innen])
+
+        let e = rechner.berechne(raeume: [a, b], gebaeude: haus, normaussentemperatur: -12)
+        XCTAssertEqual(e.raeume[0].waermebruecken, e.raeume[1].waermebruecken, accuracy: 0.001)
+    }
 }

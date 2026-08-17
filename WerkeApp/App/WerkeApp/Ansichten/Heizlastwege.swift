@@ -20,7 +20,13 @@ struct HeizlastwegeAnsicht: View {
         let genauigkeit: Double     // erreichbare Unsicherheit
         let verfuegbar: Bool
         let sperrgrund: String?
+        /// Braucht dieser Weg etwas, das gerade nicht da ist – eine kalte
+        /// Nacht, einen Termin im Haus? Dann liefert er zwar das bessere
+        /// Ergebnis, aber nicht heute.
+        let voraussetzung: String?
         let symbol: String
+
+        var liefertJetzt: Bool { verfuegbar && voraussetzung == nil }
     }
 
     private var wege: [Weg] {
@@ -38,6 +44,7 @@ struct HeizlastwegeAnsicht: View {
                 sperrgrund: signatur == nil
                     ? "Dafür braucht es mindestens fünf monatliche Ablesungen. Sie haben \(monate)."
                     : nil,
+                voraussetzung: nil,
                 symbol: "chart.line.uptrend.xyaxis"
             ),
             Weg(
@@ -48,16 +55,18 @@ struct HeizlastwegeAnsicht: View {
                 genauigkeit: 0.12,
                 verfuegbar: true,
                 sperrgrund: nil,
+                voraussetzung: "braucht eine kalte Nacht",
                 symbol: "moon.stars"
             ),
             Weg(
                 id: "verbrauch",
                 titel: "Aus dem Jahresverbrauch",
-                beschreibung: "Wenn die Abrechnungen der letzten Jahre vorliegen.",
+                beschreibung: "Eine Zahl von der letzten Abrechnung genügt. Mit zwei oder drei Jahren wird es deutlich belastbarer.",
                 aufwand: "eine bis drei Zahlen",
                 genauigkeit: 0.18,
                 verfuegbar: true,
                 sperrgrund: nil,
+                voraussetzung: nil,
                 symbol: "doc.text.magnifyingglass"
             ),
             Weg(
@@ -68,6 +77,7 @@ struct HeizlastwegeAnsicht: View {
                 genauigkeit: 0.20,
                 verfuegbar: true,
                 sperrgrund: nil,
+                voraussetzung: "vor Ort im Haus",
                 symbol: "camera.viewfinder"
             ),
             Weg(
@@ -78,13 +88,20 @@ struct HeizlastwegeAnsicht: View {
                 genauigkeit: 0.26,
                 verfuegbar: true,
                 sperrgrund: nil,
+                voraussetzung: nil,
                 symbol: "square.stack.3d.up"
             )
         ]
     }
 
+    /// Empfohlen wird der genaueste Weg, der **heute** zu einem Ergebnis führt.
+    ///
+    /// Die Nachtmessung ist genauer als alles außer der Signatur – im August
+    /// nützt sie trotzdem nichts. Eine Empfehlung, auf die man erst warten
+    /// muss, ist keine.
     private var empfehlung: Weg? {
-        wege.filter(\.verfuegbar).min { $0.genauigkeit < $1.genauigkeit }
+        let jetzt = wege.filter(\.liefertJetzt).min { $0.genauigkeit < $1.genauigkeit }
+        return jetzt ?? wege.filter(\.verfuegbar).min { $0.genauigkeit < $1.genauigkeit }
     }
 
     var body: some View {
@@ -98,7 +115,7 @@ struct HeizlastwegeAnsicht: View {
                         .stilNebentext()
                     if let empfehlung {
                         Hinweisleiste(
-                            text: "Für Ihr Haus ist gerade „\(empfehlung.titel)“ der genaueste Weg.",
+                            text: "Heute kommen Sie mit „\(empfehlung.titel)“ am weitesten.",
                             symbol: "star"
                         )
                     }
@@ -164,6 +181,9 @@ struct HeizlastwegeAnsicht: View {
                     HStack(spacing: Gestaltung.Abstand.normal) {
                         Label(weg.aufwand, systemImage: "clock")
                         Label("± \(Formate.zahl(weg.genauigkeit * 100, stellen: 0)) %", systemImage: "target")
+                        if let voraussetzung = weg.voraussetzung {
+                            Label(voraussetzung, systemImage: "calendar")
+                        }
                     }
                     .font(.caption2)
                     .foregroundStyle(Gestaltung.Farbe.textLeise)

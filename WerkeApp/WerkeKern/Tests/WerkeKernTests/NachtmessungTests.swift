@@ -27,8 +27,12 @@ final class NachtmessungTests: XCTestCase {
         let ende = beginn.addingTimeInterval(stunden * 3600)
 
         let delta = innentemperatur - aussentemperatur
-        // Der Zähler sieht nur die Endenergie, und die inneren Gewinne heizen mit.
-        let nutzwaerme = (waermeverlust * delta - Heizlastrechner.naechtlicheGewinneWatt) * stunden / 1000
+        // Der Zähler sieht die Endenergie. Die inneren Gewinne heizen mit, die
+        // Warmwasser-Bereitschaft läuft zusätzlich – beides muss die
+        // Auswertung wieder herausrechnen.
+        let nutzwaerme = (waermeverlust * delta
+                          - Heizlastrechner.naechtlicheGewinneWatt
+                          + Heizlastrechner.naechtlicheGrundlastWatt) * stunden / 1000
         let endenergie = nutzwaerme / nutzungsgrad
         let kubikmeter = endenergie / regeln.heizlast.brennwertGasProKubikmeter
 
@@ -93,12 +97,23 @@ final class NachtmessungTests: XCTestCase {
         XCTAssertNil(e.hinweis)
     }
 
-    func testInnereGewinneWerdenAngerechnet() throws {
-        // Ohne Anrechnung käme ein zu kleiner Wärmeverlust heraus.
+    func testInnereGewinneUndGrundlastWerdenHerausgerechnet() throws {
+        // Ohne beide Korrekturen käme ein falscher Wärmeverlust heraus.
         let e = try XCTUnwrap(rechner.ausNacht(
             nacht(waermeverlust: 150, aussentemperatur: -10), normaussentemperatur: -12))
 
         XCTAssertEqual(e.waermeverlustkoeffizient, 150, accuracy: 2)
+        XCTAssertTrue(e.annahmen.contains { $0.bezeichnung == "Grundlast" })
+    }
+
+    /// Die Grundlast darf nicht als Wärmeverlust gedeutet und auf die
+    /// Auslegungsdifferenz hochgerechnet werden.
+    func testGrundlastWirdNichtAlsWaermeverlustGedeutet() throws {
+        let ohneKorrektur = 220.0 + Heizlastrechner.naechtlicheGrundlastWatt / 25.0
+        let e = try XCTUnwrap(rechner.ausNacht(
+            nacht(waermeverlust: 220, aussentemperatur: -5), normaussentemperatur: -12))
+
+        XCTAssertLessThan(e.waermeverlustkoeffizient, ohneKorrektur - 5)
     }
 
     func testBrennwertkesselWirdBeruecksichtigt() throws {
@@ -200,5 +215,70 @@ final class NachtmessungTests: XCTestCase {
         let start = Date(timeIntervalSince1970: 0)
         XCTAssertNil(Abkuehlmessung.auswerten(
             verlauf: [(zeit: start, innentemperatur: 20)], aussentemperatur: 0))
+    }
+
+    /// Ohne Wärmeverlust gibt es keine Speicherfähigkeit je Quadratmeter – dann
+    /// bleibt nur die Zeitkonstante in **Stunden**. Sie darf nicht gegen
+    /// Schwellen in Wh/(m²K) geprüft werden: 50 Stunden wären damit „leicht“,
+    /// obwohl 50 Stunden bereits ein schweres Haus beschreiben.
+    func testOhneWaermeverlustEntscheidetDieZeitkonstanteInStunden() throws {
+        let aussen = 0.0
+        let start = kalender.date(from: DateComponents(year: 2026, month: 1, day: 15, hour: 22))!
+
+        func ergebnis(tau: Double) throws -> Abkuehlmessung.Ergebnis {
+            let verlauf = stride(from: 0.0, through: 12.0, by: 2.0).map { stunde in
+                (zeit: start.addingTimeInterval(stunde * 3600),
+                 innentemperatur: aussen + 20 * exp(-stunde / tau))
+            }
+            return try XCTUnwrap(Abkuehlmessung.auswerten(verlauf: verlauf, aussentemperatur: aussen))
+        }
+
+        XCTAssertNil(try ergebnis(tau: 25).speicherfaehigkeit)
+        XCTAssertEqual(try ergebnis(tau: 25).bauart, .leicht)
+        XCTAssertEqual(try ergebnis(tau: 60).bauart, .mittelschwer)
+        XCTAssertEqual(try ergebnis(tau: 150).bauart, .schwer)
+    }
+
+    // MARK: Innere Gewinne
+
+    /// Die nächtlichen Gewinne wachsen mit dem Gebäude: In einem Haus mit 250
+    /// Quadratmetern schlafen im Mittel mehr Menschen als in einer Wohnung mit
+    /// 70. Ein fester Betrag würde große Gebäude zu schlecht rechnen.
+    func testInnereGewinneWachsenMitDerGebaeudegroesse() {
+        let klein = Heizlastrechner.naechtlicheGewinne(beheizteFlaeche: 70)
+        let mittel = Heizlastrechner.naechtlicheGewinne(beheizteFlaeche: 140)
+        let gross = Heizlastrechner.naechtlicheGewinne(beheizteFlaeche: 250)
+
+        XCTAssertLessThan(klein, mittel)
+        XCTAssertLessThan(mittel, gross)
+        // Der Pauschalwert entspricht einem Haus mit 140 m².
+        XCTAssertEqual(mittel, Heizlastrechner.naechtlicheGewinneWatt, accuracy: 0.001)
+        // Ohne Angabe bleibt es beim Pauschalwert.
+        XCTAssertEqual(Heizlastrechner.naechtlicheGewinne(beheizteFlaeche: nil),
+                       Heizlastrechner.naechtlicheGewinneWatt)
+    }
+
+    /// Werden mehr Gewinne angerechnet, muss der ermittelte Wärmeverlust
+    /// steigen – die Heizung hat dann weniger von der Wärme geliefert.
+    func testGroesseresGebaeudeErgibtHoeherenWaermeverlust() throws {
+        let messung = nacht(waermeverlust: 220, aussentemperatur: -5)
+
+        let ohne = try XCTUnwrap(rechner.ausNacht(messung, normaussentemperatur: -12))
+        let mit = try XCTUnwrap(rechner.ausNacht(messung, normaussentemperatur: -12,
+                                                 beheizteFlaeche: 250))
+
+        XCTAssertGreaterThan(mit.waermeverlustkoeffizient, ohne.waermeverlustkoeffizient)
+        XCTAssertTrue(mit.annahmen.contains { $0.bezeichnung == "Innere Gewinne" && $0.wert.hasPrefix("205") })
+    }
+
+    /// Drei gleich kalte Nächte legen keine Gerade fest. Dann darf in den
+    /// Annahmen auch nicht „Ausgleichsgerade“ stehen.
+    func testDreiGleichKalteNaechteHeissenNichtAusgleichsgerade() throws {
+        let messungen = (0..<3).map { nacht(waermeverlust: 220, aussentemperatur: -5, tag: 10 + $0) }
+        let e = try XCTUnwrap(rechner.ausNaechten(messungen, normaussentemperatur: -12))
+
+        let verfahren = try XCTUnwrap(e.annahmen.first { $0.bezeichnung == "Verfahren" })
+        XCTAssertTrue(verfahren.wert.contains("Direktmessung"), verfahren.wert)
+        XCTAssertTrue(e.annahmen.contains { $0.bezeichnung == "Grundlast" && $0.wert.contains("angenommen") })
     }
 }

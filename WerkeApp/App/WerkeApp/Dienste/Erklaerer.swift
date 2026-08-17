@@ -1,4 +1,5 @@
 import Foundation
+import Combine
 
 #if canImport(FoundationModels)
 import FoundationModels
