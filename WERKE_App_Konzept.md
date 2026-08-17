@@ -5,7 +5,7 @@ schneller macht und aus Einmal-Beratungen wiederkehrende Umsätze macht.
 
 **Leitbild:** *„Ich will mein Haus sanieren, lade die App herunter – und sie führt
 mich hindurch."* Ein kleines Schweizer Taschenmesser mit einem Griff, an dem die
-Klingen hängen. Ausgearbeitet in **Kapitel 17**; die Kapitel davor liefern die
+Klingen hängen. Ausgearbeitet in **Kapitel 18**; die Kapitel davor liefern die
 Bausteine.
 
 **Entscheidung (vorab getroffen):** Eine Plattform, drei Oberflächen –
@@ -881,7 +881,100 @@ Standardeinstieg jeder Beratung, intern wie öffentlich.
 
 ---
 
-## 17. Leitbild: die App als Begleiter durch die Sanierung
+## 17. Die Heizlast neu gedacht: die Energiesignatur
+
+### 17.1 Warum die üblichen Verfahren schwach sind
+
+Beide Wege aus Kapitel 7 haben denselben Konstruktionsfehler: Sie stützen sich
+auf **Erfahrungswerte, die man raten muss**.
+
+- Beim Verbrauchsverfahren sind es die **Vollbenutzungsstunden** (1.800 bis
+  2.100) und der **Warmwasseranteil** (etwa 500 kWh je Person). Beide können je
+  Gebäude um ein Viertel danebenliegen.
+- Beim Fragenverfahren ist es die **spezifische Heizlast nach Baujahr** – ein
+  Mittelwert über Millionen Gebäude, angewendet auf genau eines.
+
+Und keines der beiden sagt, wie gut sein Ergebnis ist. Sie liefern immer eine
+Zahl, aber nie einen Hinweis darauf, ob sie taugt.
+
+### 17.2 Die Idee
+
+Trägt man den Verbrauch **jedes Ablesezeitraums** gegen die **Gradtagzahl**
+desselben Zeitraums auf, ergibt sich eine Gerade:
+
+> **Verbrauch = Grundlast × Tage + Steigung × Gradtagzahl**
+
+Die **Steigung** ist der Wärmeverlustkoeffizient des Gebäudes in Watt je Kelvin –
+die physikalisch eigentliche Größe. Daraus folgt die Heizlast direkt:
+
+> **Heizlast = Wärmeverlust × (20 °C − Normaußentemperatur)**
+
+Die **Grundlast** ist alles, was unabhängig von der Kälte anfällt: Warmwasser und
+Bereitschaftsverluste.
+
+### 17.3 Was daran besser ist
+
+1. **Kein Warmwasser-Schätzwert mehr.** Der Anteil fällt als Nebenprodukt aus der
+   Rechnung, statt geraten zu werden. Das war der häufigste Fehler bei
+   Faustformeln – und er führt systematisch zu überdimensionierten Wärmepumpen.
+2. **Keine Vollbenutzungsstunden mehr.** Der wackeligste Erfahrungswert im
+   ganzen Verfahren entfällt ersatzlos.
+3. **Eine Güteangabe fällt mit ab.** Wie gut die Punkte auf der Geraden liegen,
+   sagt, wie belastbar das Ergebnis ist. Weicht es ab, hat das meist einen
+   erklärbaren Grund: längere Abwesenheit, ein Kaminofen, ein Zählerwechsel.
+4. **Es wird mit jeder Ablesung genauer**, statt einmalig geschätzt zu sein.
+5. **Nach der Sanierung ist die Wirkung gemessen, nicht behauptet.** Dieselbe
+   Rechnung über die neuen Ablesungen liefert den echten Soll-Ist-Vergleich.
+
+### 17.4 Und das Entscheidende: Es fragt gar nichts
+
+Gerechnet wird mit den **monatlichen Zählerständen, die für den
+Verbrauchsausweis ohnehin erfasst werden** (Kapitel 6.2). Ein Datensatz, zwei
+Zwecke – ohne eine einzige zusätzliche Eingabe.
+
+Damit bekommt die 24-Monats-Regel eine zweite Begründung. Bisher lautete das
+Argument: *„Sammeln Sie Zählerstände, sonst bekommen Sie in zwei Jahren keinen
+Verbrauchsausweis."* Das ist richtig, aber abstrakt. Jetzt kommt hinzu:
+*„…und nach einem halben Jahr wissen wir genauer als jede Faustformel, wie viel
+Heizleistung Ihr Haus braucht."* Der zweite Satz wirkt sofort.
+
+### 17.5 Umsetzung
+
+Gebaut und geprüft: `Energiesignatur.swift` im Rechenkern. Ausgleichsrechnung mit
+zwei Einflussgrößen (Tage und Gradtage), damit ungleich lange Ablesezeiträume
+das Ergebnis nicht verzerren; Gradtagzahlen tageweise aus Monatswerten der
+Klimaregion zusammengesetzt, sodass der Ablesetag keine Rolle spielt.
+
+Die Testfälle erzeugen künstliche Ablesungen für ein Gebäude mit **bekanntem**
+Wärmeverlust – das Verfahren gewinnt 200 W/K auf 3 W/K genau zurück, ebenso den
+Warmwasseranteil. Fehlerhafte Daten führen zu **keinem** Ergebnis statt zu einem
+schlechten.
+
+Bewusste Einschränkung: Über die Heizperiode helfen Sonne und innere Wärmequellen
+mit, am Auslegungstag fallen sie weitgehend weg. Die Signatur unterschätzt die
+Heizlast deshalb systematisch etwas – das steckt als Zuschlag in der oberen
+Grenze der Spanne.
+
+### 17.6 Zwei weitere Ansätze, bewertet
+
+**Raumaufmaß per LiDAR (RoomPlan).** Ein iPhone Pro erfasst beim Durchgehen
+Räume mitsamt Wand-, Fenster- und Türflächen. Das ist genau die Eingabe, die eine
+raumweise Heizlast nach DIN EN 12831 braucht – und der Teil, der beim Aufmaß die
+meiste Zeit kostet. **Für die Beraterseite hochinteressant**, für Endkunden nicht:
+Es setzt Pro-Geräte voraus und liefert Geometrie, keine U-Werte. Gehört in
+Kapitel 4, nicht in die Kunden-App.
+
+**Brennerstunden statt Gaszähler.** Moderne Kessel zeigen Betriebsstunden und
+Brennerstarts an. Betriebsstunden × Nennleistung trennt Heizung und Warmwasser
+sauberer als jeder Zählerstand, und der Wert lässt sich abfotografieren. Billig
+umzusetzen, aber nur ein Zusatz – die Energiesignatur braucht ihn nicht.
+
+**Nicht verfolgt:** Abkühlversuch über Nacht (verlangt Innentemperaturmessung und
+Disziplin), Wärmebild per Telefon (iPhones haben keine Thermografiekamera).
+
+---
+
+## 18. Leitbild: die App als Begleiter durch die Sanierung
 
 ### 17.1 Das bessere Leitbild
 
@@ -1002,7 +1095,7 @@ Startkriterium.
 
 ---
 
-## 18. Nächste Schritte
+## 19. Nächste Schritte
 
 1. **Zwei Zahlen messen** (eine Woche, ohne Software): Wie viele Stunden gehen
    pro Projekt für Datenbeschaffung und Berichtserstellung drauf? Wie viele der

@@ -1,11 +1,12 @@
 {
-  "version": 1,
+  "version": 2,
   "stand": "2026-08-14",
   "hinweis": "Fördersätze nach BEG-Systematik, Stand 21.07.2026. GModG-Angaben nach Kabinettsbeschluss vom 13.05.2026 und damit Entwurfsstand.",
   "zuPruefen": [
     "Alle Fördersätze und Höchstgrenzen sind vor Veröffentlichung durch WERK.E gegen die geltende BEG-Richtlinie zu bestätigen.",
     "Boni beim Heizungstausch (Klimageschwindigkeit, Einkommen, Familie) und ihre Höchstsätze sind fachlich zu verifizieren.",
-    "GModG-Werte gelten erst mit Inkrafttreten; bis dahin ist jede Ausgabe als Entwurfsstand zu kennzeichnen."
+    "GModG-Werte gelten erst mit Inkrafttreten; bis dahin ist jede Ausgabe als Entwurfsstand zu kennzeichnen.",
+    "Gradtagzahlen und Normaußentemperaturen der Klimaregionen sind Näherungen und vor Veröffentlichung gegen die Werte nach DIN EN 12831 Beiblatt bzw. DWD zu prüfen."
   ],
   "foerderung": {
     "grundsatzEinzelmassnahme": 0.15,
@@ -14,11 +15,11 @@
     "isfpBonusNurUeberschuss": true,
     "hoechstkostenProWohneinheit": 30000,
     "hoechstkostenProWohneinheitMitISFP": 60000,
-    "heizungGrundsatz": 0.30,
-    "heizungKlimageschwindigkeitsbonus": 0.20,
-    "heizungEinkommensbonus": 0.30,
+    "heizungGrundsatz": 0.3,
+    "heizungKlimageschwindigkeitsbonus": 0.2,
+    "heizungEinkommensbonus": 0.3,
     "heizungFamilienbonus": 0.05,
-    "heizungHoechstsatz": 0.70,
+    "heizungHoechstsatz": 0.7,
     "heizungHoechstkostenErsteWohneinheit": 30000,
     "heizungHoechstkostenWeitereWohneinheit": 15000,
     "heizungEinkommensgrenze": 40000
@@ -37,38 +38,212 @@
     "brennwertGasProKubikmeter": 10.0,
     "heizwertOelProLiter": 10.0,
     "spezifischeHeizlast": [
-      { "bisBaujahr": 1918, "wattProQuadratmeter": 180 },
-      { "bisBaujahr": 1948, "wattProQuadratmeter": 170 },
-      { "bisBaujahr": 1957, "wattProQuadratmeter": 170 },
-      { "bisBaujahr": 1968, "wattProQuadratmeter": 160 },
-      { "bisBaujahr": 1978, "wattProQuadratmeter": 150 },
-      { "bisBaujahr": 1983, "wattProQuadratmeter": 115 },
-      { "bisBaujahr": 1994, "wattProQuadratmeter": 95 },
-      { "bisBaujahr": 2001, "wattProQuadratmeter": 80 },
-      { "bisBaujahr": 2009, "wattProQuadratmeter": 70 },
-      { "bisBaujahr": 2015, "wattProQuadratmeter": 55 },
-      { "bisBaujahr": 2100, "wattProQuadratmeter": 45 }
+      {
+        "bisBaujahr": 1918,
+        "wattProQuadratmeter": 180
+      },
+      {
+        "bisBaujahr": 1948,
+        "wattProQuadratmeter": 170
+      },
+      {
+        "bisBaujahr": 1957,
+        "wattProQuadratmeter": 170
+      },
+      {
+        "bisBaujahr": 1968,
+        "wattProQuadratmeter": 160
+      },
+      {
+        "bisBaujahr": 1978,
+        "wattProQuadratmeter": 150
+      },
+      {
+        "bisBaujahr": 1983,
+        "wattProQuadratmeter": 115
+      },
+      {
+        "bisBaujahr": 1994,
+        "wattProQuadratmeter": 95
+      },
+      {
+        "bisBaujahr": 2001,
+        "wattProQuadratmeter": 80
+      },
+      {
+        "bisBaujahr": 2009,
+        "wattProQuadratmeter": 70
+      },
+      {
+        "bisBaujahr": 2015,
+        "wattProQuadratmeter": 55
+      },
+      {
+        "bisBaujahr": 2100,
+        "wattProQuadratmeter": 45
+      }
     ]
   },
   "co2Stufen": [
-    { "abKilogrammProQuadratmeter": 52, "vermieteranteil": 0.95 },
-    { "abKilogrammProQuadratmeter": 47, "vermieteranteil": 0.80 },
-    { "abKilogrammProQuadratmeter": 42, "vermieteranteil": 0.70 },
-    { "abKilogrammProQuadratmeter": 37, "vermieteranteil": 0.60 },
-    { "abKilogrammProQuadratmeter": 32, "vermieteranteil": 0.50 },
-    { "abKilogrammProQuadratmeter": 27, "vermieteranteil": 0.40 },
-    { "abKilogrammProQuadratmeter": 22, "vermieteranteil": 0.30 },
-    { "abKilogrammProQuadratmeter": 17, "vermieteranteil": 0.20 },
-    { "abKilogrammProQuadratmeter": 12, "vermieteranteil": 0.10 },
-    { "abKilogrammProQuadratmeter": 0, "vermieteranteil": 0.00 }
+    {
+      "abKilogrammProQuadratmeter": 52,
+      "vermieteranteil": 0.95
+    },
+    {
+      "abKilogrammProQuadratmeter": 47,
+      "vermieteranteil": 0.8
+    },
+    {
+      "abKilogrammProQuadratmeter": 42,
+      "vermieteranteil": 0.7
+    },
+    {
+      "abKilogrammProQuadratmeter": 37,
+      "vermieteranteil": 0.6
+    },
+    {
+      "abKilogrammProQuadratmeter": 32,
+      "vermieteranteil": 0.5
+    },
+    {
+      "abKilogrammProQuadratmeter": 27,
+      "vermieteranteil": 0.4
+    },
+    {
+      "abKilogrammProQuadratmeter": 22,
+      "vermieteranteil": 0.3
+    },
+    {
+      "abKilogrammProQuadratmeter": 17,
+      "vermieteranteil": 0.2
+    },
+    {
+      "abKilogrammProQuadratmeter": 12,
+      "vermieteranteil": 0.1
+    },
+    {
+      "abKilogrammProQuadratmeter": 0,
+      "vermieteranteil": 0.0
+    }
   ],
   "gebaeude": {
-    "bagatellgrenzeAnteil": 0.10,
+    "bagatellgrenzeAnteil": 0.1,
     "verbrauchsausweisMonate": 24,
     "energieausweisGueltigkeitJahre": 10,
     "nichtwohngebaeudeKlasseGStichtag": "2030-01-01",
     "betriebsverbotAlteKesselEntfaellt": true,
     "pflicht65ProzentEntfaellt": true,
     "lueftungskonzeptSchwelle": 0.3333
-  }
+  },
+  "klimaregionen": [
+    {
+      "name": "Bundesweiter Mittelwert",
+      "plzPraefixe": [],
+      "gradtagzahlen": [
+        530,
+        470,
+        410,
+        280,
+        150,
+        55,
+        25,
+        30,
+        95,
+        235,
+        370,
+        480
+      ],
+      "normaussentemperatur": -12
+    },
+    {
+      "name": "Nordwesten, küstennah",
+      "plzPraefixe": [
+        "2"
+      ],
+      "gradtagzahlen": [
+        500,
+        450,
+        395,
+        270,
+        145,
+        55,
+        25,
+        30,
+        90,
+        225,
+        355,
+        455
+      ],
+      "normaussentemperatur": -10
+    },
+    {
+      "name": "Westliches Binnenland",
+      "plzPraefixe": [
+        "3",
+        "4",
+        "5",
+        "6"
+      ],
+      "gradtagzahlen": [
+        525,
+        465,
+        405,
+        280,
+        150,
+        55,
+        25,
+        30,
+        95,
+        235,
+        365,
+        475
+      ],
+      "normaussentemperatur": -12
+    },
+    {
+      "name": "Ostdeutsches Binnenland",
+      "plzPraefixe": [
+        "0",
+        "1"
+      ],
+      "gradtagzahlen": [
+        560,
+        495,
+        425,
+        285,
+        155,
+        55,
+        25,
+        30,
+        100,
+        245,
+        385,
+        505
+      ],
+      "normaussentemperatur": -14
+    },
+    {
+      "name": "Süddeutschland und Höhenlagen",
+      "plzPraefixe": [
+        "7",
+        "8",
+        "9"
+      ],
+      "gradtagzahlen": [
+        570,
+        505,
+        440,
+        300,
+        170,
+        65,
+        30,
+        35,
+        110,
+        260,
+        395,
+        515
+      ],
+      "normaussentemperatur": -14
+    }
+  ]
 }

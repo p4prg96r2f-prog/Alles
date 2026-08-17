@@ -17,13 +17,32 @@ struct HeizlastAnsicht: View {
     @State private var pdf: URL?
 
     enum Weg: String, CaseIterable {
-        case verbrauch = "Aus dem Verbrauch"
+        case signatur = "Aus Ihren Ablesungen"
+        case verbrauch = "Aus dem Jahresverbrauch"
         case gebaeude = "Aus wenigen Fragen"
+    }
+
+    /// Steht nur zur Wahl, wenn genug monatliche Ablesungen vorliegen.
+    private var signatur: Energiesignatur? {
+        zustand.energiesignatur(kesselart: kesselart)
+    }
+
+    private var verfuegbareWege: [Weg] {
+        signatur == nil ? [.verbrauch, .gebaeude] : Weg.allCases
     }
 
     private var ergebnis: Heizlastergebnis? {
         guard let gebaeude = zustand.gebaeude else { return nil }
         switch weg {
+        case .signatur:
+            guard let signatur else { return nil }
+            return Heizlastergebnis(
+                spanne: signatur.heizlast,
+                verfahren: .ausVerbrauch,
+                annahmen: signatur.annahmen,
+                regelVersion: zustand.regeln.version,
+                vorbehalt: Heizlastrechner.vorbehalt
+            )
         case .gebaeude:
             return zustand.heizlastrechner.ausGebaeudedaten(gebaeude)
         case .verbrauch:
@@ -43,11 +62,15 @@ struct HeizlastAnsicht: View {
         ScrollView {
             VStack(alignment: .leading, spacing: Gestaltung.Abstand.weit) {
                 Picker("Verfahren", selection: $weg) {
-                    ForEach(Weg.allCases, id: \.self) { Text($0.rawValue).tag($0) }
+                    ForEach(verfuegbareWege, id: \.self) { Text($0.rawValue).tag($0) }
                 }
                 .pickerStyle(.segmented)
 
-                if weg == .verbrauch { verbrauchseingabe } else { gebaeudehinweis }
+                switch weg {
+                case .signatur: signaturkarte
+                case .verbrauch: verbrauchseingabe
+                case .gebaeude: gebaeudehinweis
+                }
 
                 if let ergebnis {
                     ergebniskarte(ergebnis)
@@ -74,6 +97,11 @@ struct HeizlastAnsicht: View {
             set: { _ in pdf = nil }
         )) { datei in
             Teilblatt(url: datei.url)
+        }
+        .onAppear {
+            // Liegen genug Ablesungen vor, ist das genaueste Verfahren
+            // voreingestellt – der Nutzer muss nichts auswählen.
+            if signatur != nil { weg = .signatur }
         }
     }
 
@@ -119,6 +147,51 @@ struct HeizlastAnsicht: View {
         }
     }
 
+    /// Das genaueste Verfahren – und das einzige, das gar nichts abfragt.
+    @ViewBuilder
+    private var signaturkarte: some View {
+        if let signatur {
+            Karte {
+                HStack {
+                    Text("Aus Ihren Ablesungen gerechnet")
+                        .stilAbschnittstitel()
+                    Spacer()
+                    Text(signatur.guete.bezeichnung)
+                        .font(.caption.weight(.semibold))
+                        .padding(.horizontal, 8)
+                        .padding(.vertical, 3)
+                        .background(guetefarbe(signatur.guete).opacity(0.18))
+                        .foregroundStyle(guetefarbe(signatur.guete))
+                        .clipShape(Capsule())
+                }
+
+                Text("Aus \(signatur.verwendeteZeitraeume) Ablesezeiträumen und dem Wetter Ihrer Region ergibt sich, wie viel Wärme Ihr Haus je Grad Kälte verliert. Dafür ist keine einzige zusätzliche Angabe nötig.")
+                    .stilNebentext()
+
+                Divider().overlay(Gestaltung.Farbe.trennlinie)
+
+                betragszeile("Wärmeverlust des Hauses",
+                             "\(Formate.zahl(signatur.waermeverlustkoeffizient, stellen: 0)) W/K")
+                betragszeile("Warmwasser und Bereitschaft",
+                             "\(Formate.zahl(signatur.grundverbrauchProJahr, stellen: 0)) kWh im Jahr")
+                betragszeile("Güte der Anpassung",
+                             Formate.prozent(signatur.bestimmtheitsmass))
+
+                if let hinweis = signatur.hinweis {
+                    Hinweisleiste(text: hinweis, symbol: "exclamationmark.triangle")
+                }
+            }
+        }
+    }
+
+    private func guetefarbe(_ guete: Energiesignatur.Guete) -> Color {
+        switch guete {
+        case .belastbar: return Gestaltung.Farbe.gruen
+        case .brauchbar: return Gestaltung.Farbe.gelb
+        case .unsicher: return Gestaltung.Farbe.rot
+        }
+    }
+
     private var gebaeudehinweis: some View {
         Karte {
             Text("Gerechnet wird mit Ihren Gebäudeangaben")
@@ -134,7 +207,7 @@ struct HeizlastAnsicht: View {
     /// gerechnet. Zwei stark abweichende Zahlen kommentarlos nebeneinander zu
     /// stellen, wirkt wie ein Fehler – dabei ist die Abweichung eine Aussage.
     private var vergleich: Heizlastrechner.Vergleich? {
-        guard weg == .verbrauch,
+        guard weg != .gebaeude,
               let gebaeude = zustand.gebaeude,
               let ausVerbrauch = ergebnis else { return nil }
         let ausDaten = zustand.heizlastrechner.ausGebaeudedaten(gebaeude)

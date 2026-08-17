@@ -103,6 +103,24 @@ public struct Regelpaket: Codable, Sendable, Equatable {
     public var heizlast: Heizlast
     public var co2Stufen: [CO2Stufe]
     public var gebaeude: GebaeudeRegeln
+    /// Gradtagzahlen und Normaußentemperaturen für die Energiesignatur.
+    public var klimaregionen: [Klimaregion]
+
+    /// Ein älteres Regelpaket ohne Klimadaten bleibt lesbar – es fehlt dann nur
+    /// die Energiesignatur, nicht die ganze App.
+    public init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        version = try c.decode(Int.self, forKey: .version)
+        stand = try c.decode(String.self, forKey: .stand)
+        hinweis = try c.decode(String.self, forKey: .hinweis)
+        zuPruefen = try c.decodeIfPresent([String].self, forKey: .zuPruefen) ?? []
+        foerderung = try c.decode(Foerderung.self, forKey: .foerderung)
+        honorar = try c.decode(Honorar.self, forKey: .honorar)
+        heizlast = try c.decode(Heizlast.self, forKey: .heizlast)
+        co2Stufen = try c.decode([CO2Stufe].self, forKey: .co2Stufen)
+        gebaeude = try c.decode(GebaeudeRegeln.self, forKey: .gebaeude)
+        klimaregionen = try c.decodeIfPresent([Klimaregion].self, forKey: .klimaregionen) ?? []
+    }
 }
 
 // MARK: - Laden

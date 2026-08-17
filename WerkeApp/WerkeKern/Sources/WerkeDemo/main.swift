@@ -148,13 +148,28 @@ if let ausVerbrauch = heizlast.ausVerbrauch(Verbrauchsangabe(
 // MARK: - 7. Zählerstände über zwei Jahre
 
 ueberschrift("7 · Zählerstände über 24 Monate")
+// Die Ablesungen folgen einem echten Gebäude: 210 W/K Wärmeverlust,
+// 4,2 kWh Warmwasser am Tag. Genau das soll die Energiesignatur später
+// aus den Zahlen zurückgewinnen, ohne es zu kennen.
+let regionPB = regeln.klimaregion(fuerPLZ: haus.plz) ?? regeln.klimaregionen[0]
+let wahrerWaermeverlust = 210.0
+let wahreGrundlast = 4.2
+let steigung = wahrerWaermeverlust * 24 / 1000 / regeln.heizlast.kesselnutzungsgradStandard
+
 var stand = 24_781.0
-for monat in 0..<24 {
-    let d = kalender.date(byAdding: .month, value: monat, to: tag(2026, 9))!
-    stand += Double.random(in: 90...260)
-    ablage.ergaenze(Zaehlerstand(art: .gas, wert: stand.rounded(), datum: d), heute: d)
+var ablesetag = tag(2026, 9, 1)
+ablage.ergaenze(Zaehlerstand(art: .gas, wert: stand, datum: ablesetag), heute: ablesetag)
+
+for _ in 0..<24 {
+    let naechster = kalender.date(byAdding: .month, value: 1, to: ablesetag)!
+    let tage = naechster.timeIntervalSince(ablesetag) / 86_400
+    let gradtage = Klimarechnung.gradtagzahl(von: ablesetag, bis: naechster, region: regionPB)
+    let kwh = wahreGrundlast * tage + steigung * gradtage
+    stand += kwh / regeln.heizlast.brennwertGasProKubikmeter
+    ablesetag = naechster
+    ablage.ergaenze(Zaehlerstand(art: .gas, wert: stand.rounded(), datum: ablesetag), heute: ablesetag)
 }
-let stichtag = tag(2028, 8)
+let stichtag = tag(2028, 9)
 zeile("Zusammenhängende Monate", "\(ablage.zusammenhaengendeMonate(bis: stichtag))")
 zeile("Verbrauchsausweis möglich",
       ablage.zusammenhaengendeMonate(bis: stichtag) >= regeln.gebaeude.verbrauchsausweisMonate ? "ja" : "noch nicht")
@@ -166,6 +181,23 @@ for monat in [3, 4, 5] {
     mitLuecke.ergaenze(Zaehlerstand(art: .gas, wert: 1_000, datum: d), heute: d)
 }
 zeile("Nach zwei Monaten Pause", "\(mitLuecke.zusammenhaengendeMonate(bis: tag(2026, 8))) Monate übrig")
+
+// Dieselben Ablesungen liefern nebenbei die beste Heizlastabschätzung, die
+// ohne Vor-Ort-Termin möglich ist – ohne eine einzige zusätzliche Eingabe.
+ueberschrift("7b · Energiesignatur aus denselben Ablesungen")
+if let region = regeln.klimaregion(fuerPLZ: haus.plz),
+   let signatur = heizlast.ausZaehlerstaenden(ablage.zaehlerstaende, region: region) {
+    zeile("Klimaregion", region.name)
+    zeile("Wärmeverlust des Hauses", "\(Formate.zahl(signatur.waermeverlustkoeffizient, stellen: 0)) W/K")
+    zeile("Warmwasser, aus Daten ermittelt", "\(Formate.zahl(signatur.grundverbrauchProJahr, stellen: 0)) kWh im Jahr")
+    zeile("Güte der Anpassung", Formate.prozent(signatur.bestimmtheitsmass))
+    zeile("Heizlast", Formate.kilowattSpanne(signatur.heizlast))
+    zeile("Einstufung", signatur.guete.bezeichnung)
+    if let hinweis = signatur.hinweis { print("  → \(hinweis)") }
+} else {
+    zeile("Energiesignatur", "noch nicht genug Ablesungen")
+}
+
 
 // MARK: - 8. Anforderungsvergleich
 

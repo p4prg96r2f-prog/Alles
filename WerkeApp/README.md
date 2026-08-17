@@ -19,11 +19,12 @@ WerkeApp/
 │   │   ├── RegelpaketEingebettet   Notfallfassung, damit die App nie ohne Regeln dasteht
 │   │   ├── Foerderrechner.swift    Förderung, Honorar, Netto-Ergebnis, Optimierungshinweise
 │   │   ├── Heizlast.swift          Heizlast aus Verbrauch / aus Gebäudedaten, Heizflächen
+│   │   ├── Energiesignatur.swift   Heizlast aus den monatlichen Ablesungen (genauestes Verfahren)
 │   │   ├── GModGPruefung.swift     Anforderungsvergleich + CO₂-Kostenaufteilung
 │   │   ├── Zaehlerablesung.swift   Auswertung erkannter Texte, Plausibilitätsprüfung
 │   │   ├── Formate.swift           Einheitliche Zahlen- und Datumsformate
 │   │   └── Ressourcen/regelpaket.json
-│   └── Tests/WerkeKernTests/       89 Testfälle
+│   └── Tests/WerkeKernTests/       156 Testfälle
 └── App/
     ├── WerkeApp.xcodeproj
     └── WerkeApp/
@@ -56,7 +57,7 @@ open App/WerkeApp.xcodeproj
 ```
 
 `WerkeDemo` läuft den ganzen Ablauf durch – erster Start, Einstieg,
-Förderabschätzung, Optimierungshinweis, Heizlast über beide Wege,
+Förderabschätzung, Optimierungshinweis, Heizlast über alle drei Wege,
 Heizflächenprüfung, 24 Monate Zählerstände, Anforderungsvergleich,
 CO₂-Kosten, Speichern und Löschen – und gibt aus, was ein Mensch dabei zu
 sehen bekäme. Ohne Gerät, ohne Netz.
@@ -134,14 +135,14 @@ zwischen 45 und 70 ist und oft im Keller steht.
   vom In-App-Kauf ausgenommen, ein digitales Abo nicht – diese Komplikation
   braucht der erste Release nicht.
 - **Sanierungsfahrplan mit Phasen** und die drei Warnungen (Antrag vor Auftrag,
-  Reihenfolge, Fristen). Siehe Kapitel 17 des Strategiepapiers.
+  Reihenfolge, Fristen). Siehe Kapitel 18 des Strategiepapiers.
 
 ---
 
 ## Prüfstand
 
 ```
-139 Testfälle, 0 Fehler
+156 Testfälle, 0 Fehler
 ```
 
 **Rechnen:** Grundförderung und Höchstgrenzen, der iSFP-Bonus in seiner neuen
@@ -156,6 +157,11 @@ der nächsten Aufgabe, Zählerstände über 24 Monate, Lücken in der Reihe,
 zukünftig datierte Einträge, mehrere Zählerarten, Mehrfamilienhaus,
 Nichtwohngebäude, Denkmal, Neubau, Grenzwerte von 40 bis 600 m², Speichern und
 Laden, beschädigte Datei, ältere Ablage ohne neue Felder, Löschen.
+
+**Energiesignatur:** gegen künstliche Ablesungen mit **bekanntem**
+Wärmeverlust geprüft – das Verfahren gewinnt 200 W/K auf 3 W/K genau zurück,
+ebenso den Warmwasseranteil. Dazu Zählerwechsel mitten in der Reihe, zu wenige
+Daten, streuende Werte, Gradtagzahlen und die Zuordnung der Klimaregion.
 
 **Darstellung:** Zahlenformate exakt, einschließlich Rundungsübertrag und
 Unabhängigkeit von der Gerätesprache.

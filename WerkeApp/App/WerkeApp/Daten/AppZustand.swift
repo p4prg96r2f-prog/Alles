@@ -36,6 +36,22 @@ final class AppZustand: ObservableObject {
     var co2rechner: CO2Rechner { CO2Rechner(regeln: regeln) }
     var gmodgPruefung: GModGPruefung { GModGPruefung(regeln: regeln) }
 
+    /// Heizlast aus den ohnehin erfassten Zählerständen. Braucht keine einzige
+    /// zusätzliche Eingabe und wird mit jeder Ablesung genauer.
+    func energiesignatur(art: Zaehlerart = .gas, kesselart: Kesselart = .standardkessel) -> Energiesignatur? {
+        guard let region = regeln.klimaregion(fuerPLZ: gebaeude?.plz ?? "") else { return nil }
+        let brennstoff: Brennstoff
+        switch art {
+        case .gas: brennstoff = .gasKubikmeter
+        case .strom, .waerme: brennstoff = .fernwaermeKilowattstunden
+        case .wasser: return nil
+        }
+        return heizlastrechner.ausZaehlerstaenden(
+            ablage.zaehlerstaende, art: art, brennstoff: brennstoff,
+            kesselart: kesselart, region: region
+        )
+    }
+
     // MARK: Die eine nächste Aufgabe
 
     var naechsteAufgabe: Aufgabe {
