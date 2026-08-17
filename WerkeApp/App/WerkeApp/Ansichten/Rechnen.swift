@@ -25,25 +25,12 @@ struct RechnenAnsicht: View {
                     .buttonStyle(.plain)
 
                     NavigationLink {
-                        HeizlastAnsicht()
+                        HeizlastwegeAnsicht()
                     } label: {
                         Werkzeugkachel(
-                            titel: "Heizlast abschätzen",
-                            beschreibung: "Wie viel Kilowatt braucht das Haus? Grundlage für die Frage nach der Wärmepumpe.",
+                            titel: "Heizlast bestimmen",
+                            beschreibung: "Fünf Wege – von fünf Fragen an der Straße bis zur Messung in einer kalten Nacht.",
                             symbol: "thermometer.medium"
-                        )
-                    }
-                    .buttonStyle(.plain)
-
-                    NavigationLink {
-                        RaumaufmassAnsicht()
-                    } label: {
-                        Werkzeugkachel(
-                            titel: "Raumaufmaß",
-                            beschreibung: Raumscan.unterstuetzt
-                                ? "Räume scannen und raumweise Heizlast rechnen – abgeglichen mit Ihren Ablesungen."
-                                : "Räume erfassen und raumweise Heizlast rechnen.",
-                            symbol: "camera.viewfinder"
                         )
                     }
                     .buttonStyle(.plain)

@@ -8,6 +8,8 @@ import WerkeKern
 struct HeizlastAnsicht: View {
 
     @EnvironmentObject private var zustand: AppZustand
+    /// Von der Wegeauswahl vorgegebener Startpunkt.
+    var startweg: Weg?
     @State private var weg: Weg = .gebaeude
     @State private var brennstoff: Brennstoff = .gasKubikmeter
     @State private var kesselart: Kesselart = .standardkessel
@@ -99,9 +101,13 @@ struct HeizlastAnsicht: View {
             Teilblatt(url: datei.url)
         }
         .onAppear {
-            // Liegen genug Ablesungen vor, ist das genaueste Verfahren
-            // voreingestellt – der Nutzer muss nichts auswählen.
-            if signatur != nil { weg = .signatur }
+            // Vorgabe von der Wegeauswahl, sonst das genaueste verfügbare
+            // Verfahren – der Nutzer muss nichts auswählen.
+            if let startweg, verfuegbareWege.contains(startweg) {
+                weg = startweg
+            } else if signatur != nil {
+                weg = .signatur
+            }
         }
     }
 

@@ -24,11 +24,12 @@ WerkeApp/
 │   │   ├── Raumaufmass.swift       Raumweise Rechnung über die Hüllflächen
 │   │   ├── Huellflaechenschaetzung Hüllflächen aus Grundriss und Geschossen
 │   │   ├── Kalibrierung.swift      Aufmaß am gemessenen Wärmeverlust ausrichten
+│   │   ├── Kurzcheck.swift         Heizlast aus fünf Fragen von außen, mit Fehlermodell
 │   │   ├── GModGPruefung.swift     Anforderungsvergleich + CO₂-Kostenaufteilung
 │   │   ├── Zaehlerablesung.swift   Auswertung erkannter Texte, Plausibilitätsprüfung
 │   │   ├── Formate.swift           Einheitliche Zahlen- und Datumsformate
 │   │   └── Ressourcen/regelpaket.json
-│   └── Tests/WerkeKernTests/       203 Testfälle
+│   └── Tests/WerkeKernTests/       236 Testfälle
 └── App/
     ├── WerkeApp.xcodeproj
     └── WerkeApp/
@@ -146,7 +147,7 @@ zwischen 45 und 70 ist und oft im Keller steht.
 ## Prüfstand
 
 ```
-203 Testfälle, 0 Fehler
+236 Testfälle, 0 Fehler
 ```
 
 **Rechnen:** Grundförderung und Höchstgrenzen, der iSFP-Bonus in seiner neuen
@@ -161,6 +162,10 @@ der nächsten Aufgabe, Zählerstände über 24 Monate, Lücken in der Reihe,
 zukünftig datierte Einträge, mehrere Zählerarten, Mehrfamilienhaus,
 Nichtwohngebäude, Denkmal, Neubau, Grenzwerte von 40 bis 600 m², Speichern und
 Laden, beschädigte Datei, ältere Ablage ohne neue Felder, Löschen.
+
+**Kurzcheck:** fünf Fragen von außen, Fehlerfortpflanzung quadratisch geprüft,
+Wandaufbau und Dämmstärke über den Wärmedurchlasswiderstand, Rangfolge der
+nächsten Schritte nach tatsächlichem Informationsgewinn.
 
 **Heizlast, fünf Wege:** Alle verbrauchsgestützten Verfahren sind gegen
 künstliche Daten mit **bekanntem** Wärmeverlust geprüft. Die Energiesignatur

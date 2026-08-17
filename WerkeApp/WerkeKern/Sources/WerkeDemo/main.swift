@@ -304,6 +304,42 @@ if let signaturFuerAbgleich = heizlast.ausZaehlerstaenden(ablage.zaehlerstaende,
     zeile("Gegenprobe ohne Zustände", "Maßstab \(Formate.zahl(gegenprobe.kalibrierung.maszstab, stellen: 2)), angewendet: \(gegenprobe.kalibrierung.angewendet ? "ja" : "nein")")
 }
 
+
+// MARK: - 7e. Kurzcheck von außen
+
+ueberschrift("7e · Kurzcheck von außen – fünf Fragen")
+var kurz = Kurzcheck(
+    seitenlaengeSchritte: 14,
+    geschosse: .zweiVollgeschosse,
+    anbausituation: .freistehend,
+    epoche: .nachkrieg,
+    fassadenbild: .daemmungErkennbar
+)
+func zeigeKurzcheck(_ titel: String, _ k: Kurzcheck) {
+    let e = huellrechner.berechne(kurzcheck: k, normaussentemperatur: nachtRegion.normaussentemperatur)
+    zeile(titel, "\(Formate.kilowattSpanne(e.heizlast))  (± \(Formate.zahl(e.unsicherheit * 100, stellen: 0)) %)")
+}
+
+zeigeKurzcheck("Nach fünf Fragen", kurz)
+kurz.wandaufbau = .zweischaligMitLuftschicht
+zeigeKurzcheck("+ Wandaufbau (Klinker)", kurz)
+kurz.daemmstaerkeZentimeter = 12
+zeigeKurzcheck("+ Dämmstärke 12 cm", kurz)
+kurz.grundflaecheDirekt = 82
+zeigeKurzcheck("+ Grundfläche genau", kurz)
+kurz.dachform = .sattel
+kurz.kellerlage = .unbeheizterKeller
+zeigeKurzcheck("+ Dach und Keller", kurz)
+kurz.fensteranteilGezaehlt = 22
+zeigeKurzcheck("+ Fenster gezählt", kurz)
+
+print()
+let kurzErgebnis = huellrechner.berechne(kurzcheck: kurz, normaussentemperatur: nachtRegion.normaussentemperatur)
+print("  Was jetzt noch am meisten bringt:")
+for verfeinerung in kurzErgebnis.verfeinerungen where !verfeinerung.erledigt && verfeinerung.verengung > 0.005 {
+    zeile("  \(verfeinerung.titel)", "−\(Formate.zahl(verfeinerung.verengung * 100, stellen: 0)) Punkte (\(verfeinerung.aufwand.bezeichnung))")
+}
+
 // MARK: - 8. Anforderungsvergleich
 
 ueberschrift("8 · Was gilt für dieses Haus?")

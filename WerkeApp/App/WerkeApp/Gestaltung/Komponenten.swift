@@ -301,3 +301,101 @@ struct Fortschrittsbalken: View {
         .accessibilityValue("\(Int(anteil * 100)) Prozent")
     }
 }
+
+// MARK: - Spannenbalken
+
+/// Zeigt eine Ergebnisspanne als Band auf einer Skala.
+///
+/// Der eigentliche Zweck ist nicht die Anzeige, sondern die Rückmeldung: Wird
+/// eine Angabe ergänzt, schrumpft das Band sichtbar. Das macht aus einer
+/// lästigen Nachfrage eine Belohnung – Genauigkeit wird verdient, nicht
+/// eingefordert.
+struct Spannenbalken: View {
+
+    let spanne: Spanne
+    let skala: ClosedRange<Double>
+    let einheit: String
+    var nachkommastellen: Int = 1
+
+    private func anteil(_ wert: Double) -> Double {
+        let breite = skala.upperBound - skala.lowerBound
+        guard breite > 0 else { return 0 }
+        return min(1, max(0, (wert - skala.lowerBound) / breite))
+    }
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: Gestaltung.Abstand.eng) {
+            GeometryReader { geo in
+                let breite = geo.size.width
+                let links = anteil(spanne.unten) * breite
+                let rechts = anteil(spanne.oben) * breite
+                let bandbreite = max(6, rechts - links)
+
+                ZStack(alignment: .leading) {
+                    Capsule()
+                        .fill(Gestaltung.Farbe.trennlinie)
+                        .frame(height: 10)
+
+                    Capsule()
+                        .fill(
+                            LinearGradient(
+                                colors: [
+                                    Gestaltung.Farbe.marke.opacity(0.55),
+                                    Gestaltung.Farbe.marke
+                                ],
+                                startPoint: .leading, endPoint: .trailing
+                            )
+                        )
+                        .frame(width: bandbreite, height: 10)
+                        .offset(x: links)
+
+                    // Mittelwert als feine Marke
+                    Capsule()
+                        .fill(.white)
+                        .frame(width: 2, height: 16)
+                        .offset(x: anteil(spanne.mitte) * breite - 1)
+                        .shadow(radius: 1)
+                }
+                .frame(height: 20)
+            }
+            .frame(height: 20)
+            .animation(.snappy(duration: 0.35), value: spanne)
+
+            HStack {
+                Text(Formate.zahl(skala.lowerBound, stellen: 0))
+                Spacer()
+                Text("\(Formate.zahl(spanne.unten, stellen: nachkommastellen)) – \(Formate.zahl(spanne.oben, stellen: nachkommastellen)) \(einheit)")
+                    .font(.caption.weight(.semibold).monospacedDigit())
+                    .foregroundStyle(Gestaltung.Farbe.marke)
+                Spacer()
+                Text(Formate.zahl(skala.upperBound, stellen: 0))
+            }
+            .font(.caption2.monospacedDigit())
+            .foregroundStyle(Gestaltung.Farbe.textLeise)
+        }
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel("Ergebnisspanne")
+        .accessibilityValue("\(Formate.zahl(spanne.unten, stellen: nachkommastellen)) bis \(Formate.zahl(spanne.oben, stellen: nachkommastellen)) \(einheit)")
+    }
+}
+
+// MARK: - Schrittanzeige
+
+/// Nummerierter Fortschritt für geführte Strecken.
+struct Schrittpunkte: View {
+    let aktuell: Int
+    let gesamt: Int
+
+    var body: some View {
+        HStack(spacing: 6) {
+            ForEach(0..<gesamt, id: \.self) { index in
+                Capsule()
+                    .fill(index <= aktuell ? Gestaltung.Farbe.marke : Gestaltung.Farbe.trennlinie)
+                    .frame(height: 5)
+            }
+        }
+        .animation(.snappy, value: aktuell)
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel("Frage \(aktuell + 1) von \(gesamt)")
+    }
+}
