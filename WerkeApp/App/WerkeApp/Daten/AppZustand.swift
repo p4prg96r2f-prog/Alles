@@ -122,6 +122,14 @@ final class AppZustand: ObservableObject {
         )
     }
 
+    /// Die zuletzt gerechnete Förderung – oder nichts, wenn noch keine
+    /// Maßnahme gewählt ist. Für den Überblick auf dem Startbildschirm.
+    var foerderueberblick: Double? {
+        guard let gebaeude, !ablage.massnahmen.isEmpty else { return nil }
+        let ergebnis = foerderrechner.berechne(gebaeude: gebaeude, massnahmen: ablage.massnahmen)
+        return ergebnis.zuschussGesamt > 0 ? ergebnis.zuschussGesamt : nil
+    }
+
     // MARK: Die eine nächste Aufgabe
 
     var naechsteAufgabe: Aufgabe {

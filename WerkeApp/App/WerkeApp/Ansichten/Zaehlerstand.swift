@@ -12,7 +12,10 @@ struct ZaehlerstandAnsicht: View {
     @EnvironmentObject private var zustand: AppZustand
     @Environment(\.dismiss) private var schliessen
 
-    @State private var art: Zaehlerart = .gas
+    /// Vorgewählt ist der Zähler, der die Heizung misst. Fest auf Gas zu
+    /// stehen hieß für jeden Wärmepumpenbesitzer: Er erfasst brav jeden Monat,
+    /// und die Energiesignatur findet trotzdem nie Daten.
+    @State private var art: Zaehlerart?
     @State private var wertText = ""
     @State private var datum = Date()
     @State private var zeigeKamera = false
@@ -23,25 +26,47 @@ struct ZaehlerstandAnsicht: View {
         Double(wertText.replacingOccurrences(of: ",", with: "."))
     }
 
+    /// Die tatsächlich gewählte Art – vor dem ersten Erscheinen die des Hauses.
+    private var zaehlerart: Zaehlerart { art ?? zustand.heizungszaehler }
+
     private var letzterWert: Zaehlerstand? {
-        zustand.letzterStand(art: art)
+        zustand.letzterStand(art: zaehlerart)
+    }
+
+    /// Was seit der letzten Ablesung verbraucht wurde – die Zahl, für die
+    /// jemand überhaupt abliest. Bisher stand hier nur der alte Zählerstand,
+    /// und den Unterschied musste man im Kopf bilden.
+    private var verbrauchSeitLetzter: (menge: Double, tage: Double, proTag: Double)? {
+        guard let wert, let letzter = letzterWert else { return nil }
+        let menge = wert - letzter.wert
+        let tage = datum.timeIntervalSince(letzter.datum) / 86_400
+        guard menge > 0, tage >= 1 else { return nil }
+        return (menge, tage, menge / tage)
     }
 
     var body: some View {
         NavigationStack {
             Form {
                 Section {
-                    Picker("Zähler", selection: $art) {
+                    Picker("Zähler", selection: Binding(
+                        get: { zaehlerart },
+                        set: { art = $0 }
+                    )) {
                         ForEach(Zaehlerart.allCases, id: \.self) { Text($0.bezeichnung).tag($0) }
                     }
                     .pickerStyle(.segmented)
+                } footer: {
+                    if art == nil {
+                        Text("Vorgewählt nach Ihrer Heizung. Für die Heizlast aus dem Verbrauch zählt genau dieser Zähler.")
+                    }
                 }
 
                 Section {
                     Button {
                         zeigeKamera = true
                     } label: {
-                        Label("Zähler abfotografieren", systemImage: "camera.fill")
+                        Label(Kamera.vorhanden ? "Zähler abfotografieren" : "Foto aus der Mediathek wählen",
+                              systemImage: Kamera.vorhanden ? "camera.fill" : "photo.on.rectangle")
                             .font(.headline)
                             .frame(maxWidth: .infinity, minHeight: Gestaltung.mindestTippziel)
                     }
@@ -57,7 +82,7 @@ struct ZaehlerstandAnsicht: View {
                         TextField("Zählerstand", text: $wertText)
                             .keyboardType(.decimalPad)
                             .font(.title2.monospacedDigit())
-                        Text(art.einheit)
+                        Text(zaehlerart.einheit)
                             .foregroundStyle(Gestaltung.Farbe.textLeise)
                     }
                     DatePicker("Ablesedatum", selection: $datum, displayedComponents: .date)
@@ -65,7 +90,26 @@ struct ZaehlerstandAnsicht: View {
                     Text(erkannt ? "Erkannt – bitte prüfen" : "Wert")
                 } footer: {
                     if let letzter = letzterWert {
-                        Text("Letzter Wert: \(letzter.wert, specifier: "%.1f") \(art.einheit) vom \(datumKurz(letzter.datum))")
+                        Text("Letzter Wert: \(letzter.wert, specifier: "%.1f") \(zaehlerart.einheit) vom \(datumKurz(letzter.datum))")
+                    }
+                }
+
+                if let verbrauch = verbrauchSeitLetzter {
+                    Section("Seit der letzten Ablesung") {
+                        HStack {
+                            Text("Verbrauch")
+                            Spacer()
+                            Text("\(Formate.zahl(verbrauch.menge, stellen: 1)) \(zaehlerart.einheit)")
+                                .stilBetrag()
+                                .foregroundStyle(Gestaltung.Farbe.marke)
+                        }
+                        HStack {
+                            Text("Zeitraum")
+                            Spacer()
+                            Text("\(Formate.zahl(verbrauch.tage, stellen: 0)) Tage · \(Formate.zahl(verbrauch.proTag, stellen: 2)) \(zaehlerart.einheit) am Tag")
+                                .font(.footnote.monospacedDigit())
+                                .foregroundStyle(Gestaltung.Farbe.textLeise)
+                        }
                     }
                 }
 
@@ -125,7 +169,7 @@ struct ZaehlerstandAnsicht: View {
 
     private func uebernehmen() {
         guard let wert else { return }
-        zustand.ergaenzeZaehlerstand(Zaehlerstand(art: art, wert: wert, datum: datum))
+        zustand.ergaenzeZaehlerstand(Zaehlerstand(art: zaehlerart, wert: wert, datum: datum))
         schliessen()
     }
 
@@ -143,12 +187,18 @@ struct ZaehlerstandAnsicht: View {
 /// Sonderfälle. Für einen Zählerstand ist das genug.
 struct Kamera: UIViewControllerRepresentable {
 
+    /// Im Simulator und auf Geräten ohne Kamera fällt die Auswahl auf die
+    /// Mediathek zurück. Dann darf der Knopf nicht „abfotografieren“ heißen.
+    static var vorhanden: Bool {
+        UIImagePickerController.isSourceTypeAvailable(.camera)
+    }
+
     let fertig: (UIImage) -> Void
     @Environment(\.dismiss) private var schliessen
 
     func makeUIViewController(context: Context) -> UIImagePickerController {
         let auswahl = UIImagePickerController()
-        auswahl.sourceType = UIImagePickerController.isSourceTypeAvailable(.camera) ? .camera : .photoLibrary
+        auswahl.sourceType = Kamera.vorhanden ? .camera : .photoLibrary
         auswahl.delegate = context.coordinator
         return auswahl
     }

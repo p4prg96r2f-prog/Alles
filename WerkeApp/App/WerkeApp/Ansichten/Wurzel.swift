@@ -14,6 +14,10 @@ struct Wurzel: View {
         case heute, haus, rechnen
     }
 
+    private var offeneAufgabe: Bool {
+        zustand.naechsteAufgabe.art != .nichtsZuTun
+    }
+
     var body: some View {
         if zustand.brauchtEinstieg {
             Einstieg()
@@ -25,6 +29,10 @@ struct Wurzel: View {
                 HeuteAnsicht(bereich: $bereich)
                     .tabItem { Label("Heute", systemImage: "sun.horizon") }
                     .tag(Bereich.heute)
+                    // Eine offene Aufgabe muss von jedem Bereich aus sichtbar
+                    // sein. Sonst hängt die App davon ab, dass jemand von sich
+                    // aus auf „Heute“ zurückgeht.
+                    .badge(offeneAufgabe ? 1 : 0)
 
                 MeinHausAnsicht()
                     .tabItem { Label("Mein Haus", systemImage: "house") }

@@ -8,6 +8,10 @@ struct Einstieg: View {
     @EnvironmentObject private var zustand: AppZustand
     @State private var schritt = 0
     @State private var gebaeude = Gebaeude()
+    /// Die Heizungsart wird nicht vorbelegt. Ein Vorgabewert, den niemand
+    /// gewählt hat, wandert unbemerkt in jede spätere Rechnung – und die
+    /// Zählerart, die Heizlast und die Förderung hängen daran.
+    @State private var heizungGewaehlt = false
 
     private let letzterSchritt = 3
 
@@ -124,8 +128,36 @@ struct Einstieg: View {
                 }
             }
 
+            // Sofortige Gegenleistung für eine Angabe, die sonst nur nach
+            // Neugier aussieht: Die Postleitzahl bestimmt die
+            // Auslegungstemperatur und damit jede Heizlast in dieser App.
+            if let region = klimaregion {
+                Karte {
+                    HStack(alignment: .top, spacing: Gestaltung.Abstand.normal) {
+                        Image(systemName: "thermometer.snowflake")
+                            .font(.title3)
+                            .foregroundStyle(Gestaltung.Farbe.marke)
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text(region.name)
+                                .font(.subheadline.weight(.semibold))
+                            Text("Ausgelegt wird auf \(Formate.zahl(region.normaussentemperatur, stellen: 0)) °C – das ist die kälteste Temperatur, die Ihre Heizung schaffen muss.")
+                                .stilNebentext()
+                                .fixedSize(horizontal: false, vertical: true)
+                        }
+                    }
+                }
+                .transition(.opacity)
+            }
+
             Hinweisleiste(text: "Die Anschrift bleibt auf Ihrem Gerät. Sie hilft später beim Energieausweis und bei der Frage, ob in Ihrer Straße ein Wärmenetz geplant ist.")
         }
+        .animation(.snappy, value: gebaeude.plz)
+    }
+
+    /// Erst ab zwei Ziffern, sonst springt die Anzeige bei jedem Tastendruck.
+    private var klimaregion: Klimaregion? {
+        guard gebaeude.plz.count >= 2 else { return nil }
+        return zustand.regeln.klimaregion(fuerPLZ: gebaeude.plz)
     }
 
     private var schrittGebaeude: some View {
@@ -203,6 +235,29 @@ struct Einstieg: View {
             Slider(value: $gebaeude.wohnflaeche, in: 40...600, step: 5)
                 .accessibilityValue("\(Int(gebaeude.wohnflaeche)) Quadratmeter")
 
+            // Ein Schieber über 113 Stufen trifft niemand genau. Die vier
+            // üblichen Größen sind ein Tipp entfernt, der Rest bleibt möglich.
+            HStack(spacing: Gestaltung.Abstand.eng) {
+                ForEach([100.0, 130.0, 160.0, 200.0], id: \.self) { wert in
+                    Button {
+                        withAnimation(.snappy) { gebaeude.wohnflaeche = wert }
+                    } label: {
+                        Text("\(Int(wert))")
+                            .font(.footnote.weight(gebaeude.wohnflaeche == wert ? .semibold : .regular))
+                            .monospacedDigit()
+                            .frame(maxWidth: .infinity, minHeight: 36)
+                            .background(
+                                Capsule().fill(gebaeude.wohnflaeche == wert
+                                               ? Gestaltung.Farbe.markeGedeckt : Gestaltung.Farbe.flaeche)
+                            )
+                            .foregroundStyle(gebaeude.wohnflaeche == wert
+                                             ? Gestaltung.Farbe.marke : Gestaltung.Farbe.textLeise)
+                    }
+                    .buttonStyle(.plain)
+                    .accessibilityLabel("\(Int(wert)) Quadratmeter")
+                }
+            }
+
             if gebaeude.typ == .mehrfamilienhaus {
                 Stepper("Wohneinheiten: \(gebaeude.wohneinheiten)",
                         value: $gebaeude.wohneinheiten, in: 2...60)
@@ -221,14 +276,17 @@ struct Einstieg: View {
                     Auswahlkachel(
                         titel: art.bezeichnung,
                         symbol: symbol(fuer: art),
-                        ausgewaehlt: gebaeude.heizungsart == art
+                        ausgewaehlt: heizungGewaehlt && gebaeude.heizungsart == art
                     ) {
                         gebaeude.heizungsart = art
+                        heizungGewaehlt = true
                     }
                 }
             }
 
-            Hinweisleiste(text: "Danach sehen Sie sofort eine erste Einschätzung. Alles Weitere können Sie später ergänzen – jede Angabe macht das Ergebnis genauer.")
+            Hinweisleiste(text: heizungGewaehlt
+                ? "Danach sehen Sie sofort eine erste Einschätzung. Alles Weitere können Sie später ergänzen – jede Angabe macht das Ergebnis genauer."
+                : "Bitte wählen Sie eine Heizung. Davon hängt ab, welcher Zähler zählt und welche Förderung in Frage kommt. „Weiß ich nicht“ ist eine gültige Antwort.")
         }
     }
 
@@ -258,6 +316,7 @@ struct Einstieg: View {
     private var schrittGueltig: Bool {
         switch schritt {
         case 1: return !gebaeude.plz.isEmpty || !gebaeude.strasse.isEmpty
+        case letzterSchritt: return heizungGewaehlt
         default: return true
         }
     }

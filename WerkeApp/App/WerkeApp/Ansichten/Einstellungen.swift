@@ -47,15 +47,34 @@ struct EinstellungenAnsicht: View {
             }
 
             Section {
-                Link(destination: URL(string: "https://werk-e.de/datenschutz/")!) {
-                    Label("Datenschutzerklärung", systemImage: "hand.raised")
+                if let url = URL(string: "\(Kontakt.netzseite)/datenschutz/") {
+                    Link(destination: url) {
+                        Label("Datenschutzerklärung", systemImage: "hand.raised")
+                    }
                 }
-                Link(destination: URL(string: "https://werk-e.de/impressum/")!) {
-                    Label("Impressum", systemImage: "info.circle")
+                if let url = URL(string: "\(Kontakt.netzseite)/impressum/") {
+                    Link(destination: url) {
+                        Label("Impressum", systemImage: "info.circle")
+                    }
                 }
-                Link(destination: URL(string: "https://werk-e.de/kontakt/")!) {
-                    Label("Kontakt zu WERK.E", systemImage: "envelope")
+                if let url = Kontakt.telefonURL {
+                    Link(destination: url) {
+                        Label("WERK.E anrufen: \(Kontakt.telefonLesbar)", systemImage: "phone")
+                    }
                 }
+            } header: {
+                Text("WERK.E")
+            }
+
+            // Ohne Fassungsnummer ist jede Fehlermeldung eines Nutzers wertlos:
+            // Man weiß nicht, welchen Stand er vor sich hat.
+            Section {
+                zeile("App-Fassung", Programmfassung.lesbar)
+                zeile("Regelpaket", "Fassung \(zustand.regeln.version), \(Formate.datumLesbar(zustand.regeln.stand))")
+            } header: {
+                Text("Über diese App")
+            } footer: {
+                Text("Diese beiden Angaben helfen bei jeder Rückfrage weiter – bitte nennen Sie sie, wenn Sie sich melden.")
             }
 
             Section {

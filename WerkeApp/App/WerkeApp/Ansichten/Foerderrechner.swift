@@ -9,6 +9,8 @@ struct FoerderrechnerAnsicht: View {
     @State private var kosten: [Massnahmenart: Double] = [:]
     @State private var haushalt = Haushalt()
     @State private var zeigeHaushalt = false
+    /// Freie Betragseingabe je Maßnahme, parallel zum Schieber.
+    @State private var betragstexte: [Massnahmenart: String] = [:]
 
     private var massnahmen: [Massnahme] {
         massnahmen(aus: ausgewaehlt, kosten: kosten)
@@ -35,7 +37,7 @@ struct FoerderrechnerAnsicht: View {
             VStack(alignment: .leading, spacing: Gestaltung.Abstand.weit) {
                 auswahl
                 if !ausgewaehlt.isEmpty { kostenbereich }
-                if let ergebnis { ErgebnisKarte(ergebnis: ergebnis) }
+                if let ergebnis { ErgebnisKarte(ergebnis: ergebnis) } else { aussicht }
             }
             .padding(Gestaltung.Abstand.normal)
         }
@@ -105,6 +107,27 @@ struct FoerderrechnerAnsicht: View {
         }
     }
 
+    /// Was passiert, wenn nichts ausgewählt ist.
+    ///
+    /// Ein leerer Bildschirm beantwortet die Frage nicht, warum jemand hier
+    /// überhaupt etwas antippen sollte. Die Größenordnung tut das.
+    private var aussicht: some View {
+        Karte {
+            HStack(alignment: .top, spacing: Gestaltung.Abstand.normal) {
+                Image(systemName: "sparkles")
+                    .font(.title2)
+                    .foregroundStyle(Gestaltung.Farbe.marke)
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("Noch nichts ausgewählt")
+                        .font(.headline)
+                    Text("Für ein Haus Ihrer Größe liegen typische Zuschüsse bei mehreren tausend Euro je Maßnahme. Tippen Sie oben an, was in Frage kommt – das Ergebnis erscheint sofort.")
+                        .stilNebentext()
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+            }
+        }
+    }
+
     // MARK: Kosten
 
     private var kostenbereich: some View {
@@ -137,6 +160,9 @@ struct FoerderrechnerAnsicht: View {
                                 var neueKosten = kosten
                                 neueKosten[art] = neu
                                 kosten = neueKosten
+                                // Sonst stünde im Feld weiter ein Betrag, den
+                                // der Schieber gerade überschrieben hat.
+                                betragstexte[art] = nil
                                 zustand.setzeMassnahmen(massnahmen(aus: ausgewaehlt, kosten: neueKosten))
                             }
                         ),
@@ -145,6 +171,34 @@ struct FoerderrechnerAnsicht: View {
                     )
                     .accessibilityLabel("Kosten \(art.bezeichnung)")
                     .accessibilityValue(Formate.euro(kosten[art] ?? 0))
+
+                    // Ein Angebot lautet auf 34.700 €, nicht auf 34.500. Der
+                    // Schieber springt in 500er-Schritten – wer den echten
+                    // Betrag hat, soll ihn eintragen können.
+                    HStack {
+                        Text("Genauer Betrag")
+                            .font(.footnote)
+                            .foregroundStyle(Gestaltung.Farbe.textLeise)
+                        Spacer()
+                        TextField("z. B. 34700", text: Binding(
+                            get: { betragstexte[art] ?? "" },
+                            set: { neu in
+                                betragstexte[art] = neu
+                                guard let wert = Double(neu.filter(\.isNumber)), wert > 0 else { return }
+                                var neueKosten = kosten
+                                neueKosten[art] = wert
+                                kosten = neueKosten
+                                zustand.setzeMassnahmen(massnahmen(aus: ausgewaehlt, kosten: neueKosten))
+                            }
+                        ))
+                        .keyboardType(.numberPad)
+                        .multilineTextAlignment(.trailing)
+                        .font(.footnote.monospacedDigit())
+                        .frame(width: 110)
+                        Text("€")
+                            .font(.footnote)
+                            .foregroundStyle(Gestaltung.Farbe.textLeise)
+                    }
                 }
                 .padding(Gestaltung.Abstand.normal)
                 .background(Gestaltung.Farbe.flaeche)

@@ -48,12 +48,25 @@ struct AnforderungenAnsicht: View {
                     .background(Gestaltung.Farbe.flaeche)
                     .clipShape(RoundedRectangle(cornerRadius: Gestaltung.Radius.normal, style: .continuous))
 
-                    Hauptknopf(titel: "Mit WERK.E besprechen", symbol: "phone") {
-                        if let url = URL(string: "tel:052514029291") {
-                            UIApplication.shared.open(url)
+                    // Auf einem iPad gibt es keine Telefonie. Ein Knopf, der
+                    // dort nichts tut, ist schlimmer als keiner – deshalb wird
+                    // dann die Nummer zum Mitschreiben gezeigt.
+                    if let nummer = Kontakt.telefonURL, UIApplication.shared.canOpenURL(nummer) {
+                        Hauptknopf(titel: "Mit WERK.E besprechen", symbol: "phone") {
+                            UIApplication.shared.open(nummer)
                         }
+                        .padding(.top, Gestaltung.Abstand.eng)
+                    } else {
+                        Karte {
+                            Text("Mit WERK.E besprechen")
+                                .stilAbschnittstitel()
+                            Text(Kontakt.telefonLesbar)
+                                .font(.title3.weight(.semibold).monospacedDigit())
+                                .foregroundStyle(Gestaltung.Farbe.marke)
+                                .textSelection(.enabled)
+                        }
+                        .padding(.top, Gestaltung.Abstand.eng)
                     }
-                    .padding(.top, Gestaltung.Abstand.eng)
                 }
             }
             .padding(Gestaltung.Abstand.normal)

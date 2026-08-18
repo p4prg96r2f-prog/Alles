@@ -11,12 +11,20 @@ struct HeuteAnsicht: View {
     @Binding var bereich: Wurzel.Bereich
     @State private var zeigeZaehler = false
     @State private var zeigeRechner = false
+    @State private var alleZeigen = false
+
+    private let sichtbareEintraege = 6
+
+    private var gezeigterVerlauf: [Verlaufseintrag] {
+        alleZeigen ? zustand.verlauf : Array(zustand.verlauf.prefix(sichtbareEintraege))
+    }
 
     var body: some View {
         NavigationStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: Gestaltung.Abstand.weit) {
                     aufgabenkarte
+                    if zustand.gebaeude != nil { statusstreifen }
                     if !zustand.verlauf.isEmpty { verlauf }
                 }
                 .padding(Gestaltung.Abstand.normal)
@@ -59,7 +67,10 @@ struct HeuteAnsicht: View {
                 .foregroundStyle(Gestaltung.Farbe.textLeise)
                 .fixedSize(horizontal: false, vertical: true)
 
-            if zustand.monateMitZaehlerstand > 0 {
+            // Der Balken gehört zur Ableseaufgabe, nicht unter jede Aufgabe.
+            // Unter „Erste Förderabschätzung machen“ beantwortete er eine
+            // Frage, die dort niemand gestellt hat.
+            if aufgabe.art == .zaehlerstand, zustand.monateMitZaehlerstand > 0 {
                 Fortschrittsbalken(
                     anteil: Double(zustand.monateMitZaehlerstand) / Double(zustand.regeln.gebaeude.verbrauchsausweisMonate),
                     beschriftung: "\(zustand.monateMitZaehlerstand) von \(zustand.regeln.gebaeude.verbrauchsausweisMonate) Monaten erfasst"
@@ -85,15 +96,64 @@ struct HeuteAnsicht: View {
         }
     }
 
-    // MARK: Verlauf
+    // MARK: Wo stehe ich?
 
-    private var verlauf: some View {
-        VStack(alignment: .leading, spacing: Gestaltung.Abstand.normal) {
-            Text("Zuletzt")
+    /// Drei Zahlen, an denen ein Rückkehrer sofort sieht, wo er steht.
+    ///
+    /// Die Aufgabenkarte sagt, was als Nächstes zu tun ist – sie sagt nicht,
+    /// was die App bisher über das Haus weiß. Wer nach vier Wochen wiederkommt,
+    /// stand bisher vor einer Aufgabe ohne Zusammenhang.
+    private var statusstreifen: some View {
+        VStack(alignment: .leading, spacing: Gestaltung.Abstand.eng) {
+            Text("Ihr Haus")
                 .stilAbschnittstitel()
 
+            HStack(spacing: Gestaltung.Abstand.eng) {
+                if let heizlast = zustand.besteHeizlast {
+                    Kennzahlkachel(
+                        titel: heizlast.gemessen ? "Heizlast, gemessen" : "Heizlast, geschätzt",
+                        wert: Formate.kilowattSpanne(heizlast.spanne),
+                        symbol: "thermometer.medium"
+                    )
+                }
+                if let foerderung = zustand.foerderueberblick {
+                    Kennzahlkachel(
+                        titel: "Förderung möglich",
+                        wert: Formate.euro(foerderung),
+                        symbol: "eurosign.circle"
+                    )
+                }
+                Kennzahlkachel(
+                    titel: "Monate erfasst",
+                    wert: "\(zustand.monateMitZaehlerstand)/\(zustand.regeln.gebaeude.verbrauchsausweisMonate)",
+                    symbol: "gauge.medium"
+                )
+            }
+        }
+    }
+
+    // MARK: Verlauf
+
+    /// Bewusst begrenzt: Der Verlauf ist eine Bestätigung, kein Archiv. Ohne
+    /// Grenze wächst der Startbildschirm mit jedem Monat weiter, bis die eine
+    /// wichtige Aufgabe oben aus dem Bild scrollt.
+    private var verlauf: some View {
+        VStack(alignment: .leading, spacing: Gestaltung.Abstand.normal) {
+            HStack {
+                Text("Zuletzt")
+                    .stilAbschnittstitel()
+                Spacer()
+                if zustand.verlauf.count > sichtbareEintraege {
+                    Button(alleZeigen ? "Weniger" : "Alle \(zustand.verlauf.count)") {
+                        withAnimation(.snappy) { alleZeigen.toggle() }
+                    }
+                    .font(.footnote.weight(.medium))
+                    .foregroundStyle(Gestaltung.Farbe.marke)
+                }
+            }
+
             VStack(spacing: 0) {
-                ForEach(zustand.verlauf) { eintrag in
+                ForEach(gezeigterVerlauf) { eintrag in
                     HStack(spacing: Gestaltung.Abstand.normal) {
                         Image(systemName: eintrag.symbol)
                             .font(.footnote)
@@ -108,7 +168,7 @@ struct HeuteAnsicht: View {
                     }
                     .padding(.vertical, 10)
 
-                    if eintrag.id != zustand.verlauf.last?.id {
+                    if eintrag.id != gezeigterVerlauf.last?.id {
                         Divider().overlay(Gestaltung.Farbe.trennlinie)
                     }
                 }
