@@ -147,37 +147,54 @@ public extension Heizlastrechner {
 
 /// Die Sammlung, die WERK.E füllt.
 ///
-/// Der eine enthaltene Eintrag ist eine **Vorlage**, kein Beleg: Seine Zahlen
-/// stammen aus dem Demolauf, nicht aus einem realen Objekt. Er steht hier,
-/// damit die Prüfstrecke von Anfang an läuft und sichtbar ist, wie ein Eintrag
-/// aussieht. Sobald echte Objekte dazukommen, gehört er gelöscht.
+/// **Sie ist leer, und das ist Absicht.**
+///
+/// Hier stand eine „Vorlage“, deren Zahlen aus dem Demolauf stammten. Der
+/// Abgleich meldete für sie null Prozent Abweichung bei der Hüllflächenrechnung
+/// – aber nur, weil der angebliche DIN-Wert aus eben dieser Rechnung kopiert
+/// war. Eine Prüfung, die immer besteht, ist schlimmer als keine: Sie sieht aus
+/// wie ein Beleg.
+///
+/// Was hier hineingehört, kann niemand ausrechnen und niemand recherchieren.
+/// Es sind zehn Gebäude aus den Akten von WERK.E, für die eine Fachperson eine
+/// Heizlast nach DIN EN 12831 gerechnet hat. Veröffentlichte Typologien –
+/// TABULA, die Gebäudesteckbriefe des IWU – liefern das nicht: Sie geben einen
+/// **Jahres-Heizwärmebedarf** in kWh/(m²·a) nach ISO 13790 an, keine
+/// **Auslegungsheizlast** in Kilowatt. Das eine als das andere einzusetzen wäre
+/// genau die Verwechslung, gegen die diese Prüfstrecke gebaut wurde.
+///
+/// Wie ein Eintrag aussieht, zeigt `beispielAufbau` weiter unten – als Muster
+/// zum Abschreiben, nicht als Beleg.
 public enum Referenzsammlung {
 
-    public static let vorlage: [Referenzobjekt] = [
-        Referenzobjekt(
-            kennung: "Vorlage – bitte durch reale Objekte ersetzen",
-            gebaeude: {
-                var g = Gebaeude(typ: .einfamilienhaus, baujahr: 1968, wohnflaeche: 128)
-                g.dach = .gedaemmt
-                g.obersteGeschossdecke = .gedaemmt
-                g.fassade = .teilweise
-                g.kellerdecke = .ungedaemmt
-                g.fensterBaujahr = 2000
-                return g
-            }(),
-            heizlastNachDINKW: 10.6,
-            normaussentemperatur: -12,
-            huelle: Gebaeudehuelle(
-                grundflaeche: 80, vollgeschosse: 2, dachform: .sattel,
-                dachgeschossBeheizt: false, kellerlage: .unbeheizterKeller
-            ),
-            jahresverbraeuche: [2_050, 1_980, 2_120],
-            personenImHaushalt: 3
-        )
-    ]
+    /// Die realen Objekte. Zehn Einträge sind das Ziel.
+    public static let objekte: [Referenzobjekt] = []
 
-    /// Sind schon echte Objekte hinterlegt?
-    public static var istBelegt: Bool {
-        vorlage.contains { !$0.kennung.hasPrefix("Vorlage") }
-    }
+    /// Wie ein Eintrag aussieht. Bewusst **nicht** in `objekte`: Diese Zahlen
+    /// sind erfunden und dürfen in keiner Auswertung landen.
+    public static let beispielAufbau = Referenzobjekt(
+        kennung: "Muster – gehört nicht in die Auswertung",
+        gebaeude: {
+            var g = Gebaeude(typ: .einfamilienhaus, baujahr: 1968, wohnflaeche: 128)
+            g.dach = .gedaemmt
+            g.obersteGeschossdecke = .gedaemmt
+            g.fassade = .teilweise
+            g.kellerdecke = .ungedaemmt
+            g.fensterBaujahr = 2000
+            return g
+        }(),
+        heizlastNachDINKW: 10.6,
+        normaussentemperatur: -12,
+        huelle: Gebaeudehuelle(
+            grundflaeche: 80, vollgeschosse: 2, dachform: .sattel,
+            dachgeschossBeheizt: false, kellerlage: .unbeheizterKeller
+        ),
+        jahresverbraeuche: [2_050, 1_980, 2_120],
+        personenImHaushalt: 3
+    )
+
+    /// Wie viele reale Objekte fehlen noch bis zum Beleg?
+    public static var fehlendeObjekte: Int { max(0, 10 - objekte.count) }
+
+    public static var istBelegt: Bool { objekte.count >= 10 }
 }

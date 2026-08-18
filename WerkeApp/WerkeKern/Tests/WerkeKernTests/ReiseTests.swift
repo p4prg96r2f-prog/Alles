@@ -247,12 +247,15 @@ final class ReiseTests: XCTestCase {
         var haus = Gebaeude(typ: .mehrfamilienhaus, baujahr: 1972, wohnflaeche: 620, wohneinheiten: 8)
         haus.istVermietet = true
 
-        // Höchstgrenze skaliert mit den Wohneinheiten.
+        // Die Höchstgrenze ist gestaffelt, nicht linear: 30.000 für die erste
+        // Wohneinheit, 15.000 für die zweite bis sechste, 8.000 ab der
+        // siebten. Wer stattdessen mit 30.000 mal acht rechnet, verspricht
+        // einem Eigentümer 240.000 € förderfähige Kosten statt 121.000.
         let ergebnis = Foerderrechner(regeln: regeln).berechne(
             gebaeude: haus, massnahmen: [Massnahme(art: .fassade, kosten: 300_000)]
         )
         let posten = try XCTUnwrap(ergebnis.posten.first)
-        XCTAssertEqual(posten.foerderfaehig, 30_000 * 8, accuracy: 0.01)
+        XCTAssertEqual(posten.foerderfaehig, 30_000 + 5 * 15_000 + 2 * 8_000, accuracy: 0.01)
 
         // Und der Anforderungsvergleich weist auf die CO₂-Kosten hin.
         let pruefung = GModGPruefung(regeln: regeln, heute: datum(2026, 8)).pruefe(haus)

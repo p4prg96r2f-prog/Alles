@@ -31,7 +31,7 @@ WerkeApp/
 │   │   ├── Zaehlerablesung.swift   Auswertung erkannter Texte, Plausibilitätsprüfung
 │   │   ├── Formate.swift           Einheitliche Zahlen- und Datumsformate
 │   │   └── Ressourcen/regelpaket.json
-│   └── Tests/WerkeKernTests/       292 Testfälle
+│   └── Tests/WerkeKernTests/       303 Testfälle
 └── App/
     ├── WerkeApp.xcodeproj
     └── WerkeApp/
@@ -149,7 +149,7 @@ zwischen 45 und 70 ist und oft im Keller steht.
 ## Prüfstand
 
 ```
-292 Testfälle, 0 Fehler
+303 Testfälle, 0 Fehler
 ```
 
 **Rechnen:** Grundförderung und Höchstgrenzen, der iSFP-Bonus in seiner neuen
@@ -335,16 +335,23 @@ umgesetzt.
 
 ### Was davon noch Ihre Hand braucht
 
-* **Die Freigabe eintragen.** In `regelpaket.json` steht `freigabe` mit leeren
-  Feldern, und die App sagt das offen: „Diese Fassung ist noch nicht fachlich
-  freigegeben.“ Sobald jemand die Sätze gegen die geltende Richtlinie geprüft
-  hat, gehören Name, Datum und Grundlage dort hinein.
-* **Die zehn Objekte eintragen.** `Referenzsammlung.vorlage` enthält einen
-  Platzhalter, dessen Zahlen aus dem Demolauf stammen. Zehn reale Gebäude mit
-  vorliegender DIN-Berechnung machen daraus den Beleg, mit dem sich die App
-  verkaufen lässt. Der Testfall druckt die Tabelle dann von selbst.
-* **Den Stichtag eintragen**, sobald das GModG ein Datum hat: unter
-  `gebaeude.gmodgInKraftAb`. Danach verschwindet die Kennzeichnung
-  „Entwurfsstand“ automatisch, und die App erinnert einmal an den Tag.
+Der vollständige Befund steht in **`PRUEFBERICHT_2026-08-18.md`**. Kurz:
+
+* **Die Freigabe eintragen.** Die Fördersätze sind gegen drei unabhängige
+  Quellen geprüft und korrigiert — fünf Fehler gefunden, dazu zwei beim
+  Nachrechnen. Das Feld `freigabe` bleibt trotzdem leer: Eine Freigabe trägt
+  ein Mensch mit Namen und Datum ein, nachdem er die Werte gegen den
+  Richtlinientext selbst geprüft hat. Die App weist offen darauf hin.
+* **Zehn reale Objekte eintragen.** `Referenzsammlung.objekte` ist jetzt leer —
+  der frühere Platzhalter verglich die App mit sich selbst und meldete deshalb
+  immer null Prozent Abweichung. Veröffentlichte Typologien helfen nicht: Sie
+  geben einen Jahresbedarf in kWh/(m²·a) an, keine Auslegungsheizlast in kW.
+  Was fehlt, liegt in Ihren Akten. Der Testfall druckt die Tabelle dann selbst.
+* **Der GModG-Stichtag ist recherchiert und eingetragen** — das Gesetz ist seit
+  dem 29.07.2026 in Kraft, die Energieausweisregeln folgen am 01.01.2027. Jeder
+  Prüfpunkt trägt jetzt sein eigenes Datum.
+* **Vor Februar 2027 nachziehen:** Degression des Klimageschwindigkeitsbonus,
+  sinkende Grundförderung für Wärmepumpen, sinkende Höchstkosten, zwei neue
+  Boni. Alle vier stehen in der Prüfliste des Regelpakets.
 * **Im Xcode-Projekt** das Entwicklerteam setzen — die iCloud-Berechtigung in
   `WerkeApp.entitlements` zieht Präfix und Bundle-ID dann von selbst.

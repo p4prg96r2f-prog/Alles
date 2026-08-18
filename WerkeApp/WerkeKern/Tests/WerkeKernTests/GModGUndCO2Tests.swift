@@ -55,14 +55,17 @@ final class GModGTests: XCTestCase {
         XCTAssertTrue(punkt!.erlaeuterung.contains("1946-6"))
     }
 
-    func testAlteHeizungWirdAlsEntfallendesVerbotGekennzeichnet() {
+    /// Das Betriebsverbot ist mit Artikel 1 des GModG seit dem 29.07.2026
+    /// entfallen – das ist geltendes Recht und keine Ankündigung mehr.
+    func testAlteHeizungWirdAlsEntfallendesVerbotGekennzeichnet() throws {
         var g = Gebaeude(heizungsart: .gas)
         g.heizungBaujahr = 1995
 
-        let punkt = pruefung.pruefe(g).punkte.first { $0.id == "heizungsalter" }
+        let punkt = try XCTUnwrap(pruefung.pruefe(g).punkte.first { $0.id == "heizungsalter" })
 
-        XCTAssertEqual(punkt?.ampel, .gruen)
-        XCTAssertEqual(punkt?.istEntwurfsstand, true)
+        XCTAssertEqual(punkt.ampel, .gruen)
+        XCTAssertEqual(punkt.giltAb, "2026-07-29")
+        XCTAssertFalse(punkt.istZukunft(am: datum(2026, 8)))
     }
 
     func testWaermepumpeErzeugtKeinenHeizungshinweis() {
@@ -123,10 +126,12 @@ final class GModGTests: XCTestCase {
         XCTAssertNotNil(pruefung.pruefe(g).punkte.first { $0.id == "co2kosten" })
     }
 
-    func testEntwurfsstandWirdImHinweisKenntlichGemacht() {
-        let e = pruefung.pruefe(Gebaeude())
-        XCTAssertTrue(e.hinweis.lowercased().contains("entwurf"))
-        XCTAssertTrue(e.hinweis.contains("nicht in Kraft"))
+    /// Was noch aussteht, wird mit seinem Termin benannt – nicht pauschal als
+    /// „Entwurf“. Das GModG ist zum größten Teil geltendes Recht.
+    func testNochAusstehendeRegelnWerdenMitTerminBenannt() {
+        let e = GModGPruefung(regeln: regeln, heute: datum(2026, 8)).pruefe(Gebaeude())
+        XCTAssertTrue(e.hinweis.contains("gelten erst ab"), e.hinweis)
+        XCTAssertTrue(e.hinweis.contains("01.01.2027"), e.hinweis)
     }
 
     func testJederPunktHatEineFundstelle() {
@@ -141,46 +146,50 @@ final class GModGTests: XCTestCase {
         }
     }
 
-    // MARK: Entwurfsstand und Freigabe
+    // MARK: Stufenweises Inkrafttreten und Freigabe
 
-    /// Ohne Termin für das Inkrafttreten bleibt die Kennzeichnung stehen – und
-    /// der Hinweis sagt ehrlich, dass kein Termin feststeht.
-    func testOhneStichtagBleibtDerEntwurfsstandGekennzeichnet() {
+    /// Das GModG tritt **stufenweise** in Kraft. Genau daran scheiterte die
+    /// frühere Fassung: Ein einziges Datum für das ganze Gesetz erzählt einem
+    /// Kunden entweder, das Betriebsverbot gelte noch – oder die neuen
+    /// Ausweispflichten seien schon da. Beides ist falsch.
+    func testHeizungsregelnGeltenBereitsAusweisregelnNochNicht() throws {
+        var g = Gebaeude(baujahr: 1968, heizungsart: .gas)
+        g.heizungBaujahr = 1995
+        let e = GModGPruefung(regeln: regeln, heute: datum(2026, 8)).pruefe(g)
+
+        let heizung = try XCTUnwrap(e.punkte.first { $0.id == "heizungsalter" })
+        let ausweis = try XCTUnwrap(e.punkte.first { $0.id == "energieausweis" })
+
+        XCTAssertFalse(heizung.istZukunft(am: datum(2026, 8)))
+        XCTAssertTrue(ausweis.istZukunft(am: datum(2026, 8)))
+    }
+
+    /// Der Hinweis nennt den nächsten Termin – das ist die Auskunft, nach der
+    /// Kunden gerade fragen.
+    func testDerHinweisNenntDenNaechstenTermin() {
         let e = GModGPruefung(regeln: regeln, heute: datum(2026, 8)).pruefe(Gebaeude(baujahr: 1968))
-
-        XCTAssertTrue(e.punkte.contains { $0.istEntwurfsstand })
-        XCTAssertTrue(e.hinweis.contains("Gesetzentwurf"), e.hinweis)
-    }
-
-    /// Ist der Termin gesetzt, nennt der Hinweis ihn – das ist die Auskunft,
-    /// nach der Kunden gerade fragen.
-    func testMitStichtagWirdDerTerminGenannt() {
-        var paket = regeln!
-        paket.gebaeude.gmodgInKraftAb = "2027-01-01"
-        let e = GModGPruefung(regeln: paket, heute: datum(2026, 8)).pruefe(Gebaeude(baujahr: 1968))
-
-        XCTAssertTrue(e.punkte.contains { $0.istEntwurfsstand })
         XCTAssertTrue(e.hinweis.contains("01.01.2027"), e.hinweis)
+        XCTAssertTrue(e.hinweis.contains("29.07.2026"), e.hinweis)
     }
 
-    /// Der eigentliche Zweck des Datums: Nach dem Inkrafttreten verschwindet
-    /// die Kennzeichnung von selbst. Ohne das stünde in zwei Jahren noch
-    /// „Entwurf“ an geltendem Recht.
+    /// Der eigentliche Zweck der Daten: Ist ein Termin da, verschwindet die
+    /// Kennzeichnung an diesem Punkt von selbst. Ohne das stünde in zwei
+    /// Jahren noch „gilt ab“ an geltendem Recht.
     func testNachInkrafttretenVerschwindetDieKennzeichnung() {
-        var paket = regeln!
-        paket.gebaeude.gmodgInKraftAb = "2027-01-01"
-        let e = GModGPruefung(regeln: paket, heute: datum(2027, 3)).pruefe(Gebaeude(baujahr: 1968))
+        let e = GModGPruefung(regeln: regeln, heute: datum(2027, 3)).pruefe(Gebaeude(baujahr: 1968))
 
-        XCTAssertFalse(e.punkte.contains { $0.istEntwurfsstand })
+        XCTAssertFalse(e.punkte.contains { $0.istZukunft(am: self.datum(2027, 3)) })
         XCTAssertTrue(e.hinweis.contains("in Kraft"), e.hinweis)
     }
 
     /// Am Stichtag selbst gilt es bereits.
-    func testAmStichtagGiltEsBereits() {
-        var paket = regeln!
-        paket.gebaeude.gmodgInKraftAb = "2027-01-01"
-        XCTAssertTrue(paket.gmodgInKraft(am: datum(2027, 1, 1)))
-        XCTAssertFalse(paket.gmodgInKraft(am: datum(2026, 12, 31)))
+    func testAmStichtagGiltEsBereits() throws {
+        let punkt = Pruefpunkt(
+            id: "probe", titel: "Probe", ampel: .gelb, aussage: "", erlaeuterung: "",
+            fundstelle: "", giltAb: "2027-01-01"
+        )
+        XCTAssertFalse(punkt.istZukunft(am: datum(2027, 1, 1)))
+        XCTAssertTrue(punkt.istZukunft(am: datum(2026, 12, 31)))
     }
 
     /// Die ausgelieferte Fassung ist bewusst noch nicht freigegeben – die App

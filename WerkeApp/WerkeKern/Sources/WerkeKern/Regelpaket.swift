@@ -24,16 +24,45 @@ public struct Regelpaket: Codable, Sendable, Equatable {
         /// Förderfähige Höchstkosten je Wohneinheit und Jahr, mit iSFP.
         public var hoechstkostenProWohneinheitMitISFP: Double
 
+        /// Förderfähige Höchstkosten für die zweite bis sechste Wohneinheit.
+        public var hoechstkostenWeitereWohneinheit: Double
+        /// Förderfähige Höchstkosten ab der siebten Wohneinheit.
+        public var hoechstkostenAbSiebterWohneinheit: Double
+
         /// Heizungstausch läuft über ein eigenes Programm mit eigener Systematik.
         public var heizungGrundsatz: Double
         public var heizungKlimageschwindigkeitsbonus: Double
-        public var heizungEinkommensbonus: Double
-        public var heizungFamilienbonus: Double
         public var heizungHoechstsatz: Double
         public var heizungHoechstkostenErsteWohneinheit: Double
         public var heizungHoechstkostenWeitereWohneinheit: Double
-        /// Einkommensgrenze (zu versteuerndes Haushaltseinkommen) für den Einkommensbonus.
-        public var heizungEinkommensgrenze: Double
+        public var heizungHoechstkostenAbSiebterWohneinheit: Double
+
+        /// Der Einkommensbonus ist **gestaffelt**, nicht ein einzelner Satz.
+        ///
+        /// Die frühere Fassung dieser Datei kannte nur eine Grenze und einen
+        /// Satz. Damit bekam ein Haushalt mit 28.000 € denselben Bonus wie
+        /// einer mit 39.000 € – tatsächlich sind es vierzig gegen dreißig
+        /// Prozent, bei 28.000 € förderfähigen Kosten also 2.800 € Unterschied.
+        public var heizungEinkommensstufen: [Einkommensstufe]
+
+        /// Je minderjährigem Kind sinkt das **anzusetzende** Einkommen um
+        /// diesen Betrag.
+        ///
+        /// Das ist der zweite Konzeptfehler der früheren Fassung: Dort stand
+        /// ein „Familienbonus“ von fünf Prozentpunkten, die auf den Fördersatz
+        /// addiert wurden. So funktioniert die Regel nicht. Der Zuschlag senkt
+        /// das Einkommen und kann dadurch eine **bessere Bonusstufe**
+        /// erschließen – bei zwei Kindern rückt ein Haushalt mit 48.000 € von
+        /// zehn auf dreißig Prozent. Wer das als festen Aufschlag rechnet,
+        /// liegt bei manchen Haushalten um zwanzig Prozentpunkte daneben und
+        /// bei anderen um fünf zu hoch.
+        public var heizungFamilienzuschlagJeKind: Double
+
+        public struct Einkommensstufe: Codable, Sendable, Equatable {
+            /// Obergrenze des zu versteuernden Haushaltseinkommens.
+            public var bisEinkommen: Double
+            public var bonus: Double
+        }
     }
 
     public struct Honorar: Codable, Sendable, Equatable {
@@ -109,9 +138,14 @@ public struct Regelpaket: Codable, Sendable, Equatable {
                 .init(bisBaujahr: 2100, uWert: 1.1)
             ],
             tuer: 3.0,
+            // Eine Stufe für 1918–1978 war zu grob: Für 1969–78 nennen die
+            // veröffentlichten Tabellen 0,8–1,0 W/m²K, die App setzte 1,2 an.
+            // Kellerdecken der frühen Siebziger sind bereits massiver
+            // ausgeführt als die der Vorkriegszeit.
             kellerdeckeUngedaemmt: [
-                .init(bisBaujahr: 1978, uWert: 1.2), .init(bisBaujahr: 1994, uWert: 0.8),
-                .init(bisBaujahr: 2100, uWert: 0.5)
+                .init(bisBaujahr: 1968, uWert: 1.2), .init(bisBaujahr: 1978, uWert: 1.0),
+                .init(bisBaujahr: 1994, uWert: 0.8), .init(bisBaujahr: 2001, uWert: 0.5),
+                .init(bisBaujahr: 2100, uWert: 0.4)
             ],
             kellerdeckeGedaemmt: 0.30,
             bodenplatteUngedaemmt: [
@@ -171,6 +205,16 @@ public struct Regelpaket: Codable, Sendable, Equatable {
         /// von Hand zu entfernen – und in zwei Jahren stünde „Entwurf“ an
         /// geltendem Recht. Leer bedeutet: noch kein Termin bekannt.
         public var gmodgInKraftAb: String?
+
+        /// Tag, ab dem die Regelungen zu Energieausweisen gelten (Artikel 2,
+        /// Umsetzung der EPBD) – als ISO-Datum.
+        ///
+        /// Ein zweites Datum, weil das Gesetz stufenweise in Kraft tritt: Die
+        /// Regelungen zum Heizungstausch gelten seit dem 29. Juli 2026, die zu
+        /// Energieausweisen erst ab dem 1. Januar 2027. Mit nur einem Datum
+        /// erzählt die App einem Kunden entweder, das Betriebsverbot gelte
+        /// noch – oder die neuen Ausweispflichten seien schon da.
+        public var energieausweisregelnAb: String?
     }
 
     /// Fassungsnummer, monoton steigend.

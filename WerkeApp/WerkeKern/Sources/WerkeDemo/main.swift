@@ -379,7 +379,8 @@ for punkt in pruefergebnis.punkte {
     }
     print("  \(zeichen)\(punkt.titel)")
     print("        \(punkt.aussage)")
-    print("        Grundlage: \(punkt.fundstelle)\(punkt.istEntwurfsstand ? " (Entwurfsstand)" : "")")
+    let stand = punkt.giltAb.map { punkt.istZukunft(am: tag(2026, 8)) ? " (gilt ab \(Formate.datumLesbar($0)))" : "" } ?? ""
+    print("        Grundlage: \(punkt.fundstelle)\(stand)")
 }
 print("\n  \(pruefergebnis.hinweis)")
 

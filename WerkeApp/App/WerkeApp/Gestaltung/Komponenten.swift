@@ -101,7 +101,8 @@ struct Ampelzeile: View {
     let ampel: Ampel
     let titel: String
     let aussage: String
-    var hinweisEntwurf: Bool = false
+    /// Steht die Regel noch aus? Dann steht hier ihr Termin.
+    var giltAb: String?
 
     private var farbe: Ampelfarbe {
         switch ampel {
@@ -135,12 +136,15 @@ struct Ampelzeile: View {
                     .font(.subheadline)
                     .foregroundStyle(Gestaltung.Farbe.textLeise)
                     .fixedSize(horizontal: false, vertical: true)
-                if hinweisEntwurf {
-                    Text("Entwurfsstand")
+                if let giltAb {
+                    // „Gilt ab 01.01.2027“ statt „Entwurfsstand“: Das ist die
+                    // Auskunft, nach der ein Eigentümer tatsächlich fragt.
+                    Text("gilt ab \(Formate.datumLesbar(giltAb))")
                         .font(.caption2.weight(.semibold))
                         .padding(.horizontal, 6)
                         .padding(.vertical, 2)
                         .background(Gestaltung.Farbe.markeGedeckt)
+                        .foregroundStyle(Gestaltung.Farbe.marke)
                         .clipShape(Capsule())
                 }
             }

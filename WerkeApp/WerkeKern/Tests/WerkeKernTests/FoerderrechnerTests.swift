@@ -111,9 +111,49 @@ final class FoerderrechnerTests: XCTestCase {
         let ergebnis = rechner.berechne(gebaeude: gebaeude, massnahmen: massnahmen, haushalt: haushalt)
         let posten = try! XCTUnwrap(ergebnis.posten.first)
 
-        // 30 + 20 + 30 + 5 = 85 %, gedeckelt auf 70 %.
-        XCTAssertEqual(posten.satz, 0.70, accuracy: 0.0001)
-        XCTAssertEqual(posten.zuschuss, 28_000 * 0.70, accuracy: 0.01)
+        // Einkommen 35.000 €, zwei Kinder → Familienzuschlag 2 × 10.000 €
+        // senkt das anzusetzende Einkommen auf 15.000 € und damit in die
+        // oberste Stufe: 30 Grundförderung + 16 Klimageschwindigkeit
+        // + 40 Einkommen = 86 %, gedeckelt auf 80 %.
+        XCTAssertEqual(posten.satz, 0.80, accuracy: 0.0001)
+        XCTAssertEqual(posten.zuschuss, 28_000 * 0.80, accuracy: 0.01)
+        XCTAssertTrue(posten.begruendung.contains { $0.contains("Familienzuschlag") },
+                      posten.begruendung.joined(separator: " | "))
+    }
+
+    /// Der Familienzuschlag senkt das anzusetzende Einkommen und erschließt
+    /// dadurch eine bessere Stufe. Als fester Aufschlag gerechnet – wie in der
+    /// früheren Fassung – wäre er bei diesem Haushalt zwanzig Prozentpunkte
+    /// zu niedrig.
+    func testFamilienzuschlagErschliesstDieBessereStufe() throws {
+        let gebaeude = Gebaeude()
+        let massnahmen = [Massnahme(art: .heizungstausch, kosten: 28_000)]
+
+        func satz(kinder: Int) throws -> Double {
+            let haushalt = Haushalt(
+                selbstbewohnt: true,
+                zuVersteuerndesEinkommen: 48_000,
+                kinderImHaushalt: kinder
+            )
+            let e = rechner.berechne(gebaeude: gebaeude, massnahmen: massnahmen, haushalt: haushalt)
+            return try XCTUnwrap(e.posten.first).satz
+        }
+
+        // 48.000 € → Stufe „bis 50.000“, Bonus 10 %.
+        XCTAssertEqual(try satz(kinder: 0), 0.30 + 0.10, accuracy: 0.0001)
+        // Zwei Kinder → 28.000 € anzusetzen → Stufe „bis 30.000“, Bonus 40 %.
+        XCTAssertEqual(try satz(kinder: 2), 0.30 + 0.40, accuracy: 0.0001)
+    }
+
+    /// Oberhalb der höchsten Stufe gibt es keinen Einkommensbonus.
+    func testKeinEinkommensbonusOberhalbDerHoechstenStufe() throws {
+        let haushalt = Haushalt(selbstbewohnt: true, zuVersteuerndesEinkommen: 60_000)
+        let e = rechner.berechne(
+            gebaeude: Gebaeude(),
+            massnahmen: [Massnahme(art: .heizungstausch, kosten: 20_000)],
+            haushalt: haushalt
+        )
+        XCTAssertEqual(try XCTUnwrap(e.posten.first).satz, 0.30, accuracy: 0.0001)
     }
 
     func testHeizungOhneBoniNurGrundfoerderung() {
@@ -132,8 +172,23 @@ final class FoerderrechnerTests: XCTestCase {
         let ergebnis = rechner.berechne(gebaeude: gebaeude, massnahmen: massnahmen)
         let posten = try! XCTUnwrap(ergebnis.posten.first)
 
-        // 30.000 für die erste, 15.000 je weitere Wohneinheit.
-        XCTAssertEqual(posten.foerderfaehig, 60_000, accuracy: 0.01)
+        // 28.000 für die erste, 15.000 für die zweite bis sechste.
+        XCTAssertEqual(posten.foerderfaehig, 28_000 + 2 * 15_000, accuracy: 0.01)
+    }
+
+    /// Ab der siebten Wohneinheit gilt ein niedrigerer Satz. Die frühere
+    /// Fassung rechnete jede weitere Einheit mit dem Satz der zweiten – bei
+    /// zwölf Einheiten sind das 42.000 € zu viel an förderfähigen Kosten.
+    func testAbDerSiebtenWohneinheitGiltEinNiedrigererSatz() throws {
+        let gebaeude = Gebaeude(typ: .mehrfamilienhaus, wohneinheiten: 12)
+        let e = rechner.berechne(
+            gebaeude: gebaeude,
+            massnahmen: [Massnahme(art: .heizungstausch, kosten: 500_000)]
+        )
+        let posten = try XCTUnwrap(e.posten.first)
+
+        // 28.000 + 5 × 15.000 + 6 × 8.000 = 151.000
+        XCTAssertEqual(posten.foerderfaehig, 151_000, accuracy: 0.01)
     }
 
     // MARK: Honorar und Netto-Ergebnis

@@ -7,9 +7,9 @@ import XCTest
 /// Diese hier prüfen, ob sie mit der Wirklichkeit übereinstimmt – und das geht
 /// nur an Gebäuden, deren Heizlast eine Fachperson gerechnet hat.
 ///
-/// Solange nur die Vorlage hinterlegt ist, laufen die Fälle mit und melden im
-/// Protokoll, dass der Beleg noch aussteht. Sobald WERK.E echte Objekte
-/// einträgt, werden daraus scharfe Grenzen.
+/// Solange die Sammlung leer ist, laufen die Fälle mit und melden im Protokoll,
+/// dass der Beleg aussteht. Sobald WERK.E echte Objekte einträgt, werden daraus
+/// scharfe Grenzen – ohne dass hier eine Zeile zu ändern wäre.
 final class ReferenzobjektTests: XCTestCase {
 
     var regeln: Regelpaket!
@@ -26,21 +26,40 @@ final class ReferenzobjektTests: XCTestCase {
         print("""
 
         ┌─────────────────────────────────────────────────────────────────┐
-        │ HINWEIS: Die Referenzsammlung enthält nur die Vorlage.          │
+        │ Die Referenzsammlung ist leer – absichtlich.                    │
         │                                                                 │
-        │ Für den fachlichen Beleg gehören zehn reale Objekte hinein,     │
-        │ deren Heizlast nach DIN EN 12831 bereits gerechnet wurde.       │
-        │ Einzutragen in Referenzobjekt.swift → Referenzsammlung.         │
+        │ Es fehlen \(Referenzsammlung.fehlendeObjekte) reale Objekte mit einer Heizlastberechnung     │
+        │ nach DIN EN 12831. Die kann niemand ausrechnen und niemand      │
+        │ recherchieren: Veröffentlichte Typologien geben einen Jahres-   │
+        │ bedarf in kWh/(m²·a) an, keine Auslegungsheizlast in kW.        │
+        │                                                                 │
+        │ Einzutragen in Referenzobjekt.swift → Referenzsammlung.objekte  │
+        │ Muster zum Abschreiben: Referenzsammlung.beispielAufbau         │
         └─────────────────────────────────────────────────────────────────┘
 
         """)
+    }
+
+    /// Das Muster darf nie in die Auswertung geraten – seine Zahlen sind
+    /// erfunden. Genau daran ist die frühere „Vorlage“ gescheitert: Sie stand
+    /// in der Sammlung und meldete null Prozent Abweichung, weil ihr angeblicher
+    /// DIN-Wert aus der geprüften Rechnung stammte.
+    func testDasMusterStehtNichtInDerAuswertung() {
+        XCTAssertFalse(Referenzsammlung.objekte.contains { $0.kennung == Referenzsammlung.beispielAufbau.kennung })
+    }
+
+    /// Das Muster bleibt trotzdem rechenbar – sonst merkt niemand, wenn es
+    /// beim nächsten Umbau nicht mehr übersetzt.
+    func testDasMusterLaesstSichRechnen() {
+        let abgleich = rechner.gleicheAb(Referenzsammlung.beispielAufbau)
+        XCTAssertEqual(abgleich.zeilen.count, 3)
     }
 
     /// Jedes hinterlegte Objekt wird gegen alle verfügbaren Wege gerechnet und
     /// die Abweichung ausgewiesen. Die Ausgabe ist die Tabelle, die WERK.E
     /// vorlegen kann.
     func testJedesObjektWirdGegenAlleWegeGerechnet() {
-        for objekt in Referenzsammlung.vorlage {
+        for objekt in Referenzsammlung.objekte {
             let abgleich = rechner.gleicheAb(objekt)
             print(abgleich.tabellenzeile)
 
@@ -56,7 +75,7 @@ final class ReferenzobjektTests: XCTestCase {
     /// zwei. Sobald ein reales Objekt diese Marke reißt, ist entweder das
     /// Verfahren falsch oder das Objekt falsch erfasst; beides muss auffallen.
     func testKeinVerfahrenLiegtUmMehrAlsDieHaelfteDaneben() {
-        for objekt in Referenzsammlung.vorlage {
+        for objekt in Referenzsammlung.objekte {
             let abgleich = rechner.gleicheAb(objekt)
             for zeile in abgleich.zeilen {
                 XCTAssertLessThan(

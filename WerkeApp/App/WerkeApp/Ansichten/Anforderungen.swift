@@ -34,7 +34,7 @@ struct AnforderungenAnsicht: View {
                                     ampel: punkt.ampel,
                                     titel: punkt.titel,
                                     aussage: punkt.aussage,
-                                    hinweisEntwurf: punkt.istEntwurfsstand
+                                    giltAb: punkt.istZukunft(am: Date()) ? punkt.giltAb : nil
                                 )
                             }
                             .buttonStyle(.plain)
@@ -131,8 +131,8 @@ struct PruefpunktAnsicht: View {
                         .textCase(.uppercase)
                     Text(punkt.fundstelle)
                         .font(.footnote)
-                    if punkt.istEntwurfsstand {
-                        Text("Diese Regelung beruht auf dem Gesetzentwurf und ist noch nicht in Kraft.")
+                    if punkt.istZukunft(am: Date()), let ab = punkt.giltAb {
+                        Text("Diese Regelung gilt ab dem \(Formate.datumLesbar(ab)). Bis dahin bleibt es beim bisherigen Recht.")
                             .font(.footnote)
                             .foregroundStyle(Gestaltung.Farbe.gelb)
                             .fixedSize(horizontal: false, vertical: true)

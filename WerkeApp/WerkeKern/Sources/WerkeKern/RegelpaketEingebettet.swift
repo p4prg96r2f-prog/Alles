@@ -17,17 +17,17 @@ extension Regelpaketlader {
     /// Wird durch `testEingebettetesPaketStimmtMitRessourceUeberein` abgesichert.
     public static let eingebettetJSON = """
     {
-      "version": 4,
+      "version": 5,
       "stand": "2026-08-18",
-      "hinweis": "Fördersätze nach BEG-Systematik, Stand 21.07.2026. GModG-Angaben nach Kabinettsbeschluss vom 13.05.2026 und damit Entwurfsstand.",
+      "hinweis": "Fördersätze nach BEG-Systematik, Stand der Reform vom 21.07.2026. Das Gebäudemodernisierungsgesetz (GModG) ist seit 29.07.2026 in Kraft; die Regelungen zu Energieausweisen (Artikel 2) gelten ab 01.01.2027.",
       "zuPruefen": [
-        "Alle Fördersätze und Höchstgrenzen sind vor Veröffentlichung durch WERK.E gegen die geltende BEG-Richtlinie zu bestätigen.",
-        "Boni beim Heizungstausch (Klimageschwindigkeit, Einkommen, Familie) und ihre Höchstsätze sind fachlich zu verifizieren.",
-        "GModG-Werte gelten erst mit Inkrafttreten; bis dahin ist jede Ausgabe als Entwurfsstand zu kennzeichnen.",
+        "Fördersätze und Höchstgrenzen sind gegen die BEG-Richtlinien in der Fassung der Reform vom 21.07.2026 recherchiert und dreifach belegt. Vor Veröffentlichung durch WERK.E gegen den Originaltext der Richtlinie zu bestätigen.",
+        "Der Klimageschwindigkeitsbonus sinkt ab 01.02.2027 halbjährlich um 4 Prozentpunkte (16 / 12 / 8 / 4, ab 01.08.2028 entfallen). Die Degression ist im Regelpaket noch nicht abgebildet – vor Februar 2027 nachziehen.",
+        "Die Grundförderung für Wärmepumpen sinkt nach mehreren Quellen zum ersten Quartal 2027 auf 15 Prozent. Termin und Anwendungsbereich sind vor Februar 2027 zu bestätigen.",
+        "Die förderfähigen Höchstkosten sinken ab Februar 2027 halbjährlich um 750 Euro. Auch das ist noch nicht abgebildet.",
+        "Wertschöpfungsbonus und Worst-Performing-Buildings-Bonus (beide ab Q1 2027 angekündigt) fehlen im Regelpaket.",
         "Gradtagzahlen und Normaußentemperaturen der Klimaregionen sind Näherungen und vor Veröffentlichung gegen die Werte nach DIN EN 12831 Beiblatt bzw. DWD zu prüfen.",
-        "Die spezifischen Heizlasten nach Baujahr sind Erfahrungswerte für unsanierte Gebäude. Sie sind gegen die Hüllflächenrechnung derselben App abgeglichen und vor Veröffentlichung fachlich zu bestätigen.",
-        "Das Feld freigabe ist vor jeder Veröffentlichung auszufüllen: wer geprüft hat, wann, und gegen welche Richtlinienfassung.",
-        "Sobald ein Termin für das Inkrafttreten des GModG feststeht, ist er unter gebaeude.gmodgInKraftAb einzutragen. Danach entfällt die Kennzeichnung Entwurfsstand von selbst."
+        "Die spezifischen Heizlasten nach Baujahr sind Erfahrungswerte für unsanierte Gebäude, gegen die Hüllflächenrechnung derselben App abgeglichen und noch nicht gegen reale Objekte geprüft."
       ],
       "foerderung": {
         "grundsatzEinzelmassnahme": 0.15,
@@ -37,13 +37,28 @@ extension Regelpaketlader {
         "hoechstkostenProWohneinheit": 30000,
         "hoechstkostenProWohneinheitMitISFP": 60000,
         "heizungGrundsatz": 0.3,
-        "heizungKlimageschwindigkeitsbonus": 0.2,
-        "heizungEinkommensbonus": 0.3,
-        "heizungFamilienbonus": 0.05,
-        "heizungHoechstsatz": 0.7,
-        "heizungHoechstkostenErsteWohneinheit": 30000,
+        "heizungKlimageschwindigkeitsbonus": 0.16,
+        "heizungHoechstsatz": 0.8,
+        "heizungHoechstkostenErsteWohneinheit": 28000,
         "heizungHoechstkostenWeitereWohneinheit": 15000,
-        "heizungEinkommensgrenze": 40000
+        "hoechstkostenWeitereWohneinheit": 15000,
+        "hoechstkostenAbSiebterWohneinheit": 8000,
+        "heizungHoechstkostenAbSiebterWohneinheit": 8000,
+        "heizungEinkommensstufen": [
+          {
+            "bisEinkommen": 30000,
+            "bonus": 0.4
+          },
+          {
+            "bisEinkommen": 40000,
+            "bonus": 0.3
+          },
+          {
+            "bisEinkommen": 50000,
+            "bonus": 0.1
+          }
+        ],
+        "heizungFamilienzuschlagJeKind": 10000
       },
       "honorar": {
         "satzVonInvestition": 0.03,
@@ -155,7 +170,8 @@ extension Regelpaketlader {
         "betriebsverbotAlteKesselEntfaellt": true,
         "pflicht65ProzentEntfaellt": true,
         "lueftungskonzeptSchwelle": 0.3333,
-        "gmodgInKraftAb": null
+        "gmodgInKraftAb": "2026-07-29",
+        "energieausweisregelnAb": "2027-01-01"
       },
       "klimaregionen": [
         {
@@ -291,7 +307,7 @@ extension Regelpaketlader {
       "freigabe": {
         "durch": "",
         "am": "",
-        "grundlage": "Noch nicht fachlich freigegeben. Vor Veröffentlichung durch WERK.E gegen die geltende BEG-Richtlinie und den Stand des GModG prüfen und hier eintragen."
+        "grundlage": "Maschinelle Vorprüfung am 18.08.2026 gegen drei unabhängige Quellen (ADAC, Energiegestalter, Haus & Grund) sowie das amtliche GEG-Infoportal. Dabei wurden fünf Fehler gefunden und behoben. Das ersetzt keine fachliche Freigabe: Diese trägt ein Mensch mit Namen und Datum ein, nachdem er die Werte gegen den Richtlinientext selbst geprüft hat."
       }
     }
     """

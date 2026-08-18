@@ -111,10 +111,14 @@ public struct Foerderrechner {
         let huelle = massnahmen.filter { $0.art.topf == .gebaeudehuelle || $0.art.topf == .anlagentechnik }
         let huelleKosten = huelle.reduce(0) { $0 + $1.kosten }
 
-        let deckelProWE = gebaeude.hatSanierungsfahrplan
-            ? f.hoechstkostenProWohneinheitMitISFP
-            : f.hoechstkostenProWohneinheit
-        let deckel = deckelProWE * Double(gebaeude.wohneinheiten)
+        // Gestaffelt statt „Satz der ersten Wohneinheit mal Anzahl“: Bei einem
+        // Mehrfamilienhaus mit zwölf Einheiten wären das 360.000 € statt
+        // 153.000 € förderfähiger Kosten – ein Fehler, den niemand bemerkt,
+        // bis der Bescheid kommt.
+        let deckel = hoechstkostenHuelle(
+            wohneinheiten: gebaeude.wohneinheiten,
+            mitISFP: gebaeude.hatSanierungsfahrplan
+        )
         let huelleFoerderfaehig = min(huelleKosten, deckel)
 
         if huelleKosten > deckel {
@@ -156,8 +160,7 @@ public struct Foerderrechner {
 
         // --- Heizungstausch: eigenes Programm, eigene Systematik
         for m in massnahmen where m.art.topf == .heizung && m.kosten > 0 {
-            let hoechstkosten = f.heizungHoechstkostenErsteWohneinheit
-                + f.heizungHoechstkostenWeitereWohneinheit * Double(max(0, gebaeude.wohneinheiten - 1))
+            let hoechstkosten = hoechstkostenHeizung(wohneinheiten: gebaeude.wohneinheiten)
             let foerderfaehig = min(m.kosten, hoechstkosten)
 
             var satz = f.heizungGrundsatz
@@ -167,15 +170,21 @@ public struct Foerderrechner {
                 satz += f.heizungKlimageschwindigkeitsbonus
                 begruendung.append("Klimageschwindigkeitsbonus \(Formate.prozent(f.heizungKlimageschwindigkeitsbonus))")
             }
-            if haushalt.selbstbewohnt,
-               let einkommen = haushalt.zuVersteuerndesEinkommen,
-               einkommen <= f.heizungEinkommensgrenze {
-                satz += f.heizungEinkommensbonus
-                begruendung.append("Einkommensbonus \(Formate.prozent(f.heizungEinkommensbonus))")
-            }
-            if haushalt.selbstbewohnt, haushalt.kinderImHaushalt > 0, f.heizungFamilienbonus > 0 {
-                satz += f.heizungFamilienbonus
-                begruendung.append("Familienbonus \(Formate.prozent(f.heizungFamilienbonus))")
+
+            // Der Familienzuschlag senkt das anzusetzende Einkommen und kann
+            // dadurch eine bessere Stufe erschließen – er ist kein Aufschlag
+            // auf den Fördersatz.
+            if haushalt.selbstbewohnt, let roh = haushalt.zuVersteuerndesEinkommen {
+                let abzug = f.heizungFamilienzuschlagJeKind * Double(max(0, haushalt.kinderImHaushalt))
+                let anzusetzen = max(0, roh - abzug)
+                if let stufe = einkommensstufe(fuer: anzusetzen) {
+                    satz += stufe.bonus
+                    if abzug > 0 {
+                        begruendung.append("Einkommensbonus \(Formate.prozent(stufe.bonus)) – anzusetzendes Einkommen \(Formate.euro(anzusetzen)) nach Familienzuschlag \(Formate.euro(abzug))")
+                    } else {
+                        begruendung.append("Einkommensbonus \(Formate.prozent(stufe.bonus)) bis \(Formate.euro(stufe.bisEinkommen))")
+                    }
+                }
             }
 
             if satz > f.heizungHoechstsatz {
@@ -272,6 +281,46 @@ public struct Foerderrechner {
     }
 
     // MARK: - Hilfen
+
+    /// Die Einkommensstufe, in die ein anzusetzendes Einkommen fällt.
+    ///
+    /// Gesucht ist die **günstigste** passende Stufe, also die mit dem
+    /// höchsten Bonus, deren Grenze noch eingehalten wird. Die Reihenfolge im
+    /// Regelpaket darf dafür keine Rolle spielen – sonst hängt der Zuschuss
+    /// eines Haushalts daran, wie jemand eine JSON-Datei sortiert hat.
+    func einkommensstufe(fuer einkommen: Double) -> Regelpaket.Foerderung.Einkommensstufe? {
+        regeln.foerderung.heizungEinkommensstufen
+            .filter { einkommen <= $0.bisEinkommen }
+            .max { $0.bonus < $1.bonus }
+    }
+
+    /// Förderfähige Höchstkosten beim Heizungstausch.
+    ///
+    /// Gestaffelt: erste Wohneinheit, zweite bis sechste, ab der siebten. Die
+    /// frühere Fassung rechnete jede weitere Einheit mit dem Satz der zweiten –
+    /// bei einem Mehrfamilienhaus mit zwölf Einheiten sind das 56.000 € zu
+    /// viel an förderfähigen Kosten.
+    func hoechstkostenHeizung(wohneinheiten: Int) -> Double {
+        let f = regeln.foerderung
+        let einheiten = max(1, wohneinheiten)
+        let mittlere = Double(min(5, max(0, einheiten - 1)))
+        let weitere = Double(max(0, einheiten - 6))
+        return f.heizungHoechstkostenErsteWohneinheit
+            + f.heizungHoechstkostenWeitereWohneinheit * mittlere
+            + f.heizungHoechstkostenAbSiebterWohneinheit * weitere
+    }
+
+    /// Dieselbe Staffel für Einzelmaßnahmen an der Gebäudehülle.
+    func hoechstkostenHuelle(wohneinheiten: Int, mitISFP: Bool) -> Double {
+        let f = regeln.foerderung
+        let einheiten = max(1, wohneinheiten)
+        let erste = mitISFP ? f.hoechstkostenProWohneinheitMitISFP : f.hoechstkostenProWohneinheit
+        let mittlere = Double(min(5, max(0, einheiten - 1)))
+        let weitere = Double(max(0, einheiten - 6))
+        return erste
+            + f.hoechstkostenWeitereWohneinheit * mittlere
+            + f.hoechstkostenAbSiebterWohneinheit * weitere
+    }
 
     /// Betrag, auf den der iSFP-Bonus tatsächlich gewährt wird.
     private func bonusfaehigerBetrag(_ foerderfaehig: Double, gebaeude: Gebaeude) -> Double {
