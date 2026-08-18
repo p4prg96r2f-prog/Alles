@@ -257,10 +257,17 @@ public struct Ablage: Codable, Sendable, Equatable {
     }
 }
 
-// MARK: - Die eine nächste Aufgabe
+// MARK: - Welche Funktion ist gerade dran?
 
-/// Der Startbildschirm zeigt genau eine Aufgabe. Welche das ist, entscheidet
-/// sich hier – und ist damit prüfbar statt in einer Ansicht vergraben.
+/// Der Startbildschirm zeigt mehrere Funktionen nebeneinander und **markiert**
+/// eine davon. Welche das ist, entscheidet sich hier – und ist damit prüfbar
+/// statt in einer Ansicht vergraben.
+///
+/// Früher verdrängte diese eine Aufgabe alles andere. Das ging schief, sobald
+/// sie zur Dauerpflicht wurde: „Zählerstand erfassen“ ist elf Monate im Jahr
+/// die nächste Aufgabe, und ein Startbildschirm, der nur danach fragt, sieht
+/// aus wie eine Mahnung statt wie ein Werkzeugkasten. Die Empfehlung ist
+/// geblieben, ihr Alleinvertretungsanspruch nicht.
 public struct Aufgabe: Sendable, Equatable {
 
     public enum Art: String, Sendable, Equatable {

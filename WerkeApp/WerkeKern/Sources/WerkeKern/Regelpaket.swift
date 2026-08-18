@@ -130,6 +130,23 @@ public struct Regelpaket: Codable, Sendable, Equatable {
         public var vermieteranteil: Double
     }
 
+    /// Wer hat diese Fassung fachlich bestätigt, und wann?
+    ///
+    /// Sobald ein Kunde eine Zahl aus der App in ein Gespräch trägt, steht die
+    /// Beratung dafür ein. Ohne festgehaltene Freigabe lässt sich später nicht
+    /// mehr sagen, wer welchen Fördersatz wann gegen die Richtlinie geprüft
+    /// hat – und genau das ist die Frage, die im Streitfall gestellt wird.
+    public struct Freigabe: Codable, Sendable, Equatable {
+        /// Name oder Kürzel der Person, die geprüft hat.
+        public var durch: String
+        /// Datum der Prüfung, als ISO-Datum.
+        public var am: String
+        /// Woran geprüft wurde – Richtlinienfassung, Fundstelle, Datum.
+        public var grundlage: String
+
+        public var istErteilt: Bool { !durch.isEmpty && !am.isEmpty }
+    }
+
     public struct GebaeudeRegeln: Codable, Sendable, Equatable {
         /// Bagatellgrenze: Anforderungen greifen erst oberhalb dieses Flächenanteils.
         public var bagatellgrenzeAnteil: Double
@@ -145,6 +162,15 @@ public struct Regelpaket: Codable, Sendable, Equatable {
         public var pflicht65ProzentEntfaellt: Bool
         /// Anteil der Fenster- oder Dachfläche, ab dem ein Lüftungskonzept nötig wird.
         public var lueftungskonzeptSchwelle: Double
+
+        /// Tag, an dem das GModG in Kraft tritt – als ISO-Datum.
+        ///
+        /// Bis dahin trägt jeder betroffene Prüfpunkt die Kennzeichnung
+        /// „Entwurfsstand“. Ohne dieses Datum bliebe die Kennzeichnung ewig
+        /// stehen: Sie verschwindet sonst erst, wenn jemand daran denkt, sie
+        /// von Hand zu entfernen – und in zwei Jahren stünde „Entwurf“ an
+        /// geltendem Recht. Leer bedeutet: noch kein Termin bekannt.
+        public var gmodgInKraftAb: String?
     }
 
     /// Fassungsnummer, monoton steigend.
@@ -165,6 +191,8 @@ public struct Regelpaket: Codable, Sendable, Equatable {
     public var klimaregionen: [Klimaregion]
     /// U-Werte für die raumweise Rechnung.
     public var uWerte: UWerte
+    /// Fachliche Freigabe dieser Fassung. Fehlt sie, weist die App darauf hin.
+    public var freigabe: Freigabe?
 
     /// Ein älteres Regelpaket ohne Klimadaten bleibt lesbar – es fehlt dann nur
     /// die Energiesignatur, nicht die ganze App.
@@ -181,6 +209,14 @@ public struct Regelpaket: Codable, Sendable, Equatable {
         gebaeude = try c.decode(GebaeudeRegeln.self, forKey: .gebaeude)
         klimaregionen = try c.decodeIfPresent([Klimaregion].self, forKey: .klimaregionen) ?? []
         uWerte = try c.decodeIfPresent(UWerte.self, forKey: .uWerte) ?? .standard
+        freigabe = try c.decodeIfPresent(Freigabe.self, forKey: .freigabe)
+    }
+
+    /// Ist das GModG am Stichtag bereits in Kraft?
+    public func gmodgInKraft(am tag: Date) -> Bool {
+        guard let datum = gebaeude.gmodgInKraftAb,
+              let stichtag = Formate.datum(ausISO: datum) else { return false }
+        return tag >= stichtag
     }
 }
 

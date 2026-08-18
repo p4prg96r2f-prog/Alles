@@ -176,14 +176,39 @@ public struct GModGPruefung {
             ))
         }
 
+        // Sobald das Gesetz in Kraft ist, verschwindet die Kennzeichnung von
+        // selbst. Ohne dieses Datum bliebe sie stehen, bis jemand daran denkt,
+        // sie von Hand zu entfernen – und in zwei Jahren stünde „Entwurf“ an
+        // geltendem Recht.
+        let inKraft = regeln.gmodgInKraft(am: heute)
+        if inKraft {
+            punkte = punkte.map { punkt in
+                guard punkt.istEntwurfsstand else { return punkt }
+                return Pruefpunkt(
+                    id: punkt.id, titel: punkt.titel, ampel: punkt.ampel,
+                    aussage: punkt.aussage, erlaeuterung: punkt.erlaeuterung,
+                    fundstelle: punkt.fundstelle, istEntwurfsstand: false
+                )
+            }
+        }
+
         let hatEntwurf = punkte.contains { $0.istEntwurfsstand }
+        let hinweis: String
+        if hatEntwurf, let ab = regeln.gebaeude.gmodgInKraftAb {
+            hinweis = "Teile beruhen auf dem Gesetzentwurf. Er tritt am \(Formate.datumLesbar(ab)) in Kraft; bis dahin gilt das bisherige Recht. Stand: \(Formate.datumLesbar(regeln.stand))."
+        } else if hatEntwurf {
+            hinweis = "Teile beruhen auf dem Gesetzentwurf und sind noch nicht in Kraft. Ein Termin für das Inkrafttreten steht nicht fest. Stand: \(Formate.datumLesbar(regeln.stand))."
+        } else if inKraft {
+            hinweis = "Das GModG ist in Kraft. Stand: \(Formate.datumLesbar(regeln.stand))."
+        } else {
+            hinweis = "Stand: \(Formate.datumLesbar(regeln.stand))."
+        }
+
         return Pruefergebnis(
             punkte: punkte,
             stand: regeln.stand,
             regelVersion: regeln.version,
-            hinweis: hatEntwurf
-                ? "Teile beruhen auf dem Gesetzentwurf und sind noch nicht in Kraft. Stand: \(Formate.datumLesbar(regeln.stand))."
-                : "Stand: \(Formate.datumLesbar(regeln.stand))."
+            hinweis: hinweis
         )
     }
 }

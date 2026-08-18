@@ -660,9 +660,18 @@ struct VerfeinerungsAnsicht: View {
                 }
             case "nachtmessung":
                 Section {
-                    NavigationLink("Messung starten") { NachtmessungAnsicht() }
+                    // Solange die Nachtmessung nicht ausgeliefert ist, führt
+                    // hier kein Weg ins Leere: Dann steht, wer sie macht.
+                    if Voreinstellungen.fachfunktionen {
+                        NavigationLink("Messung starten") { NachtmessungAnsicht() }
+                    } else {
+                        Hinweisleiste(
+                            text: "Diese Messung führt WERK.E im Termin durch – zwei Ablesungen in einer kalten Nacht, danach steht der Wärmeverlust fest.",
+                            symbol: "moon.stars"
+                        )
+                    }
                 } footer: {
-                    Text("Zwei Ablesungen in einer kalten Nacht ersetzen alle Annahmen über die Dämmung. Das Ergebnis steht danach unter „Heizlast“.")
+                    Text("Zwei Ablesungen in einer kalten Nacht ersetzen alle Annahmen über die Dämmung.")
                 }
             case "signatur":
                 Section {

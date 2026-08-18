@@ -34,8 +34,13 @@ struct HeizlastwegeAnsicht: View {
         // Der Sperrgrund stammt aus derselben Prüfung wie das Ergebnis – sonst
         // nennt er Zahlen, die der Bildschirm selbst widerlegt.
         let sperrgrund = zustand.signaturSperrgrund
+        // Nachtmessung und Raumaufmaß sind Fachwerkzeuge: Beide verlangen
+        // Übung, das Aufmaß zusätzlich ein Gerät mit Laserscanner. In der
+        // Endkundenfassung wäre ein prominenter Weg, der für die Mehrheit mit
+        // „wird nicht unterstützt“ endet, ein Versprechen zu viel.
+        let fach = Voreinstellungen.fachfunktionen
 
-        return [
+        var liste: [Weg] = [
             Weg(
                 id: "signatur",
                 titel: "Aus Ihren Ablesungen",
@@ -46,17 +51,6 @@ struct HeizlastwegeAnsicht: View {
                 sperrgrund: sperrgrund,
                 voraussetzung: nil,
                 symbol: "chart.line.uptrend.xyaxis"
-            ),
-            Weg(
-                id: "nacht",
-                titel: "Eine kalte Nacht messen",
-                beschreibung: "Zählerstand abends und morgens ablesen. Ersetzt alle Annahmen über die Dämmung – in einer einzigen Nacht.",
-                aufwand: "zwei Ablesungen",
-                genauigkeit: 0.12,
-                verfuegbar: true,
-                sperrgrund: nil,
-                voraussetzung: "braucht eine kalte Nacht",
-                symbol: "moon.stars"
             ),
             Weg(
                 id: "verbrauch",
@@ -70,17 +64,6 @@ struct HeizlastwegeAnsicht: View {
                 symbol: "doc.text.magnifyingglass"
             ),
             Weg(
-                id: "aufmass",
-                titel: "Raumaufmaß",
-                beschreibung: "Räume erfassen und raumweise rechnen. Zeigt, welcher Raum wie viel braucht.",
-                aufwand: Raumscan.unterstuetzt ? "scannen, etwa 30 s je Raum" : "von Hand erfassen",
-                genauigkeit: 0.20,
-                verfuegbar: true,
-                sperrgrund: nil,
-                voraussetzung: "vor Ort im Haus",
-                symbol: "camera.viewfinder"
-            ),
-            Weg(
                 id: "kurzcheck",
                 titel: "Fünf Fragen von außen",
                 beschreibung: "Ohne Unterlagen, ohne das Haus zu betreten. Danach Schritt für Schritt genauer.",
@@ -92,6 +75,32 @@ struct HeizlastwegeAnsicht: View {
                 symbol: "square.stack.3d.up"
             )
         ]
+
+        if fach {
+            liste.append(Weg(
+                id: "nacht",
+                titel: "Eine kalte Nacht messen",
+                beschreibung: "Zählerstand abends und morgens ablesen. Ersetzt alle Annahmen über die Dämmung – in einer einzigen Nacht.",
+                aufwand: "zwei Ablesungen",
+                genauigkeit: 0.12,
+                verfuegbar: true,
+                sperrgrund: nil,
+                voraussetzung: "braucht eine kalte Nacht",
+                symbol: "moon.stars"
+            ))
+            liste.append(Weg(
+                id: "aufmass",
+                titel: "Raumaufmaß",
+                beschreibung: "Räume erfassen und raumweise rechnen. Zeigt, welcher Raum wie viel braucht.",
+                aufwand: Raumscan.unterstuetzt ? "scannen, etwa 30 s je Raum" : "von Hand erfassen",
+                genauigkeit: 0.20,
+                verfuegbar: true,
+                sperrgrund: nil,
+                voraussetzung: Raumscan.unterstuetzt ? "vor Ort im Haus" : "vor Ort, ohne Scanner",
+                symbol: "camera.viewfinder"
+            ))
+        }
+        return liste
     }
 
     /// Empfohlen wird der genaueste Weg, der **heute** zu einem Ergebnis führt.
@@ -109,7 +118,7 @@ struct HeizlastwegeAnsicht: View {
             VStack(alignment: .leading, spacing: Gestaltung.Abstand.normal) {
 
                 Karte {
-                    Text("Fünf Wege zur selben Zahl")
+                    Text("\(wege.count) Wege zur selben Zahl")
                         .stilAbschnittstitel()
                     Text("Je mehr gemessen und je weniger geschätzt wird, desto enger die Spanne. Was gerade möglich ist, steht oben.")
                         .stilNebentext()

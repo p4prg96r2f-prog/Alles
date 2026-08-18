@@ -25,11 +25,13 @@ WerkeApp/
 │   │   ├── Huellflaechenschaetzung Hüllflächen aus Grundriss und Geschossen
 │   │   ├── Kalibrierung.swift      Aufmaß am gemessenen Wärmeverlust ausrichten
 │   │   ├── Kurzcheck.swift         Heizlast aus fünf Fragen von außen, mit Fehlermodell
+│   │   ├── Erinnerungen.swift      Wann erinnert wird – Ablesung und Fristen
+│   │   ├── Referenzobjekt.swift    Prüfstrecke gegen reale DIN-Berechnungen
 │   │   ├── GModGPruefung.swift     Anforderungsvergleich + CO₂-Kostenaufteilung
 │   │   ├── Zaehlerablesung.swift   Auswertung erkannter Texte, Plausibilitätsprüfung
 │   │   ├── Formate.swift           Einheitliche Zahlen- und Datumsformate
 │   │   └── Ressourcen/regelpaket.json
-│   └── Tests/WerkeKernTests/       267 Testfälle
+│   └── Tests/WerkeKernTests/       292 Testfälle
 └── App/
     ├── WerkeApp.xcodeproj
     └── WerkeApp/
@@ -147,7 +149,7 @@ zwischen 45 und 70 ist und oft im Keller steht.
 ## Prüfstand
 
 ```
-267 Testfälle, 0 Fehler
+292 Testfälle, 0 Fehler
 ```
 
 **Rechnen:** Grundförderung und Höchstgrenzen, der iSFP-Bonus in seiner neuen
@@ -309,3 +311,40 @@ bewirbt etwas, das es nicht gibt:
 * Ein einziger erfasster Heizkörper genügte für das Urteil „die Heizflächen
   reichen nicht aus“ – der Satz, an dem Wärmepumpenprojekte scheitern, gefällt
   aus einem Zehntel der Daten.
+
+
+---
+
+## Die zehn Entscheidungen — und was daraus im Code wurde
+
+Zehn offene Fragen wurden entschieden. Sieben davon betreffen den Code; sie sind
+umgesetzt.
+
+| | Entscheidung | Im Code |
+|---|---|---|
+| 1 | Erst die eigenen Kollegen, dann der Store | Fachfunktionen als Schalter (siehe 5) |
+| 2 | Die Ablesereihe ist das Rückgrat | `Erinnerungen.swift` + `Erinnerungsdienst` |
+| 3 | Anfrage als PDF, vom Nutzer verschickt | `PDFErzeugung.anfrage`, Knopf in „Mein Haus“ |
+| 4 | Fachliche Freigabe je Fassung | `Regelpaket.Freigabe`, sichtbar in den Einstellungen |
+| 5 | LiDAR und Nachtmessung erst intern | `Voreinstellungen.fachfunktionen` |
+| 6 | iCloud-Sicherung | `iCloud` in `Speicher.swift`, standardmäßig an |
+| 7 | Entwurfsstand mit Ablaufdatum | `gmodgInKraftAb`, Kennzeichnung entfällt von selbst |
+| 8 | Kostenlos | keine Änderung |
+| 9 | 1.0: Förderung, Ablesung, Kurzcheck | ergibt sich aus 5 |
+| 10 | Zehn reale Objekte gegenrechnen | `Referenzobjekt.swift` + `ReferenzobjektTests` |
+
+### Was davon noch Ihre Hand braucht
+
+* **Die Freigabe eintragen.** In `regelpaket.json` steht `freigabe` mit leeren
+  Feldern, und die App sagt das offen: „Diese Fassung ist noch nicht fachlich
+  freigegeben.“ Sobald jemand die Sätze gegen die geltende Richtlinie geprüft
+  hat, gehören Name, Datum und Grundlage dort hinein.
+* **Die zehn Objekte eintragen.** `Referenzsammlung.vorlage` enthält einen
+  Platzhalter, dessen Zahlen aus dem Demolauf stammen. Zehn reale Gebäude mit
+  vorliegender DIN-Berechnung machen daraus den Beleg, mit dem sich die App
+  verkaufen lässt. Der Testfall druckt die Tabelle dann von selbst.
+* **Den Stichtag eintragen**, sobald das GModG ein Datum hat: unter
+  `gebaeude.gmodgInKraftAb`. Danach verschwindet die Kennzeichnung
+  „Entwurfsstand“ automatisch, und die App erinnert einmal an den Tag.
+* **Im Xcode-Projekt** das Entwicklerteam setzen — die iCloud-Berechtigung in
+  `WerkeApp.entitlements` zieht Präfix und Bundle-ID dann von selbst.

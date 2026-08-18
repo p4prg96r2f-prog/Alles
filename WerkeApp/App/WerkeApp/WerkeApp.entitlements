@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<!--
+	    Schlüssel-Wert-Speicher der iCloud für die Sicherung der Ablage.
+
+	    Bewusst nur dieser eine Eintrag: Die Ablage ist eine JSON-Datei von
+	    wenigen Kilobyte, der Speicher fasst ein Megabyte und gleicht sich von
+	    selbst ab. CloudKit wäre Schema, Migration und ein Container für Daten,
+	    die in einen einzigen Schlüssel passen.
+
+	    Der Speicher gehört zum Apple-Konto des Nutzers. WERK.E hat darauf
+	    keinen Zugriff – das Versprechen „Ihre Daten bleiben bei Ihnen" bleibt
+	    haltbar.
+
+	    Vor dem ersten Build: $(TeamIdentifierPrefix) und die Bundle-ID
+	    stimmen automatisch, sobald das Team im Projekt gesetzt ist.
+	-->
+	<key>com.apple.developer.ubiquity-kvstore-identifier</key>
+	<string>$(TeamIdentifierPrefix)$(CFBundleIdentifier)</string>
+</dict>
+</plist>

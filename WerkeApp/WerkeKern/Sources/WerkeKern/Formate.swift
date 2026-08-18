@@ -88,4 +88,20 @@ public enum Formate {
         guard teile.count == 3 else { return iso }
         return "\(teile[2]).\(teile[1]).\(teile[0])"
     }
+
+    /// Liest ein ISO-Datum („2027-01-01“) als Tagesbeginn.
+    ///
+    /// Bewusst von Hand statt über einen Formatierer: Der greift auf Linux und
+    /// unter fremder Gerätesprache anders zu, und ein Stichtag, der je nach
+    /// Systemsprache um einen Tag springt, ist schlimmer als keiner.
+    public static func datum(ausISO iso: String) -> Date? {
+        let teile = iso.split(separator: "-")
+        guard teile.count == 3,
+              let jahr = Int(teile[0]), let monat = Int(teile[1]), let tag = Int(teile[2]),
+              (1...12).contains(monat), (1...31).contains(tag) else { return nil }
+
+        var kalender = Calendar(identifier: .gregorian)
+        kalender.timeZone = TimeZone(secondsFromGMT: 0) ?? .current
+        return kalender.date(from: DateComponents(year: jahr, month: monat, day: tag))
+    }
 }

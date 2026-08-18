@@ -10,6 +10,7 @@ struct MeinHausAnsicht: View {
     @EnvironmentObject private var zustand: AppZustand
     @State private var zeigeZaehler = false
     @State private var zeigeEinstellungen = false
+    @State private var anfrage: TeilbareDatei?
 
     var body: some View {
         NavigationStack {
@@ -23,6 +24,7 @@ struct MeinHausAnsicht: View {
                     nutzung(gebaeude)
                     zaehler
                     dokumente
+                    anfragebereich
                     berechnungen
                 }
             }
@@ -41,6 +43,9 @@ struct MeinHausAnsicht: View {
             .sheet(isPresented: $zeigeZaehler) { ZaehlerstandAnsicht() }
             .sheet(isPresented: $zeigeEinstellungen) {
                 NavigationStack { EinstellungenAnsicht() }
+            }
+            .sheet(item: $anfrage) { datei in
+                Teilblatt(url: datei.url)
             }
         }
     }
@@ -274,6 +279,58 @@ struct MeinHausAnsicht: View {
             } label: {
                 Label("\(zustand.dokumente.count) abgelegt", systemImage: "folder")
             }
+        }
+    }
+
+    /// Der Weg vom Nutzer zum Auftrag.
+    ///
+    /// Bewusst als PDF, das der Nutzer selbst verschickt, und nicht als
+    /// Übertragung: Die App hat keinen Server und soll keinen bekommen. Er
+    /// sieht vorher, was drinsteht, entscheidet selbst und behält seine Daten –
+    /// WERK.E bekommt dafür eine Anfrage mit Zahlen statt „ich will mal was
+    /// mit Förderung“.
+    private var anfragebereich: some View {
+        Section {
+            Button {
+                erzeugeAnfrage()
+            } label: {
+                Label("Anfrage an WERK.E erstellen", systemImage: "square.and.arrow.up")
+            }
+        } header: {
+            Text("Beratung")
+        } footer: {
+            Text("Fasst Gebäudedaten, Bauteilzustände, Heizlast und geplante Maßnahmen auf einem Blatt zusammen. Sie sehen es vorher und entscheiden selbst, ob und an wen Sie es schicken.")
+        }
+    }
+
+    private func erzeugeAnfrage() {
+        guard let gebaeude = zustand.gebaeude else { return }
+        let heizlast = zustand.besteHeizlast
+        let foerderung = zustand.massnahmen.isEmpty
+            ? nil
+            : zustand.foerderrechner.berechne(
+                gebaeude: gebaeude, massnahmen: zustand.massnahmen, haushalt: zustand.haushalt
+            )
+
+        let ergebnis: Heizlastergebnis? = heizlast.map {
+            Heizlastergebnis(
+                spanne: $0.spanne,
+                verfahren: $0.gemessen ? .ausVerbrauch : .ausGebaeudedaten,
+                annahmen: [],
+                regelVersion: zustand.regeln.version,
+                vorbehalt: Heizlastrechner.vorbehalt
+            )
+        }
+
+        if let url = PDFErzeugung.anfrage(
+            gebaeude: gebaeude,
+            heizlast: ergebnis,
+            heizlastQuelle: heizlast?.quelle,
+            foerderung: foerderung,
+            monateMitZaehlerstand: zustand.monateMitZaehlerstand,
+            regeln: zustand.regeln
+        ) {
+            anfrage = TeilbareDatei(url: url)
         }
     }
 

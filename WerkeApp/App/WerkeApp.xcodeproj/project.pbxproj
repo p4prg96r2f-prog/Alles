@@ -226,6 +226,7 @@
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				CODE_SIGN_ENTITLEMENTS = WerkeApp/WerkeApp.entitlements;
 				INFOPLIST_KEY_CFBundleDisplayName = "WERK.E";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Zum Abfotografieren von Zählerständen und Typenschildern. Die Erkennung läuft auf Ihrem Gerät, das Foto wird nicht gespeichert und nicht übertragen.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Damit Sie vorhandene Fotos von Zählern, Ausweisen oder Rechnungen ablegen können.";
@@ -261,6 +262,7 @@
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				CODE_SIGN_ENTITLEMENTS = WerkeApp/WerkeApp.entitlements;
 				INFOPLIST_KEY_CFBundleDisplayName = "WERK.E";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Zum Abfotografieren von Zählerständen und Typenschildern. Die Erkennung läuft auf Ihrem Gerät, das Foto wird nicht gespeichert und nicht übertragen.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Damit Sie vorhandene Fotos von Zählern, Ausweisen oder Rechnungen ablegen können.";

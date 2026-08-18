@@ -4,6 +4,12 @@ import XCTest
 final class GModGTests: XCTestCase {
 
     var regeln: Regelpaket!
+
+    private let kalender = Calendar(identifier: .gregorian)
+
+    private func datum(_ jahr: Int, _ monat: Int, _ tag: Int = 15) -> Date {
+        kalender.date(from: DateComponents(year: jahr, month: monat, day: tag, hour: 12))!
+    }
     var pruefung: GModGPruefung!
 
     override func setUpWithError() throws {
@@ -134,6 +140,62 @@ final class GModGTests: XCTestCase {
             XCTAssertFalse(punkt.erlaeuterung.isEmpty, "Ohne Erläuterung: \(punkt.titel)")
         }
     }
+
+    // MARK: Entwurfsstand und Freigabe
+
+    /// Ohne Termin für das Inkrafttreten bleibt die Kennzeichnung stehen – und
+    /// der Hinweis sagt ehrlich, dass kein Termin feststeht.
+    func testOhneStichtagBleibtDerEntwurfsstandGekennzeichnet() {
+        let e = GModGPruefung(regeln: regeln, heute: datum(2026, 8)).pruefe(Gebaeude(baujahr: 1968))
+
+        XCTAssertTrue(e.punkte.contains { $0.istEntwurfsstand })
+        XCTAssertTrue(e.hinweis.contains("Gesetzentwurf"), e.hinweis)
+    }
+
+    /// Ist der Termin gesetzt, nennt der Hinweis ihn – das ist die Auskunft,
+    /// nach der Kunden gerade fragen.
+    func testMitStichtagWirdDerTerminGenannt() {
+        var paket = regeln!
+        paket.gebaeude.gmodgInKraftAb = "2027-01-01"
+        let e = GModGPruefung(regeln: paket, heute: datum(2026, 8)).pruefe(Gebaeude(baujahr: 1968))
+
+        XCTAssertTrue(e.punkte.contains { $0.istEntwurfsstand })
+        XCTAssertTrue(e.hinweis.contains("01.01.2027"), e.hinweis)
+    }
+
+    /// Der eigentliche Zweck des Datums: Nach dem Inkrafttreten verschwindet
+    /// die Kennzeichnung von selbst. Ohne das stünde in zwei Jahren noch
+    /// „Entwurf“ an geltendem Recht.
+    func testNachInkrafttretenVerschwindetDieKennzeichnung() {
+        var paket = regeln!
+        paket.gebaeude.gmodgInKraftAb = "2027-01-01"
+        let e = GModGPruefung(regeln: paket, heute: datum(2027, 3)).pruefe(Gebaeude(baujahr: 1968))
+
+        XCTAssertFalse(e.punkte.contains { $0.istEntwurfsstand })
+        XCTAssertTrue(e.hinweis.contains("in Kraft"), e.hinweis)
+    }
+
+    /// Am Stichtag selbst gilt es bereits.
+    func testAmStichtagGiltEsBereits() {
+        var paket = regeln!
+        paket.gebaeude.gmodgInKraftAb = "2027-01-01"
+        XCTAssertTrue(paket.gmodgInKraft(am: datum(2027, 1, 1)))
+        XCTAssertFalse(paket.gmodgInKraft(am: datum(2026, 12, 31)))
+    }
+
+    /// Die ausgelieferte Fassung ist bewusst noch nicht freigegeben – die App
+    /// weist darauf hin, statt eine Freigabe vorzutäuschen.
+    func testDieMitgelieferteFassungIstNochNichtFreigegeben() {
+        XCTAssertEqual(regeln.freigabe?.istErteilt, false)
+        XCTAssertFalse(regeln.freigabe?.grundlage.isEmpty ?? true)
+    }
+
+    func testEineAusgefuellteFreigabeGiltAlsErteilt() {
+        let freigabe = Regelpaket.Freigabe(
+            durch: "S. Hund", am: "2026-08-18", grundlage: "BEG EM, Fassung 21.07.2026"
+        )
+        XCTAssertTrue(freigabe.istErteilt)
+    }
 }
 
 final class CO2Tests: XCTestCase {
@@ -243,5 +305,6 @@ final class RegelpaketTests: XCTestCase {
     func testStandardpaketIstImmerVerfuegbar() {
         XCTAssertGreaterThan(Regelpaketlader.standard.version, 0)
     }
+
 }
 

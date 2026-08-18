@@ -277,10 +277,27 @@ final class AppZustand: ObservableObject {
         }
     }
 
+    // MARK: Erinnerungen
+
+    /// Richtet die Erinnerungen neu ein.
+    ///
+    /// Wird nach jeder Änderung an der Ablage angestoßen: Eine neue Ablesung
+    /// verschiebt die Zählung, ein hinterlegter Energieausweis erzeugt eine
+    /// neue Frist. Der Plan ist immer vollständig und ersetzt den vorherigen.
+    func planeErinnerungen() {
+        let stand = ablage
+        let paket = regeln
+        Task.detached(priority: .utility) {
+            await Erinnerungsdienst.richteEin(ablage: stand, regeln: paket)
+        }
+    }
+
     // MARK: Zurücksetzen
 
     func allesLoeschen() {
         Speicher.allesLoeschen()
+        Voreinstellungen.allesZuruecksetzen()
+        Erinnerungsdienst.alleLoeschen()
         ablage = Ablage()
     }
 
@@ -289,5 +306,6 @@ final class AppZustand: ObservableObject {
     private func aendere(_ block: (inout Ablage) -> Void) {
         block(&ablage)
         Speicher.sichern(ablage)
+        planeErinnerungen()
     }
 }

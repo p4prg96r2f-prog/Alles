@@ -17,15 +17,17 @@ extension Regelpaketlader {
     /// Wird durch `testEingebettetesPaketStimmtMitRessourceUeberein` abgesichert.
     public static let eingebettetJSON = """
     {
-      "version": 3,
-      "stand": "2026-08-17",
+      "version": 4,
+      "stand": "2026-08-18",
       "hinweis": "Fördersätze nach BEG-Systematik, Stand 21.07.2026. GModG-Angaben nach Kabinettsbeschluss vom 13.05.2026 und damit Entwurfsstand.",
       "zuPruefen": [
         "Alle Fördersätze und Höchstgrenzen sind vor Veröffentlichung durch WERK.E gegen die geltende BEG-Richtlinie zu bestätigen.",
         "Boni beim Heizungstausch (Klimageschwindigkeit, Einkommen, Familie) und ihre Höchstsätze sind fachlich zu verifizieren.",
         "GModG-Werte gelten erst mit Inkrafttreten; bis dahin ist jede Ausgabe als Entwurfsstand zu kennzeichnen.",
         "Gradtagzahlen und Normaußentemperaturen der Klimaregionen sind Näherungen und vor Veröffentlichung gegen die Werte nach DIN EN 12831 Beiblatt bzw. DWD zu prüfen.",
-        "Die spezifischen Heizlasten nach Baujahr sind Erfahrungswerte für unsanierte Gebäude. Sie sind gegen die Hüllflächenrechnung derselben App abgeglichen und vor Veröffentlichung fachlich zu bestätigen."
+        "Die spezifischen Heizlasten nach Baujahr sind Erfahrungswerte für unsanierte Gebäude. Sie sind gegen die Hüllflächenrechnung derselben App abgeglichen und vor Veröffentlichung fachlich zu bestätigen.",
+        "Das Feld freigabe ist vor jeder Veröffentlichung auszufüllen: wer geprüft hat, wann, und gegen welche Richtlinienfassung.",
+        "Sobald ein Termin für das Inkrafttreten des GModG feststeht, ist er unter gebaeude.gmodgInKraftAb einzutragen. Danach entfällt die Kennzeichnung Entwurfsstand von selbst."
       ],
       "foerderung": {
         "grundsatzEinzelmassnahme": 0.15,
@@ -152,7 +154,8 @@ extension Regelpaketlader {
         "nichtwohngebaeudeKlasseGStichtag": "2030-01-01",
         "betriebsverbotAlteKesselEntfaellt": true,
         "pflicht65ProzentEntfaellt": true,
-        "lueftungskonzeptSchwelle": 0.3333
+        "lueftungskonzeptSchwelle": 0.3333,
+        "gmodgInKraftAb": null
       },
       "klimaregionen": [
         {
@@ -284,7 +287,12 @@ extension Regelpaketlader {
           ],
           "normaussentemperatur": -14
         }
-      ]
+      ],
+      "freigabe": {
+        "durch": "",
+        "am": "",
+        "grundlage": "Noch nicht fachlich freigegeben. Vor Veröffentlichung durch WERK.E gegen die geltende BEG-Richtlinie und den Stand des GModG prüfen und hier eintragen."
+      }
     }
     """
 }

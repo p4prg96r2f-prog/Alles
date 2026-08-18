@@ -104,6 +104,108 @@ enum PDFErzeugung {
         return schreibe(daten, name: "WERK-E-Heizlast")
     }
 
+    /// Die Anfrage an WERK.E: alles, was die App über das Haus weiß, auf einem
+    /// Blatt.
+    ///
+    /// **Warum als PDF und nicht als Übertragung.** Die App hat keinen Server
+    /// und soll keinen bekommen. Ein PDF, das der Nutzer selbst verschickt,
+    /// löst dasselbe Problem ohne jede Infrastruktur: Er sieht vorher, was
+    /// drinsteht, entscheidet selbst, ob er es abschickt, und behält seine
+    /// Daten. WERK.E bekommt statt „ich will mal was mit Förderung“ eine
+    /// Anfrage mit Baujahr, Bauteilzuständen, Heizlast und Maßnahmen — der
+    /// Unterschied zwischen einem Erstgespräch und einem Angebot.
+    static func anfrage(
+        gebaeude: Gebaeude,
+        heizlast: Heizlastergebnis?,
+        heizlastQuelle: String?,
+        foerderung: Foerderergebnis?,
+        monateMitZaehlerstand: Int,
+        regeln: Regelpaket
+    ) -> URL? {
+
+        let daten = UIGraphicsPDFRenderer(bounds: seiteA4, format: pdfFormat()).pdfData { kontext in
+            kontext.beginPage()
+            var y = rand
+
+            y = zeichneKopf(
+                titel: "Anfrage an WERK.E",
+                untertitel: gebaeude.anschrift.isEmpty ? "Ohne Anschrift" : gebaeude.anschrift,
+                y: y
+            )
+
+            y = zeichneAbschnitt("Das Gebäude", y: y)
+            y = zeichneZeile("Gebäudeart", gebaeude.typ.bezeichnung, y: y)
+            y = zeichneZeile("Baujahr", "\(gebaeude.baujahr)", y: y)
+            y = zeichneZeile("Wohnfläche", "\(Int(gebaeude.wohnflaeche)) m²", y: y)
+            y = zeichneZeile("Heizung", gebaeude.heizungsart.bezeichnung
+                + (gebaeude.heizungBaujahr.map { ", Baujahr \($0)" } ?? ""), y: y)
+            y += 12
+
+            y = zeichneAbschnitt("Zustand der Bauteile", y: y)
+            y = zeichneZeile("Dach", gebaeude.dach.bezeichnung, y: y)
+            y = zeichneZeile("Oberste Geschossdecke", gebaeude.obersteGeschossdecke.bezeichnung, y: y)
+            y = zeichneZeile("Fassade", gebaeude.fassade.bezeichnung, y: y)
+            y = zeichneZeile("Kellerdecke", gebaeude.kellerdecke.bezeichnung, y: y)
+            y = zeichneZeile("Fenster", gebaeude.fensterBaujahr.map { "Baujahr \($0)" } ?? "unbekannt", y: y)
+            y = zeichneKleinzeile("Angaben zu \(Int(gebaeude.angabenVollstaendigkeit * 100)) % ausgefüllt", y: y)
+            y += 12
+
+            if let heizlast {
+                y = zeichneAbschnitt("Heizlast", y: y)
+                y = zeichneSummenzeile("Abgeschätzt", Formate.kilowattSpanne(heizlast.spanne), y: y)
+                if let heizlastQuelle {
+                    y = zeichneKleinzeile(heizlastQuelle, y: y)
+                }
+                y = zeichneKleinzeile("Ersetzt keine Berechnung nach DIN EN 12831.", y: y)
+                y += 12
+            }
+
+            if monateMitZaehlerstand > 0 {
+                y = zeichneAbschnitt("Verbrauchsdaten", y: y)
+                y = zeichneZeile(
+                    "Lückenlose Monatswerte",
+                    "\(monateMitZaehlerstand) von \(regeln.gebaeude.verbrauchsausweisMonate)",
+                    y: y
+                )
+                if monateMitZaehlerstand >= regeln.gebaeude.verbrauchsausweisMonate {
+                    y = zeichneKleinzeile("Ein Verbrauchsausweis ist damit möglich.", y: y)
+                }
+                y += 12
+            }
+
+            if let foerderung, !foerderung.posten.isEmpty {
+                y = zeichneAbschnitt("Das ist geplant", y: y)
+                for posten in foerderung.posten {
+                    y = zeichneZeile(
+                        posten.art.bezeichnung,
+                        "\(Formate.euro(posten.investition))   →   Zuschuss \(Formate.euro(posten.zuschuss))",
+                        y: y
+                    )
+                }
+                y += 6
+                y = zeichneSummenzeile("Ihr Anteil", Formate.euro(foerderung.eigenanteilGesamt), y: y)
+                y += 12
+            }
+
+            y = zeichneAbschnitt("Bitte melden Sie sich", y: y)
+            _ = zeichneFliesstext(
+                "Diese Angaben stammen aus der WERK.E App und wurden von mir zusammengestellt. "
+                + "Ich möchte über eine Sanierung sprechen. Sie erreichen mich unter der Adresse, "
+                + "von der diese Nachricht kommt.\n\n"
+                + "WERK.E Energieeffizienz-Beratung · \(Kontakt.telefonLesbar) · \(Kontakt.netzseite)",
+                y: y
+            )
+
+            let freigabe = regeln.freigabe?.istErteilt == true
+                ? "fachlich freigegeben am \(Formate.datumLesbar(regeln.freigabe!.am))"
+                : "noch ohne fachliche Freigabe"
+            zeichneFuss(text: "Erstellt mit der WERK.E App. Regelfassung \(regeln.version), Stand "
+                + "\(Formate.datumLesbar(regeln.stand)) – \(freigabe). "
+                + "Alle Angaben sind Abschätzungen und ersetzen keine Beratung.")
+        }
+        return schreibe(daten, name: "WERK-E-Anfrage")
+    }
+
     // MARK: - Zeichnen
 
     private static func pdfFormat() -> UIGraphicsPDFRendererFormat {
