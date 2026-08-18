@@ -26,12 +26,15 @@ WerkeApp/
 │   │   ├── Kalibrierung.swift      Aufmaß am gemessenen Wärmeverlust ausrichten
 │   │   ├── Kurzcheck.swift         Heizlast aus fünf Fragen von außen, mit Fehlermodell
 │   │   ├── Erinnerungen.swift      Wann erinnert wird – Ablesung und Fristen
+│   │   ├── Begleitleistungen.swift Lüftungskonzept, Luftdichtheit & Co. je Maßnahme
+│   │   ├── Varianten.swift         Maßnahmenpakete nebeneinander rechnen
+│   │   ├── Anfragetext.swift       Die Nachricht an WERK.E – Betreff und Text
 │   │   ├── Referenzobjekt.swift    Prüfstrecke gegen reale DIN-Berechnungen
 │   │   ├── GModGPruefung.swift     Anforderungsvergleich + CO₂-Kostenaufteilung
 │   │   ├── Zaehlerablesung.swift   Auswertung erkannter Texte, Plausibilitätsprüfung
 │   │   ├── Formate.swift           Einheitliche Zahlen- und Datumsformate
 │   │   └── Ressourcen/regelpaket.json
-│   └── Tests/WerkeKernTests/       303 Testfälle
+│   └── Tests/WerkeKernTests/       331 Testfälle
 └── App/
     ├── WerkeApp.xcodeproj
     └── WerkeApp/
@@ -149,7 +152,7 @@ zwischen 45 und 70 ist und oft im Keller steht.
 ## Prüfstand
 
 ```
-303 Testfälle, 0 Fehler
+331 Testfälle, 0 Fehler
 ```
 
 **Rechnen:** Grundförderung und Höchstgrenzen, der iSFP-Bonus in seiner neuen
@@ -355,3 +358,42 @@ Der vollständige Befund steht in **`PRUEFBERICHT_2026-08-18.md`**. Kurz:
   Boni. Alle vier stehen in der Prüfliste des Regelpakets.
 * **Im Xcode-Projekt** das Entwicklerteam setzen — die iCloud-Berechtigung in
   `WerkeApp.entitlements` zieht Präfix und Bundle-ID dann von selbst.
+
+
+---
+
+## Der Weg vom Ergebnis zum Auftrag
+
+Jeder Ergebnisbildschirm endet jetzt gleich: mit der **Kontaktkarte**. Drei
+Wege, ein Prinzip – die Ergebnisse gehen wörtlich mit, und der Nutzer sieht die
+Nachricht vor dem Senden. Die App verschickt nichts von selbst und braucht
+dafür keinen Server.
+
+* **Angebot anfordern** – mit den voraussichtlichen Leistungen (Lüftungskonzept,
+  Heizlast nach Norm …) schon in der Nachricht.
+* **Förderung beantragen** – ein geführter Ablauf, der die eine teure Falle in
+  den Mittelpunkt stellt: Der Antrag muss gestellt sein, **bevor** ein Liefer-
+  oder Leistungsvertrag unterschrieben wird. Ohne aktive Bestätigung („Ich habe
+  noch nicht beauftragt“) geht die Anfrage nicht hinaus. Ehrlich benannt: Der
+  Antrag selbst läuft über das Förderportal – die App bereitet vor, WERK.E
+  begleitet.
+* **Nachricht senden** – freie Nachricht, Ergebnisse und Anfrage-PDF hängen an.
+
+Zustellung in drei Stufen, damit der Weg nie in einer Sackgasse endet: das
+eingebaute Mail-Formular (trägt den PDF-Anhang), sonst die eingestellte
+Mail-App über `mailto:` (der Text trägt die Ergebnisse selbst), sonst das
+Teilen-Blatt. **Vor Veröffentlichung zu prüfen:** die Empfangsadresse in
+`Kontakt.mail` ist aus der Domain abgeleitet und nicht bestätigt.
+
+### Im Förderrechner neu
+
+* **Das gehört dazu** – Lüftungskonzept (Voraussetzung bei Fenstern und Dach,
+  DIN 1946-6), Luftdichtheitskonzept (GEG § 13, DIN 4108-7), Heizlast nach
+  DIN EN 12831 und hydraulischer Abgleich beim Heizungstausch. Jede Zeile mit
+  Stufe und Fundstelle, im Kern getestet. An erster Stelle immer: Antrag vor
+  Vorhabensbeginn.
+* **Varianten vergleichen** – die aktuelle Auswahl als „Variante A“ sichern,
+  Maßnahmen ändern, Pakete nebeneinanderstellen. Gerechnet mit denselben
+  Annahmen; die Auswertung benennt die Spannung (meister Zuschuss gegen
+  kleinsten Eigenanteil), statt sie aufzulösen – welches Paket passt, ist eine
+  Budgetfrage. Varianten liegen in der Ablage und überleben den Neustart.

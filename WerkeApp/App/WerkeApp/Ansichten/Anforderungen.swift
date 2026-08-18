@@ -48,25 +48,11 @@ struct AnforderungenAnsicht: View {
                     .background(Gestaltung.Farbe.flaeche)
                     .clipShape(RoundedRectangle(cornerRadius: Gestaltung.Radius.normal, style: .continuous))
 
-                    // Auf einem iPad gibt es keine Telefonie. Ein Knopf, der
-                    // dort nichts tut, ist schlimmer als keiner – deshalb wird
-                    // dann die Nummer zum Mitschreiben gezeigt.
-                    if let nummer = Kontakt.telefonURL, UIApplication.shared.canOpenURL(nummer) {
-                        Hauptknopf(titel: "Mit WERK.E besprechen", symbol: "phone") {
-                            UIApplication.shared.open(nummer)
-                        }
+                    // Ein Weg, überall derselbe: Nachricht mit den offenen
+                    // Punkten, Angebot, Anruf – die Kontaktkarte kennt alle
+                    // drei und trägt die Ergebnisse gleich mit hinein.
+                    WerkeKontaktKarte(zusammenfassung: zusammenfassung(ergebnis))
                         .padding(.top, Gestaltung.Abstand.eng)
-                    } else {
-                        Karte {
-                            Text("Mit WERK.E besprechen")
-                                .stilAbschnittstitel()
-                            Text(Kontakt.telefonLesbar)
-                                .font(.title3.weight(.semibold).monospacedDigit())
-                                .foregroundStyle(Gestaltung.Farbe.marke)
-                                .textSelection(.enabled)
-                        }
-                        .padding(.top, Gestaltung.Abstand.eng)
-                    }
                 }
             }
             .padding(Gestaltung.Abstand.normal)
@@ -78,6 +64,16 @@ struct AnforderungenAnsicht: View {
             NavigationStack { PruefpunktAnsicht(punkt: punkt) }
                 .presentationDetents([.medium, .large])
         }
+    }
+
+    /// Die offenen Punkte, wie sie in die Nachricht gehen – Ampel als Wort,
+    /// denn eine Mail hat keine Farben.
+    private func zusammenfassung(_ ergebnis: Pruefergebnis) -> [String] {
+        ergebnis.punkte
+            .filter { $0.ampel == .rot || $0.ampel == .gelb }
+            .map { punkt in
+                "\(punkt.ampel == .rot ? "Handlungsbedarf" : "Zu klären"): \(punkt.titel) – \(punkt.aussage)"
+            }
     }
 
     private func standleiste(_ ergebnis: Pruefergebnis) -> some View {

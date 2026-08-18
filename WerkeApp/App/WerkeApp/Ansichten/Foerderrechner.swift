@@ -37,7 +37,19 @@ struct FoerderrechnerAnsicht: View {
             VStack(alignment: .leading, spacing: Gestaltung.Abstand.weit) {
                 auswahl
                 if !ausgewaehlt.isEmpty { kostenbereich }
-                if let ergebnis { ErgebnisKarte(ergebnis: ergebnis) } else { aussicht }
+                if let ergebnis {
+                    ErgebnisKarte(ergebnis: ergebnis)
+                    if !begleitleistungen.isEmpty { begleitkarte }
+                    variantenbereich
+                    WerkeKontaktKarte(
+                        zusammenfassung: zusammenfassung(ergebnis),
+                        mitFoerderantrag: true,
+                        leistungen: begleitleistungen,
+                        pdf: { anfragePDF(ergebnis) }
+                    )
+                } else {
+                    aussicht
+                }
             }
             .padding(Gestaltung.Abstand.normal)
         }
@@ -205,6 +217,179 @@ struct FoerderrechnerAnsicht: View {
                 .clipShape(RoundedRectangle(cornerRadius: Gestaltung.Radius.klein, style: .continuous))
             }
         }
+    }
+
+    // MARK: Was zur Maßnahme dazugehört
+
+    /// Lüftungskonzept, Luftdichtheit, Heizlast nach Norm – die Pflichten
+    /// neben der Maßnahme. Sie erst im Termin zu erwähnen hieße, dass die App
+    /// eine unvollständige Rechnung gezeigt hat.
+    private var begleitleistungen: [Begleitleistung] {
+        guard let gebaeude = zustand.gebaeude else { return [] }
+        return Begleitplanung.leistungen(fuer: massnahmen, gebaeude: gebaeude)
+    }
+
+    private var begleitkarte: some View {
+        Karte {
+            Text("Das gehört dazu")
+                .stilAbschnittstitel()
+            Text("Diese Punkte entscheiden mit darüber, ob der Zuschuss fließt und die Maßnahme gelingt – sie gehören in jedes Angebot.")
+                .stilNebentext()
+
+            ForEach(begleitleistungen) { leistung in
+                VStack(alignment: .leading, spacing: 4) {
+                    HStack(spacing: Gestaltung.Abstand.eng) {
+                        Image(systemName: leistung.stufe == .pflicht ? "checkmark.seal.fill" : "lightbulb")
+                            .font(.subheadline)
+                            .foregroundStyle(leistung.stufe == .pflicht ? Gestaltung.Farbe.marke : Gestaltung.Farbe.gelb)
+                        Text(leistung.titel)
+                            .font(.subheadline.weight(.semibold))
+                        Text(leistung.stufe.bezeichnung)
+                            .font(.caption2.weight(.bold))
+                            .padding(.horizontal, 7)
+                            .padding(.vertical, 2)
+                            .background(leistung.stufe == .pflicht ? Gestaltung.Farbe.markeGedeckt : Gestaltung.Farbe.gelb.opacity(0.16))
+                            .foregroundStyle(leistung.stufe == .pflicht ? Gestaltung.Farbe.marke : Gestaltung.Farbe.gelb)
+                            .clipShape(Capsule())
+                    }
+                    Text(leistung.begruendung)
+                        .font(.footnote)
+                        .foregroundStyle(Gestaltung.Farbe.textLeise)
+                        .fixedSize(horizontal: false, vertical: true)
+                    Text(leistung.fundstelle)
+                        .font(.caption2)
+                        .foregroundStyle(Gestaltung.Farbe.textLeise)
+                }
+                .padding(.vertical, 4)
+
+                if leistung.id != begleitleistungen.last?.id {
+                    Divider().overlay(Gestaltung.Farbe.trennlinie)
+                }
+            }
+        }
+    }
+
+    // MARK: Varianten
+
+    /// Die eigentliche Entscheidung ist selten „Fassade: ja oder nein“,
+    /// sondern „welches Paket“. Hier lässt sich die aktuelle Auswahl als
+    /// Variante festhalten und gegen andere Pakete stellen – gerechnet mit
+    /// denselben Annahmen, sonst wäre der Vergleich keiner.
+    private var variantenbereich: some View {
+        Karte {
+            Text("Varianten vergleichen")
+                .stilAbschnittstitel()
+
+            if zustand.varianten.isEmpty {
+                Text("Sichern Sie die aktuelle Auswahl als Variante, ändern Sie dann die Maßnahmen – und stellen Sie die Pakete nebeneinander.")
+                    .stilNebentext()
+            }
+
+            if let vergleich, !vergleich.zeilen.isEmpty {
+                ForEach(vergleich.zeilen) { zeile in
+                    variantenzeile(zeile, vergleich: vergleich)
+                    if zeile.id != vergleich.zeilen.last?.id {
+                        Divider().overlay(Gestaltung.Farbe.trennlinie)
+                    }
+                }
+                if let aussage = vergleich.aussage {
+                    Hinweisleiste(text: aussage, symbol: "scale.3d")
+                }
+            }
+
+            Nebenknopf(titel: "Auswahl als \(naechsterVariantenname) sichern", symbol: "plus.square.on.square") {
+                zustand.sichereVariante(name: naechsterVariantenname, massnahmen: massnahmen)
+            }
+            .disabled(massnahmen.isEmpty)
+        }
+    }
+
+    private var vergleich: Variantenvergleich? {
+        guard let gebaeude = zustand.gebaeude, !zustand.varianten.isEmpty else { return nil }
+        return zustand.foerderrechner.vergleiche(zustand.varianten, gebaeude: gebaeude, haushalt: haushalt)
+    }
+
+    private var naechsterVariantenname: String {
+        let buchstaben = ["A", "B", "C", "D", "E", "F", "G", "H"]
+        let index = min(zustand.varianten.count, buchstaben.count - 1)
+        return "Variante \(buchstaben[index])"
+    }
+
+    private func variantenzeile(_ zeile: Variantenzeile, vergleich: Variantenvergleich) -> some View {
+        VStack(alignment: .leading, spacing: 4) {
+            HStack(spacing: Gestaltung.Abstand.eng) {
+                Text(zeile.variante.name)
+                    .font(.subheadline.weight(.semibold))
+                if vergleich.zeilen.count >= 2, zeile.id == vergleich.hoechsterZuschuss?.id {
+                    abzeichen("meister Zuschuss")
+                }
+                if vergleich.zeilen.count >= 2, zeile.id == vergleich.niedrigsterEigenanteil?.id {
+                    abzeichen("kleinster Eigenanteil")
+                }
+                Spacer()
+                Button {
+                    zustand.loescheVariante(zeile.variante.id)
+                } label: {
+                    Image(systemName: "trash")
+                        .font(.footnote)
+                        .foregroundStyle(Gestaltung.Farbe.rot)
+                }
+                .buttonStyle(.plain)
+                .accessibilityLabel("\(zeile.variante.name) löschen")
+            }
+            Text(zeile.variante.massnahmen.map(\.art.bezeichnung).joined(separator: ", "))
+                .font(.caption)
+                .foregroundStyle(Gestaltung.Farbe.textLeise)
+                .fixedSize(horizontal: false, vertical: true)
+            Text("Investition \(Formate.euro(zeile.investition)) · Zuschuss \(Formate.euro(zeile.zuschuss)) · Ihr Anteil \(Formate.euro(zeile.eigenanteil))")
+                .font(.caption.monospacedDigit())
+        }
+        .padding(.vertical, 4)
+    }
+
+    private func abzeichen(_ text: String) -> some View {
+        Text(text)
+            .font(.caption2.weight(.bold))
+            .padding(.horizontal, 6)
+            .padding(.vertical, 2)
+            .background(Gestaltung.Farbe.markeGedeckt)
+            .foregroundStyle(Gestaltung.Farbe.marke)
+            .clipShape(Capsule())
+    }
+
+    // MARK: Anfrage
+
+    /// Die Zeilen, die wörtlich in die Nachricht an WERK.E gehen.
+    private func zusammenfassung(_ ergebnis: Foerderergebnis) -> [String] {
+        var zeilen: [String] = []
+        if !massnahmen.isEmpty {
+            zeilen.append("Geplante Maßnahmen: " + massnahmen.map(\.art.bezeichnung).joined(separator: ", "))
+        }
+        zeilen.append("Investition: \(Formate.euro(ergebnis.investitionGesamt))")
+        zeilen.append("Mögliche Förderung: \(Formate.euroSpanne(ergebnis.zuschussSpanne))")
+        zeilen.append("Mein Anteil: \(Formate.euro(ergebnis.eigenanteilGesamt))")
+        if let vergleich, vergleich.zeilen.count >= 2 {
+            for zeile in vergleich.zeilen {
+                zeilen.append("\(zeile.variante.name): Zuschuss \(Formate.euro(zeile.zuschuss)), Anteil \(Formate.euro(zeile.eigenanteil))")
+            }
+        }
+        let pflichten = begleitleistungen.filter { $0.stufe == .pflicht && $0.id != "antrag-vor-beginn" }
+        if !pflichten.isEmpty {
+            zeilen.append("Dazu gehört: " + pflichten.map(\.titel).joined(separator: ", "))
+        }
+        return zeilen
+    }
+
+    private func anfragePDF(_ ergebnis: Foerderergebnis) -> URL? {
+        guard let gebaeude = zustand.gebaeude else { return nil }
+        return PDFErzeugung.anfrage(
+            gebaeude: gebaeude,
+            heizlast: nil,
+            heizlastQuelle: nil,
+            foerderung: ergebnis,
+            monateMitZaehlerstand: zustand.monateMitZaehlerstand,
+            regeln: zustand.regeln
+        )
     }
 
     // MARK: Richtwerte

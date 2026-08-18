@@ -194,20 +194,14 @@ struct ErgebnisKarte: View {
             }
             .disabled(gesichert)
 
-            HStack(spacing: Gestaltung.Abstand.weit) {
-                Nebenknopf(titel: "Als PDF teilen", symbol: "square.and.arrow.up") {
-                    if let gebaeude = zustand.gebaeude {
-                        pdf = PDFErzeugung.foerderergebnis(
-                            gebaeude: gebaeude,
-                            ergebnis: ergebnis
-                        )
-                    }
-                }
-
-                Nebenknopf(titel: "Beratung anfragen", symbol: "phone") {
-                    if let url = URL(string: "tel:052514029291") {
-                        UIApplication.shared.open(url)
-                    }
+            // Der Kontakt zu WERK.E liegt in der Kontaktkarte darunter –
+            // ein Weg, überall derselbe. Hier bleibt nur das PDF.
+            Nebenknopf(titel: "Als PDF teilen", symbol: "square.and.arrow.up") {
+                if let gebaeude = zustand.gebaeude {
+                    pdf = PDFErzeugung.foerderergebnis(
+                        gebaeude: gebaeude,
+                        ergebnis: ergebnis
+                    )
                 }
             }
         }

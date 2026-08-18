@@ -68,6 +68,11 @@ struct NachtmessungAnsicht: View {
                 eingabe
                 if let ergebnis { ergebniskarte(ergebnis) }
                 if !naechte.isEmpty { naechteliste }
+                if let ergebnis {
+                    WerkeKontaktKarte(zusammenfassung: [
+                        "Heizlast aus Nachtmessung: \(Formate.kilowattSpanne(ergebnis.heizlast)) (\(ergebnis.naechte) Nacht/Nächte, \(Formate.zahl(ergebnis.waermeverlustkoeffizient, stellen: 0)) W/K)"
+                    ])
+                }
             }
             .padding(Gestaltung.Abstand.normal)
         }

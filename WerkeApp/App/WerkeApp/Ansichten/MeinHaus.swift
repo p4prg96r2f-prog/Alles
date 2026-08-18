@@ -11,6 +11,7 @@ struct MeinHausAnsicht: View {
     @State private var zeigeZaehler = false
     @State private var zeigeEinstellungen = false
     @State private var anfrage: TeilbareDatei?
+    @State private var nachricht: Mailnachricht?
 
     var body: some View {
         NavigationStack {
@@ -46,6 +47,9 @@ struct MeinHausAnsicht: View {
             }
             .sheet(item: $anfrage) { datei in
                 Teilblatt(url: datei.url)
+            }
+            .sheet(item: $nachricht) { mail in
+                MailFormular(nachricht: mail)
             }
         }
     }
@@ -292,15 +296,70 @@ struct MeinHausAnsicht: View {
     private var anfragebereich: some View {
         Section {
             Button {
+                sendeNachricht()
+            } label: {
+                Label("Nachricht an WERK.E senden", systemImage: "envelope")
+            }
+            Button {
                 erzeugeAnfrage()
             } label: {
-                Label("Anfrage an WERK.E erstellen", systemImage: "square.and.arrow.up")
+                Label("Anfrage als PDF teilen", systemImage: "square.and.arrow.up")
             }
         } header: {
             Text("Beratung")
         } footer: {
-            Text("Fasst Gebäudedaten, Bauteilzustände, Heizlast und geplante Maßnahmen auf einem Blatt zusammen. Sie sehen es vorher und entscheiden selbst, ob und an wen Sie es schicken.")
+            Text("Beides fasst Gebäudedaten, Bauteilzustände, Heizlast und geplante Maßnahmen zusammen. Sie sehen die Nachricht vor dem Senden und entscheiden selbst, ob und an wen sie geht.")
         }
+    }
+
+    /// Dieselbe Zustellungstreppe wie überall: Formular mit Anhang, sonst
+    /// die eingestellte Mail-App, sonst das Teilen-Blatt.
+    private func sendeNachricht() {
+        var zeilen: [String] = []
+        if let heizlast = zustand.besteHeizlast {
+            zeilen.append("Heizlast: \(Formate.kilowattSpanne(heizlast.spanne)) (\(heizlast.quelle))")
+        }
+        if let foerderung = zustand.foerderueberblick {
+            zeilen.append("Mögliche Förderung: \(Formate.euro(foerderung))")
+        }
+        zeilen.append("Erfasste Monatswerte: \(zustand.monateMitZaehlerstand) von \(zustand.regeln.gebaeude.verbrauchsausweisMonate)")
+
+        let mail = Mailnachricht(
+            betreff: Anfragetext.betreff(.nachricht, gebaeude: zustand.gebaeude),
+            text: Anfragetext.nachricht(art: .nachricht, gebaeude: zustand.gebaeude, zusammenfassung: zeilen),
+            anhang: anfragePDF()
+        )
+        if MailVersand.formularMoeglich {
+            nachricht = mail
+        } else if let url = MailVersand.mailtoURL(mail), UIApplication.shared.canOpenURL(url) {
+            UIApplication.shared.open(url)
+        } else if let pdf = mail.anhang {
+            anfrage = TeilbareDatei(url: pdf)
+        }
+    }
+
+    private func anfragePDF() -> URL? {
+        guard let gebaeude = zustand.gebaeude else { return nil }
+        let heizlast = zustand.besteHeizlast
+        let ergebnis: Heizlastergebnis? = heizlast.map {
+            Heizlastergebnis(
+                spanne: $0.spanne,
+                verfahren: $0.gemessen ? .ausVerbrauch : .ausGebaeudedaten,
+                annahmen: [],
+                regelVersion: zustand.regeln.version,
+                vorbehalt: Heizlastrechner.vorbehalt
+            )
+        }
+        return PDFErzeugung.anfrage(
+            gebaeude: gebaeude,
+            heizlast: ergebnis,
+            heizlastQuelle: heizlast?.quelle,
+            foerderung: zustand.massnahmen.isEmpty ? nil : zustand.foerderrechner.berechne(
+                gebaeude: gebaeude, massnahmen: zustand.massnahmen, haushalt: zustand.haushalt
+            ),
+            monateMitZaehlerstand: zustand.monateMitZaehlerstand,
+            regeln: zustand.regeln
+        )
     }
 
     private func erzeugeAnfrage() {

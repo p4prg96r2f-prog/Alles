@@ -209,6 +209,25 @@ final class AppZustand: ObservableObject {
         aendere { $0.nachtmessungen.removeAll { ids.contains($0.id) } }
     }
 
+    // MARK: Varianten
+
+    /// Gespeicherte Maßnahmenpakete für den Variantenvergleich.
+    var varianten: [Variante] { ablage.varianten }
+
+    func sichereVariante(name: String, massnahmen: [Massnahme]) {
+        let bereinigt = name.trimmingCharacters(in: .whitespaces)
+        aendere {
+            $0.varianten.append(Variante(
+                name: bereinigt.isEmpty ? "Variante \($0.varianten.count + 1)" : bereinigt,
+                massnahmen: massnahmen
+            ))
+        }
+    }
+
+    func loescheVariante(_ id: UUID) {
+        aendere { $0.varianten.removeAll { $0.id == id } }
+    }
+
     // MARK: Dokumente
 
     var dokumente: [Dokument] { ablage.dokumenteNeuesteZuerst }

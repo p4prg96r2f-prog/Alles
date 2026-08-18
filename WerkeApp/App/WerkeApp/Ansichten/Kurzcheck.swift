@@ -342,6 +342,11 @@ struct KurzcheckAnsicht: View {
                 Hinweisleiste(text: e.vorbehalt, symbol: "exclamationmark.triangle")
             }
 
+            WerkeKontaktKarte(zusammenfassung: [
+                "Kurzcheck von außen: \(Formate.kilowattSpanne(e.heizlast)) (± \(Formate.zahl(e.unsicherheit * 100, stellen: 0)) %)",
+                "Beheizte Fläche, geschätzt: \(Formate.zahl(e.beheizteFlaeche, stellen: 0)) m²"
+            ])
+
             if uebernommen {
                 Karte {
                     Ampelzeile(

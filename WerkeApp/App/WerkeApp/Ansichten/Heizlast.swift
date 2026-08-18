@@ -84,6 +84,16 @@ struct HeizlastAnsicht: View {
                             pdf = PDFErzeugung.heizlastergebnis(gebaeude: gebaeude, ergebnis: ergebnis)
                         }
                     }
+                    WerkeKontaktKarte(
+                        zusammenfassung: [
+                            "Heizlast: \(Formate.kilowattSpanne(ergebnis.spanne)) (\(ergebnis.verfahren.bezeichnung))"
+                        ],
+                        pdf: {
+                            zustand.gebaeude.map {
+                                PDFErzeugung.heizlastergebnis(gebaeude: $0, ergebnis: ergebnis)
+                            } ?? nil
+                        }
+                    )
                 } else {
                     Hinweisleiste(text: "Tragen Sie mindestens einen Jahresverbrauch ein – zwei bis drei Jahre machen die Abschätzung deutlich belastbarer.")
                 }

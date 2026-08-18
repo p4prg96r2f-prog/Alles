@@ -101,6 +101,8 @@ public struct Ablage: Codable, Sendable, Equatable {
     /// Bildschirmzustand: Der Weg verlangt ausdrücklich mehrere Nächte, und
     /// eine Nacht lässt sich nicht nachholen.
     public var nachtmessungen: [Nachtmessung]
+    /// Gespeicherte Maßnahmenpakete für den Variantenvergleich.
+    public var varianten: [Variante]
     public var dokumente: [Dokument]
     public var berechnungen: [GespeicherteBerechnung]
     public var verlauf: [Verlaufseintrag]
@@ -114,6 +116,7 @@ public struct Ablage: Codable, Sendable, Equatable {
         zaehlerstaende: [Zaehlerstand] = [],
         heizkoerper: [Heizkoerper] = [],
         nachtmessungen: [Nachtmessung] = [],
+        varianten: [Variante] = [],
         dokumente: [Dokument] = [],
         berechnungen: [GespeicherteBerechnung] = [],
         verlauf: [Verlaufseintrag] = [],
@@ -126,6 +129,7 @@ public struct Ablage: Codable, Sendable, Equatable {
         self.zaehlerstaende = zaehlerstaende
         self.heizkoerper = heizkoerper
         self.nachtmessungen = nachtmessungen
+        self.varianten = varianten
         self.dokumente = dokumente
         self.berechnungen = berechnungen
         self.verlauf = verlauf
@@ -142,6 +146,7 @@ public struct Ablage: Codable, Sendable, Equatable {
         zaehlerstaende = try c.decodeIfPresent([Zaehlerstand].self, forKey: .zaehlerstaende) ?? []
         heizkoerper = try c.decodeIfPresent([Heizkoerper].self, forKey: .heizkoerper) ?? []
         nachtmessungen = try c.decodeIfPresent([Nachtmessung].self, forKey: .nachtmessungen) ?? []
+        varianten = try c.decodeIfPresent([Variante].self, forKey: .varianten) ?? []
         dokumente = try c.decodeIfPresent([Dokument].self, forKey: .dokumente) ?? []
         berechnungen = try c.decodeIfPresent([GespeicherteBerechnung].self, forKey: .berechnungen) ?? []
         verlauf = try c.decodeIfPresent([Verlaufseintrag].self, forKey: .verlauf) ?? []

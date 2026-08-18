@@ -259,6 +259,11 @@ struct RaumaufmassAnsicht: View {
         Karte {
             Hinweisleiste(text: ergebnis.vorbehalt)
         }
+
+        WerkeKontaktKarte(zusammenfassung: [
+            "Raumaufmaß: \(Formate.kilowatt(anzeige?.gesamtKW ?? ergebnis.gesamtKW)) über \(ergebnis.raeume.count) Räume"
+            + (anzeige?.kalibrierung.angewendet == true ? ", mit Ablesungen abgeglichen" : "")
+        ])
     }
 
     private func betragszeile(_ titel: String, _ wert: String) -> some View {

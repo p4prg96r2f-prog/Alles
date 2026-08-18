@@ -73,6 +73,54 @@ zeile("Förderung", "− " + Formate.euro(ergebnis.zuschussGesamt))
 zeile("Beratung, Eigenanteil", "+ " + Formate.euro(ergebnis.honorar.eigenanteil))
 zeile("Ihr Anteil", Formate.euro(ergebnis.eigenanteilGesamt))
 
+// MARK: - 3b. Was zur Maßnahme dazugehört
+
+ueberschrift("3b · Was zur Maßnahme dazugehört")
+// Fassade und Fenster sind gewählt – die App sagt von sich aus, welche
+// Konzepte die Förderung verlangt, statt das dem Termin zu überlassen.
+for leistung in Begleitplanung.leistungen(fuer: ablage.massnahmen, gebaeude: haus) {
+    zeile(leistung.titel, leistung.stufe.bezeichnung)
+    print("        \(leistung.fundstelle)")
+}
+
+// MARK: - 3c. Varianten im Vergleich
+
+ueberschrift("3c · Drei Varianten im Vergleich")
+// Die eigentliche Entscheidung ist selten „Fassade: ja oder nein“, sondern
+// „welches Paket“. Drei Pakete, dieselben Annahmen, nebeneinander.
+let varianten = [
+    Variante(name: "A · Nur Heizung", massnahmen: [Massnahme(art: .heizungstausch, kosten: 28_000)]),
+    Variante(name: "B · Nur Hülle", massnahmen: ablage.massnahmen),
+    Variante(name: "C · Beides", massnahmen: ablage.massnahmen + [Massnahme(art: .heizungstausch, kosten: 28_000)])
+]
+let vergleich = rechner.vergleiche(varianten, gebaeude: haus)
+for zeileV in vergleich.zeilen {
+    zeile(zeileV.variante.name,
+          "Zuschuss \(Formate.euro(zeileV.zuschuss)) · Anteil \(Formate.euro(zeileV.eigenanteil))")
+}
+if let aussage = vergleich.aussage {
+    print("\n  → \(aussage)")
+}
+
+// MARK: - 3d. Die Nachricht an WERK.E
+
+ueberschrift("3d · Die Nachricht an WERK.E")
+// Am Ende jeder Rechnung steht derselbe Weg: eine Nachricht, in der die
+// Ergebnisse wörtlich mitgehen – und die der Nutzer vor dem Senden sieht.
+let anfragetext = Anfragetext.nachricht(
+    art: .antragsbegleitung,
+    gebaeude: haus,
+    zusammenfassung: [
+        "Geplante Maßnahmen: Fassade dämmen, Fenster erneuern",
+        "Mögliche Förderung: \(Formate.euro(ergebnis.zuschussGesamt))"
+    ]
+)
+zeile("Betreff", Anfragetext.betreff(.antragsbegleitung, gebaeude: haus))
+for zeileT in anfragetext.split(separator: "\n").prefix(6) {
+    print("  | \(zeileT)")
+}
+print("  | …")
+
 // MARK: - 4. Der Optimierer
 
 ueberschrift("4 · Was der Rechner von sich aus meldet")
