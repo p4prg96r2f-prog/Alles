@@ -56,7 +56,11 @@ footer{text-align:center;color:var(--muted);font-size:.82rem;padding:30px 20px}
 <footer>WERK.E Energie-Effizienz-Beratung · Rolandsweg 80 · 33102 Paderborn</footer>
 <script>
 window.dataLayer = window.dataLayer || [];
-window.dataLayer.push({event:"qng_lead_thankyou"});
+(function(){
+  var v = "a";
+  try{ v = sessionStorage.getItem("qng_variant") || "a"; }catch(e){}
+  window.dataLayer.push({event:"qng_lead_thankyou", lp_variant:v});
+})();
 </script>
 </body>
 </html>

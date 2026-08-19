@@ -14,16 +14,17 @@ QNG-Begleitung (Qualitätssiegel Nachhaltiges Gebäude) mit internen Auditoren.
 ```
 ppc-qng/
 ├── landingpage/
-│   ├── index.html        Conversion-Landingpage (eigenständig, keine externen Abhängigkeiten)
-│   └── danke.html        Danke-Seite = Conversion-Ziel fürs Tracking
+│   ├── index.html        Conversion-Landingpage mit 3 A/B-Varianten (?v=a|b|c), eigenständig
+│   └── danke.html        Danke-Seite = Conversion-Ziel fürs Tracking (inkl. Varianten-Attribution)
 ├── kampagne/
 │   ├── 01-strategie-und-budget.md      Zielgruppen, Budget, Gebote, KPIs, Optimierungs-Routine
 │   ├── 02-kampagnenstruktur-und-assets.md  Kontoeinstellungen, Struktur, Erweiterungen
 │   ├── 03-tracking-und-messung.md      GA4 + Google Ads + Consent Mode v2, Test-Checkliste
+│   ├── 04-ab-test-plan.md              A/B-Testsystem: LP-Varianten, RSA-Paare, Experimente
 │   └── import/
 │       ├── keywords.csv            65 Keywords in 4 Kampagnen / 11 Anzeigengruppen
 │       ├── negative-keywords.csv   34 Ausschluss-Keywords (als gemeinsame Liste anlegen)
-│       ├── anzeigen-rsa.csv        11 Responsive Search Ads (Limits validiert)
+│       ├── anzeigen-rsa.csv        21 Responsive Search Ads = A/B-Testpaar je Anzeigengruppe
 │       └── generator.py            Erzeugt die CSVs neu & prüft Zeichenlimits
 └── README.md
 ```
@@ -39,6 +40,19 @@ ppc-qng/
 
 Startbudget-Empfehlung: **2.000 €/Monat**, Details in `kampagne/01-strategie-und-budget.md`.
 
+## A/B-Testsystem (eingebaut)
+
+- **Landingpage:** 3 Varianten ohne Zusatz-Tool – `?v=a` Auditoren-first (Standard),
+  `?v=b` Förderung-first-Hero, `?v=c` Kurzformular. Variantenwahl vor dem ersten Paint
+  (kein Flackern), pro Sitzung stabil, in allen Tracking-Events und im Formularfeld
+  `lp_variant` enthalten.
+- **Anzeigen:** Jede Non-Brand-Anzeigengruppe enthält ein RSA-Testpaar
+  (A: Auditoren/Sicherheit vs. B: Förderung/Zahlen) → 10 parallel laufende Anzeigentests.
+- **Kampagnen-Experimente:** Fahrplan K-1 bis K-5 (Gebotsstrategie, Broad Match, RLSA,
+  Werbezeiten, Regional-Boost).
+
+Regeln, Mindest-Datenbasis, Auswertung und Test-Log: **`kampagne/04-ab-test-plan.md`**.
+
 ## Launch-Checkliste (in dieser Reihenfolge)
 
 **1. Landingpage live bringen**
@@ -53,6 +67,7 @@ Startbudget-Empfehlung: **2.000 €/Monat**, Details in `kampagne/01-strategie-u
 **2. Tracking (Pflicht vor Kampagnenstart)**
 - [ ] CMP mit Consent Mode v2 einbinden, dann GTM-Container (Platzhalter im `<head>`)
 - [ ] Conversions „QNG Lead" + „Anruf-Klick" einrichten und testen → `kampagne/03-tracking-und-messung.md`
+- [ ] GA4: benutzerdefinierte Dimension `lp_variant` registrieren (A/B-Auswertung, siehe `04-ab-test-plan.md`)
 
 **3. Google-Ads-Konto**
 - [ ] Konto-Grundeinstellungen laut `kampagne/02-kampagnenstruktur-und-assets.md`

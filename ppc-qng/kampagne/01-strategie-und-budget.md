@@ -86,10 +86,10 @@ hoher wahrgenommener Wert, qualifiziert automatisch über Projektart/Projektstan
 - Lead-Qualität mit Vertrieb abgleichen (welche Kampagne liefert Aufträge, nicht nur Leads?) → ggf. Conversion-Werte je Segment hinterlegen
 - Auktionsdaten: neue Wettbewerber? Anzeigentexte dagegen schärfen
 
-**LP-A/B-Roadmap (nacheinander testen, je ≥ 2 Wochen / ≥ 100 Conversions-Basis):**
-1. H1: „QNG-Zertifizierung aus einer Hand" (Auditoren-first) vs. „Bis zu 150.000 € mehr KfW-Kredit" (Förderung-first)
-2. Formularlänge: aktuell (6 Felder) vs. Kurzversion (Name, E-Mail, Projektart)
-3. CTA-Wording: „QNG-Check anfordern" vs. „Förderpotenzial prüfen lassen"
+**A/B-Tests:** Das komplette Testsystem ist eingerichtet – Landingpage-Varianten
+(`?v=a|b|c`), RSA-Testpaare in jeder Anzeigengruppe und der Fahrplan für
+Kampagnen-Experimente. Reihenfolge, Mindest-Datenbasis, Entscheidungsregeln und
+Test-Log: **`04-ab-test-plan.md`**.
 
 ## 7. Skalierung (ab Monat 3, wenn CPL stabil)
 

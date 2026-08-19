@@ -10,6 +10,21 @@
 <meta property="og:description" content="Machbarkeitscheck, Ökobilanz, Nachweise und Siegel: WERK.E begleitet Ihr Projekt bis zur höchsten KfW-Förderstufe.">
 <meta property="og:type" content="website">
 
+<script>
+/* A/B-Testing: Variante aus URL (?v=a|b|c), Standard "a".
+   a = Auditoren-first (Original) · b = Förderung-first (Hero-Copy) · c = Kurzformular.
+   Wird vor dem ersten Rendern gesetzt -> kein Flackern; Variante bleibt pro Sitzung stabil. */
+(function(){
+  var v = "a";
+  try{
+    var m = location.search.match(/[?&]v=([abc])(&|$)/);
+    v = m ? m[1] : (sessionStorage.getItem("qng_variant") || "a");
+    sessionStorage.setItem("qng_variant", v);
+  }catch(e){}
+  document.documentElement.setAttribute("data-variant", v);
+})();
+</script>
+
 <!-- ============================================================
   TRACKING (vor Livegang aktivieren – siehe kampagne/03-tracking-und-messung.md)
   1) Consent-Management (CMP, z. B. Usercentrics/Cookiebot) ZUERST einbinden.
@@ -56,6 +71,12 @@ a{color:var(--brand-2)}
 .btn-dark{background:var(--brand);color:#fff}
 .btn-dark:hover{background:var(--brand-2)}
 .small{font-size:.85rem;color:var(--muted)}
+
+/* A/B-Varianten: Sichtbarkeit wird vor dem ersten Paint über html[data-variant] gesteuert */
+.v-b{display:none}
+html[data-variant="b"] .v-a{display:none}
+html[data-variant="b"] .v-b{display:block}
+html[data-variant="c"] .v-hide-c{display:none}
 
 /* Header */
 header{background:#fff;border-bottom:1px solid var(--line)}
@@ -251,16 +272,33 @@ footer a{color:#cfe0d6}
     <div class="container hero-grid">
       <div>
         <span class="eyebrow">QNG · Qualitätssiegel Nachhaltiges Gebäude</span>
-        <h1>QNG-Zertifizierung aus einer Hand – mit eigenen Auditoren.</h1>
-        <p class="lead">Wir bringen Ihr Bauprojekt sicher zum QNG-Siegel: Machbarkeitscheck, Ökobilanz, Nachweise und die komplette Abwicklung mit der Zertifizierungsstelle. Damit Ihre KfW-Förderung in voller Höhe steht.</p>
-        <ul class="checks">
-          <li><span class="ic">✓</span><span>Bis zu <b>150.000&nbsp;€ KfW-Kredit je Wohneinheit</b> statt 100.000&nbsp;€ – möglich nur mit QNG</span></li>
-          <li><span class="ic">✓</span><span>Eigene Auditoren im Haus – <b>keine Schnittstellen, keine Vermittlung</b></span></li>
-          <li><span class="ic">✓</span><span>Ein Ansprechpartner von der Planung bis zur <b>Siegelübergabe</b></span></li>
-        </ul>
-        <div class="hero-ctas">
-          <a class="btn btn-accent js-cta" data-pos="hero" href="#qng-check">Jetzt QNG-Check anfordern</a>
-          <a class="btn btn-ghost js-call" href="tel:+4952514029291">05251 4029291 anrufen</a>
+        <!-- Variante A: Auditoren-/Sicherheit-first -->
+        <div class="v-a">
+          <h1>QNG-Zertifizierung aus einer Hand – mit eigenen Auditoren.</h1>
+          <p class="lead">Wir bringen Ihr Bauprojekt sicher zum QNG-Siegel: Machbarkeitscheck, Ökobilanz, Nachweise und die komplette Abwicklung mit der Zertifizierungsstelle. Damit Ihre KfW-Förderung in voller Höhe steht.</p>
+          <ul class="checks">
+            <li><span class="ic">✓</span><span>Bis zu <b>150.000&nbsp;€ KfW-Kredit je Wohneinheit</b> statt 100.000&nbsp;€ – möglich nur mit QNG</span></li>
+            <li><span class="ic">✓</span><span>Eigene Auditoren im Haus – <b>keine Schnittstellen, keine Vermittlung</b></span></li>
+            <li><span class="ic">✓</span><span>Ein Ansprechpartner von der Planung bis zur <b>Siegelübergabe</b></span></li>
+          </ul>
+          <div class="hero-ctas">
+            <a class="btn btn-accent js-cta" data-pos="hero" href="#qng-check">Jetzt QNG-Check anfordern</a>
+            <a class="btn btn-ghost js-call" href="tel:+4952514029291">05251 4029291 anrufen</a>
+          </div>
+        </div>
+        <!-- Variante B: Förderung-/Zahlen-first -->
+        <div class="v-b">
+          <h1>Bis zu 50.000&nbsp;€ mehr KfW-Kredit je Wohneinheit – mit dem QNG-Siegel.</h1>
+          <p class="lead">Das Qualitätssiegel Nachhaltiges Gebäude schaltet die höchste KfW-Förderstufe frei. Wir übernehmen die komplette Zertifizierung – mit eigenen Auditoren, zum Festpreis.</p>
+          <ul class="checks">
+            <li><span class="ic">✓</span><span><b>150.000&nbsp;€ statt 100.000&nbsp;€</b> Kredit je Wohneinheit (KfW&nbsp;297/298)</span></li>
+            <li><span class="ic">✓</span><span>Bis zu <b>270.000&nbsp;€ für Familien</b> (KfW&nbsp;300) und § 7b Sonder-AfA für Vermieter</span></li>
+            <li><span class="ic">✓</span><span>Komplette Abwicklung durch unsere <b>internen Auditoren</b> – ein Ansprechpartner</span></li>
+          </ul>
+          <div class="hero-ctas">
+            <a class="btn btn-accent js-cta" data-pos="hero" href="#qng-check">Förderpotenzial prüfen lassen</a>
+            <a class="btn btn-ghost js-call" href="tel:+4952514029291">05251 4029291 anrufen</a>
+          </div>
         </div>
         <p class="trust-line">Energie-Effizienz-Beratung seit 2013 · Paderborn, Bielefeld &amp; Kassel · bundesweit tätig</p>
       </div>
@@ -279,7 +317,7 @@ footer a{color:#cfe0d6}
               <label for="f-email">E-Mail*</label>
               <input id="f-email" name="email" type="email" autocomplete="email" required>
             </div>
-            <div class="field">
+            <div class="field v-hide-c">
               <label for="f-phone">Telefon</label>
               <input id="f-phone" name="phone" type="tel" autocomplete="tel">
             </div>
@@ -296,7 +334,7 @@ footer a{color:#cfe0d6}
                 <option>Sonstiges / unklar</option>
               </select>
             </div>
-            <div class="field">
+            <div class="field v-hide-c">
               <label for="f-status">Projektstand*</label>
               <select id="f-status" name="projektstand" required>
                 <option value="" selected disabled>Bitte wählen …</option>
@@ -307,13 +345,14 @@ footer a{color:#cfe0d6}
               </select>
             </div>
           </div>
-          <div class="field">
+          <div class="field v-hide-c">
             <label for="f-msg">Ihr Projekt in einem Satz (optional)</label>
             <textarea id="f-msg" name="nachricht" rows="2" placeholder="z. B. MFH mit 8 Wohneinheiten in Paderborn, Baustart Frühjahr 2027"></textarea>
           </div>
           <!-- Honeypot gegen Spam -->
           <div class="hp" aria-hidden="true"><label>Website<input name="website" type="text" tabindex="-1" autocomplete="off"></label></div>
           <input type="hidden" name="gclid" id="f-gclid" value="">
+          <input type="hidden" name="lp_variant" id="f-variant" value="a">
           <label class="consent">
             <input type="checkbox" name="datenschutz" required>
             <span>Ich habe die <a href="https://werk-e.de/datenschutz/" target="_blank" rel="noopener">Datenschutzerklärung</a> gelesen und bin mit der Verarbeitung meiner Daten zur Bearbeitung der Anfrage einverstanden.*</span>
@@ -549,9 +588,10 @@ footer a{color:#cfe0d6}
      so lässt sich die Seite inkl. Tracking vollständig testen. */
   var FORM_ENDPOINT = ""; // TODO: Backend-URL eintragen
 
+  var VARIANT = document.documentElement.getAttribute("data-variant") || "a";
   window.dataLayer = window.dataLayer || [];
   function dl(ev, extra){
-    var o = extra || {}; o.event = ev; window.dataLayer.push(o);
+    var o = extra || {}; o.event = ev; o.lp_variant = VARIANT; window.dataLayer.push(o);
   }
 
   /* gclid aus URL sichern (Google Ads Klick-ID) */
@@ -562,6 +602,14 @@ footer a{color:#cfe0d6}
     var gf = document.getElementById("f-gclid");
     if (gf) gf.value = gclid;
   }catch(e){}
+
+  /* LP-Variante ins Formular übernehmen; Variante c = Kurzformular */
+  var vf = document.getElementById("f-variant");
+  if (vf) vf.value = VARIANT;
+  if (VARIANT === "c"){
+    var st = document.getElementById("f-status");
+    if (st) st.required = false;
+  }
 
   /* CTA- und Anruf-Klicks tracken */
   document.addEventListener("click", function(e){

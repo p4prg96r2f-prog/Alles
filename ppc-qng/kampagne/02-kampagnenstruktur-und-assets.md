@@ -47,10 +47,12 @@ S04 Brand                       (5 % – Marke absichern)
 Suchintention (Message-Match Keyword → Headline → LP-H1). Match-Types: Exact für
 Kern-Begriffe, Phrase für Umfeld. **Kein Broad Match** in der Startphase.
 
-## 3. Anzeigen (Responsive Search Ads)
+## 3. Anzeigen (Responsive Search Ads) – als A/B-Testpaare
 
-Je Anzeigengruppe 1 RSA mit 10–15 Headlines und 4 Beschreibungen – fertig in
-`import/anzeigen-rsa.csv`. Regeln:
+Je Non-Brand-Anzeigengruppe **2 RSAs** mit gegensätzlichem Messaging-Winkel
+(A: Auditoren-/Sicherheit-first · B: Förderung-/Zahlen-first) – fertig in
+`import/anzeigen-rsa.csv` (21 Anzeigen). Das ist der permanente Anzeigen-A/B-Test;
+Auswertungsrhythmus und Entscheidungsregeln in `04-ab-test-plan.md`. Regeln:
 
 - **Kein Pinning** zum Start (Anzeigenstärke!). Ausnahme Brand: Headline „WERK.E – Ihr QNG-Partner" auf Position 1 pinnen.
 - Zahlenversprechen („bis zu 150.000 €") nur in Kombination mit QNG-Kontext – deckt sich mit LP-Disclaimer.

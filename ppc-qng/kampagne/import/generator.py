@@ -205,6 +205,69 @@ ADS = [
     ["d2","d1","d4","d3"], "qng", "werk-e"),
 ]
 
+# --------------------------------------------------------------------------
+# A/B-TEST AUF ANZEIGENEBENE: Zweite RSA je Non-Brand-Anzeigengruppe.
+# Winkel A (oben):  Auditoren-/Sicherheit-first ("aus einer Hand, eigene Auditoren")
+# Winkel B (unten): Förderung-/Zahlen-first ("50.000 € mehr, verschenken Sie kein Geld")
+# Auswertung nach >= 1.000 Impressionen je RSA – siehe ../04-ab-test-plan.md
+# --------------------------------------------------------------------------
+HB = {
+ "b_50p": "50 % mehr KfW-Kreditrahmen",
+ "b_50k": "50.000 € mehr je Wohneinheit",
+ "b_loss": "Ohne QNG verschenken Sie Geld",
+ "b_sich": "Fördervorteil jetzt sichern",
+ "b_dank": "Mehr KfW-Kredit dank QNG",
+ "b_tage": "QNG-Check in wenigen Tagen",
+ "b_pruef": "Erst prüfen, dann entscheiden",
+ "b_start": "Jetzt Fördercheck starten",
+ "b_plan": "Planungssicher zur Förderung",
+ "b_doppelt": "Doppelt sparen: KfW + § 7b",
+ "b_fam": "Familien: bis 270.000 € Kredit",
+ "b_haus": "Ihr Haus, voll gefördert",
+ "b_mfh": "MFH: 150.000 € je Wohneinheit",
+}
+DB = {
+ "bd1": "Ohne QNG lassen Sie bis zu 50.000 € KfW-Kredit je Wohneinheit liegen. Jetzt prüfen lassen.",
+ "bd2": "Machbarkeitscheck in wenigen Werktagen: Ampel-Ergebnis, Zielstufe und Kostenrahmen.",
+ "bd3": "QNG-PLUS reicht für die volle KfW-Förderung – wir zeigen den kürzesten Weg dorthin.",
+ "bd4": "Zinsverbilligter Kredit plus § 7b Sonder-AfA: QNG rechnet sich oft doppelt.",
+}
+H.update(HB)
+D.update(DB)
+
+ADS += [
+ ad("S01 QNG Kern", "Zertifizierung",
+    ["b_50p","b_loss","b_dank","b_tage","b_pruef","b_sich","check","festpreis","audit","gespraech"],
+    ["bd1","bd3","bd2","bd4"], "qng", "zertifizierung"),
+ ad("S01 QNG Kern", "Beratung",
+    ["b_dank","b_pruef","b_tage","b_plan","b_sich","check","festpreis","audit","gespraech"],
+    ["bd2","bd1","bd3","bd4"], "qng", "beratung"),
+ ad("S01 QNG Kern", "Auditor",
+    ["b_plan","b_tage","b_dank","b_50p","aud1","festpreis","check","gespraech"],
+    ["bd2","bd3","bd1","bd4"], "qng", "auditoren"),
+ ad("S01 QNG Kern", "Oekobilanz & Nachweise",
+    ["b_tage","b_plan","b_dank","lca1","lca2","check","festpreis","gespraech"],
+    ["bd2","bd3","bd4","bd1"], "qng", "oekobilanz"),
+ ad("S01 QNG Kern", "Kosten & Ablauf",
+    ["b_pruef","b_tage","b_50p","b_loss","kost1","check","festpreis","gespraech"],
+    ["bd2","bd1","bd4","bd3"], "qng", "kosten"),
+ ad("S02 KfW-Foerderung", "KfW 297-298",
+    ["b_50p","b_50k","b_loss","b_sich","b_dank","b_start","kfwB","check","festpreis","gespraech"],
+    ["bd1","bd3","bd4","bd2"], "qng", "kfw-297-298"),
+ ad("S02 KfW-Foerderung", "KfW 300 Familien",
+    ["b_fam","b_haus","b_sich","b_start","b_pruef","famD","check","gespraech"],
+    ["bd2","d9","bd3","bd4"], "qng", "kfw-300"),
+ ad("S02 KfW-Foerderung", "Sonder-AfA 7b",
+    ["b_doppelt","b_50p","b_sich","b_plan","afaB","afaC","check","gespraech"],
+    ["bd4","bd1","bd2","bd3"], "qng", "sonder-afa-7b"),
+ ad("S03 Zielgruppen", "Bautraeger & MFH",
+    ["b_mfh","b_50k","b_doppelt","b_plan","b_tage","bt","festpreis","check"],
+    ["bd1","bd4","bd2","bd3"], "qng", "bautraeger"),
+ ad("S03 Zielgruppen", "EFH & Privat",
+    ["b_haus","b_fam","b_50k","b_pruef","b_start","check","festpreis","gespraech"],
+    ["bd3","bd2","bd1","bd4"], "qng", "einfamilienhaus"),
+]
+
 # ------------------------------------------------------------- Validierung
 errors = []
 for a in ADS:
