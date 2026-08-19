@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vielen Dank – Ihre QNG-Anfrage ist eingegangen | WERK.E</title>
+<meta name="robots" content="noindex,nofollow">
+<!-- Diese Seite ist das Conversion-Ziel: Der Aufruf von danke.html zählt als Lead.
+     Einrichtung siehe kampagne/03-tracking-und-messung.md -->
+<style>
+:root{--brand:#0e3b2e;--brand-2:#175c46;--accent:#f5a623;--accent-ink:#3a2a00;
+--ink:#182420;--muted:#5b6b64;--line:#dde7e2;--bg:#f6f8f7;--card:#fff}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+color:var(--ink);background:var(--bg);line-height:1.6;font-size:16.5px}
+.container{max-width:720px;margin:0 auto;padding:0 20px}
+header{background:#fff;border-bottom:1px solid var(--line);padding:14px 0}
+.logo{line-height:1.15;text-decoration:none;color:var(--ink)}
+.logo b{font-size:1.35rem;color:var(--brand)}
+.logo span{display:block;font-size:.72rem;text-transform:uppercase;letter-spacing:.14em;color:var(--muted)}
+main{padding:64px 0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:36px;box-shadow:0 10px 30px rgba(14,59,46,.08);text-align:center}
+.check{width:64px;height:64px;border-radius:50%;background:var(--brand);color:#fff;display:grid;place-items:center;
+font-size:1.8rem;margin:0 auto 20px}
+h1{font-size:1.7rem;margin-bottom:10px}
+.card>p{color:var(--muted);max-width:46ch;margin:0 auto 26px}
+ol{text-align:left;max-width:440px;margin:0 auto 28px;display:grid;gap:12px;list-style:none;counter-reset:s}
+ol li{display:flex;gap:12px;align-items:flex-start}
+ol li::before{counter-increment:s;content:counter(s);flex:0 0 auto;width:26px;height:26px;border-radius:50%;
+background:var(--brand-2);color:#fff;display:grid;place-items:center;font-size:.82rem;font-weight:700;margin-top:2px}
+.btn{display:inline-block;text-decoration:none;font-weight:700;border-radius:10px;padding:.9rem 1.5rem;
+background:var(--accent);color:var(--accent-ink)}
+.back{display:block;margin-top:18px;font-size:.9rem;color:var(--brand-2)}
+footer{text-align:center;color:var(--muted);font-size:.82rem;padding:30px 20px}
+</style>
+</head>
+<body>
+<header><div class="container"><a class="logo" href="index.html"><b>WERK.E</b><span>Energie-Effizienz-Beratung</span></a></div></header>
+<main>
+  <div class="container">
+    <div class="card">
+      <div class="check">✓</div>
+      <h1>Vielen Dank für Ihre Anfrage!</h1>
+      <p>Ihr QNG-Machbarkeitscheck ist bei uns eingegangen. So geht es jetzt weiter:</p>
+      <ol>
+        <li>Wir sichten Ihre Projektangaben und melden uns <b>werktags innerhalb von 24&nbsp;Stunden</b>.</li>
+        <li>Sie erhalten eine erste <b>Ampel-Einschätzung</b> zu Machbarkeit, Zielstufe und Förderpotenzial.</li>
+        <li>Im kostenlosen Erstgespräch klären wir die nächsten Schritte für Ihr Projekt.</li>
+      </ol>
+      <p>Sie möchten nicht warten?</p>
+      <a class="btn js-call" href="tel:+4952514029291">Direkt anrufen: 05251 4029291</a>
+      <a class="back" href="index.html">← Zurück zur Übersicht</a>
+    </div>
+  </div>
+</main>
+<footer>WERK.E Energie-Effizienz-Beratung · Rolandsweg 80 · 33102 Paderborn</footer>
+<script>
+window.dataLayer = window.dataLayer || [];
+window.dataLayer.push({event:"qng_lead_thankyou"});
+</script>
+</body>
+</html>

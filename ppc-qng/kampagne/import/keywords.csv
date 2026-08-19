@@ -1,0 +1,66 @@
+﻿Campaign,Ad Group,Keyword,Criterion Type
+S01 QNG Kern,Zertifizierung,qng zertifizierung,Exact
+S01 QNG Kern,Zertifizierung,qng zertifizierung,Phrase
+S01 QNG Kern,Zertifizierung,qng zertifikat,Phrase
+S01 QNG Kern,Zertifizierung,qng siegel,Phrase
+S01 QNG Kern,Zertifizierung,qng siegel beantragen,Exact
+S01 QNG Kern,Zertifizierung,qualitätssiegel nachhaltiges gebäude,Phrase
+S01 QNG Kern,Zertifizierung,qng zertifizierung kosten,Exact
+S01 QNG Kern,Zertifizierung,qng bestätigung,Phrase
+S01 QNG Kern,Zertifizierung,qng nachweis,Phrase
+S01 QNG Kern,Zertifizierung,nachhaltigkeitszertifizierung gebäude,Phrase
+S01 QNG Kern,Zertifizierung,nachhaltigkeitszertifikat neubau,Phrase
+S01 QNG Kern,Beratung,qng beratung,Exact
+S01 QNG Kern,Beratung,qng beratung,Phrase
+S01 QNG Kern,Beratung,qng berater,Phrase
+S01 QNG Kern,Beratung,qng begleitung,Phrase
+S01 QNG Kern,Beratung,qng dienstleister,Phrase
+S01 QNG Kern,Beratung,qng experte,Phrase
+S01 QNG Kern,Beratung,beratung nachhaltiges bauen,Phrase
+S01 QNG Kern,Auditor,qng auditor,Exact
+S01 QNG Kern,Auditor,qng auditor,Phrase
+S01 QNG Kern,Auditor,qng auditor beauftragen,Phrase
+S01 QNG Kern,Auditor,nachhaltigkeitsauditor gebäude,Phrase
+S01 QNG Kern,Auditor,auditor nachhaltiges bauen,Phrase
+S01 QNG Kern,Oekobilanz & Nachweise,ökobilanz gebäude,Phrase
+S01 QNG Kern,Oekobilanz & Nachweise,lebenszyklusanalyse gebäude,Phrase
+S01 QNG Kern,Oekobilanz & Nachweise,lca gebäude erstellen,Phrase
+S01 QNG Kern,Oekobilanz & Nachweise,ökobilanzierung neubau,Phrase
+S01 QNG Kern,Oekobilanz & Nachweise,qng lebenszyklusanalyse,Phrase
+S01 QNG Kern,Kosten & Ablauf,qng kosten,Phrase
+S01 QNG Kern,Kosten & Ablauf,qng anforderungen,Phrase
+S01 QNG Kern,Kosten & Ablauf,qng kriterien,Phrase
+S01 QNG Kern,Kosten & Ablauf,qng ablauf,Phrase
+S01 QNG Kern,Kosten & Ablauf,qng checkliste,Phrase
+S02 KfW-Foerderung,KfW 297-298,kfw 297,Exact
+S02 KfW-Foerderung,KfW 297-298,kfw 298,Exact
+S02 KfW-Foerderung,KfW 297-298,kfw 297 qng,Phrase
+S02 KfW-Foerderung,KfW 297-298,klimafreundlicher neubau,Phrase
+S02 KfW-Foerderung,KfW 297-298,kfw klimafreundlicher neubau,Phrase
+S02 KfW-Foerderung,KfW 297-298,kfw neubau förderung,Phrase
+S02 KfW-Foerderung,KfW 297-298,kfw förderung neubau qng,Phrase
+S02 KfW-Foerderung,KfW 297-298,effizienzhaus 40 qng,Phrase
+S02 KfW-Foerderung,KfW 300 Familien,kfw 300,Exact
+S02 KfW-Foerderung,KfW 300 Familien,wohneigentum für familien,Phrase
+S02 KfW-Foerderung,KfW 300 Familien,kfw 300 qng,Phrase
+S02 KfW-Foerderung,KfW 300 Familien,kfw förderung familien neubau,Phrase
+S02 KfW-Foerderung,Sonder-AfA 7b,sonderabschreibung 7b,Phrase
+S02 KfW-Foerderung,Sonder-AfA 7b,7b estg,Phrase
+S02 KfW-Foerderung,Sonder-AfA 7b,7b estg qng,Exact
+S02 KfW-Foerderung,Sonder-AfA 7b,sonderabschreibung mietwohnungsneubau,Phrase
+S02 KfW-Foerderung,Sonder-AfA 7b,sonder afa neubau,Phrase
+S03 Zielgruppen,Bautraeger & MFH,qng mehrfamilienhaus,Phrase
+S03 Zielgruppen,Bautraeger & MFH,qng bauträger,Phrase
+S03 Zielgruppen,Bautraeger & MFH,nachhaltigkeitszertifizierung mehrfamilienhaus,Phrase
+S03 Zielgruppen,Bautraeger & MFH,dgnb mehrfamilienhaus,Phrase
+S03 Zielgruppen,Bautraeger & MFH,nawoh zertifizierung,Phrase
+S03 Zielgruppen,EFH & Privat,qng einfamilienhaus,Phrase
+S03 Zielgruppen,EFH & Privat,qng fertighaus,Phrase
+S03 Zielgruppen,EFH & Privat,qng massivhaus,Phrase
+S03 Zielgruppen,EFH & Privat,nachhaltigkeitszertifikat einfamilienhaus,Phrase
+S03 Zielgruppen,EFH & Privat,kfw förderung einfamilienhaus qng,Phrase
+S04 Brand,Brand,werk.e,Exact
+S04 Brand,Brand,werk e,Phrase
+S04 Brand,Brand,werk e energieberatung,Phrase
+S04 Brand,Brand,werk e paderborn,Phrase
+S04 Brand,Brand,werk e energie effizienz beratung,Phrase

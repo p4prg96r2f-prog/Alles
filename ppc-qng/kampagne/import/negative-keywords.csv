@@ -1,0 +1,35 @@
+﻿Negative Keyword,Match Type
+job,Broad
+jobs,Broad
+stellenangebot,Broad
+stellenangebote,Broad
+gehalt,Broad
+karriere,Broad
+praktikum,Broad
+minijob,Broad
+ausbildung,Broad
+weiterbildung,Broad
+fortbildung,Broad
+schulung,Broad
+seminar,Broad
+studium,Broad
+auditor werden,Phrase
+berater werden,Phrase
+zertifizierungsstelle werden,Phrase
+prüfung bestehen,Phrase
+wikipedia,Broad
+definition,Broad
+bedeutung,Broad
+englisch,Broad
+übersetzung,Broad
+bachelorarbeit,Broad
+masterarbeit,Broad
+hausarbeit,Broad
+referat,Broad
+software,Broad
+freeware,Broad
+gebraucht,Broad
+amazon,Broad
+ebay,Broad
+muster pdf,Phrase
+vorlage kostenlos,Phrase

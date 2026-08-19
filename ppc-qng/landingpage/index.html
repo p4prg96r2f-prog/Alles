@@ -1,0 +1,601 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>QNG-Zertifizierung aus einer Hand – mit eigenen Auditoren | WERK.E</title>
+<meta name="description" content="QNG-Zertifizierung komplett begleitet: Machbarkeitscheck, Ökobilanz, Nachweise und Siegel aus einer Hand. Bis zu 150.000 € KfW-Kredit je Wohneinheit sichern. Jetzt kostenlosen QNG-Check anfordern.">
+<meta name="robots" content="index,follow">
+<meta property="og:title" content="QNG-Zertifizierung aus einer Hand – mit eigenen Auditoren">
+<meta property="og:description" content="Machbarkeitscheck, Ökobilanz, Nachweise und Siegel: WERK.E begleitet Ihr Projekt bis zur höchsten KfW-Förderstufe.">
+<meta property="og:type" content="website">
+
+<!-- ============================================================
+  TRACKING (vor Livegang aktivieren – siehe kampagne/03-tracking-und-messung.md)
+  1) Consent-Management (CMP, z. B. Usercentrics/Cookiebot) ZUERST einbinden.
+  2) Danach Google Tag Manager Container einfügen:
+     <script>(function(w,d,s,l,i){...})(window,document,'script','dataLayer','GTM-XXXXXXX');</script>
+  Die Seite pusht bereits Events in den dataLayer (qng_lead_submit, qng_call_click, qng_cta_click).
+============================================================ -->
+
+<style>
+:root{
+  --brand:#0e3b2e;        /* Dunkelgrün – Primärfarbe, an WERK.E-CI anpassen */
+  --brand-2:#175c46;      /* Mittelgrün */
+  --brand-soft:#e8f1ed;   /* Heller Grünton für Flächen */
+  --accent:#f5a623;       /* CTA-Farbe (Bernstein) */
+  --accent-ink:#3a2a00;
+  --ink:#182420;          /* Textfarbe */
+  --muted:#5b6b64;
+  --line:#dde7e2;
+  --bg:#f6f8f7;
+  --card:#ffffff;
+  --radius:14px;
+  --shadow:0 10px 30px rgba(14,59,46,.10);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  color:var(--ink);background:var(--bg);line-height:1.6;font-size:16.5px;
+  -webkit-font-smoothing:antialiased;
+}
+img,svg{max-width:100%;display:block}
+a{color:var(--brand-2)}
+.container{max-width:1120px;margin:0 auto;padding:0 20px}
+.btn{
+  display:inline-block;border:0;cursor:pointer;text-decoration:none;text-align:center;
+  font-weight:700;font-size:1.02rem;border-radius:10px;padding:.95rem 1.6rem;
+  transition:transform .12s ease, box-shadow .12s ease, background .12s ease;
+}
+.btn:active{transform:translateY(1px)}
+.btn-accent{background:var(--accent);color:var(--accent-ink);box-shadow:0 6px 18px rgba(245,166,35,.35)}
+.btn-accent:hover{background:#ffb63c}
+.btn-ghost{background:transparent;color:#fff;border:2px solid rgba(255,255,255,.55)}
+.btn-ghost:hover{border-color:#fff}
+.btn-dark{background:var(--brand);color:#fff}
+.btn-dark:hover{background:var(--brand-2)}
+.small{font-size:.85rem;color:var(--muted)}
+
+/* Header */
+header{background:#fff;border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0;gap:16px}
+.logo{line-height:1.15;text-decoration:none;color:var(--ink)}
+.logo b{font-size:1.35rem;letter-spacing:.02em;color:var(--brand)}
+.logo span{display:block;font-size:.72rem;text-transform:uppercase;letter-spacing:.14em;color:var(--muted)}
+.nav-right{display:flex;align-items:center;gap:18px}
+.phone-link{display:flex;align-items:center;gap:8px;font-weight:700;color:var(--brand);text-decoration:none}
+.phone-link small{display:block;font-weight:400;color:var(--muted);font-size:.72rem}
+.nav .btn{padding:.7rem 1.15rem;font-size:.95rem}
+@media(max-width:760px){.nav .btn{display:none}}
+
+/* Hero */
+.hero{background:linear-gradient(135deg,var(--brand) 0%,var(--brand-2) 100%);color:#fff;padding:56px 0 72px}
+.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:start}
+@media(max-width:960px){.hero-grid{grid-template-columns:1fr;gap:32px}}
+.eyebrow{display:inline-block;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25);
+  padding:.35rem .9rem;border-radius:999px;font-size:.82rem;letter-spacing:.05em;font-weight:600;margin-bottom:18px}
+h1{font-size:clamp(1.9rem,4vw,2.7rem);line-height:1.18;font-weight:800;letter-spacing:-.01em}
+.hero p.lead{margin:18px 0 22px;font-size:1.12rem;color:#e7efe9;max-width:56ch}
+.checks{list-style:none;display:grid;gap:12px;margin:0 0 26px}
+.checks li{display:flex;gap:12px;align-items:flex-start;font-weight:600}
+.checks .ic{flex:0 0 auto;width:24px;height:24px;border-radius:50%;background:var(--accent);color:var(--accent-ink);
+  display:grid;place-items:center;font-size:.85rem;font-weight:800;margin-top:2px}
+.hero-ctas{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:18px}
+.trust-line{font-size:.88rem;color:#cfe0d6}
+
+/* Formular-Karte */
+.form-card{background:var(--card);color:var(--ink);border-radius:var(--radius);box-shadow:var(--shadow);padding:26px 26px 22px}
+.form-card h2{font-size:1.3rem;margin-bottom:6px}
+.form-card .sub{font-size:.92rem;color:var(--muted);margin-bottom:18px}
+.field{margin-bottom:13px}
+.field label{display:block;font-size:.86rem;font-weight:700;margin-bottom:5px}
+.field input,.field select,.field textarea{
+  width:100%;padding:.72rem .85rem;border:1.5px solid var(--line);border-radius:9px;
+  font:inherit;font-size:.98rem;background:#fff;color:var(--ink)}
+.field input:focus,.field select:focus,.field textarea:focus{outline:2px solid var(--brand-2);border-color:var(--brand-2)}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:520px){.field-row{grid-template-columns:1fr}}
+.consent{display:flex;gap:10px;align-items:flex-start;font-size:.82rem;color:var(--muted);margin:14px 0}
+.consent input{margin-top:4px;width:16px;height:16px;flex:0 0 auto}
+.form-card .btn{width:100%}
+.form-note{margin-top:10px;text-align:center}
+.hp{position:absolute;left:-9999px;opacity:0;height:0;overflow:hidden}
+
+/* Sektionen */
+section{padding:64px 0}
+.section-head{max-width:720px;margin:0 auto 40px;text-align:center}
+.section-head h2{font-size:clamp(1.5rem,3vw,2.1rem);font-weight:800;letter-spacing:-.01em}
+.section-head p{color:var(--muted);margin-top:10px}
+.kicker{display:block;color:var(--brand-2);font-size:.82rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;margin-bottom:10px}
+
+/* Zahlen-Leiste */
+.stats{background:#fff;border-bottom:1px solid var(--line)}
+.stats .container{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;padding-top:26px;padding-bottom:26px;text-align:center}
+@media(max-width:760px){.stats .container{grid-template-columns:repeat(2,1fr)}}
+.stat b{display:block;font-size:1.5rem;color:var(--brand)}
+.stat span{font-size:.85rem;color:var(--muted)}
+
+/* Förderung */
+.funding-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+@media(max-width:900px){.funding-grid{grid-template-columns:1fr}}
+.fund-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:24px;position:relative}
+.fund-card .tag{position:absolute;top:-12px;left:20px;background:var(--brand);color:#fff;font-size:.72rem;font-weight:700;
+  letter-spacing:.06em;padding:.25rem .7rem;border-radius:999px;text-transform:uppercase}
+.fund-card h3{font-size:1.05rem;margin:8px 0 10px}
+.fund-amount{font-size:1.7rem;font-weight:800;color:var(--brand)}
+.fund-amount small{font-size:.85rem;font-weight:600;color:var(--muted)}
+.fund-card p{font-size:.92rem;color:var(--muted);margin-top:8px}
+.legal-hint{margin-top:22px;text-align:center;font-size:.8rem;color:var(--muted)}
+
+/* Leistungen */
+.pkg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;align-items:stretch}
+@media(max-width:900px){.pkg-grid{grid-template-columns:1fr}}
+.pkg{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:26px;display:flex;flex-direction:column;position:relative}
+.pkg.hot{border:2px solid var(--brand-2);box-shadow:var(--shadow)}
+.pkg .tag{position:absolute;top:-12px;right:20px;background:var(--accent);color:var(--accent-ink);font-size:.72rem;font-weight:800;
+  padding:.25rem .7rem;border-radius:999px;text-transform:uppercase;letter-spacing:.05em}
+.pkg h3{font-size:1.12rem;margin-bottom:4px}
+.pkg .for{font-size:.82rem;color:var(--brand-2);font-weight:700;margin-bottom:12px}
+.pkg ul{list-style:none;display:grid;gap:9px;margin:0 0 18px}
+.pkg ul li{display:flex;gap:9px;font-size:.94rem}
+.pkg ul li::before{content:"✓";color:var(--brand-2);font-weight:800}
+.pkg .btn{margin-top:auto}
+
+/* Prozess */
+.process{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.steps{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;counter-reset:step}
+@media(max-width:960px){.steps{grid-template-columns:1fr;max-width:560px;margin:0 auto}}
+.step{background:var(--bg);border:1px solid var(--line);border-radius:var(--radius);padding:20px}
+.step b{display:flex;align-items:center;gap:10px;margin-bottom:8px;font-size:.98rem}
+.step b::before{counter-increment:step;content:counter(step);flex:0 0 auto;width:28px;height:28px;border-radius:50%;
+  background:var(--brand);color:#fff;display:grid;place-items:center;font-size:.85rem}
+.step p{font-size:.87rem;color:var(--muted)}
+
+/* Warum WERK.E */
+.why-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
+@media(max-width:900px){.why-grid{grid-template-columns:1fr}}
+.usps{list-style:none;display:grid;gap:16px}
+.usps li{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px;display:flex;gap:14px}
+.usps .ic{flex:0 0 auto;width:38px;height:38px;border-radius:10px;background:var(--brand-soft);color:var(--brand);
+  display:grid;place-items:center;font-size:1.1rem}
+.usps b{display:block;margin-bottom:2px}
+.usps p{font-size:.9rem;color:var(--muted)}
+.ref-card{background:var(--brand);color:#fff;border-radius:var(--radius);padding:30px;box-shadow:var(--shadow)}
+.ref-card .kicker{color:var(--accent)}
+.ref-card h3{font-size:1.25rem;margin-bottom:10px}
+.ref-card p{color:#dbe8e1;font-size:.95rem}
+.ref-facts{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:20px}
+.ref-facts div{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:10px;padding:12px}
+.ref-facts b{display:block;font-size:1.15rem}
+.ref-facts span{font-size:.78rem;color:#cfe0d6}
+
+/* FAQ */
+.faq{max-width:780px;margin:0 auto}
+.faq details{background:var(--card);border:1px solid var(--line);border-radius:12px;margin-bottom:12px;overflow:hidden}
+.faq summary{cursor:pointer;padding:17px 20px;font-weight:700;list-style:none;display:flex;justify-content:space-between;gap:14px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-size:1.3rem;color:var(--brand-2);line-height:1}
+.faq details[open] summary::after{content:"–"}
+.faq .a{padding:0 20px 18px;color:var(--muted);font-size:.95rem}
+
+/* Abschluss-CTA */
+.final-cta{background:linear-gradient(135deg,var(--brand) 0%,var(--brand-2) 100%);color:#fff;text-align:center}
+.final-cta h2{font-size:clamp(1.5rem,3vw,2.1rem);margin-bottom:12px}
+.final-cta p{color:#dbe8e1;max-width:54ch;margin:0 auto 26px}
+.final-cta .hero-ctas{justify-content:center}
+
+/* Footer */
+footer{background:#10201a;color:#9db4aa;padding:40px 0 96px;font-size:.88rem}
+.foot-grid{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:30px}
+@media(max-width:760px){.foot-grid{grid-template-columns:1fr}}
+footer b{color:#fff}
+footer a{color:#cfe0d6}
+.foot-legal{margin-top:26px;padding-top:18px;border-top:1px solid rgba(255,255,255,.12);font-size:.78rem}
+
+/* Sticky Mobile-CTA */
+.sticky-cta{position:fixed;left:0;right:0;bottom:0;display:none;gap:10px;padding:10px 14px;
+  background:#fff;border-top:1px solid var(--line);box-shadow:0 -6px 20px rgba(0,0,0,.08);z-index:50}
+.sticky-cta .btn{flex:1;padding:.8rem .5rem;font-size:.95rem}
+@media(max-width:760px){.sticky-cta{display:flex}}
+</style>
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"ProfessionalService",
+  "name":"WERK.E Energie-Effizienz-Beratung",
+  "description":"QNG-Zertifizierung, Nachhaltigkeitsberatung und Energie-Effizienz-Beratung für Wohn- und Nichtwohngebäude.",
+  "telephone":"+49 5251 4029291",
+  "email":"info@werk-e.de",
+  "url":"https://werk-e.de/",
+  "address":{"@type":"PostalAddress","streetAddress":"Rolandsweg 80","postalCode":"33102","addressLocality":"Paderborn","addressCountry":"DE"},
+  "areaServed":"DE"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"FAQPage",
+  "mainEntity":[
+    {"@type":"Question","name":"Was ist das QNG?","acceptedAnswer":{"@type":"Answer","text":"Das Qualitätssiegel Nachhaltiges Gebäude (QNG) ist das staatliche Nachhaltigkeitssiegel des Bundes. Es wird über akkreditierte Zertifizierungsstellen vergeben und bewertet Gebäude über den gesamten Lebenszyklus – von der Ökobilanz über Schadstoffvermeidung bis zur Wirtschaftlichkeit. Es gibt die Stufen QNG-PLUS und QNG-PREMIUM."}},
+    {"@type":"Question","name":"Wofür brauche ich das QNG?","acceptedAnswer":{"@type":"Answer","text":"Mit QNG erreichen Sie die höchste Stufe der KfW-Neubauförderung: bis zu 150.000 € statt 100.000 € Kredit je Wohneinheit (KfW 297/298) bzw. bis zu 270.000 € im Programm Wohneigentum für Familien (KfW 300). Für Vermieter und Bauträger eröffnet QNG zudem die Sonderabschreibung nach § 7b EStG."}},
+    {"@type":"Question","name":"Was kostet eine QNG-Zertifizierung?","acceptedAnswer":{"@type":"Answer","text":"Die Kosten hängen von Gebäudetyp, Projektgröße und gewähltem Bewertungssystem ab. Nach dem Machbarkeitscheck erhalten Sie ein Festpreisangebot. In der Regel stehen die Kosten in einem sehr guten Verhältnis zum Förder- und Zinsvorteil."}},
+    {"@type":"Question","name":"Wie läuft die Zertifizierung zeitlich ab?","acceptedAnswer":{"@type":"Answer","text":"Der KfW-Antrag muss vor Vorhabensbeginn gestellt werden. Die QNG-Nachweise erbringen wir projektbegleitend, das Siegel wird nach Fertigstellung erteilt. Wir takten die Zertifizierung passend zu Ihrer Finanzierung."}}
+  ]
+}
+</script>
+</head>
+<body>
+
+<header>
+  <div class="container nav">
+    <a class="logo" href="#top" aria-label="WERK.E Energie-Effizienz-Beratung">
+      <b>WERK.E</b>
+      <span>Energie-Effizienz-Beratung</span>
+    </a>
+    <div class="nav-right">
+      <a class="phone-link js-call" href="tel:+4952514029291">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        <span>05251&nbsp;4029291<small>Mo–Fr, 8–17 Uhr</small></span>
+      </a>
+      <a class="btn btn-accent js-cta" data-pos="header" href="#qng-check">Kostenloser QNG-Check</a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero" id="start">
+    <div class="container hero-grid">
+      <div>
+        <span class="eyebrow">QNG · Qualitätssiegel Nachhaltiges Gebäude</span>
+        <h1>QNG-Zertifizierung aus einer Hand – mit eigenen Auditoren.</h1>
+        <p class="lead">Wir bringen Ihr Bauprojekt sicher zum QNG-Siegel: Machbarkeitscheck, Ökobilanz, Nachweise und die komplette Abwicklung mit der Zertifizierungsstelle. Damit Ihre KfW-Förderung in voller Höhe steht.</p>
+        <ul class="checks">
+          <li><span class="ic">✓</span><span>Bis zu <b>150.000&nbsp;€ KfW-Kredit je Wohneinheit</b> statt 100.000&nbsp;€ – möglich nur mit QNG</span></li>
+          <li><span class="ic">✓</span><span>Eigene Auditoren im Haus – <b>keine Schnittstellen, keine Vermittlung</b></span></li>
+          <li><span class="ic">✓</span><span>Ein Ansprechpartner von der Planung bis zur <b>Siegelübergabe</b></span></li>
+        </ul>
+        <div class="hero-ctas">
+          <a class="btn btn-accent js-cta" data-pos="hero" href="#qng-check">Jetzt QNG-Check anfordern</a>
+          <a class="btn btn-ghost js-call" href="tel:+4952514029291">05251 4029291 anrufen</a>
+        </div>
+        <p class="trust-line">Energie-Effizienz-Beratung seit 2013 · Paderborn, Bielefeld &amp; Kassel · bundesweit tätig</p>
+      </div>
+
+      <!-- LEAD-FORMULAR -->
+      <div class="form-card" id="qng-check">
+        <h2>Kostenloser QNG-Machbarkeitscheck</h2>
+        <p class="sub">Unverbindlich anfragen – wir melden uns werktags innerhalb von 24&nbsp;Stunden mit einer ersten Einschätzung.</p>
+        <form id="qng-lead-form" method="post" action="#" novalidate>
+          <div class="field">
+            <label for="f-name">Name*</label>
+            <input id="f-name" name="name" type="text" autocomplete="name" required>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="f-email">E-Mail*</label>
+              <input id="f-email" name="email" type="email" autocomplete="email" required>
+            </div>
+            <div class="field">
+              <label for="f-phone">Telefon</label>
+              <input id="f-phone" name="phone" type="tel" autocomplete="tel">
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="f-type">Projektart*</label>
+              <select id="f-type" name="projektart" required>
+                <option value="" selected disabled>Bitte wählen …</option>
+                <option>Einfamilien-/Zweifamilienhaus</option>
+                <option>Mehrfamilienhaus</option>
+                <option>Nichtwohngebäude</option>
+                <option>Mehrere Projekte / Serie</option>
+                <option>Sonstiges / unklar</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="f-status">Projektstand*</label>
+              <select id="f-status" name="projektstand" required>
+                <option value="" selected disabled>Bitte wählen …</option>
+                <option>Idee / Grundstück vorhanden</option>
+                <option>In Planung</option>
+                <option>Bauantrag gestellt</option>
+                <option>Im Bau</option>
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <label for="f-msg">Ihr Projekt in einem Satz (optional)</label>
+            <textarea id="f-msg" name="nachricht" rows="2" placeholder="z. B. MFH mit 8 Wohneinheiten in Paderborn, Baustart Frühjahr 2027"></textarea>
+          </div>
+          <!-- Honeypot gegen Spam -->
+          <div class="hp" aria-hidden="true"><label>Website<input name="website" type="text" tabindex="-1" autocomplete="off"></label></div>
+          <input type="hidden" name="gclid" id="f-gclid" value="">
+          <label class="consent">
+            <input type="checkbox" name="datenschutz" required>
+            <span>Ich habe die <a href="https://werk-e.de/datenschutz/" target="_blank" rel="noopener">Datenschutzerklärung</a> gelesen und bin mit der Verarbeitung meiner Daten zur Bearbeitung der Anfrage einverstanden.*</span>
+          </label>
+          <button class="btn btn-accent" type="submit">Jetzt QNG-Check anfordern</button>
+          <p class="form-note small">Kostenlos &amp; unverbindlich · keine Werbe-E-Mails</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ZAHLEN -->
+  <div class="stats">
+    <div class="container">
+      <div class="stat"><b>Seit 2013</b><span>Energie-Effizienz-Beratung</span></div>
+      <div class="stat"><b>60+</b><span>Fachleute im Team</span></div>
+      <div class="stat"><b>10.000+</b><span>begleitete Projekte</span></div>
+      <div class="stat"><b>3 Standorte</b><span>Paderborn · Bielefeld · Kassel</span></div>
+    </div>
+  </div>
+
+  <!-- FÖRDERUNG -->
+  <section id="foerderung">
+    <div class="container">
+      <div class="section-head">
+        <span class="kicker">Ihr Vorteil in Zahlen</span>
+        <h2>Darum lohnt sich das QNG für Ihr Projekt</h2>
+        <p>Das Qualitätssiegel Nachhaltiges Gebäude ist der Schlüssel zur höchsten Stufe der staatlichen Neubauförderung – und zu handfesten Steuervorteilen.</p>
+      </div>
+      <div class="funding-grid">
+        <div class="fund-card">
+          <span class="tag">KfW 297/298</span>
+          <h3>Klimafreundlicher Neubau</h3>
+          <div class="fund-amount">150.000&nbsp;€ <small>statt 100.000&nbsp;€ je Wohneinheit</small></div>
+          <p>Mit QNG-PLUS oder QNG-PREMIUM erreichen Sie die Stufe „Klimafreundliches Wohngebäude – mit QNG“ und damit 50&nbsp;% mehr zinsverbilligten Kredit je Wohneinheit.</p>
+        </div>
+        <div class="fund-card">
+          <span class="tag">KfW 300</span>
+          <h3>Wohneigentum für Familien</h3>
+          <div class="fund-amount">bis 270.000&nbsp;€ <small>Förderkredit mit QNG</small></div>
+          <p>Familien mit Kindern erhalten mit QNG deutlich höhere Kreditbeträge (220.000–270.000&nbsp;€ je nach Kinderzahl) – statt maximal 170.000–220.000&nbsp;€ ohne Siegel.</p>
+        </div>
+        <div class="fund-card">
+          <span class="tag">§ 7b EStG</span>
+          <h3>Sonder-AfA für Vermieter</h3>
+          <div class="fund-amount">5&nbsp;% <small>Sonderabschreibung p.&nbsp;a. (4&nbsp;Jahre)</small></div>
+          <p>Für neuen Mietwohnraum im Standard „EH40 mit QNG“: zusätzlich zur regulären AfA. Wir liefern die dafür nötigen Nachweise gleich mit.</p>
+        </div>
+      </div>
+      <p class="legal-hint">Stand: August 2026 · Maßgeblich sind die jeweils aktuellen Programmbedingungen der KfW bzw. die steuerliche Beratung im Einzelfall. Wir prüfen die Konditionen für Ihr Projekt tagesaktuell.</p>
+    </div>
+  </section>
+
+  <!-- LEISTUNGEN -->
+  <section id="leistungen" style="padding-top:0">
+    <div class="container">
+      <div class="section-head">
+        <span class="kicker">Unsere Leistungen</span>
+        <h2>Vom ersten Check bis zum Siegel an der Wand</h2>
+        <p>Sie entscheiden, wie viel Unterstützung Sie brauchen – wir liefern alles aus einem Büro, mit eigenen Auditoren.</p>
+      </div>
+      <div class="pkg-grid">
+        <div class="pkg">
+          <h3>QNG-Machbarkeitscheck</h3>
+          <div class="for">Für alle, die schnell Klarheit wollen</div>
+          <ul>
+            <li>Ampel-Einschätzung: Ist QNG für Ihr Projekt sinnvoll erreichbar?</li>
+            <li>Empfehlung der Zielstufe (PLUS/PREMIUM) und des Bewertungssystems</li>
+            <li>Kostenrahmen &amp; Förderpotenzial auf einen Blick</li>
+            <li>Ergebnis in wenigen Werktagen</li>
+          </ul>
+          <a class="btn btn-dark js-cta" data-pos="pkg-check" href="#qng-check">Check anfordern</a>
+        </div>
+        <div class="pkg hot">
+          <span class="tag">Am häufigsten gewählt</span>
+          <h3>QNG-Komplettbegleitung</h3>
+          <div class="for">Für Bauherren &amp; Bauträger mit konkretem Projekt</div>
+          <ul>
+            <li>Planungsbegleitung ab der frühen Phase</li>
+            <li>Ökobilanz (LCA), Schadstoff- &amp; Materialmanagement</li>
+            <li>Komplette Nachweisführung &amp; Dokumentation</li>
+            <li>Abwicklung mit der Zertifizierungsstelle bis zur Siegelvergabe</li>
+            <li>Abstimmung mit KfW-Antrag &amp; Finanzierung</li>
+          </ul>
+          <a class="btn btn-accent js-cta" data-pos="pkg-komplett" href="#qng-check">Angebot einholen</a>
+        </div>
+        <div class="pkg">
+          <h3>QNG für Profis</h3>
+          <div class="for">Für Architektur- &amp; Planungsbüros, Bauträger, Serien</div>
+          <ul>
+            <li>Unser Auditoren-Team als verlängerte Werkbank</li>
+            <li>Serien- und Mehrfachzertifizierung</li>
+            <li>§-7b-Nachweise für Investoren-Projekte</li>
+            <li>Verlässliche Kapazitäten &amp; feste Ansprechpartner</li>
+          </ul>
+          <a class="btn btn-dark js-cta" data-pos="pkg-profis" href="#qng-check">Partner werden</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROZESS -->
+  <section class="process" id="ablauf">
+    <div class="container">
+      <div class="section-head">
+        <span class="kicker">So läuft es ab</span>
+        <h2>In 5 Schritten zum QNG-Siegel</h2>
+      </div>
+      <div class="steps">
+        <div class="step"><b>Erstgespräch</b><p>Kostenlos, ca. 30 Minuten: Projekt, Ziele und Förderrahmen klären.</p></div>
+        <div class="step"><b>Machbarkeit &amp; Angebot</b><p>Ampel-Check, Zielstufe, Systemwahl – dann Festpreisangebot.</p></div>
+        <div class="step"><b>Planungsbegleitung</b><p>Ökobilanz, Materialwahl und Nachhaltigkeitskriterien in die Planung integrieren.</p></div>
+        <div class="step"><b>Nachweise &amp; Einreichung</b><p>Wir erstellen alle Nachweise und übernehmen die Kommunikation mit der Zertifizierungsstelle.</p></div>
+        <div class="step"><b>Siegel &amp; Förderung</b><p>Siegelvergabe nach Fertigstellung – sauber getaktet mit Ihrem KfW-Nachweis.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WARUM WERK.E -->
+  <section id="warum">
+    <div class="container">
+      <div class="section-head">
+        <span class="kicker">Warum WERK.E</span>
+        <h2>Effizienz und Nachhaltigkeit aus einem Büro</h2>
+      </div>
+      <div class="why-grid">
+        <ul class="usps">
+          <li><span class="ic">🏅</span><div><b>Eigene Auditoren im Haus</b><p>Ihr QNG-Audit wird nicht vermittelt oder weitergereicht – unser Team führt Ihr Projekt selbst durch die Zertifizierung.</p></div></li>
+          <li><span class="ic">🧩</span><div><b>EH40-Nachweis + QNG zusammen gedacht</b><p>Als Energie-Effizienz-Berater liefern wir Effizienzhaus-Nachweis und Nachhaltigkeitszertifizierung aus einer Hand – ohne Reibungsverluste zwischen Gewerken.</p></div></li>
+          <li><span class="ic">💶</span><div><b>Fördermittel-Expertise seit 2013</b><p>KfW, BEG &amp; Co. sind unser Tagesgeschäft. Wir takten die Zertifizierung so, dass Ihre Förderung sicher steht.</p></div></li>
+          <li><span class="ic">📍</span><div><b>Regional verwurzelt, bundesweit tätig</b><p>Standorte in Paderborn, Bielefeld und Kassel – Projektbegleitung in ganz Deutschland.</p></div></li>
+        </ul>
+        <div class="ref-card">
+          <span class="kicker">Projektbeispiel</span>
+          <h3>QNG für ein Mehrfamilienhaus mit 12 Wohneinheiten</h3>
+          <p>Vom Machbarkeitscheck über die Ökobilanz bis zur Siegelvergabe: Unser Auditoren-Team hat das Projekt vollständig begleitet – und dem Bauherrn die höchste KfW-Förderstufe gesichert.</p>
+          <div class="ref-facts">
+            <div><b>12 WE</b><span>Wohneinheiten zertifiziert</span></div>
+            <div><b>+ 600.000&nbsp;€</b><span>zusätzlicher KfW-Kreditrahmen<br>(50.000&nbsp;€ × 12 WE)</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" style="padding-top:0">
+    <div class="container">
+      <div class="section-head">
+        <span class="kicker">Häufige Fragen</span>
+        <h2>Gut zu wissen rund ums QNG</h2>
+      </div>
+      <div class="faq">
+        <details>
+          <summary>Was ist das QNG überhaupt?</summary>
+          <div class="a">Das <b>Qualitätssiegel Nachhaltiges Gebäude (QNG)</b> ist das staatliche Nachhaltigkeitssiegel des Bundes. Es wird über akkreditierte Zertifizierungsstellen vergeben und bewertet Ihr Gebäude über den gesamten Lebenszyklus – u.&nbsp;a. Ökobilanz (Treibhausgas­emissionen), Schadstoffvermeidung und Wirtschaftlichkeit. Es gibt zwei Stufen: <b>QNG-PLUS</b> (Standard, reicht für die KfW-Förderung) und <b>QNG-PREMIUM</b>.</div>
+        </details>
+        <details>
+          <summary>Wofür brauche ich das QNG?</summary>
+          <div class="a">Vor allem für die <b>höchste KfW-Förderstufe</b>: Im Programm Klimafreundlicher Neubau (297/298) steigt der Kreditrahmen mit QNG von 100.000&nbsp;€ auf <b>150.000&nbsp;€ je Wohneinheit</b>, im Programm Wohneigentum für Familien (300) auf bis zu <b>270.000&nbsp;€</b>. Vermieter und Bauträger können zusätzlich die <b>Sonderabschreibung nach §&nbsp;7b EStG</b> nutzen. Dazu kommt der Vermarktungsvorteil eines staatlich anerkannten Nachhaltigkeitsnachweises.</div>
+        </details>
+        <details>
+          <summary>Was kostet eine QNG-Zertifizierung?</summary>
+          <div class="a">Das hängt von Gebäudetyp, Größe und Bewertungssystem ab. Es fallen Kosten für die Auditoren-Begleitung und Gebühren der Zertifizierungsstelle an. Nach dem Machbarkeitscheck erhalten Sie von uns ein <b>Festpreisangebot</b> – in der Regel stehen die Kosten in einem sehr guten Verhältnis zum Förder- und Zinsvorteil.</div>
+        </details>
+        <details>
+          <summary>Wie läuft das zeitlich mit dem KfW-Antrag zusammen?</summary>
+          <div class="a">Der KfW-Antrag muss <b>vor Vorhabensbeginn</b> gestellt werden. Die QNG-Nachweise erbringen wir projektbegleitend; das Siegel wird nach Fertigstellung erteilt und gegenüber der KfW nachgewiesen. Wichtig ist der <b>frühe Einstieg</b> – am besten, bevor die Planung abgeschlossen ist. Wir takten alles passend zu Ihrer Finanzierung.</div>
+        </details>
+        <details>
+          <summary>Mein Projekt ist schon in Planung – geht das noch?</summary>
+          <div class="a">Häufig ja. Je nach Planungsstand lassen sich die QNG-Anforderungen noch gut integrieren. Genau dafür gibt es unseren <b>Machbarkeitscheck</b>: Er zeigt in wenigen Werktagen, ob und wie Ihr Projekt das Siegel erreichen kann.</div>
+        </details>
+        <details>
+          <summary>Übernehmen Sie auch Teilleistungen, z. B. nur die Ökobilanz?</summary>
+          <div class="a">Ja. Ob Ökobilanz (LCA), Schadstoffmanagement oder Nachweisführung – wir unterstützen auch punktuell, etwa als externes Auditoren-Team für Architektur- und Planungsbüros oder Bauträger.</div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINALE CTA -->
+  <section class="final-cta">
+    <div class="container">
+      <h2>Klären wir, was in Ihrem Projekt steckt.</h2>
+      <p>Kostenloser QNG-Machbarkeitscheck: Sie erfahren, ob sich das Siegel für Ihr Projekt lohnt, welche Stufe realistisch ist und wie viel Förderung möglich wird.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-accent js-cta" data-pos="final" href="#qng-check">Jetzt QNG-Check anfordern</a>
+        <a class="btn btn-ghost js-call" href="tel:+4952514029291">05251 4029291 anrufen</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="container">
+    <div class="foot-grid">
+      <div>
+        <b>WERK.E Energie-Effizienz-Beratung</b><br>
+        Rolandsweg 80 · 33102 Paderborn<br>
+        Standorte: Paderborn · Bielefeld · Kassel
+      </div>
+      <div>
+        <b>Kontakt</b><br>
+        Telefon: <a class="js-call" href="tel:+4952514029291">05251 4029291</a><br>
+        E-Mail: <a href="mailto:info@werk-e.de">info@werk-e.de</a>
+      </div>
+      <div>
+        <b>Rechtliches</b><br>
+        <a href="https://werk-e.de/impressum/" rel="noopener">Impressum</a><br>
+        <a href="https://werk-e.de/datenschutz/" rel="noopener">Datenschutz</a>
+      </div>
+    </div>
+    <div class="foot-legal">
+      Alle Angaben zu Förderprogrammen (KfW 297/298, KfW 300, § 7b EStG) ohne Gewähr; maßgeblich sind die jeweils gültigen Programmbedingungen der KfW bzw. die individuelle steuerliche Beratung. Das Qualitätssiegel Nachhaltiges Gebäude wird durch akkreditierte Zertifizierungsstellen vergeben; wir begleiten Planung, Nachweise und Verfahren.
+    </div>
+  </div>
+</footer>
+
+<!-- Sticky CTA (mobil) -->
+<div class="sticky-cta">
+  <a class="btn btn-dark js-call" href="tel:+4952514029291">Anrufen</a>
+  <a class="btn btn-accent js-cta" data-pos="sticky" href="#qng-check">QNG-Check</a>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  /* ---------- Konfiguration ----------
+     FORM_ENDPOINT: URL des Formular-Backends (z. B. eigenes Skript, CRM-Webhook).
+     Solange leer, wird der Versand simuliert und direkt auf danke.html weitergeleitet –
+     so lässt sich die Seite inkl. Tracking vollständig testen. */
+  var FORM_ENDPOINT = ""; // TODO: Backend-URL eintragen
+
+  window.dataLayer = window.dataLayer || [];
+  function dl(ev, extra){
+    var o = extra || {}; o.event = ev; window.dataLayer.push(o);
+  }
+
+  /* gclid aus URL sichern (Google Ads Klick-ID) */
+  try{
+    var p = new URLSearchParams(location.search);
+    var gclid = p.get("gclid") || sessionStorage.getItem("qng_gclid") || "";
+    if (p.get("gclid")) sessionStorage.setItem("qng_gclid", p.get("gclid"));
+    var gf = document.getElementById("f-gclid");
+    if (gf) gf.value = gclid;
+  }catch(e){}
+
+  /* CTA- und Anruf-Klicks tracken */
+  document.addEventListener("click", function(e){
+    var cta = e.target.closest(".js-cta");
+    if (cta) dl("qng_cta_click", {cta_position: cta.getAttribute("data-pos") || "unbekannt"});
+    var call = e.target.closest(".js-call");
+    if (call) dl("qng_call_click", {});
+  });
+
+  /* Formular */
+  var form = document.getElementById("qng-lead-form");
+  if (form) form.addEventListener("submit", function(e){
+    e.preventDefault();
+    if (form.querySelector('[name="website"]').value) return; /* Honeypot */
+    if (!form.reportValidity()) return;
+
+    var data = {};
+    new FormData(form).forEach(function(v,k){ data[k]=v; });
+    dl("qng_lead_submit", {projektart: data.projektart || "", projektstand: data.projektstand || ""});
+
+    var done = function(){ location.href = "danke.html"; };
+    if (FORM_ENDPOINT){
+      fetch(FORM_ENDPOINT, {
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body: JSON.stringify(data)
+      }).then(done).catch(function(){
+        alert("Das hat leider nicht geklappt. Bitte rufen Sie uns an: 05251 4029291.");
+      });
+    } else {
+      done(); /* Demo-Modus ohne Backend */
+    }
+  });
+})();
+</script>
+</body>
+</html>
