@@ -5,6 +5,32 @@ Zwei Stufen: erst auf **Ihr eigenes iPhone** (ein Nachmittag), dann zu den
 
 ---
 
+## Der schnellste Weg: das Skript
+
+Im Ordner `Mac/` liegt **`aufs-iphone.command`**. Es erledigt den ganzen
+Ablauf von selbst: Xcode prüfen, Zertifikat finden, bauen, aufs angeschlossene
+iPhone installieren, starten. Ist kein iPhone angeschlossen, läuft die App im
+Simulator – so sehen Sie sofort etwas.
+
+1. Repo auf den Mac holen (ZIP vom Branch oder klonen).
+2. `Mac/aufs-iphone.command` – beim **allerersten Mal Rechtsklick → Öffnen**
+   (macOS blockiert heruntergeladene Skripte sonst), danach genügt Doppelklick.
+3. Den Anweisungen im Fenster folgen. Drei Dinge kann kein Skript übernehmen:
+   das Kabel einstecken, einmalig die Apple-ID in Xcode hinterlegen (das
+   Skript öffnet die richtige Stelle und wartet), und den Entwicklermodus auf
+   dem iPhone einschalten.
+
+Schlägt der Build fehl – beim allerersten Mal wahrscheinlich, siehe unten –,
+schreibt das Skript die Fehler nach `Mac/xcode-build.log`. **Diese Datei an
+Claude geben**, er räumt die Fehler ab; danach das Skript erneut starten.
+
+Für die Kollegen später: **`Mac/testflight.command`** baut das Archiv und
+öffnet den Organizer – dort bleibt ein Klick („Distribute App“).
+
+Wer lieber selbst klickt, findet darunter den Weg von Hand.
+
+---
+
 ## Was Sie brauchen
 
 | | Wofür | Kosten |
