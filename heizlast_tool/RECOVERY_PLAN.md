@@ -54,7 +54,7 @@ Jede Phase endet mit einem eigenen Commit, jeder Commit läuft durch
 2. **Bau wieder lauffähig machen** — B1. Prüfbilder aus Code erzeugen
    (`validierung/planbilder.js`), Test prüft zusätzlich den *Grund* jeder
    Sperre.
-3. **Rechenkern absichern** — 25 Referenzfälle mit von Hand hergeleiteten
+3. **Rechenkern absichern** — 26 Referenzfälle mit von Hand hergeleiteten
    Sollwerten (`validierung/referenz_test.js`), zweite unabhängige
    Implementierung als Gegenrechnung
    (`validierung/referenz_gegenrechnung.py`). Erst danach B2 und B3
