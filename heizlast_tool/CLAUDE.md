@@ -10,12 +10,12 @@ python3 build.py
 
 Das ist alles. Der Befehl führt in einem Durchlauf aus: Selbsttests aller
 Rechenkerne und Module, die Validierung gegen das Referenzprojekt, die
-23 Referenzfälle, die Kalibrierung der Planprüfung, die PDF-Probe gegen
-pdf.js, Oberflächen-, Ablauf-, Rückfragen-, Rettungs- und
-Sicherungsproben, die Gleichstands- und die Sicherheitsprobe, den Endpunkt
-ohne Netz, die
-Syntaxprüfung, den Produktionsbau der Einzeldatei und zuletzt die
-Browserprobe an der fertigen Datei auf Desktop- und Mobilgröße.
+23 Referenzfälle, die zehn synthetischen Prüfpläne, die Kalibrierung der
+Planprüfung, die PDF-Probe gegen pdf.js, Oberflächen-, Ablauf-,
+Rückfragen-, Rettungs- und Sicherungsproben, die Gleichstands- und die
+Sicherheitsprobe, den Endpunkt ohne Netz, die Syntaxprüfung, den
+Produktionsbau der Einzeldatei und zuletzt die Browserprobe an der
+fertigen Datei auf Desktop- und Mobilgröße.
 Der Bau bricht bei jedem Fehlschlag ab.
 
 Stand 27.08.2026: 37 Schritte, 14.092 ausgewiesene Prüfungen, Abbruch bei
