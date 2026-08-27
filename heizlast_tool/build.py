@@ -445,6 +445,22 @@ if not res["ok"]:
 print(f"   OK  {res['anzahl']} Pruefungen: Kern, App-Rechenweg und der ganze "
       f"Weg bis in beide Berichtsfassungen")
 
+# Boesartige Zeichenketten auf allen Wegen nach draussen. Die Oberflaeche und
+# beide Berichtsfassungen entstehen als HTML-Text und gehen per innerHTML in die
+# Seite; jeder Raumname aus einer Modellantwort landet damit im HTML. Die
+# Maskierung war da, ein Beweis dafuer nicht.
+schritt("2k  Sicherheit: fremder Text darf im HTML nichts ausfuehren")
+r = subprocess.run(["node", "validierung/sicherheit_test.js"], cwd=HIER,
+                   capture_output=True, text=True)
+if not r.stdout.strip():
+    print(r.stderr[-2000:])
+    abbruch("Die Sicherheitsprobe laesst sich nicht ausfuehren.")
+res = json.loads(r.stdout.strip().splitlines()[-1])
+if not res["ok"]:
+    abbruch("Sicherheit: " + "; ".join(res["fehler"]))
+print(f"   OK  {res['anzahl']} Pruefungen ueber "
+      + ", ".join(x["name"] for x in res["erzeugnisse"]))
+
 schritt("2e  Verdrahtung: fuehrt zu jeder gebauten Faehigkeit ein Weg?")
 r = subprocess.run(["node", "validierung/verdrahtung_test.js"], cwd=HIER,
                    capture_output=True, text=True)
