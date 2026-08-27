@@ -992,5 +992,28 @@ if fehler:
     abbruch("\n   ".join(fehler))
 print("   OK  keine Platzhalter, keine Schluessel, alle Module vorhanden")
 
+# ------------------------------------------------- 8 Browserprobe
+# Alles bisherige prueft Bausteine in einer Attrappe. Erst hier laeuft das
+# GEBAUTE Werkzeug in einem echten Browser: Konsole, unbehandelte Ausnahmen,
+# Netzaufrufe, waagerechtes Ueberlaufen auf 390 px Breite und die
+# Tastaturbedienung. Ohne Playwright wird die Probe uebersprungen -- sichtbar,
+# denn uebersprungen ist nicht bestanden.
+schritt("8  Browserprobe an der fertigen Datei (Desktop und Mobil)")
+r = subprocess.run(["node", "validierung/browser_test.mjs"], cwd=HIER,
+                   capture_output=True, text=True)
+if not r.stdout.strip():
+    print(r.stderr[-2000:])
+    abbruch("Die Browserprobe laesst sich nicht ausfuehren.")
+res = json.loads(r.stdout.strip().splitlines()[-1])
+if not res["ok"]:
+    abbruch("Browser: " + "; ".join(res["fehler"]))
+if res.get("uebersprungen"):
+    print("   \033[33mUEBERSPRUNGEN\033[0m  " + res.get("grund", ""))
+else:
+    mw = res["messwerte"]
+    print("   OK  %d Pruefungen; Konsole und Ausnahmen leer, 0 Netzaufrufe, "
+          "kein Ueberlauf auf 390 px (Desktop %d Seiten, Mobil %d)"
+          % (res["anzahl"], mw["desktop"]["seiten"], mw["mobil"]["seiten"]))
+
 print("\n\033[32mFertig.\033[0m  " + ziel)
 print("Testaufruf mit dem Referenzprojekt:  WERKE_Heizlast_Tool.html?demo=1")

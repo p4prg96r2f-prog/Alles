@@ -451,6 +451,22 @@ button.panelkarte{font:inherit;cursor:pointer;font-size:13.5px}
   .ergebniszahl b{font-size:44px}
 }
 
+/* FINGERZIELE AUF BERUEHRUNGSGERAETEN
+   Gemessen am 27.08.2026 im Browser (390 x 844, Fingerbedienung): die Knoepfe
+   der Kopfleiste standen bei 28 px Hoehe, der Verweis "Zur Selbstpruefung" bei
+   16 px. Fuer die Bedienung mit dem Finger sind 44 px die uebliche Untergrenze
+   (WCAG 2.5.5). Angehoben wird nur, wo es die Anordnung nicht sprengt: die
+   Knoepfe der Leisten und die Verweise in Karten. Die Raumzeilen der Tabellen
+   bleiben ausgenommen -- 44 px je Zeile machten aus 18 Raeumen eine Rolle,
+   und dort steht die Zeile selbst als Ziel zur Verfuegung, nicht nur der Name.
+   Die Regel greift nur bei grobem Zeiger, damit die Maus-Anordnung am
+   Schreibtisch unveraendert bleibt. */
+@media(pointer:coarse){
+  .btn,.btn.klein,.standortwahl button{min-height:44px}
+  #schritte a,#schritte button{min-height:44px;display:flex;align-items:center}
+  .karte a[href]:not(.zeile){min-height:32px;display:inline-flex;align-items:center}
+}
+
 /* Wer weniger Bewegung eingestellt hat, bekommt keine. */
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
