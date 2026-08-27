@@ -168,6 +168,22 @@ print("   OK  acht synthetische Bildvarianten richtig beurteilt, "
 # Das PDF-Modul gegen die echte Bibliothek pruefen: ein von Hand gebautes PDF
 # wird mit pdf.js wieder eingelesen. Erst hier zeigt sich, ob die Annahmen ueber
 # Befehlscodes, Textlage, Schriftgroesse und Drehung stimmen.
+# Zehn synthetische Prueflaene mit bekannten Sollwerten, gelesen ueber
+# denselben Weg wie im Browser (dateiOeffnen mit der echten pdf.js). Die
+# Echtlaeufe an Buerounterlagen bleiben daneben stehen; sie enthalten
+# personenbezogene Daten und ihr Sollwert ist das, was damals herauskam --
+# nicht das, was herauskommen MUSS.
+schritt("2ca Prueflaene: was erkannt, was unsicher, was abgelehnt werden muss")
+r = subprocess.run(["node", "validierung/planakten_test.js"], cwd=HIER,
+                   capture_output=True, text=True)
+if not r.stdout.strip():
+    print(r.stderr[-2000:])
+    abbruch("Die Prueflaene lassen sich nicht auswerten.")
+res = json.loads(r.stdout.strip().splitlines()[-1])
+if not res["ok"]:
+    abbruch("Prueflaene: " + "; ".join(res["fehler"]))
+print(f"   OK  {res['anzahl']} Pruefungen ueber {res['plaene']} synthetische Plaene")
+
 schritt("2c  PDF-Modul gegen pdf.js am erzeugten Pruef-PDF")
 r = subprocess.run(["node", "validierung/pdf_selbsttest.mjs"], cwd=HIER,
                    capture_output=True, text=True)
