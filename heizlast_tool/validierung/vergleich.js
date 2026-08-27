@@ -34,7 +34,15 @@ function pruefen(titel, ist, tolSumme, tolRaum) {
   v("Lueftung Gebaeude", ist.phi_V_gebaeude, soll.phi_V_gebaeude, tolSumme);
   v("Gebaeudeheizlast", ist.phi_gebaeude, soll.phi_gebaeude, tolSumme);
   v("Summe Raumheizlasten", ist.phi_raeume_summe, soll.phi_raeume_summe, tolSumme);
-  v("H_T", ist.H_T, soll.H_T, tolSumme / 20, "W/K");
+  /* Das Referenzmodell weist seinen H_T 20-°C-normiert aus (Gegenprobe:
+     soll.H_T * (20 - theta_e) ergibt bitgleich soll.phi_T_gebaeude). Verglichen
+     wird deshalb gegen dieselbe Groesse des Kerns. Der H_T nach Norm-
+     definition SUM(A*U*b) steht daneben zur Kenntnis; er ist bei gemischten
+     Raumtemperaturen zwangslaeufig ein anderer Wert und KEINE Abweichung.
+     Siehe validierung/referenz_test.js, R05. */
+  v("H_T (20-°C-normiert)", ist.H_T_20K_bezug, soll.H_T, tolSumme / 20, "W/K");
+  console.log("       " + pad("H_T nach Norm SUM(A*U*b)", 24) + " ist "
+    + padl(z(ist.H_T, 2), 9) + "   (zur Kenntnis, kein Sollwert vorhanden)");
 
   let raumFehler = 0, maxRaum = 0;
   ist.raeume.forEach(function (r) {

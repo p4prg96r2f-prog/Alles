@@ -615,6 +615,32 @@ function rechne(projekt) {
     theta_e_m = KLIMA_RUECKFALL.theta_e_m;
   }
 
+  /* EINE ANGEGEBENE LUEFTUNGSANLAGE DARF NICHT STILLSCHWEIGEND VERSCHWINDEN.
+   * Dieses Werkzeug rechnet die Lueftungsheizlast ausschliesslich ueber den
+   * natuerlichen Luftwechsel (Infiltration aus n50 und Mindestluftwechsel).
+   * Ein Anlagenluftstrom und ein Rueckgewinnungsgrad sind NICHT abgebildet;
+   * die Formeln dafuer stehen in DIN EN 12831-1, deren Wortlaut hier nicht
+   * geprueft vorliegt, und werden nicht erfunden. Bis dahin gilt: wer eine
+   * Anlage angibt, muss erfahren, dass sie nicht eingerechnet ist. Die
+   * Fehlerrichtung ist die sichere (Lueftungslast eher zu gross), aber eine
+   * sichere Richtung ist keine Entschuldigung fuer eine stille Annahme.
+   * Festgehalten in validierung/referenz_test.js, R12. */
+  const lu = p.lueftung || {};
+  if (lu.art === "mechanisch" || lu.mechanisch === true || lu.wrg === true
+      || Number.isFinite(zahl(lu.eta, NaN))
+      || Number.isFinite(zahl(lu.wrg_grad, NaN))) {
+    warnungen.push("Für das Projekt ist eine Lüftungsanlage"
+      + (lu.wrg === true || Number.isFinite(zahl(lu.eta, NaN))
+         || Number.isFinite(zahl(lu.wrg_grad, NaN))
+         ? " mit Wärmerückgewinnung" : "")
+      + " angegeben. Dieses Werkzeug rechnet die Lüftungsheizlast NICHT mit "
+      + "der Anlage, sondern ausschließlich über den natürlichen Luftwechsel "
+      + "aus Infiltration und Mindestluftwechsel. Ein Anlagenluftstrom und ein "
+      + "Rückgewinnungsgrad sind nicht abgebildet — die Lüftungsheizlast fällt "
+      + "damit eher zu groß aus. Wer die Anlage ansetzen will, muss das "
+      + "außerhalb dieses Werkzeugs nachweisen.");
+  }
+
   // Zonentemperaturen
   const pZonen = Object.assign({}, p, {
     klima: { theta_e: theta_e, theta_e_m: theta_e_m },
@@ -730,7 +756,39 @@ function rechne(projekt) {
   const phi_RH_gebaeude = raeume.reduce(function (s, r) { return s + r.phi_RH; }, 0);
   const A_gesamt = raeume.reduce(function (s, r) { return s + r.A; }, 0);
   const V_gesamt = raeume.reduce(function (s, r) { return s + r.V; }, 0);
-  const H_T = (20.0 - theta_e) !== 0 ? phi_T_gebaeude / (20.0 - theta_e) : 0;
+  /* H_T — SPEZIFISCHER TRANSMISSIONSWAERMEVERLUST DER HUELLE
+   *
+   *     H_T = SUM( A_k * U_k * b_k )
+   *
+   * b_k ist der Temperaturanpassungsfaktor des Bauteils; er steckt hier
+   * bereits in bauteilLeistung(): fuer Bauteile gegen Aussenluft ist b = 1,
+   * gegen eine unbeheizte Zone (theta_i - theta_u)/(theta_i - theta_e), und
+   * erdberuehrt f_theta_ann * f_ig * f_GW. Innenbauteile gegen Raeume
+   * desselben Gebaeudes gehen NICHT ein: sie verlassen die Huelle nicht.
+   *
+   * H_T ist damit eine EIGENSCHAFT DER HUELLE und haengt nicht davon ab, wie
+   * warm die Raeume dahinter stehen. Genau daran fehlte es bis zum
+   * 27.08.2026: H_T wurde aus der Gebaeudesumme zurueckgerechnet,
+   *     H_T = Phi_T,Gebaeude / (20 °C - theta_e),
+   * waehrend Phi_T,Gebaeude je Raum mit DESSEN Innentemperatur entsteht.
+   * Sobald ein Raum von 20 °C abweicht, passten Zaehler und Nenner nicht
+   * zusammen. Der Fehler ging in beide Richtungen (Bad 24 °C zu gross,
+   * Treppenhaus 15 °C zu klein) und lag beim Referenzfall Maelzerstrasse
+   * bei -3,10 Prozent. Festgehalten in validierung/referenz_test.js, R05.
+   */
+  const H_T = raeume.reduce(function (s, r) {
+    return s + r.bauteile.reduce(function (t, b) {
+      return t + (b.kat === "innen" ? 0 : zahl(b.H, 0));
+    }, 0);
+  }, 0);
+
+  /* Dieselbe Transmission, aber auf 20 °C Innentemperatur normiert. KEIN
+   * H_T im Sinne der Norm — die Groesse existiert nur, damit der Vergleich
+   * mit dem externen Referenzmodell (validierung/vergleich.js gegen
+   * heizlast_maelzerstr59/modell.py) weiterlaeuft: jenes Modell weist seinen
+   * H_T ebenfalls 20-°C-normiert aus. Sie gehoert nicht in den Bericht. */
+  const H_T_20K_bezug = (20.0 - theta_e) !== 0
+    ? phi_T_gebaeude / (20.0 - theta_e) : 0;
 
   /* Bezugsflächen auseinanderhalten. Der Referenzbericht weist die spezifische
    * Heizlast auf die WOHNFLÄCHE aus, damit sie mit üblichen Kennwerten
@@ -864,6 +922,7 @@ function rechne(projekt) {
     phi_V_gebaeude: phi_V_gebaeude,
     phi_RH_gebaeude: phi_RH_gebaeude,
     H_T: H_T,
+    H_T_20K_bezug: H_T_20K_bezug,
     wohnflaeche: wohnflaeche || null,
     spez_raumflaeche: spez_raumflaeche,
     spez_wohnflaeche: spez_wohnflaeche,

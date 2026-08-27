@@ -204,8 +204,16 @@
         kt.kontrast);
     }
 
-    // Schräglage
-    if (sg > S.SCHRAEG_MAX) {
+    /* Schräglage. Auf einem Blatt ohne Zeichnung ist sie nicht beurteilbar:
+     * die Schätzung sucht das Maximum der Zeilenvarianz, und ohne Tinte gibt es
+     * keins — sie liefert dann den Rand des Suchbereichs. Ein leeres Deckblatt
+     * bekam deshalb den Satz "steht um rund 3,0 Grad schief" samt Rat, den Plan
+     * gerade einzuscannen. Gesperrt war es ohnehin wegen des fehlenden
+     * Bildinhalts; die Zeile war nur irreführend. Ohne Tinte wird die
+     * Ausrichtung daher nicht beurteilt, statt eine Zahl zu erfinden. */
+    if (kt.tinte < S.TINTE_MIN) {
+      /* kein Befund zur Ausrichtung */
+    } else if (sg > S.SCHRAEG_MAX) {
       befund("schraeg", "Ausrichtung", "sperre",
         "Die Zeichnung steht um rund " + sg.toFixed(1) + " Grad schief. Beim Umfahren "
         + "von Räumen verzerrt das die Flächen. Plan gerade einscannen oder das Bild "

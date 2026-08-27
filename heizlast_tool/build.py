@@ -139,13 +139,31 @@ letzte = [z for z in r.stdout.strip().splitlines() if z.startswith("ERGEBNIS")]
 print("   OK  " + (letzte[-1] if letzte else "bestanden"))
 
 # ----------------------------------------------------- 3 Syntaxpruefung
-schritt("2b  Kalibrierung der Planprüfung an echten Bildvarianten")
+# Die 23 unabhaengigen Referenzfaelle. Anders als validierung/vergleich.js
+# vergleichen sie NICHT gegen einen Schnappschuss, sondern gegen von Hand
+# hergeleitete Sollwerte (Herleitung als Rechnung im Kommentar, zweite
+# Implementierung in validierung/referenz_gegenrechnung.py). Nur so faellt ein
+# Fehler auf, der schon am Tag der Schnappschussaufnahme drin war -- genau so
+# einer war drin (H_T bei gemischten Raumtemperaturen, siehe R05).
+schritt("2ba Referenzfaelle: 23 Faelle gegen von Hand hergeleitete Sollwerte")
+r = subprocess.run(["node", "validierung/referenz_test.js"], cwd=HIER,
+                   capture_output=True, text=True)
+if not r.stdout.strip():
+    print(r.stderr[-2000:])
+    abbruch("Die Referenzfaelle lassen sich nicht ausfuehren.")
+res = json.loads(r.stdout.strip().splitlines()[-1])
+if not res["ok"]:
+    abbruch("Referenzfaelle: " + "; ".join(res["fehler"]))
+print(f"   OK  {res['anzahl']} Pruefungen ueber {res['faelle']} Referenzfaelle")
+
+schritt("2b  Kalibrierung der Planprüfung an synthetischen Bildvarianten")
 r = subprocess.run(["node", "validierung/planpruefung_test.js"], cwd=HIER,
                    capture_output=True, text=True)
 if r.returncode != 0:
     print(r.stdout)
     abbruch("Die Planprüfung ist nicht kalibriert.")
-print("   OK  acht Bildvarianten richtig beurteilt")
+print("   OK  acht synthetische Bildvarianten richtig beurteilt, "
+      "jeweils aus dem vorgesehenen Grund")
 
 # Das PDF-Modul gegen die echte Bibliothek pruefen: ein von Hand gebautes PDF
 # wird mit pdf.js wieder eingelesen. Erst hier zeigt sich, ob die Annahmen ueber
