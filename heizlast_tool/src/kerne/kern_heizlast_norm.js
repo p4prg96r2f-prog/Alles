@@ -938,6 +938,48 @@ function rechne(projekt) {
     jeWE[w].raeume += 1;
   });
 
+  /* EINE NULL IST EIN ERGEBNIS, DAS SICH ERKLAEREN MUSS.
+   * GEMESSEN am 27.08.2026 am echten Bauantrag Soethe: 14 Raeume aus der
+   * Planauslese, alle ohne Grundflaeche und ohne Bauteil, weil der Plan keine
+   * Flaechen anschreibt. Der Kern gab 0,00 kW zurueck -- und KEINE EINZIGE
+   * Warnung. Die vorhandene Probe "Raum ohne Huellbauteil" steht unter
+   * r.A > 0 und uebersprang die Raeume deshalb alle; eine Probe auf A == 0
+   * gab es nicht. Ein Raum ohne Flaeche UND ohne Bauteil fiel damit durch
+   * beide Netze.
+   * Das Kontrollblatt faengt den Fall, aber der Kern ist ausdruecklich auch
+   * ohne es benutzbar. Ein Aufrufer, der nur rechne() aufruft, bekam eine
+   * Null, die wie ein Ergebnis aussieht.
+   * Gemeldet wird GEBUENDELT, nicht je Raum: bei 14 Raeumen waeren 14
+   * gleichlautende Zeilen keine Auskunft, sondern Rauschen.
+   * Festgehalten in validierung/referenz_test.js, R26. */
+  const ohneFlaeche = raeume.filter(function (r) { return !(r.A > 0); });
+  if (ohneFlaeche.length) {
+    const namen = ohneFlaeche.slice(0, 3).map(function (r) {
+      return "\u201E" + (r.raum || r.id || "ohne Namen") + "\u201C";
+    }).join(", ");
+    warnungen.push((ohneFlaeche.length === 1 ? "Ein Raum hat" : ohneFlaeche.length
+      + " Räume haben") + " keine Grundfläche: " + namen
+      + (ohneFlaeche.length > 3 ? " und " + (ohneFlaeche.length - 3) + " weitere" : "")
+      + ". Ohne Fläche ist auch das Luftvolumen null; diese Räume tragen nichts "
+      + "zur Heizlast bei. Steht die Fläche nicht im Plan, muss sie am Plan "
+      + "abgegriffen oder eingetragen werden.");
+  }
+  const ohneHuellbauteil = raeume.filter(function (r) {
+    return r.bauteile.filter(function (b) { return b.kat !== "innen"; }).length === 0;
+  });
+  if (raeume.length && ohneHuellbauteil.length === raeume.length) {
+    warnungen.push("In keinem der " + raeume.length + " Räume ist ein Bauteil der "
+      + "Gebäudehülle angelegt. Die ausgewiesene Transmissionsheizlast ist "
+      + "deshalb null — das ist KEIN Rechenergebnis, sondern eine fehlende "
+      + "Angabe. Erst mit Bauteilen und U-Werten entsteht eine Heizlast.");
+  }
+  if (raeume.length && !(phi_gebaeude > 0)) {
+    warnungen.push("Die Gebäudeheizlast ist " + znr(phi_gebaeude, 1) + " W, obwohl "
+      + raeume.length + (raeume.length === 1 ? " Raum" : " Räume") + " angelegt "
+      + (raeume.length === 1 ? "ist" : "sind") + ". Dieser Wert darf nicht als "
+      + "Heizlast verwendet werden; es fehlen Flächen, Bauteile oder beides.");
+  }
+
   // Plausibilitätsprüfungen
   if (jeWE["(ohne Zuordnung)"]) {
     const ohneZ = jeWE["(ohne Zuordnung)"].raeume;

@@ -296,7 +296,7 @@ b = −0,244, bei 40 m² Trennwand H_T = −8,0 W/K). Das ist nach der
 Normdefinition richtig — durch diese Wand kommt Wärme herein —, aber ein
 Bericht, der „H_T −8,0 W/K" ausweist, braucht dazu einen Satz. Die
 Invariantenprobe R21 verlangt deshalb nur noch Endlichkeit; das positive
-Vorzeichen wird ausdrücklich nur für die 25 Referenzfälle zugesagt. Wie ein
+Vorzeichen wird ausdrücklich nur für die 26 Referenzfälle zugesagt. Wie ein
 solcher Fall im Bericht darzustellen ist, gehört zur fachlichen Freigabe.
 
 ## 11 Reproduzierbarer Bau

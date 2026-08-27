@@ -24,7 +24,7 @@ jedem Fehlschlag.
 Einzelne Proben einzeln aufrufen:
 
 ```
-node validierung/referenz_test.js        # 25 Referenzfälle, hergeleitete Sollwerte
+node validierung/referenz_test.js        # 26 Referenzfälle, hergeleitete Sollwerte
 node validierung/planakten_test.js       # zehn synthetische Prüfpläne
 node validierung/gleichstand_test.js     # dieselbe Zahl in beiden Berichtsfassungen
 node validierung/sicherheit_test.js      # fremder Text darf im HTML nichts ausführen

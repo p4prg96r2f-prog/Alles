@@ -55,7 +55,7 @@ python3 build.py
 
 38 Schritte in einem Durchlauf, 14.204 ausgewiesene Prüfungen, Abbruch bei jedem
 Fehlschlag: Selbsttests aller Rechenkerne und Module, Validierung gegen das
-Referenzprojekt, die 25 Referenzfälle, die zehn synthetischen Prüfpläne,
+Referenzprojekt, die 26 Referenzfälle, die zehn synthetischen Prüfpläne,
 Kalibrierung der Planprüfung, PDF-Probe
 gegen pdf.js, Oberflächen-, Ablauf-, Rückfragen-, Rettungs- und
 Sicherungsproben, Gleichstands- und Sicherheitsprobe, Ausleseendpunkt ohne
@@ -67,7 +67,7 @@ Einzelne Proben lassen sich einzeln aufrufen:
 
 | Befehl | Was er prüft |
 |---|---|
-| `node validierung/referenz_test.js` | 25 Referenzfälle gegen von Hand hergeleitete Sollwerte |
+| `node validierung/referenz_test.js` | 26 Referenzfälle gegen von Hand hergeleitete Sollwerte |
 | `node validierung/planakten_test.js` | zehn synthetische Prüfpläne: erkannt / unsicher / abgelehnt |
 | `node validierung/gleichstand_test.js` | dieselbe Zahl in beiden Berichtsfassungen |
 | `node validierung/sicherheit_test.js` | fremder Text darf im HTML nichts ausführen |

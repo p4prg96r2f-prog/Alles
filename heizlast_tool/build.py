@@ -145,7 +145,7 @@ print("   OK  " + (letzte[-1] if letzte else "bestanden"))
 # Implementierung in validierung/referenz_gegenrechnung.py). Nur so faellt ein
 # Fehler auf, der schon am Tag der Schnappschussaufnahme drin war -- genau so
 # einer war drin (H_T bei gemischten Raumtemperaturen, siehe R05).
-schritt("2ba Referenzfaelle: 25 Faelle gegen von Hand hergeleitete Sollwerte")
+schritt("2ba Referenzfaelle: 26 Faelle gegen von Hand hergeleitete Sollwerte")
 r = subprocess.run(["node", "validierung/referenz_test.js"], cwd=HIER,
                    capture_output=True, text=True)
 if not r.stdout.strip():

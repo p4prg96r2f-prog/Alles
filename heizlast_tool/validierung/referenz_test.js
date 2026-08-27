@@ -1,5 +1,5 @@
 /* ===========================================================================
- * referenz_test.js — 25 unabhaengige Referenzfaelle fuer den Rechenkern
+ * referenz_test.js — 26 unabhaengige Referenzfaelle fuer den Rechenkern
  * ===========================================================================
  * WORUM ES GEHT
  *
@@ -67,6 +67,7 @@
  *   R23 Rundungsunabhaengigkeit der Rechnung
  *   R24 Kennzeichnung gegen Lage eines Bauteils   (aus der Durchsicht)
  *   R25 Ein Raum auf der Aussentemperatur         (aus der Durchsicht)
+ *   R26 Eine Null, die sich erklaeren muss        (echter Bauantrag)
  *
  * Aufruf:  node validierung/referenz_test.js
  * =========================================================================== */
@@ -1082,11 +1083,69 @@ function rm(id, theta_i, A, h, bauteile, extra) {
     "R25 kein NaN und kein Infinity: " + unsauber(r).join(", "));
 }
 
+/* ===========================================================================
+ * R26  EINE NULL, DIE SICH ERKLAEREN MUSS — GEFUNDEN AM ECHTEN BAUANTRAG
+ * ===========================================================================
+ * GEMESSEN am 27.08.2026 am Bauantrag Soethe (echter Plansatz, 6 Blaetter):
+ * die Planauslese liefert 14 Raeume mit Namen und Geschoss, aber OHNE
+ * Flaeche -- der Plan schreibt keine an. Der Kern gab daraufhin 0,00 kW
+ * zurueck und KEINE EINZIGE WARNUNG.
+ *
+ * Zwei Netze, durch die der Fall fiel:
+ *   - die Probe "Raum ohne Huellbauteil" steht unter r.A > 0 und uebersprang
+ *     damit genau die Raeume, um die es geht;
+ *   - eine Probe auf A == 0 gab es nicht.
+ * R16 deckte nur den Fall "gar keine Raeume" ab. Der schwierigere Fall ist
+ * dieser: Raeume SIND da, sie tragen nur nichts.
+ *
+ * Das Kontrollblatt faengt es, aber der Kern ist ausdruecklich auch ohne es
+ * benutzbar (er laeuft ohne DOM, ohne Netz, ohne Local Storage). Wer nur
+ * rechne() aufruft, bekam eine Null, die wie ein Ergebnis aussieht.
+ *
+ * Verlangt wird GEBUENDELTE Auskunft: bei 14 Raeumen waeren 14 gleichlautende
+ * Zeilen kein Befund, sondern Rauschen.
+ * ======================================================================== */
+{
+  const namen = ["Technik/HWR", "Wohnen/Essen", "WC", "Diele",
+    "Windfang/Garderobe", "Vorrat", "Kochen"];
+  const r = rechne("R26", projekt({ theta_e: -11.6, theta_e_m: 8.8 },
+    namen.map(function (n, i) {
+      return rm("r" + i, 20, 0, 2.6, [], { name: n, n_min: 0.5 });
+    })));
+  nahe("R26 Gebaeudeheizlast", r.phi_gebaeude, 0, 1e-12, false);
+  const w = (r.warnungen || []).join(" || ");
+  pruefe(/keine Grundfläche/.test(w),
+    "R26 fehlende Grundflaechen MUESSEN gemeldet werden. Warnungen: " + w);
+  pruefe(/Bauteil der Gebäudehülle/.test(w),
+    "R26 und dass in keinem Raum ein Huellbauteil steht");
+  pruefe(/darf nicht als Heizlast verwendet werden/.test(w),
+    "R26 und dass die Null keine Heizlast ist — genau dieser Satz fehlte");
+  /* GEBUENDELT, nicht je Raum: hoechstens drei Warnungen zur Nullrechnung,
+     sonst ertrinkt die Auskunft in Wiederholungen. */
+  const zurNull = (r.warnungen || []).filter(function (x) {
+    return /Grundfläche|Gebäudehülle|Heizlast verwendet/.test(x);
+  });
+  pruefe(zurNull.length <= 3, "R26 die Auskunft zur Nullrechnung muss gebuendelt "
+    + "sein, ist aber " + zurNull.length + " Zeilen lang");
+  pruefe(/7 Räume/.test(w), "R26 die Anzahl gehoert genannt, damit der Umfang "
+    + "des Problems sichtbar ist");
+  pruefe(unsauber(r).length === 0, "R26 kein NaN: " + unsauber(r).join(", "));
+
+  /* Gegenprobe: mit Flaechen UND Bauteilen verschwinden alle drei Zeilen.
+     Ohne sie koennte die Warnung dauerhaft stehen und waere wertlos. */
+  const gut = rechne("R26b", projekt({ theta_e: -11.6, theta_e_m: 8.8 },
+    [rm("r", 20, 20, 2.6, [bt("AW", 15, 0.28)], { n_min: 0.5 })]));
+  const wg = (gut.warnungen || []).join(" || ");
+  pruefe(!/keine Grundfläche|Bauteil der Gebäudehülle|darf nicht als Heizlast/.test(wg),
+    "R26b mit Flaeche und Bauteil darf keine dieser Zeilen mehr stehen: " + wg);
+  pruefe(gut.phi_gebaeude > 0, "R26b und es muss eine Heizlast entstehen");
+}
+
 /* ------------------------------------------------------------------ Ausgabe */
 console.log(JSON.stringify({
   ok: fehler.length === 0,
   anzahl: anzahl,
-  faelle: 25,
+  faelle: 26,
   fehler: fehler,
   matrix: matrix,
 }));
