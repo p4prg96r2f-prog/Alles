@@ -267,7 +267,7 @@ cd heizlast_tool
 python3 build.py
 ```
 
-35 Schritte, rund 14.000 Prüfungen, Abbruch bei jedem Fehlschlag,
+37 Schritte, 14.092 ausgewiesene Prüfungen, Abbruch bei jedem Fehlschlag,
 Erzeugnis `WERKE_Heizlast_Tool.html` (5,46 MB). Vorausgesetzt sind
 Python 3 und Node (geprüft mit Python 3.11.15 und Node 22.22.2).
 Playwright ist nur für Schritt 8 nötig; fehlt es, wird der Schritt

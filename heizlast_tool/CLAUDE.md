@@ -12,17 +12,21 @@ Das ist alles. Der Befehl führt in einem Durchlauf aus: Selbsttests aller
 Rechenkerne und Module, die Validierung gegen das Referenzprojekt, die
 23 Referenzfälle, die Kalibrierung der Planprüfung, die PDF-Probe gegen
 pdf.js, Oberflächen-, Ablauf-, Rückfragen-, Rettungs- und
-Sicherungsproben, die Sicherheitsprobe, den Endpunkt ohne Netz, die
+Sicherungsproben, die Gleichstands- und die Sicherheitsprobe, den Endpunkt
+ohne Netz, die
 Syntaxprüfung, den Produktionsbau der Einzeldatei und zuletzt die
 Browserprobe an der fertigen Datei auf Desktop- und Mobilgröße.
 Der Bau bricht bei jedem Fehlschlag ab.
 
-Stand 27.08.2026: 35 Schritte, rund 14.000 Prüfungen.
+Stand 27.08.2026: 37 Schritte, 14.092 ausgewiesene Prüfungen, Abbruch bei
+jedem Fehlschlag.
 
 Einzelne Proben einzeln aufrufen:
 
 ```
 node validierung/referenz_test.js        # 23 Referenzfälle, hergeleitete Sollwerte
+node validierung/planakten_test.js       # zehn synthetische Prüfpläne
+node validierung/gleichstand_test.js     # dieselbe Zahl in beiden Berichtsfassungen
 node validierung/sicherheit_test.js      # fremder Text darf im HTML nichts ausführen
 node validierung/vergleich.js            # gegen das externe Referenzmodell
 node validierung/browser_test.mjs        # gebaute Datei in Chromium

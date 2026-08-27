@@ -41,11 +41,13 @@ Ein Befehl prüft alles:
 python3 build.py
 ```
 
-35 Schritte in einem Durchlauf, rund 14.000 Prüfungen, Abbruch bei jedem
+37 Schritte in einem Durchlauf, 14.092 ausgewiesene Prüfungen, Abbruch bei jedem
 Fehlschlag: Selbsttests aller Rechenkerne und Module, Validierung gegen das
-Referenzprojekt, die 23 Referenzfälle, Kalibrierung der Planprüfung, PDF-Probe
+Referenzprojekt, die 23 Referenzfälle, die zehn synthetischen Prüfpläne,
+Kalibrierung der Planprüfung, PDF-Probe
 gegen pdf.js, Oberflächen-, Ablauf-, Rückfragen-, Rettungs- und
-Sicherungsproben, Sicherheitsprobe, Ausleseendpunkt ohne Netz, Syntaxprüfung,
+Sicherungsproben, Gleichstands- und Sicherheitsprobe, Ausleseendpunkt ohne
+Netz, Syntaxprüfung,
 Produktionsbau der Einzeldatei und zuletzt die Browserprobe an der fertigen
 Datei auf Desktop- und Mobilgröße.
 
@@ -54,6 +56,8 @@ Einzelne Proben lassen sich einzeln aufrufen:
 | Befehl | Was er prüft |
 |---|---|
 | `node validierung/referenz_test.js` | 23 Referenzfälle gegen von Hand hergeleitete Sollwerte |
+| `node validierung/planakten_test.js` | zehn synthetische Prüfpläne: erkannt / unsicher / abgelehnt |
+| `node validierung/gleichstand_test.js` | dieselbe Zahl in beiden Berichtsfassungen |
 | `node validierung/sicherheit_test.js` | fremder Text darf im HTML nichts ausführen |
 | `node validierung/vergleich.js` | gegen das externe Referenzmodell |
 | `node validierung/planpruefung_test.js` | Kalibrierung der Eignungsprüfung |
