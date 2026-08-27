@@ -37,6 +37,19 @@
     return ENDPUNKT_FEST;
   }
 
+  /** Laeuft das Werkzeug als DIREKT GEOEFFNETE Einzeldatei (file://)?
+   *  Dann ist der Ausleseendpunkt zwangslaeufig eine fremde Herkunft: die
+   *  Seite hat keine eigene, gegen die sich eine relative Adresse aufloesen
+   *  liesse, also wird ENDPUNKT_FEST aufgerufen. Browser behandeln
+   *  Anfragen aus einer file://-Seite an eine fremde Herkunft
+   *  unterschiedlich streng, und mehrere lassen sie gar nicht zu -- der
+   *  fetch wirft dann, bevor er losgeht. Das ist KEIN Netzproblem und keine
+   *  Stoerung des Dienstes, und genau das muss die Meldung sagen. */
+  function alsDatei() {
+    try { return !!location && location.protocol === "file:"; }
+    catch (e) { return false; }
+  }
+
   /* laufende haelt die Abbrecher der offenen Aufrufe. Ohne sie beendet
      "Abbrechen" erst nach dem laufenden Blatt -- und das ist genau das Blatt,
      das gerade Geld kostet. */
@@ -214,6 +227,21 @@
             ? "Der Ausleseendpunkt hat 90 Sekunden nicht geantwortet. Der Versuch "
               + "wurde abgebrochen; das Blatt bleibt offen."
             : "Die Auslese wurde abgebrochen.");
+        }
+        /* Zwei verschiedene Ursachen, zwei verschiedene Anweisungen. Vorher
+           stand hier nur die Netzverbindung -- auf einer direkt geoeffneten
+           Einzeldatei war das die falsche Fahrte: dort scheitert der Aufruf
+           an der Herkunft der Seite, und kein Blick auf das WLAN hilft. */
+        if (alsDatei()) {
+          throw new Error("Die Planauslese ist in der direkt geöffneten "
+            + "Einzeldatei nicht möglich. Diese Seite hat keine eigene "
+            + "Herkunft, deshalb muss sie den Ausleseendpunkt unter seiner "
+            + "vollen Adresse aufrufen — und das lassen Browser aus einer "
+            + "lokalen Datei heraus nicht zu. Für die Planauslese bitte "
+            + "https://werke-heizlast.netlify.app öffnen; dort liegt der "
+            + "Endpunkt unter derselben Adresse wie die Seite. Alles andere "
+            + "— Rechnen, Raumbuch, Prüfung, Bericht — arbeitet in dieser "
+            + "Datei ohne Netz weiter.");
         }
         throw new Error("Der Ausleseendpunkt ist nicht erreichbar. Meist liegt das "
           + "an der Netzverbindung; sonst ist der Dienst gerade nicht erreichbar. "

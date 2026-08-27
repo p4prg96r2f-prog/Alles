@@ -514,6 +514,61 @@ pruefe(T.aussichtslos("Das Modell hat die vorgegebene Struktur nicht bedient "
         + (e2 && e2.message));
     pruefe(!!e2 && e2.aussichtslos !== true,
       "Ein unbekannter Fehlschlag ist NICHT aussichtslos, dort wird wiederholt");
+
+    /* =====================================================================
+     * 4c  Die direkt geoeffnete Einzeldatei
+     * =====================================================================
+     * GEMELDET am 27.08.2026 vom Bearbeiter: er oeffnete
+     * WERKE_Heizlast_Tool.html per Doppelklick, legte einen Plan ab und las
+     *   "Der Ausleseendpunkt ist nicht erreichbar. Meist liegt das an der
+     *    Netzverbindung; sonst ist der Dienst gerade nicht erreichbar."
+     * Nachgemessen war der Endpunkt zu genau dieser Zeit gesund
+     * (OPTIONS 204 mit access-control-allow-origin *, POST ohne Code 401 mit
+     * sauberer Fehlermeldung). Die Meldung schickte ihn also zum WLAN,
+     * waehrend die Ursache eine andere ist: eine file://-Seite hat keine
+     * eigene Herkunft, gegen die sich eine relative Adresse aufloesen
+     * liesse, also ruft das Werkzeug ENDPUNKT_FEST unter voller Adresse auf
+     * -- und Anfragen aus einer lokalen Datei an eine fremde Herkunft lassen
+     * Browser unterschiedlich streng bis gar nicht zu. Der fetch wirft dann,
+     * bevor er losgeht, genau wie bei einem Netzausfall.
+     * Verlangt wird deshalb: bei protocol "file:" nennt die Meldung die
+     * Einzeldatei und den Weg ueber die veroeffentlichte Adresse, und sie
+     * behauptet NICHTS ueber die Netzverbindung. */
+    {
+      const echtesProtokoll = fenster.location.protocol;
+      fenster.fetch = async function () { throw new TypeError("Failed to fetch"); };
+
+      fenster.location.protocol = "file:";
+      let eD = null;
+      try { await fenster.MODUL_KI_ECHT.auslesenBild("AAAA", "", "raeume"); }
+      catch (e) { eD = e; }
+      pruefe(!!eD && /Einzeldatei/.test(eD.message),
+        "Aus einer file://-Seite MUSS die Meldung die Einzeldatei benennen: "
+          + (eD && eD.message));
+      pruefe(!!eD && /werke-heizlast\.netlify\.app/.test(eD.message),
+        "Und sie MUSS die Adresse nennen, unter der die Auslese geht");
+      pruefe(!!eD && !/Netzverbindung/.test(eD.message),
+        "Und sie darf NICHT auf die Netzverbindung zeigen — dort ist der "
+          + "Fehler nicht: " + (eD && eD.message));
+      pruefe(!!eD && /(Rechnen|Raumbuch|Bericht)/.test(eD.message),
+        "Und sie muss sagen, was trotzdem weiter arbeitet, sonst liest sich "
+          + "das wie ein Totalausfall");
+
+      /* Gegenprobe: auf einer richtig ausgelieferten Seite bleibt es bei der
+         Netzmeldung. Ohne diese Zeile koennte die neue Meldung ueberall
+         stehen und die alte waere nie mehr erreichbar. */
+      fenster.location.protocol = "https:";
+      let eH = null;
+      try { await fenster.MODUL_KI_ECHT.auslesenBild("AAAA", "", "raeume"); }
+      catch (e) { eH = e; }
+      pruefe(!!eH && /Netzverbindung/.test(eH.message),
+        "Auf einer ausgelieferten Seite bleibt die Netzmeldung richtig: "
+          + (eH && eH.message));
+      pruefe(!!eH && !/Einzeldatei/.test(eH.message),
+        "Und dort darf die Einzeldatei-Meldung NICHT stehen");
+
+      fenster.location.protocol = echtesProtokoll;
+    }
     fenster.fetch = echtesFetch;
   }
 
