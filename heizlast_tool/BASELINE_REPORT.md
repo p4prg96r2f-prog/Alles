@@ -260,6 +260,45 @@ Bildschirmfotos des Hauptablaufs auf beiden Größen wurden aufgenommen
 (Startseite, Unterlagen, Rückfragen, Ergebnis, Expertenmodus). Sie sind
 mit `node validierung/browser_test.mjs` reproduzierbar.
 
+## 10a Befunde der unabhängigen Durchsicht (27.08.2026)
+
+Ein zweiter, nur lesender Prüfer hat den fertigen Stand durchgesehen — nicht
+der Verfasser der Änderungen. Er hat alle Proben ausgeführt, die H_T-Änderung
+mit eigenen Gegenbeispielen angegriffen und zwölf Befunde vorgelegt. Alle sind
+nachgezogen; die Behebungen sind mit Regressionsproben festgehalten.
+
+| # | Befund | Nachgezogen |
+|---|---|---|
+| D1 | Die Beschriftung unter H_T sagte weiter „Transmission bei 20 °C" — beim Demoprojekt stand darüber die neue Zahl 225,0 W/K, während 218,0 W/K der 20-°C-Wert ist. | Beschriftung auf „Hülle: Σ A · U · b"; Wächter in `validierung/ergebnisseite_test.js`, der eine Bezugstemperatur in dieser Zeile verbietet. |
+| D2 | Der Kommentar behauptete, H_T sei **immer** von den Raumtemperaturen unabhängig. Das gilt nur gegen Außenluft und gegen bilanzierte Zonen; bei **erdberührten** Bauteilen steckt θi in f_ig (dieselbe Bodenplatte: 5,58 / 8,88 / 10,82 W/K bei 15 / 20 / 24 °C). R05c prüfte die Invariante nur im geltenden Fall. | Kommentar auf das eingeschränkt, was gilt; neuer Fall **R05d** rechnet die drei Werte nach und verlangt ausdrücklich, dass H_T dort mit θi steigt. |
+| D3 | Bei θi = θe wurde `H = 0` gesetzt: ein Raum, der versehentlich auf der Außentemperatur stand, nahm seine ganze Außenfläche stillschweigend aus H_T heraus (60 von 65 W/K), Richtung „zu klein". | Gegen Außenluft ist b = 1, also H = A·U_eff — unabhängig von der Temperaturdifferenz. Zusätzlich Warnung, die den Raum benennt. Fall **R25**. |
+| D4 | `kat: "huelle"` bei `grenzt_an.typ: "raum"` — über die Oberfläche in zwei Schritten erreichbar — ließ die beiden Hälften einer Innenwand in H_T **nicht** aufgehen: H_T = −7,44 W/K. Spiegelfall `kat:"innen"` bei `typ:"aussen"` ließ 60 W/K unbemerkt verschwinden. Kein Abgleich zwischen `kat` und `grenzt_an`. | Die **Lage schlägt die Kennzeichnung**: ein Bauteil gegen einen Raum desselben Gebäudes ist ein Innenbauteil. Der Spiegelfall wird **nicht** überstimmt (das änderte die Zahl gespeicherter Projekte still), sondern gemeldet. Beide Richtungen als Fall **R24**. |
+| D5 | Die Kopfzusage von `referenz_test.js` („Kein Sollwert stammt aus src/") hielt nicht: acht Zeilen sind Invarianzproben, und die Normkonstanten (0,34; 1,45; 0,02/0,03; f₁-Tabelle; −19,2/0,1 °C) stammen aus `src/`. | Kopf ehrlich gefasst: Invarianzproben sind als solche gekennzeichnet, die Normkonstanten sind **gegen Drift gesichert, nicht belegt** — ihr Beleg ist der Normtext, und der liegt nicht vor. |
+| D6 | `referenz_gegenrechnung.py` — die „zweite, unabhängige Implementierung" — hatte keinen Einstieg und wurde vom Bau nie aufgerufen. Die Zusage war durch keinen Lauf gedeckt. | Neu `validierung/gegenprobe_kern.py`: rechnet fünf zusammengesetzte Fälle in Python **und** über den Kern und vergleicht (26 Vergleiche, Toleranz 1e-9). Als Schritt **2bb** im Bau. Dazu der fehlende `dt == 0`-Zweig in der Python-Fassung. |
+| D7 | Die Lüftungswarnung hing an `projekt.lueftung` — einem Feld, das die Oberfläche **nirgends schreibt**. Wer real eine Anlage hat, konnte sie nicht eintragen und bekam keine Warnung. Dazu: `art` musste exakt „mechanisch" lauten, und `eta: 0` erzeugte den Text „mit Wärmerückgewinnung". | Der Lüftungsweg steht jetzt **unbedingt** in den Hinweisen des Berichts, nicht nur auf Angabe. Betriebsart wird unabhängig von Schreibung erkannt; ein Rückgewinnungsgrad von 0 ist keine Rückgewinnung. |
+| D8 | Die Unterdrückung des Schräglagenbefundes war halb: nur das zu **helle** Blatt. Ein gleichmäßig dunkles (Foto gegen das Licht, durchgelaufener Scan) hat nach Otsu 48 % Tintenanteil, lief durch und behauptete „steht um rund 3,0 Grad schief". | Die Bedingung hängt jetzt an der **Aussagekraft** der Schätzung, nicht am Tintenanteil: Suchbereich bis 4°, beurteilt bis 3°; liegt das Maximum am Rand, ist die Schätzung nicht beurteilbar. Neue Kalibriervariante `dunkel`, und ein Wächter, der einen Ausrichtungsbefund auf solchen Blättern verbietet. Nebenwirkung: auch die Blaupause behauptet keine 3,0° mehr. |
+| D9 | Die Prompt-Härtung war asymmetrisch: `body.hinweis` (500 Zeichen) war eingezäunt, das **Zahlenpaket** `body.daten` (bis 400 KB, mit Raum- und Bauteilnamen aus Modellantworten) ging roh in den Auftragssatz. | Gleicher Zaun: benannter Block mit ausdrücklichem Vermerk. |
+| D10 | Die CSS-Begründung zitierte WCAG 2.5.5 (44 px), die Regel für Verweise in Karten setzt aber 32 px (das ist 2.5.8, 24 px). `zahl(b.H, 0)` machte aus einem Überlauf (A = 1e308 → `Infinity`) eine plausible **Null** in H_T. Der R20-Kommentar behauptete „A = 0 und U = 0 tragen nichts bei", was nur ohne Wärmebrückenzuschlag stimmt. | Zitat richtiggestellt und die Unterscheidung benannt; `b.H` ohne Rückfall, damit ein unmöglicher Wert sichtbar bleibt und R21 ihn fängt; R20-Kommentar präzisiert. |
+| D11 | `node src/kerne/kern_heizlast_norm.js selbsttest` stand in `README.md`, hatte aber **keinen Einstieg**: keine Ausgabe, Rückgabewert 0. Wer die Tabelle abarbeitete, hielt einen Leerlauf für eine bestandene Prüfung. (Der Bau selbst ruft die Selbsttests über `node -e` auf und war nie betroffen.) | Einstieg ergänzt; der Befehl gibt jetzt `{"ok":true,…,"anzahl":37}` aus und endet bei einem Fehlschlag mit 1. |
+| D12 | `api/deploy/` ist ein Erzeugnis von `paket_bauen.sh` und war veraltet — es trug noch den alten H_T-Ausdruck. Nur `build.py` zu laufen hätte die alte Fassung live gebracht. | Veröffentlichungsschritt in `README.md` und `CLAUDE.md` auf **beide** Befehle festgelegt, mit Begründung. |
+
+Ausdrücklich **ohne Befund** geprüft: `H_T_20K_bezug` gelangt in keine der drei
+Ausgaben (interne Fassung, Druckfassung, Kontrollblatt); `raeume` ist an der
+Rechenstelle vollständig belegt und `bt.H` nie `undefined`; bei korrekter
+Kennzeichnung gibt es keine Doppelzählung; die Behandlung erdberührter
+Bauteile, der Zonen und der Haustrennwände ist normkonform; Einheiten in den
+geänderten Zeilen stimmen.
+
+**Aus der Durchsicht offen geblieben (fachlich, nicht behoben):** H_T kann
+rechnerisch negativ werden, wenn ein Raum an einen **wärmeren** Nachbarn
+grenzt (Treppenhaus 15 °C an eine beheizte Nachbarwohnung mit 20 °C:
+b = −0,244, bei 40 m² Trennwand H_T = −8,0 W/K). Das ist nach der
+Normdefinition richtig — durch diese Wand kommt Wärme herein —, aber ein
+Bericht, der „H_T −8,0 W/K" ausweist, braucht dazu einen Satz. Die
+Invariantenprobe R21 verlangt deshalb nur noch Endlichkeit; das positive
+Vorzeichen wird ausdrücklich nur für die 25 Referenzfälle zugesagt. Wie ein
+solcher Fall im Bericht darzustellen ist, gehört zur fachlichen Freigabe.
+
 ## 11 Reproduzierbarer Bau
 
 ```

@@ -105,8 +105,27 @@
 
   /** Schräglage: Wie stark weichen die dominanten Linien von der Waagerechten ab?
    *  Gemessen über die Zeilen- und Spaltenenergie bei kleinen Drehwinkeln. */
+  /** Liefert { grad, rand }.
+   *  rand = true heisst: das Maximum liegt am Rand des Suchbereichs, die
+   *  Schaetzung ist damit NICHT aussagekraeftig.
+   *
+   *  WARUM DIESE UNTERSCHEIDUNG NOETIG IST (27.08.2026, aus der unabhaengigen
+   *  Durchsicht): die Schaetzung sucht das Maximum der Zeilenvarianz. Ein Blatt
+   *  ohne Linienstruktur -- leeres Deckblatt, Foto gegen das Licht,
+   *  durchgelaufener Scan -- hat kein Maximum; die Suche liefert dann den Rand
+   *  ihres Bereichs, und daraus wurde der Satz "steht um rund 3,0 Grad schief"
+   *  samt Rat, den Plan gerade einzuscannen. Eine erfundene Gradzahl.
+   *  Der erste Versuch hing die Unterdrueckung am Tintenanteil. Das griff nur
+   *  beim zu HELLEN Blatt: ein gleichmaessig dunkles Blatt hat nach Otsu einen
+   *  Tintenanteil um 48 Prozent und lief damit durch.
+   *  Der Suchbereich reicht deshalb jetzt bis 4 Grad, beurteilt aber nur bis
+   *  3 Grad. Eine echte Schraeglage von 3 Grad liegt damit INNEN und wird
+   *  gefunden; Rauschen laeuft in den Rand bei 4 Grad und wird als nicht
+   *  beurteilbar gekennzeichnet. */
   function schraeglage(g, w, h) {
-    const winkel = [-3, -2.5, -2, -1.5, -1, -0.5, 0, 0.5, 1, 1.5, 2, 2.5, 3];
+    const winkel = [-4, -3.5, -3, -2.5, -2, -1.5, -1, -0.5, 0,
+                    0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4];
+    const RAND = 4;
     let bester = 0, besteEnergie = -1;
     const schritt = Math.max(1, Math.floor(Math.min(w, h) / 400));
     for (const grad of winkel) {
@@ -130,7 +149,7 @@
       v /= Math.max(1, n);
       if (v > besteEnergie) { besteEnergie = v; bester = grad; }
     }
-    return Math.abs(bester);
+    return { grad: Math.abs(bester), rand: Math.abs(bester) >= RAND - 1e-9 };
   }
 
   /* ------------------------------------------------------------------ */
@@ -211,18 +230,24 @@
      * gerade einzuscannen. Gesperrt war es ohnehin wegen des fehlenden
      * Bildinhalts; die Zeile war nur irreführend. Ohne Tinte wird die
      * Ausrichtung daher nicht beurteilt, statt eine Zahl zu erfinden. */
-    if (kt.tinte < S.TINTE_MIN) {
-      /* kein Befund zur Ausrichtung */
-    } else if (sg > S.SCHRAEG_MAX) {
+    if (sg.rand) {
+      /* kein Befund zur Ausrichtung: nicht beurteilbar.
+         Die Bedingung haengt an der AUSSAGEKRAFT der Schaetzung (Maximum am
+         Rand des Suchbereichs), nicht am Tintenanteil. Begruendung und
+         Vorgeschichte stehen bei schraeglage(). Solche Blaetter sind ohnehin
+         gesperrt -- wegen Bildinhalt oder Kontrast --, nur eben nicht mit
+         einer erfundenen Gradzahl. */
+    } else if (sg.grad > S.SCHRAEG_MAX) {
       befund("schraeg", "Ausrichtung", "sperre",
-        "Die Zeichnung steht um rund " + sg.toFixed(1) + " Grad schief. Beim Umfahren "
+        "Die Zeichnung steht um rund " + sg.grad.toFixed(1) + " Grad schief. Beim Umfahren "
         + "von Räumen verzerrt das die Flächen. Plan gerade einscannen oder das Bild "
-        + "vorher drehen.", sg);
-    } else if (sg > S.SCHRAEG_GUT) {
+        + "vorher drehen.", sg.grad);
+    } else if (sg.grad > S.SCHRAEG_GUT) {
       befund("schraeg", "Ausrichtung", "einschraenkung",
-        "Die Zeichnung steht leicht schief (rund " + sg.toFixed(1) + " Grad).", sg);
+        "Die Zeichnung steht leicht schief (rund " + sg.grad.toFixed(1)
+        + " Grad).", sg.grad);
     } else {
-      befund("schraeg", "Ausrichtung", "gut", "gerade ausgerichtet.", sg);
+      befund("schraeg", "Ausrichtung", "gut", "gerade ausgerichtet.", sg.grad);
     }
 
     return zusammenfassen(befunde);

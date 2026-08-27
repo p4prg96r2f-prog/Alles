@@ -26,9 +26,21 @@ Die Seite ist für Suchmaschinen gesperrt (robots.txt und X-Robots-Tag).
 | `api/WERKE_Heizlast_Web.zip` | fertiges Deploy-Paket: Werkzeug und Endpunkt zusammen |
 | `api/` | Quellen des Endpunkts |
 
-**Neue Fassung veröffentlichen:** `python3 build.py`, dann das Zip aus `api/`
-neu schnüren und auf `app.netlify.com/projects/werke-heizlast/deploys`
+**Neue Fassung veröffentlichen:** in dieser Reihenfolge, beide Schritte sind
+nötig:
+
+```
+python3 build.py          # baut WERKE_Heizlast_Tool.html, prüft alles
+api/paket_bauen.sh        # schnürt api/deploy/ und das Zip NEU aus dieser Datei
+```
+
+Dann das Zip aus `api/` auf `app.netlify.com/projects/werke-heizlast/deploys`
 am Ende der Seite ablegen. Die Umgebungsvariablen bleiben dabei erhalten.
+
+`api/deploy/` ist ein **Erzeugnis** und wird von `paket_bauen.sh` vollständig
+neu geschrieben. Wer nur `build.py` laufen lässt, legt eine veraltete
+`api/deploy/index.html` ab — genau so wäre am 27.08.2026 der falsche
+H_T-Ausdruck live gegangen, obwohl er in `src/` längst berichtigt war.
 
 Nach jeder Änderung an `src/` neu bauen: `python3 build.py`. Der Build bricht ab,
 wenn ein Selbsttest oder die Validierung fehlschlägt.
@@ -690,7 +702,12 @@ Der Rechenkern ist gegen das geprüfte WERK.E-Modell `heizlast_maelzerstr59`
 validiert (`node validierung/vergleich.js`):
 
 - **Stufe A** (Zonentemperaturen fest vorgegeben): Abweichung 0,000 W über alle
-  18 Räume, alle Summen und H_T exakt.
+  18 Räume, alle Summen exakt. Für H_T gilt das seit dem 27.08.2026 nicht
+  mehr: das Referenzmodell weist ihn 20-°C-normiert aus, das Werkzeug nach
+  der Normdefinition Σ(A·U·b). Verglichen wird deshalb gegen dieselbe
+  20-°C-Größe (`H_T_20K_bezug`, weiter exakt); für den ausgewiesenen H_T gibt
+  es keinen Sollwert aus dieser Quelle. Siehe `validierung/referenz_test.js`,
+  R05.
 - **Stufe B** (Zonentemperaturen aus eigener Bilanz): +7,7 W von 9.044 W, also
   0,085 %. Ursache vollständig nachgewiesen: die Referenz bilanziert die
   unbeheizten Zonen pauschal gegen 20 °C und mit der Bruttogeschossfläche,

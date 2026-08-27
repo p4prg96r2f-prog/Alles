@@ -243,6 +243,28 @@ const VARIANTEN = {
 
   /* Leeres Blatt oder Deckblatt ohne Zeichnung -> sperren. */
   leer: function () { return alsBild(blatt(1600, 1200)); },
+
+  /* Ueberwiegend DUNKLES Blatt: Foto eines Plans gegen das Licht, misslungener
+     Scan, schwarz durchgelaufene Seite. Muss gesperrt werden, und zwar wegen
+     des Bildinhalts -- ueber die Haelfte der Flaeche ist Tinte, das ist keine
+     Strichzeichnung.
+     DIESE VARIANTE FEHLTE BIS ZUM 27.08.2026 und ist aus der unabhaengigen
+     Durchsicht dazugekommen. Ohne sie fiel nicht auf, dass die
+     Schraeglagenschaetzung auch hier in den Rand ihres Suchbereichs lief und
+     "steht um rund 3,0 Grad schief" behauptete -- auf einem Blatt, das
+     ueberhaupt keine Linienstruktur hat. */
+  dunkel: function () {
+    const b = blatt(1600, 1200);
+    /* Gleichmaessig dunkel mit etwas Struktur, deterministisch erzeugt: ein
+       fester Zahlengenerator statt Math.random, damit die Variante bei jedem
+       Lauf dieselbe ist. */
+    let z = 12345;
+    for (let i = 0; i < b.g.length; i++) {
+      z = (z * 1103515245 + 12345) & 0x7fffffff;
+      b.g[i] = 40 + (z % 45);
+    }
+    return alsBild(b);
+  },
 };
 
 module.exports = {

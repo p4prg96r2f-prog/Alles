@@ -455,8 +455,13 @@ button.panelkarte{font:inherit;cursor:pointer;font-size:13.5px}
    Gemessen am 27.08.2026 im Browser (390 x 844, Fingerbedienung): die Knoepfe
    der Kopfleiste standen bei 28 px Hoehe, der Verweis "Zur Selbstpruefung" bei
    16 px. Fuer die Bedienung mit dem Finger sind 44 px die uebliche Untergrenze
-   (WCAG 2.5.5). Angehoben wird nur, wo es die Anordnung nicht sprengt: die
-   Knoepfe der Leisten und die Verweise in Karten. Die Raumzeilen der Tabellen
+   (WCAG 2.5.5, Stufe AAA); die Knoepfe der Leisten erreichen sie. Die
+   Verweise in Karten stehen im Textfluss und bekommen 32 px -- das erfuellt
+   WCAG 2.5.8 (24 px, Stufe AA), nicht die 44 px; 44 px je Textverweis
+   sprengten den Absatz. Diese Unterscheidung stand hier vorher nicht und las
+   sich, als waere ueberall 2.5.5 erfuellt (Befund der unabhaengigen
+   Durchsicht vom 27.08.2026). Angehoben wird nur, wo es die Anordnung nicht
+   sprengt. Die Raumzeilen der Tabellen
    bleiben ausgenommen -- 44 px je Zeile machten aus 18 Raeumen eine Rolle,
    und dort steht die Zeile selbst als Ziel zur Verfuegung, nicht nur der Name.
    Die Regel greift nur bei grobem Zeiger, damit die Maus-Anordnung am

@@ -80,4 +80,6 @@ node src/kerne/kern_heizlast_norm.js selbsttest
 
 9. **Keine Veröffentlichung bei fehlgeschlagener Prüfung.** Läuft
    `python3 build.py` nicht durch, wird nicht ausgeliefert. Auch nicht
-   „nur schnell".
+   „nur schnell". Und vor dem Ablegen bei Netlify immer **beides**:
+   `python3 build.py` und danach `api/paket_bauen.sh` — `api/deploy/` ist
+   ein Erzeugnis und wird sonst veraltet ausgeliefert.

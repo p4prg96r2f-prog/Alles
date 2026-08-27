@@ -11019,7 +11019,14 @@ function ergebnisAnteile(e) {
     + '<span class="unten">bezogen auf ' + fmt(e.A_gesamt, 1) + " m²</span></div>"
     + '<div class="kennzahl"><span class="mark">H<sub>T</sub></span><b>'
     + fmt(e.H_T, 1) + " W/K</b>"
-    + '<span class="unten">Transmission bei 20 °C</span></div>'
+    /* Die Beschriftung beschrieb bis zum 27.08.2026 die ALTE Groesse: H_T war
+       aus der Gebaeudesumme auf 20 °C zurueckgerechnet. Seit der Berichtigung
+       ist H_T der spezifische Transmissionswaermeverlust der Huelle,
+       SUM(A · U · b) -- eine Eigenschaft der Huelle, unabhaengig davon, wie
+       warm die Raeume dahinter stehen. Die alte Beschriftung waere jetzt
+       falsch und wuerde zum Vergleich mit dem falschen Kennwert einladen.
+       Festgehalten in validierung/ergebnisseite_test.js. */
+    + '<span class="unten">Hülle: Σ A · U · b</span></div>'
     + "</div>"
     + '<div class="tabhuelle"><table class="tab"><thead><tr><th>Anteil</th>'
     + '<th class="num" style="width:120px">W</th><th class="num" style="width:90px">%</th>'

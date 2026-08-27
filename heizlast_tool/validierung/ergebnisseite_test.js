@@ -302,6 +302,19 @@ pruefe(html.indexOf('class="btn cta" data-aktion="bericht"') > 0
 pruefe((html.match(/<details/g) || []).length >= 6,
   "Die technischen Abschnitte stehen als details-Elemente");
 pruefe(html.indexOf("H<sub>T</sub>") > 0, "H_T ist weiter da (im Aufklapper)");
+/* H_T IST SEIT DEM 27.08.2026 EINE ANDERE GROESSE.
+   Vorher war es die Gebaeudesumme, auf 20 °C zurueckgerechnet; jetzt ist es
+   der spezifische Transmissionswaermeverlust der Huelle, SUM(A · U · b) --
+   unabhaengig von den Raumtemperaturen (Begruendung in
+   src/kerne/kern_heizlast_norm.js, Probe in validierung/referenz_test.js R05).
+   Die Beschriftung darunter stand noch auf "Transmission bei 20 °C" und lud
+   damit zum Vergleich mit dem falschen Kennwert ein. Sie darf keine
+   Bezugstemperatur mehr behaupten. */
+pruefe(html.indexOf("Transmission bei 20") < 0,
+  "Die Beschriftung von H_T darf keine Bezugstemperatur von 20 °C mehr "
+    + "behaupten: H_T ist eine Eigenschaft der Huelle, nicht der Raumtemperatur");
+pruefe(/H<sub>T<\/sub>[\s\S]{0,220}A · U · b/.test(html),
+  "Unter H_T muss stehen, was die Zahl ist: die Summe A · U · b der Huelle");
 pruefe(html.indexOf("Auslegungspunkt, Norm-Außentemperatur") > 0,
   "Die Teillast-Kennlinie steht im Aufklapper");
 /* Die Raumtabelle steht VOR dem ersten Aufklapper. */

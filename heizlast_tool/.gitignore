@@ -9,3 +9,5 @@ api/WERKE_Ausleseendpunkt.zip
 .DS_Store
 .claude/worktrees/
 node_modules/
+__pycache__/
+*.pyc

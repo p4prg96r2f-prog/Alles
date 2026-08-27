@@ -1,5 +1,5 @@
 /* ===========================================================================
- * referenz_test.js — 23 unabhaengige Referenzfaelle fuer den Rechenkern
+ * referenz_test.js — 25 unabhaengige Referenzfaelle fuer den Rechenkern
  * ===========================================================================
  * WORUM ES GEHT
  *
@@ -9,12 +9,27 @@
  * deshalb jede spaetere Abweichung von heute — aber keinen Fehler, der schon
  * am Tag der Aufnahme drin war. Genau so ein Fehler war drin (H_T, siehe R05).
  *
- * Diese Datei ist das Gegenstueck. Jeder Sollwert hier ist von Hand aus den
- * Formeln hergeleitet und zusaetzlich mit einer ZWEITEN, unabhaengigen
- * Implementierung in validierung/referenz_gegenrechnung.py nachgerechnet.
- * Kein Sollwert stammt aus src/. Die Herleitung steht als Rechnung im
- * Kommentar ueber jeder Zeile, damit ein Fachplaner sie nachprueft, ohne den
- * Code zu lesen.
+ * Diese Datei ist das Gegenstueck. Die Sollwerte sind von Hand aus den Formeln
+ * hergeleitet und mit einer zweiten, unabhaengigen Implementierung
+ * nachgerechnet (validierung/referenz_gegenrechnung.py, laeuft als eigener
+ * Schritt des Baus). Die Herleitung steht als Rechnung im Kommentar ueber
+ * jeder Zeile, damit ein Fachplaner sie nachprueft, ohne den Code zu lesen.
+ *
+ * WAS DIESE DATEI NICHT LEISTET -- damit niemand mehr hineinliest, als drin ist:
+ *   1. Die NORMKONSTANTEN stammen aus src/: 0,34 Wh/(m3K) fuer die Luft,
+ *      1,45 und 1,00 fuer f_theta_ann und f_GW, 0,02/0,03 fuer den
+ *      Abschirmkoeffizienten, der Faktor 2 in V_inf, die f_1-Tabelle, die
+ *      Rueckfallwerte -19,2/0,1 °C. Sie sind damit gegen DRIFT gesichert
+ *      (verfaelscht man sie, fallen 28 Pruefungen), aber NICHT belegt: ein
+ *      falscher, ueberall gleich verwendeter Normwert wird hier
+ *      festgeschrieben statt aufgedeckt. Der Beleg dafuer ist der Normtext,
+ *      und der liegt nicht vor -- siehe BASELINE_REPORT.md.
+ *   2. Einige Proben vergleichen den Pruefling mit sich selbst. Das ist
+ *      Absicht, sie pruefen INVARIANZEN (R05c, R17 Lueftungssockel, R18
+ *      Unabhaengigkeit von der Innenwand, R20 Text gleich Zahl, R21, R22).
+ *      Eine Invarianzprobe kann keinen absolut falschen Wert finden; dafuer
+ *      sind die Faelle mit hergeleiteten Zahlen da. Beide Arten sind unten
+ *      als solche gekennzeichnet.
  *
  * TOLERANZEN
  *
@@ -50,6 +65,8 @@
  *   R21 Invarianten: nie NaN, Komponentensumme gleich Ergebnis
  *   R22 Monotonie: mehr U oder mehr A darf die Last nicht senken
  *   R23 Rundungsunabhaengigkeit der Rechnung
+ *   R24 Kennzeichnung gegen Lage eines Bauteils   (aus der Durchsicht)
+ *   R25 Ein Raum auf der Aussentemperatur         (aus der Durchsicht)
  *
  * Aufruf:  node validierung/referenz_test.js
  * =========================================================================== */
@@ -337,17 +354,40 @@ function rm(id, theta_i, A, h, bauteile, extra) {
   nahe("R05b Phi_T Gebaeude", rb.phi_T_gebaeude, 890.0, REL, true);
   nahe("R05b H_T (Huelleneigenschaft)", rb.H_T, 30.0, REL, true);
 
-  /* Die eigentliche Invariante, unabhaengig von jeder Zahl: H_T darf sich
-     nicht aendern, wenn nur die Raumtemperaturen anders eingestellt werden.
-     Dieselbe Huelle, alle Raeume auf 20 °C. */
+  /* INVARIANZPROBE (Soll ist der Pruefling selbst): bei Bauteilen gegen
+     AUSSENLUFT ist b = 1, also darf H_T sich nicht aendern, wenn nur die
+     Raumtemperaturen anders eingestellt werden. Dieselbe Huelle, alle Raeume
+     auf 20 °C. */
   const rc = rechne("R05c", projekt(kl, [
     rm("A", 20, 10, 2.5, wand()), rm("B", 20, 10, 2.5, wand()),
     rm("C", 20, 10, 2.5, wand()),
   ]));
-  nahe("R05c H_T bei gleicher Huelle unveraendert", rc.H_T, rb.H_T, REL, true);
+  nahe("R05c H_T bei gleicher Huelle unveraendert (nur Aussenluft)",
+    rc.H_T, rb.H_T, REL, true);
   pruefe(Math.abs(rc.phi_T_gebaeude - rb.phi_T_gebaeude) > 1,
     "R05c die Heizlast MUSS sich mit der Raumtemperatur aendern (Gegenprobe, "
       + "damit die Invariante oben nicht trivial erfuellt ist)");
+
+  /* UND DIE GRENZE DIESER INVARIANTE, damit sie niemand weiter zieht als sie
+     traegt: bei ERDBERUEHRTEN Bauteilen steckt theta_i im Anpassungsfaktor
+     selbst, f_ig = (theta_i - theta_e_m) / (theta_i - theta_e). Dieselbe
+     Bodenplatte hat deshalb bei anderer Raumtemperatur ein anderes H_T --
+     nach der Normdefinition richtig, aber eben nicht temperaturunabhaengig.
+     Handrechnung, Bodenplatte 50 m2, U 0,35, theta_e -10, theta_e_m 9,5:
+       15 °C: f_ig = (15-9,5)/25   = 0,22   -> H = 1,45*0,22*50*0,35   =  5,5825
+       20 °C: f_ig = (20-9,5)/30   = 0,35   -> H = 1,45*0,35*50*0,35   =  8,8812
+       24 °C: f_ig = (24-9,5)/34   = 0,4265 -> H = 1,45*0,4265*50*0,35 = 10,8217 */
+  const platte = function (t) {
+    return rechne("R05d/" + t, projekt({ theta_e: -10, theta_e_m: 9.5 },
+      [rm("k", t, 50, 2.5, [bt("Bodenplatte", 50, 0.35, { typ: "erdreich" })])]));
+  };
+  nahe("R05d Erdreich H_T bei 15 °C", platte(15).H_T, 5.5825, 1e-4, true);
+  nahe("R05d Erdreich H_T bei 20 °C", platte(20).H_T, 8.88125, 1e-4, true);
+  nahe("R05d Erdreich H_T bei 24 °C", platte(24).H_T, 10.8217, 1e-4, true);
+  pruefe(platte(24).H_T > platte(20).H_T && platte(20).H_T > platte(15).H_T,
+    "R05d bei erdberuehrten Bauteilen MUSS H_T mit der Raumtemperatur steigen; "
+      + "wer hier Unabhaengigkeit erwartet, hat die Normdefinition von f_ig "
+      + "nicht getroffen");
 }
 
 /* ===========================================================================
@@ -812,6 +852,12 @@ function rm(id, theta_i, A, h, bauteile, extra) {
  * daraus dieselbe Zahl machen wie aus 0.25 — sonst rechnet er mit 0 weiter.
  *   Text-Fassung und Zahl-Fassung MUESSEN bitgleich dasselbe Ergebnis geben.
  * Grenzwerte: A = 0 und U = 0 tragen nichts bei und sind keine Fehler.
+ * ACHTUNG, das gilt nur ohne Waermebrueckenzuschlag, und genau so ist die
+ * Vorrichtung eingestellt (delta_u_wb = 0). Mit der Werkzeugvorgabe 0,10
+ * traegt ein Huellbauteil mit U = 0 und A = 10 sehr wohl 1,0 W/K -- der
+ * Zuschlag haengt an der FLAECHE, nicht am U-Wert. Die Probe unten setzt den
+ * Zuschlag deshalb ausdruecklich auf null; wer sie erweitert, muss das
+ * mitbedenken.
  * ======================================================================== */
 {
   const pZahl = projekt({ theta_e: -12, theta_e_m: 8.5 },
@@ -858,7 +904,20 @@ function rm(id, theta_i, A, h, bauteile, extra) {
              <= Math.max(1e-9 * Math.abs(r.phi_gebaeude), 1e-9),
       "R21 " + e.name + ": Raumsumme minus Innenanteile ist nicht die "
         + "Gebaeudelast");
-    pruefe(r.H_T >= -1e-12, "R21 " + e.name + ": H_T ist negativ (" + r.H_T + ")");
+    /* H_T MUSS ENDLICH SEIN -- das ist die harte Zusage.
+       NICHT zugesagt wird ein positives Vorzeichen: grenzt ein Raum an einen
+       WAERMEREN Nachbarn (Treppenhaus 15 °C an eine beheizte Nachbarwohnung
+       mit 20 °C), ist b = (theta_i - theta_j)/(theta_i - theta_e) negativ,
+       und das ist nach der Normdefinition richtig -- durch diese Wand kommt
+       Waerme herein. Bei genuegend grosser Trennwand kann H_T des Gebaeudes
+       dadurch insgesamt negativ werden. Fuer die 23 Faelle hier tritt das
+       nicht auf, deshalb steht die scharfe Probe daneben; sie gilt aber
+       ausdruecklich nur fuer diese Faelle. */
+    pruefe(Number.isFinite(r.H_T), "R21 " + e.name + ": H_T ist nicht endlich ("
+      + r.H_T + ")");
+    pruefe(r.H_T >= -1e-12, "R21 " + e.name + ": H_T ist negativ (" + r.H_T
+      + "). Fuer diese Faelle darf das nicht vorkommen — bei einem Bauteil "
+      + "gegen einen waermeren Nachbarn waere es dagegen richtig.");
   });
 }
 
@@ -912,11 +971,122 @@ function rm(id, theta_i, A, h, bauteile, extra) {
     "R23 die Rechnung darf nicht mit dem gerundeten U arbeiten");
 }
 
+/* ===========================================================================
+ * R24  KENNZEICHNUNG GEGEN LAGE — GEFUNDEN IN DER UNABHAENGIGEN DURCHSICHT
+ * ===========================================================================
+ * kat sagt, wohin ein Bauteil zaehlt; grenzt_an sagt, wo es liegt. Ueber die
+ * Oberflaeche laufen die beiden in zwei Schritten auseinander: app.js setzt
+ * kat beim Anlegen aus kat_default des Bauteiltyps (Vorgabe "huelle"),
+ * grenzSetzen aendert danach nur grenzt_an und laesst kat stehen.
+ *
+ * (a) kat "huelle" bei grenzt_an "raum".
+ *     Bad 24 °C und Schlafzimmer 20 °C, gemeinsame Wand 100 m² mit U = 5,0,
+ *     dazu je 1 m² Aussenwand mit U = 1,0, theta_e = -12 °C.
+ *     Bis zum 27.08.2026 ging die Wand in H_T ein, und weil b je Raum mit
+ *     DESSEN Nenner gebildet wird, hoben sich die beiden Haelften dort nicht
+ *     auf: H_T = -7,44 W/K. Ein negativer spezifischer
+ *     Transmissionswaermeverlust einer Huelle ist keine Zahl, die ein Bericht
+ *     tragen kann. Jetzt entscheidet die LAGE: ein Bauteil gegen einen Raum
+ *     desselben Gebaeudes ist ein Innenbauteil.
+ *       H_T = 2 * (1 m² * 1,0) = 2,0 W/K
+ *     Die Gebaeudeheizlast war nie betroffen — dort heben sich die Haelften
+ *     in Phi auf. Betroffen waren H_T und die Aufteilung je Raum.
+ *
+ * (b) kat "innen" bei grenzt_an "aussen".
+ *     Hier wird NICHT ueberstimmt: das wuerde die Zahl eines gespeicherten
+ *     Projekts stillschweigend aendern. Gemeldet wird es, damit es jemand
+ *     entscheidet. Die Probe haelt beides fest — dass die Flaeche
+ *     tatsaechlich draussen bleibt UND dass es dazu eine Warnung gibt.
+ * ======================================================================== */
+{
+  const kl = { theta_e: -12, theta_e_m: 8.5 };
+  const ra = rechne("R24a", projekt(kl, [
+    rm("bad", 24, 8, 2.5, [
+      bt("AW", 1, 1.0),
+      bt("IW", 100, 5.0, { typ: "raum", ref: "schlaf" }, "huelle"),
+    ]),
+    rm("schlaf", 20, 16, 2.5, [
+      bt("AW", 1, 1.0),
+      bt("IW", 100, 5.0, { typ: "raum", ref: "bad" }, "huelle"),
+    ]),
+  ]));
+  nahe("R24a H_T ohne die Innenwand", ra.H_T, 2.0, REL, true);
+  pruefe(ra.H_T > 0, "R24a H_T darf durch eine falsch gekennzeichnete "
+    + "Innenwand nicht negativ werden, ist " + ra.H_T);
+  pruefe(ra.raeume[0].bauteile[1].kat === "innen",
+    "R24a die Lage muss die Kennzeichnung ueberstimmen, kat ist "
+      + ra.raeume[0].bauteile[1].kat);
+  pruefe((ra.warnungen || []).some(function (w) {
+    return /Kennzeichnung und Lage/.test(w);
+  }), "R24a der Widerspruch MUSS gemeldet werden. Warnungen: "
+      + JSON.stringify(ra.warnungen || []));
+  /* Und die Gegenprobe: mit richtiger Kennzeichnung dieselbe Zahl. */
+  const rb2 = rechne("R24a2", projekt(kl, [
+    rm("bad", 24, 8, 2.5, [bt("AW", 1, 1.0),
+      bt("IW", 100, 5.0, { typ: "raum", ref: "schlaf" }, "innen")]),
+    rm("schlaf", 20, 16, 2.5, [bt("AW", 1, 1.0),
+      bt("IW", 100, 5.0, { typ: "raum", ref: "bad" }, "innen")]),
+  ]));
+  nahe("R24a richtige und falsche Kennzeichnung liefern dasselbe H_T",
+    ra.H_T, rb2.H_T, REL, true);
+  nahe("R24a und dieselbe Gebaeudeheizlast",
+    ra.phi_gebaeude, rb2.phi_gebaeude, REL, true);
+
+  const rc = rechne("R24b", projekt(kl, [
+    rm("r", 20, 30, 2.5, [
+      bt("AW sichtbar", 5, 1.0),
+      bt("AW falsch gekennzeichnet", 40, 1.5, { typ: "aussen" }, "innen"),
+    ]),
+  ]));
+  /* 5 m² * 1,0 = 5 W/K; die 40 m² bleiben aussen vor, weil kat das sagt. */
+  nahe("R24b H_T ohne das falsch gekennzeichnete Bauteil", rc.H_T, 5.0, REL, true);
+  pruefe((rc.warnungen || []).some(function (w) {
+    return /Innenbauteil gekennzeichnet/.test(w) && /Außenluft/.test(w);
+  }), "R24b ein Aussenbauteil als Innenbauteil gekennzeichnet MUSS gemeldet "
+      + "werden, sonst verschwinden 40 m² unbemerkt aus der Gebaeudeheizlast. "
+      + "Warnungen: " + JSON.stringify(rc.warnungen || []));
+}
+
+/* ===========================================================================
+ * R25  EIN RAUM AUF DER AUSSENTEMPERATUR — GEFUNDEN IN DER DURCHSICHT
+ * ===========================================================================
+ * theta_e = -12 °C. Ein beheizter Raum (20 °C, 5 m² Wand, U = 1,0) und ein
+ * zweiter Raum, der versehentlich auf theta_i = -12 °C steht (50 m² Wand,
+ * U = 1,2) — so entsteht es, wenn eine Garage als Raum statt als unbeheizter
+ * Bereich angelegt wird.
+ *
+ * H wurde als phi / (theta_i - theta_e) gerechnet; bei theta_i = theta_e ist
+ * der Quotient unbestimmt und stand deshalb auf 0. Damit nahm der Raum seine
+ * ganze Aussenflaeche stillschweigend aus H_T heraus:
+ *     vorher   H_T = 5,0 W/K    (60 von 65 fehlten, Richtung: zu klein)
+ * Fuer ein Bauteil gegen Aussenluft ist b definitionsgemaess 1, also
+ *     richtig  H_T = 5 * 1,0 + 50 * 1,2 = 5 + 60 = 65,0 W/K
+ * Die HEIZLAST des Raums bleibt null, und das ist richtig — er wird nicht
+ * beheizt. Nur darf das nicht unbemerkt bleiben, deshalb die Warnung.
+ * ======================================================================== */
+{
+  const r = rechne("R25", projekt({ theta_e: -12, theta_e_m: 8.5 }, [
+    rm("wohnen", 20, 10, 2.5, [bt("AW", 5, 1.0)]),
+    rm("garage", -12, 30, 2.5, [bt("AW", 50, 1.2)]),
+  ]));
+  nahe("R25 H_T mit dem Raum auf Aussentemperatur", r.H_T, 65.0, REL, true);
+  nahe("R25 Heizlast des kalten Raums bleibt null",
+    r.raeume[1].phi_raum, 0, 1e-9, false);
+  nahe("R25 Gebaeudeheizlast nur aus dem beheizten Raum",
+    r.phi_gebaeude, 5 * 1.0 * 32, REL, true);
+  pruefe((r.warnungen || []).some(function (w) {
+    return /Außentemperatur/.test(w) && /null/.test(w);
+  }), "R25 ein Raum auf der Aussentemperatur MUSS gemeldet werden. Warnungen: "
+      + JSON.stringify(r.warnungen || []));
+  pruefe(unsauber(r).length === 0,
+    "R25 kein NaN und kein Infinity: " + unsauber(r).join(", "));
+}
+
 /* ------------------------------------------------------------------ Ausgabe */
 console.log(JSON.stringify({
   ok: fehler.length === 0,
   anzahl: anzahl,
-  faelle: 23,
+  faelle: 25,
   fehler: fehler,
   matrix: matrix,
 }));

@@ -156,6 +156,22 @@ if not res["ok"]:
     abbruch("Referenzfaelle: " + "; ".join(res["fehler"]))
 print(f"   OK  {res['anzahl']} Pruefungen ueber {res['faelle']} Referenzfaelle")
 
+# Die zweite, unabhaengige Implementierung gegen den Kern. Sie war da, lief
+# aber nie -- eine Funktionsbibliothek ohne Einstieg, vom Bau nicht aufgerufen
+# (Befund der unabhaengigen Durchsicht vom 27.08.2026). Jetzt rechnet sie
+# fuenf zusammengesetzte Faelle doppelt und vergleicht.
+schritt("2bb Gegenrechnung: zweite Implementierung gegen den Rechenkern")
+r = subprocess.run([sys.executable, "validierung/gegenprobe_kern.py"], cwd=HIER,
+                   capture_output=True, text=True)
+if not r.stdout.strip():
+    print(r.stderr[-2000:])
+    abbruch("Die Gegenrechnung laesst sich nicht ausfuehren.")
+res = json.loads(r.stdout.strip().splitlines()[-1])
+if not res["ok"]:
+    abbruch("Gegenrechnung: " + "; ".join(res["fehler"]))
+print(f"   OK  {res['anzahl']} Vergleiche ueber {res['faelle']} Faelle, "
+      "Python gegen JavaScript")
+
 schritt("2b  Kalibrierung der Planprüfung an synthetischen Bildvarianten")
 r = subprocess.run(["node", "validierung/planpruefung_test.js"], cwd=HIER,
                    capture_output=True, text=True)

@@ -20,7 +20,12 @@ const K = require(path.join(__dirname, "..", "src", "kerne", "kern_planpruefung.
 const P = require(path.join(__dirname, "planbilder.js"));
 
 /* soll:  erlaubtes Urteil (Text oder Liste)
- * grund: Befund-Kennung, die die Sperre tragen MUSS (null = keine Sperre) */
+ * grund: Befund-Kennung, die die Sperre tragen MUSS (null = keine Sperre).
+ *        Eine Liste heisst: eine davon genuegt. Das ist kein Aufweichen --
+ *        beim gleichmaessig dunklen Blatt sind BEIDE Gruende richtig (der
+ *        Zeichnungsanteil ist unbrauchbar UND der Kontrast zu gering), und
+ *        welcher zuerst anschlaegt, haengt an der Otsu-Schwelle. Der Test
+ *        soll das Urteil pruefen, nicht die Reihenfolge der Befunde. */
 const ERWARTET = {
   scharf_gross:  { soll: "geeignet",                          grund: null },
   leicht_weich:  { soll: ["geeignet", "eingeschraenkt"],       grund: null },
@@ -30,7 +35,14 @@ const ERWARTET = {
   schief_2grad:  { soll: "ungeeignet",                         grund: "schraeg" },
   schief_05grad: { soll: ["geeignet", "eingeschraenkt"],       grund: null },
   leer:          { soll: "ungeeignet",                         grund: "inhalt" },
+  dunkel:        { soll: "ungeeignet",           grund: ["inhalt", "kontrast"] },
 };
+
+/* Kennungen, die auf einem Blatt ohne brauchbaren Bildinhalt NICHT erscheinen
+ * duerfen: ohne Linienstruktur hat die Schraeglagenschaetzung kein Maximum und
+ * liefert den Rand ihres Suchbereichs. Eine erfundene Gradzahl samt Rat, den
+ * Plan gerade einzuscannen, ist genau die Art Auskunft, die Vertrauen kostet. */
+const OHNE_AUSSAGE = { leer: ["schraeg"], dunkel: ["schraeg"] };
 
 let fehler = 0;
 console.log("Bildvariante        Urteil           Auflös. Schärfe Kontr. Schräg  Befund");
@@ -47,12 +59,24 @@ Object.keys(ERWARTET).forEach(function (name) {
   let ok = Array.isArray(soll) ? soll.indexOf(r.urteil) >= 0 : r.urteil === soll;
   let anmerkung = "";
   if (ok && e.grund) {
-    const traegt = r.sperren.some(function (b) { return b.id === e.grund; });
-    if (!traegt) { ok = false; anmerkung = " [Sperre nicht aus '" + e.grund + "']"; }
+    const gruende = Array.isArray(e.grund) ? e.grund : [e.grund];
+    const traegt = r.sperren.some(function (b) { return gruende.indexOf(b.id) >= 0; });
+    if (!traegt) {
+      ok = false;
+      anmerkung = " [Sperre nicht aus '" + gruende.join("' oder '") + "']";
+    }
   }
   if (ok && !e.grund && r.sperren.length) {
     ok = false; anmerkung = " [unerwartete Sperre]";
   }
+  /* Und was auf diesem Blatt gar nicht beurteilbar ist, darf auch nicht
+     behauptet werden. */
+  (OHNE_AUSSAGE[name] || []).forEach(function (id) {
+    if (r.befunde.some(function (b) { return b.id === id; })) {
+      ok = false;
+      anmerkung += " [behauptet '" + id + "' auf einem Blatt ohne Bildinhalt]";
+    }
+  });
   if (!ok) fehler++;
   const sperrGrund = r.sperren.map(function (b) { return b.titel; }).join(", ") || "–";
   console.log(

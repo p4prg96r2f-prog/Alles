@@ -16,16 +16,27 @@ def e_faktor(n):
 
 
 def bauteil(A, U, kat, theta_i, theta_e, theta_e_m=None, theta_j=None, d_wb=0.0):
-    """-> (phi in W, H in W/K)"""
+    """-> (phi in W, H in W/K)
+
+    dt == 0 wird wie im Kern behandelt: fuer ein Bauteil gegen Aussenluft ist
+    b = 1, also H = A * U_eff; gegen einen Nachbarn anderer Temperatur bleibt b
+    unbestimmt und H damit 0. Ohne diesen Zweig warf die Funktion hier
+    ZeroDivisionError, waehrend der Kern weiterrechnete -- die Gegenrechnung
+    haette den Fall also nie erreicht.
+    """
+    dt = theta_i - theta_e
     if kat == "erdreich":
-        f_ig = (theta_i - theta_e_m) / (theta_i - theta_e)
+        if dt == 0:
+            return 0.0, 0.0
+        f_ig = (theta_i - theta_e_m) / dt
         H = F_THETA_ANN * f_ig * A * U * F_GW
-        return H * (theta_i - theta_e), H
+        return H * dt, H
     U_eff = U + (d_wb if kat == "huelle" else 0.0)
     tj = theta_e if theta_j is None else theta_j
     phi = A * U_eff * (theta_i - tj)
-    H = phi / (theta_i - theta_e)
-    return phi, H
+    if dt == 0:
+        return phi, (A * U_eff if abs(tj - theta_e) < 1e-12 else 0.0)
+    return phi, phi / dt
 
 
 def raum(theta_i, theta_e, A, h, bauteile, n50=0.0, n_min=0.0, n_exp=0,
@@ -67,7 +78,13 @@ def gebaeude(raeume):
 
 def zone_bilanz(zufuhr, huelle_zu_aussen, theta_e, theta_u_min=None):
     """zufuhr: [(A,U,theta_raum)]; huelle_zu_aussen: [(A,U)]
-    theta_u = max( SUM(H*theta)/SUM(H) ; theta_u_min )"""
+    theta_u = max( SUM(H*theta)/SUM(H) ; theta_u_min )
+
+    BEWUSSTE LUECKE: der Lueftungsterm einer Zone (kern_heizlast_norm.js,
+    zonenLueftungH) ist hier nicht abgebildet. Er ist im Kern die
+    Empfindlichkeitsrechnung und nicht der Normweg, und er wird nur wirksam,
+    wenn im Projekt n_luft und V der Zone angegeben sind. Kein Referenzfall
+    benutzt ihn; wer einen dazuschreibt, muss diesen Zweig ergaenzen."""
     sH = sHT = 0.0
     for A, U, t in zufuhr:
         sH += A * U

@@ -138,8 +138,26 @@ function nachbarTemperatur(grenztAn, ctx) {
 
 /** Kategorie eines Bauteils bestimmen, wenn nicht ausdrücklich gesetzt */
 function bauteilKategorie(bt) {
-  if (bt.kat && KATEGORIEN.indexOf(bt.kat) >= 0) return bt.kat;
   const typ = (bt.grenzt_an && bt.grenzt_an.typ) || "aussen";
+  /* DIE LAGE SCHLAEGT DIE KENNZEICHNUNG, WO SIE SICH WIDERSPRECHEN.
+   * Ein Bauteil gegen einen RAUM desselben Gebaeudes ist ein Innenbauteil.
+   * Das ist keine Frage der Kennzeichnung, sondern der Lage: die Waerme
+   * verlaesst das Gebaeude nicht. Eine widersprechende Kennzeichnung
+   * (kat "huelle" bei grenzt_an.typ "raum") wird deshalb ueberstimmt.
+   *
+   * GRUND: ueber die Oberflaeche ist der Widerspruch in zwei Schritten
+   * erreichbar. app.js setzt beim Anlegen kat aus kat_default des
+   * Bauteiltyps (Vorgabe "huelle"); grenzSetzen aendert danach nur
+   * grenzt_an und laesst kat stehen. Ohne diese Zeile ginge das Bauteil in
+   * H_T ein, und weil b je Raum mit dessen eigenem Nenner gebildet wird,
+   * heben sich die beiden Haelften dort NICHT auf: eine Innenwand
+   * 100 m2 / U 5,0 zwischen Bad 24 °C und Schlafzimmer 20 °C drueckte H_T
+   * auf -7,44 W/K. Ein negativer spezifischer Transmissionswaermeverlust
+   * einer Huelle ist keine Zahl, die ein Bericht tragen kann.
+   * Die Gebaeudeheizlast war davon nicht betroffen -- dort heben sich die
+   * Haelften in Phi auf. Zusaetzlich meldet rechne() den Widerspruch. */
+  if (typ === "raum") return "innen";
+  if (bt.kat && KATEGORIEN.indexOf(bt.kat) >= 0) return bt.kat;
   if (typ === "erdreich") return "erdreich";
   if (typ === "raum") return "innen";
   if (typ === "aussen" || typ === "zone") return "huelle";
@@ -175,7 +193,19 @@ function bauteilLeistung(bt, theta_i, ctx, norm) {
   const U_eff = u + (kat === "huelle" ? norm.DELTA_U_WB : 0);
   const theta_j = nachbarTemperatur(bt.grenzt_an, ctx);
   const phi = A * U_eff * (theta_i - theta_j);
-  const H = dt_ausleg === 0 ? 0 : phi / dt_ausleg;
+  /* H ist der Beitrag zu H_T, also A * U * b. Gerechnet wird er als
+   * phi / (theta_i - theta_e); bei theta_i == theta_e ist der Quotient
+   * unbestimmt. Fuer ein Bauteil gegen AUSSENLUFT ist b aber definitionsgemaess
+   * 1, und damit H = A * U_eff: die Leitfaehigkeit der Huelle verschwindet
+   * nicht, nur weil im Raum gerade keine Temperaturdifferenz herrscht.
+   * Vorher stand hier 0 -- ein Raum, der versehentlich auf die
+   * Aussentemperatur gesetzt war, nahm seine ganze Aussenflaeche
+   * stillschweigend aus H_T heraus (gemessen: 60 von 65 W/K fehlten), und
+   * zwar in der unsicheren Richtung. Gegen einen Nachbarn mit ANDERER
+   * Temperatur bleibt b bei dt = 0 unbestimmt; dort bleibt es bei 0, und
+   * rechne() meldet den Raum. */
+  const H = dt_ausleg !== 0 ? phi / dt_ausleg
+    : (Math.abs(theta_j - ctx.theta_e) < 1e-12 ? A * U_eff : 0);
   return { H: H, phi: phi, U_eff: U_eff, theta_j: theta_j, kat: kat };
 }
 
@@ -615,6 +645,66 @@ function rechne(projekt) {
     theta_e_m = KLIMA_RUECKFALL.theta_e_m;
   }
 
+  /* WIDERSPRUCH ZWISCHEN KENNZEICHNUNG UND LAGE EINES BAUTEILS.
+   * kat sagt, wohin ein Bauteil zaehlt; grenzt_an sagt, wo es liegt. Beides
+   * kann auseinanderlaufen, und ueber die Oberflaeche ist das in zwei
+   * Schritten erreichbar (kat aus kat_default beim Anlegen, danach nur
+   * grenzt_an geaendert). Die beiden schaedlichen Faelle:
+   *   grenzt_an "raum" mit kat != "innen"  -> wird ueberstimmt (siehe
+   *     bauteilKategorie); ohne das drueckte es H_T ins Negative.
+   *   grenzt_an "aussen" mit kat "innen"   -> das Bauteil verschwindet
+   *     vollstaendig aus der Gebaeudeheizlast. Hier wird NICHT ueberstimmt:
+   *     das wuerde die Zahl eines gespeicherten Projekts stillschweigend
+   *     aendern. Gemeldet wird es, damit es jemand entscheidet.
+   * Festgehalten in validierung/referenz_test.js, R24. */
+  const widerspruch = [];
+  (p.raeume || []).forEach(function (r) {
+    (r.bauteile || []).forEach(function (bt) {
+      if (!bt.kat) return;
+      const t = (bt.grenzt_an && bt.grenzt_an.typ) || "aussen";
+      /* Anfuehrungszeichen als Escapes: die deutschen Zeichen kollidieren
+         sonst mit den Zeichenkettengrenzen. */
+      const AN = "\u201E", AB = "\u201C";
+      const wo = "Raum " + AN + (r.name || r.id || "?") + AB + ", Bauteil "
+        + AN + (bt.name || "ohne Namen") + AB;
+      if (t === "raum" && bt.kat !== "innen") {
+        widerspruch.push(wo + " ist als " + AN + bt.kat + AB + " gekennzeichnet, "
+          + "grenzt aber an einen Raum desselben Gebäudes. Gerechnet wird es "
+          + "als Innenbauteil — Wärme, die in einen anderen Raum geht, "
+          + "verlässt das Gebäude nicht.");
+      } else if (t === "aussen" && bt.kat === "innen") {
+        widerspruch.push(wo + " ist als Innenbauteil gekennzeichnet, grenzt aber "
+          + "an die Außenluft. Es geht damit NICHT in die Gebäudeheizlast ein. "
+          + "Ist das gewollt? Sonst die Kennzeichnung auf " + AN + "huelle" + AB
+          + " ändern.");
+      }
+    });
+  });
+  if (widerspruch.length) {
+    warnungen.push("Kennzeichnung und Lage widersprechen sich bei "
+      + widerspruch.length + (widerspruch.length === 1 ? " Bauteil" : " Bauteilen")
+      + ": " + widerspruch.join(" "));
+  }
+
+  /* EIN RAUM AUF DER AUSSENTEMPERATUR IST KEIN BEHEIZTER RAUM.
+   * Bei theta_i == theta_e ist der Anpassungsfaktor b gegen einen Nachbarn
+   * anderer Temperatur unbestimmt; das Bauteil traegt dann nichts zu H_T bei
+   * (siehe bauteilLeistung). Die Heizlast des Raums ist richtig null — er
+   * wird ja nicht beheizt. Nur darf das nicht unbemerkt bleiben. */
+  const kalt = (p.raeume || []).filter(function (r) {
+    return Math.abs(raumTemperatur(r, p) - theta_e) < 1e-9;
+  });
+  if (kalt.length) {
+    warnungen.push((kalt.length === 1 ? "Ein Raum steht" : kalt.length
+      + " Räume stehen") + " auf der Norm-Außentemperatur ("
+      + znr(theta_e, 1) + " °C): "
+      + kalt.map(function (r) {
+          return "\u201E" + (r.name || r.id) + "\u201C"; }).join(", ")
+      + ". Die Heizlast dieser Räume ist damit null. Für einen beheizten Raum "
+      + "ist das eine Fehleingabe; für einen unbeheizten Bereich ist der "
+      + "Bereich unter \u201EUnbeheizte Bereiche\u201C der richtige Ort.");
+  }
+
   /* EINE ANGEGEBENE LUEFTUNGSANLAGE DARF NICHT STILLSCHWEIGEND VERSCHWINDEN.
    * Dieses Werkzeug rechnet die Lueftungsheizlast ausschliesslich ueber den
    * natuerlichen Luftwechsel (Infiltration aus n50 und Mindestluftwechsel).
@@ -626,13 +716,20 @@ function rechne(projekt) {
    * sichere Richtung ist keine Entschuldigung fuer eine stille Annahme.
    * Festgehalten in validierung/referenz_test.js, R12. */
   const lu = p.lueftung || {};
-  if (lu.art === "mechanisch" || lu.mechanisch === true || lu.wrg === true
-      || Number.isFinite(zahl(lu.eta, NaN))
-      || Number.isFinite(zahl(lu.wrg_grad, NaN))) {
+  /* Die Betriebsart kommt aus einer von Hand bearbeiteten Projektdatei; ihre
+     Schreibung ist nicht garantiert. "Mechanisch", "abluftanlage", "zentral"
+     fielen vorher durch, weil auf Gleichheit mit "mechanisch" geprueft wurde.
+     Und ein Rueckgewinnungsgrad von 0 ist KEINE Rueckgewinnung -- der Text
+     sagte trotzdem "mit Waermerueckgewinnung" (beides Befunde der
+     unabhaengigen Durchsicht vom 27.08.2026). */
+  const art = String(lu.art || "").toLowerCase();
+  const grad = Number.isFinite(zahl(lu.eta, NaN)) ? zahl(lu.eta)
+             : (Number.isFinite(zahl(lu.wrg_grad, NaN)) ? zahl(lu.wrg_grad) : null);
+  const mitWRG = lu.wrg === true || (grad !== null && grad > 0);
+  if (/mechan|anlage|zentral|abluft|zuluft|kwl/.test(art)
+      || lu.mechanisch === true || lu.wrg === true || grad !== null) {
     warnungen.push("Für das Projekt ist eine Lüftungsanlage"
-      + (lu.wrg === true || Number.isFinite(zahl(lu.eta, NaN))
-         || Number.isFinite(zahl(lu.wrg_grad, NaN))
-         ? " mit Wärmerückgewinnung" : "")
+      + (mitWRG ? " mit Wärmerückgewinnung" : "")
       + " angegeben. Dieses Werkzeug rechnet die Lüftungsheizlast NICHT mit "
       + "der Anlage, sondern ausschließlich über den natürlichen Luftwechsel "
       + "aus Infiltration und Mindestluftwechsel. Ein Anlagenluftstrom und ein "
@@ -766,8 +863,18 @@ function rechne(projekt) {
    * erdberuehrt f_theta_ann * f_ig * f_GW. Innenbauteile gegen Raeume
    * desselben Gebaeudes gehen NICHT ein: sie verlassen die Huelle nicht.
    *
-   * H_T ist damit eine EIGENSCHAFT DER HUELLE und haengt nicht davon ab, wie
-   * warm die Raeume dahinter stehen. Genau daran fehlte es bis zum
+   * WIE WEIT H_T VON DEN RAUMTEMPERATUREN UNABHAENGIG IST -- genau, nicht
+   * ungefaehr: Fuer Bauteile gegen Aussenluft ist b = 1, fuer Bauteile gegen
+   * eine unbeheizte Zone kuerzt sich theta_i heraus, sobald theta_u aus der
+   * Bilanz mitwandert. Fuer ERDBERUEHRTE Bauteile und fuer Bauteile gegen
+   * einen Nachbarn fester Temperatur steckt theta_i dagegen im
+   * Anpassungsfaktor selbst (f_ig = (theta_i - theta_e_m)/(theta_i - theta_e)
+   * bzw. b = (theta_i - theta_j)/(theta_i - theta_e)); dort aendert sich H_T
+   * mit der Raumtemperatur, und das ist nach der Normdefinition richtig.
+   * Gemessen an derselben Bodenplatte (50 m2, U 0,35, theta_e -10,
+   * theta_e_m 9,5): H_T = 5,58 bei 15 °C, 8,88 bei 20 °C, 10,82 bei 24 °C.
+   * Was H_T also NICHT mehr ist: eine aus der Gebaeudesumme
+   * zurueckgerechnete Groesse. Genau daran fehlte es bis zum
    * 27.08.2026: H_T wurde aus der Gebaeudesumme zurueckgerechnet,
    *     H_T = Phi_T,Gebaeude / (20 °C - theta_e),
    * waehrend Phi_T,Gebaeude je Raum mit DESSEN Innentemperatur entsteht.
@@ -778,7 +885,12 @@ function rechne(projekt) {
    */
   const H_T = raeume.reduce(function (s, r) {
     return s + r.bauteile.reduce(function (t, b) {
-      return t + (b.kat === "innen" ? 0 : zahl(b.H, 0));
+      /* b.H kommt aus bauteilLeistung() und ist immer eine Zahl. Bewusst OHNE
+         zahl(b.H, 0): der Rueckfall auf 0 machte aus einem Ueberlauf
+         (A = 1e308) eine plausible Null, waehrend phi_T_gebaeude auf
+         Infinity stand. Ein unmoeglicher Wert muss sichtbar bleiben; die
+         Invariantenprobe R21 faengt ihn dann. */
+      return t + (b.kat === "innen" ? 0 : b.H);
     }, 0);
   }, 0);
 
@@ -941,6 +1053,26 @@ function rechne(projekt) {
  *  bleibt. bereich: "zonen" oder "erdreich". */
 function hinweise(p, befunde, lueftungMassgebend) {
   const h = [];
+
+  /* DER LUEFTUNGSWEG GEHOERT IMMER AUSGEWIESEN, NICHT NUR AUF ANFRAGE.
+   * Die Warnung weiter oben in rechne() haengt an projekt.lueftung -- und
+   * dieses Feld schreibt die Oberflaeche nirgends: es gibt kein Eingabefeld
+   * und kein Ausgabefeld des Ausleseendpunkts dafuer (Befund der
+   * unabhaengigen Durchsicht vom 27.08.2026). Wer real eine Lueftungsanlage
+   * hat, konnte sie also gar nicht eintragen und bekam deshalb auch keine
+   * Warnung. Ein Hinweis, der nur bei einer Angabe erscheint, die niemand
+   * machen kann, ist kein Hinweis. Dieser hier steht immer. */
+  h.push({
+    bereich: "lueftung",
+    text: "Die Lüftungsheizlast ist ausschließlich über den natürlichen "
+      + "Luftwechsel gerechnet: Infiltration aus der Luftdichtheit n50 und "
+      + "Mindestluftwechsel je Raumart, maßgebend ist der größere der beiden. "
+      + "Eine mechanische Lüftungsanlage ist NICHT abgebildet — weder ein "
+      + "Anlagenluftstrom noch ein Wärmerückgewinnungsgrad. Ist im Gebäude "
+      + "eine Lüftungsanlage mit Wärmerückgewinnung vorhanden, fällt die hier "
+      + "ausgewiesene Lüftungsheizlast damit zu groß aus; der Ansatz nach "
+      + "DIN EN 12831-1 ist dann außerhalb dieses Werkzeugs zu führen.",
+  });
   const bilanzZonen = befunde.filter(function (b) { return b.herkunft === "bilanz"; });
   const f1Zonen = befunde.filter(function (b) { return b.modus === "f1"; });
   const lagenZonen = befunde.filter(function (b) { return b.lage; });
@@ -1508,3 +1640,16 @@ const KERN_HEIZLAST_NORM = {
 
 if (typeof module !== "undefined" && module.exports) module.exports = KERN_HEIZLAST_NORM;
 if (typeof window !== "undefined") window.KERN_HEIZLAST_NORM = KERN_HEIZLAST_NORM;
+
+/* Aufruf von der Kommandozeile:
+ *     node src/kerne/kern_heizlast_norm.js selbsttest
+ * Dieser Befehl steht seit dem 26.08.2026 in README.md und lief bis zum
+ * 27.08.2026 STILL INS LEERE: die Datei hatte keinen Einstieg, gab nichts aus
+ * und endete mit Rueckgabewert 0. Wer die Befehlstabelle abarbeitete, hielt
+ * einen Leerlauf fuer eine bestandene Pruefung. */
+if (typeof require !== "undefined" && typeof module !== "undefined"
+    && require.main === module) {
+  const _r = selbsttestNorm();
+  console.log(JSON.stringify(_r));
+  if (typeof process !== "undefined") process.exit(_r.ok ? 0 : 1);
+}
