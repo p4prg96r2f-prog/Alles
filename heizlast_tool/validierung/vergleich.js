@@ -44,9 +44,31 @@ function pruefen(titel, ist, tolSumme, tolRaum) {
   console.log("       " + pad("H_T nach Norm SUM(A*U*b)", 24) + " ist "
     + padl(z(ist.H_T, 2), 9) + "   (zur Kenntnis, kein Sollwert vorhanden)");
 
-  let raumFehler = 0, maxRaum = 0;
+  /* EIN FEHLENDER SOLLWERT IST EIN FEHLER, KEIN NaN.
+   * Vorher stand hier nur   const abw = Math.abs(r.phi_raum - s).
+   * Fehlte der Raum in der Referenzdatei, war s undefined, abw damit NaN --
+   * und NaN > tolRaum ist FALSE. Der Raum lief also durch, raumFehler blieb
+   * null, und die Zusammenfassung meldete
+   *     OK  18 Raeume einzeln   groesste Abweichung NaN W
+   *     ERGEBNIS: BESTANDEN. Stufe A exakt (max NaN W je Raum)
+   * mit Rueckgabewert 0. Nachgestellt am 27.08.2026, indem EIN Schluessel in
+   * maelzerstr59_soll.json umbenannt wurde -- genau das passiert bei einer
+   * Umbenennung im Raumbuch oder einer neu erzeugten Solldatei. Das Wort
+   * "exakt" neben einem NaN ist die schaedlichste Auskunft, die eine Probe
+   * geben kann: sie meldet Erfolg, wo sie nichts geprueft hat.
+   * Geprueft wird deshalb in BEIDE Richtungen und die Zahl der tatsaechlich
+   * verglichenen Raeume wird ausgewiesen, statt 18 zu behaupten. */
+  let raumFehler = 0, maxRaum = 0, verglichen = 0;
+  const istIds = ist.raeume.map(function (r) { return r.id; });
   ist.raeume.forEach(function (r) {
     const s = soll.raeume[r.id];
+    if (!Number.isFinite(s)) {
+      raumFehler++;
+      console.log("       " + pad(r.id, 22)
+        + " KEIN SOLLWERT in der Referenzdatei — nicht geprueft");
+      return;
+    }
+    verglichen++;
     const abw = Math.abs(r.phi_raum - s);
     maxRaum = Math.max(maxRaum, abw);
     if (abw > tolRaum) {
@@ -55,9 +77,23 @@ function pruefen(titel, ist, tolSumme, tolRaum) {
         + "   soll " + padl(z(s), 8) + "   Abw " + padl(z(r.phi_raum - s, 2), 7) + " W");
     }
   });
+  /* Die andere Richtung: ein Sollwert ohne Raum im Projekt. Ohne diese Probe
+     verschwaenden geloeschte Raeume unbemerkt aus dem Vergleich. */
+  Object.keys(soll.raeume || {}).forEach(function (id) {
+    if (istIds.indexOf(id) >= 0) return;
+    raumFehler++;
+    console.log("       " + pad(id, 22)
+      + " steht in der Referenz, aber nicht im Projekt");
+  });
+  if (verglichen === 0) {
+    raumFehler++;
+    console.log("       KEIN EINZIGER Raum verglichen — die Probe belegt nichts");
+  }
   console.log("  " + (raumFehler === 0 ? "OK  " : "FEHL") + " "
-    + pad("18 Raeume einzeln", 24) + " groesste Abweichung " + z(maxRaum, 3) + " W");
-  return { fehler: fehler + raumFehler, maxRel: maxRel, maxRaum: maxRaum };
+    + pad(verglichen + " Raeume einzeln", 24) + " groesste Abweichung "
+    + z(maxRaum, 3) + " W");
+  return { fehler: fehler + raumFehler, maxRel: maxRel, maxRaum: maxRaum,
+           verglichen: verglichen };
 }
 
 console.log("=".repeat(72));
