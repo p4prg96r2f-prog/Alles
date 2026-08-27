@@ -1,0 +1,117 @@
+/* Validierung des JS-Rechenkerns gegen das gepruefte Python-Modell.
+ * Zweistufig:
+ *   Stufe A  Zonentemperaturen fest auf die Referenzwerte gesetzt
+ *            -> prueft Transmission, Lueftung, Summenbildung isoliert
+ *   Stufe B  Zonentemperaturen aus der eigenen stationaeren Bilanz
+ *            -> zeigt den methodischen Unterschied zur Referenz
+ */
+"use strict";
+const fs = require("fs"), path = require("path");
+const kern = require("../src/kerne/kern_heizlast_norm.js");
+
+const dir = path.join(__dirname, "faelle");
+const basis = JSON.parse(fs.readFileSync(path.join(dir, "maelzerstr59.json"), "utf8"));
+const soll = JSON.parse(fs.readFileSync(path.join(dir, "maelzerstr59_soll.json"), "utf8"));
+
+const z = (x, n) => x.toFixed(n === undefined ? 1 : n);
+const pad = (s, n) => String(s).padEnd(n);
+const padl = (s, n) => String(s).padStart(n);
+
+function pruefen(titel, ist, tolSumme, tolRaum) {
+  console.log("\n--- " + titel + " " + "-".repeat(Math.max(0, 62 - titel.length)));
+  let fehler = 0, maxRel = 0;
+  function v(name, i, s, tol, einheit) {
+    const abw = i - s;
+    const rel = s !== 0 ? Math.abs(abw / s) * 100 : 0;
+    maxRel = Math.max(maxRel, rel);
+    const ok = Math.abs(abw) <= tol;
+    if (!ok) fehler++;
+    console.log("  " + (ok ? "OK  " : "FEHL") + " " + pad(name, 24)
+      + " ist " + padl(z(i, 2), 9) + "   soll " + padl(z(s, 2), 9)
+      + "   Abw " + padl(z(abw, 3), 8) + " " + (einheit || "W"));
+  }
+  v("Transmission Gebaeude", ist.phi_T_gebaeude, soll.phi_T_gebaeude, tolSumme);
+  v("Lueftung Gebaeude", ist.phi_V_gebaeude, soll.phi_V_gebaeude, tolSumme);
+  v("Gebaeudeheizlast", ist.phi_gebaeude, soll.phi_gebaeude, tolSumme);
+  v("Summe Raumheizlasten", ist.phi_raeume_summe, soll.phi_raeume_summe, tolSumme);
+  v("H_T", ist.H_T, soll.H_T, tolSumme / 20, "W/K");
+
+  let raumFehler = 0, maxRaum = 0;
+  ist.raeume.forEach(function (r) {
+    const s = soll.raeume[r.id];
+    const abw = Math.abs(r.phi_raum - s);
+    maxRaum = Math.max(maxRaum, abw);
+    if (abw > tolRaum) {
+      raumFehler++;
+      console.log("       " + pad(r.id, 22) + " ist " + padl(z(r.phi_raum), 8)
+        + "   soll " + padl(z(s), 8) + "   Abw " + padl(z(r.phi_raum - s, 2), 7) + " W");
+    }
+  });
+  console.log("  " + (raumFehler === 0 ? "OK  " : "FEHL") + " "
+    + pad("18 Raeume einzeln", 24) + " groesste Abweichung " + z(maxRaum, 3) + " W");
+  return { fehler: fehler + raumFehler, maxRel: maxRel, maxRaum: maxRaum };
+}
+
+console.log("=".repeat(72));
+console.log("Validierung Maelzerstr. 59 gegen heizlast_maelzerstr59/modell.py");
+console.log("Referenz: Gebaeudeheizlast " + z(soll.phi_gebaeude) + " W, H_T " + z(soll.H_T, 2) + " W/K");
+console.log("=".repeat(72));
+
+// --- Stufe A -------------------------------------------------------------
+const pA = JSON.parse(JSON.stringify(basis));
+pA.zonen = [
+  { id: "keller", name: "Keller", modus: "fest", theta_fest: soll.theta_keller },
+  { id: "dachraum", name: "Spitzboden", modus: "fest", theta_fest: soll.theta_dachraum },
+];
+const rA = pruefen("Stufe A: Zonentemperaturen fest auf die Referenzwerte", kern.rechne(pA), 0.05, 0.05);
+
+// --- Stufe B -------------------------------------------------------------
+const rB0 = kern.rechne(basis);
+const rB = pruefen("Stufe B: Zonentemperaturen aus eigener stationaerer Bilanz", rB0, 10, 2.5);
+console.log("       Zonentemperatur Keller    ist " + padl(z(rB0.zonen.keller, 3), 9)
+  + "   soll " + padl(z(soll.theta_keller, 3), 9)
+  + "   Abw " + padl(z(rB0.zonen.keller - soll.theta_keller, 3), 8) + " K");
+console.log("       Zonentemperatur Dachraum  ist " + padl(z(rB0.zonen.dachraum, 3), 9)
+  + "   soll " + padl(z(soll.theta_dachraum, 3), 9)
+  + "   Abw " + padl(z(rB0.zonen.dachraum - soll.theta_dachraum, 3), 8) + " K");
+
+// --- Ursachennachweis ----------------------------------------------------
+// Zwei methodische Unterschiede zur Referenz, beide isoliert nachgewiesen:
+//  (1) Die Referenz bilanziert die unbeheizten Zonen pauschal gegen 20 C,
+//      der Kern gegen die tatsaechlichen Norm-Innentemperaturen der
+//      angrenzenden Raeume (Bad 24 C, Treppenhaus 15 C).
+//  (2) Die Referenz setzt in der Kellerbilanz die BRUTTOgeschossflaeche
+//      72,98 m2 an, waehrend die Kellerdecken-Bauteile der Raeume nur
+//      68,68 m2 NETTO ergeben. Der Kern verwendet durchgaengig dieselben
+//      Flaechen wie in den Raeumen und ist damit in sich konsistent.
+const A_BRUTTO = 72.98, A_NETTO = 68.68, U_KD = 0.29, U_KB = 0.35;
+const pC = JSON.parse(JSON.stringify(basis));
+pC.raeume.forEach(function (r) { r.theta_i = 20; });                 // Effekt (1)
+const kz = pC.zonen.find(function (x) { return x.id === "keller"; }); // Effekt (2)
+kz.huelle.forEach(function (b) {
+  if (b.name === "Kellerboden") b.A = A_BRUTTO;
+});
+kz.huelle.push({ name: "Bezugsflaechendifferenz Decke (Brutto minus Netto)",
+                 A: A_BRUTTO - A_NETTO, U: U_KD, grenzt_an: { typ: "fest", theta: 20 } });
+const rC = kern.rechne(pC);
+console.log("\n--- Ursachennachweis " + "-".repeat(51));
+console.log("  Referenzmethodik nachgebildet (Zonen gegen 20 C, Bruttoflaeche im Keller):");
+console.log("       Zonentemperatur Keller    ist " + padl(z(rC.zonen.keller, 6), 12)
+  + "   soll " + padl(z(soll.theta_keller, 6), 12));
+console.log("       Zonentemperatur Dachraum  ist " + padl(z(rC.zonen.dachraum, 6), 12)
+  + "   soll " + padl(z(soll.theta_dachraum, 6), 12));
+const ursacheOk = Math.abs(rC.zonen.keller - soll.theta_keller) < 0.001
+               && Math.abs(rC.zonen.dachraum - soll.theta_dachraum) < 0.001;
+console.log("  " + (ursacheOk ? "OK   Abweichung vollstaendig erklaert." : "FEHL Ursache nicht bestaetigt."));
+console.log("       Wirkung auf die Gebaeudeheizlast: "
+  + z(rB0.phi_gebaeude - soll.phi_gebaeude, 1) + " W von " + z(soll.phi_gebaeude, 0)
+  + " W = " + z(Math.abs(rB0.phi_gebaeude - soll.phi_gebaeude) / soll.phi_gebaeude * 100, 3) + " %.");
+console.log("       Der Kern rechnet hier bewusst anders und in sich konsistent.");
+
+console.log("\n" + "=".repeat(72));
+const gesamt = rA.fehler + (ursacheOk ? 0 : 1) + rB.fehler;
+console.log(gesamt === 0
+  ? "ERGEBNIS: BESTANDEN. Stufe A exakt (max " + z(rA.maxRaum, 4) + " W je Raum), "
+    + "Stufe B erklaert."
+  : "ERGEBNIS: " + gesamt + " offene Abweichungen.");
+process.exit(gesamt === 0 ? 0 : 1);

@@ -1,0 +1,619 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WERK.E Heizlast — DIN EN 12831-1</title>
+<style>
+/* @@FONTS@@ */
+/* ===========================================================================
+ * Gestaltung nach dem WERK.E Corporate Design, Brand Book Februar 2026.
+ * Eine Farbe, eine Aufgabe:
+ *   Gruen  #5DB55A  Struktur, Orientierung, aktiver Zustand
+ *   Blau   #123A63  Fachlichkeit: Ergebnisflaechen, Navigation, Fachmodule
+ *   Gelb   #F5C542  ausschliesslich Handlungsaufforderung, immer dunkler Text
+ *   Anthrazit #272425 Text
+ * Eckenradius 14 px, farbige Flaechen bekommen eine 1-px-Kontur, keine
+ * Schatten, keine Verlaeufe als Flaeche.
+ * Die Kontraste sind nachgerechnet, nicht geschaetzt; die geprueften Werte
+ * stehen als Kommentar an der jeweiligen Farbe.
+ * ======================================================================== */
+:root{
+  --gruen:#5DB55A;          /* Flaeche und Kontur, nicht als kleiner Text */
+  --gruen-d:#478D51;        /* 4,0:1 auf Weiss — Sinnbilder und Konturen */
+  --gruen-t:#2F6B38;        /* 6,7:1 auf Weiss — gruener Text */
+  --gruen-wash:#EAF6E8;
+  --blau:#123A63;           /* 11,6:1 auf Weiss */
+  --blau-h:#0D2C4B;
+  --blau-soft:#E7EEF5;
+  --gelb:#F5C542; --gelb-h:#E3AF22;   /* Anthrazit auf Gelb 9,5:1 */
+  --gelb-linie:#B8860B;     /* Kontur des Handlungsknopfs, 3,3:1 auf Weiss:
+                               die gelbe Flaeche allein kaeme nur auf 2,0:1 */
+  --anthrazit:#272425; --neutral:#FAFAFB;
+  --linie:#E4E3E5; --linie-s:#CFCED0;
+  --mute:#57514F;           /* 7,8:1 auf Weiss — gedaempfter Text */
+  --mute-2:#6E6866;         /* 5,4:1 auf Weiss — Platzhalter, Fussnoten */
+  --weiss:#fff;
+  --rot:#921A38;            /* 8,7:1 auf Weiss */
+  --rot-bg:#FBEEF1; --rot-linie:#E9C3CD;
+  --warn:#8A6300;           /* 5,9:1 auf Weiss */
+  --warn-mark:#C8951C;      /* nur Flaeche und Kontur, 3,1:1 */
+  --warn-bg:#FDF6E3; --warn-linie:#EFE0B0;
+  --ok:#2F6B38; --ok-bg:#EDF7ED; --ok-linie:#CDE7CC;
+  --r:14px; --r-k:10px; --r-s:8px;
+  --kopf-h:60px;
+  --schrift:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --schrift-h:'Poppins',var(--schrift);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+html{scrollbar-color:var(--linie-s) transparent}
+body{font-family:var(--schrift);font-size:15px;line-height:1.5;color:var(--anthrazit);
+  background:var(--neutral);-webkit-font-smoothing:antialiased;
+  font-variant-numeric:tabular-nums lining-nums}
+h1,h2,h3,h4{font-family:var(--schrift-h);font-weight:600;margin:0 0 .5em;line-height:1.25;
+  letter-spacing:-.011em;text-wrap:balance}
+button{font-family:inherit;font-size:inherit}
+input,select,textarea{font-family:inherit;font-size:inherit;color:inherit}
+a{color:var(--blau);text-underline-offset:2px;text-decoration-thickness:1px}
+a:hover{color:var(--blau-h)}
+::selection{background:#CFE7CC;color:var(--anthrazit)}
+::placeholder{color:var(--mute-2);opacity:1}
+:where(input,textarea){caret-color:var(--blau)}
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-thumb{background:var(--linie-s);border-radius:99px;
+  border:2px solid transparent;background-clip:content-box}
+::-webkit-scrollbar-track{background:transparent}
+
+/* Ein sichtbarer Fokusring auf allem, was bedient wird. Der Standardring des
+   Browsers ist auf dunklen Knoepfen weiss und auf hellen kaum zu sehen. */
+:where(a,button,input,select,textarea,[tabindex]):focus-visible{
+  outline:2px solid var(--blau);outline-offset:2px;border-radius:var(--r-s)}
+
+/* Sinnbilder: gezeichnete Linienformen, ein Strichgewicht, mitlaufende Farbe */
+.ikon{width:1em;height:1em;flex:0 0 auto;stroke:currentColor;fill:none;
+  stroke-width:2;stroke-linecap:round;stroke-linejoin:round;
+  vertical-align:-.14em;pointer-events:none}
+
+/* ---------- Kopfleiste ---------- */
+#kopf{position:sticky;top:0;z-index:50;background:var(--weiss);
+  border-bottom:1px solid var(--linie);
+  display:flex;align-items:center;gap:14px;padding:9px 20px;min-height:var(--kopf-h)}
+#kopf img.logo{height:36px;width:auto;display:block}
+#kopf .titel{font-family:var(--schrift-h);font-weight:600;font-size:17px;color:var(--blau);
+  line-height:1.2}
+#kopf .titel small{display:block;font-weight:400;font-size:12px;color:var(--mute);
+  font-family:var(--schrift);letter-spacing:0}
+#kopf .fuell{flex:1}
+#kopf .werkzeuge{display:flex;align-items:center;gap:6px;flex-wrap:wrap;
+  justify-content:flex-end}
+.standortmarke{font-size:12px;color:var(--mute);margin-right:2px;white-space:nowrap;
+  cursor:help}
+.standortwahl{display:flex;gap:2px;background:var(--neutral);padding:3px;
+  border:1px solid var(--linie);border-radius:var(--r-k)}
+.standortwahl button{border:0;background:transparent;padding:6px 12px;border-radius:7px;
+  cursor:pointer;color:var(--mute);font-size:13px}
+.standortwahl button:hover:not([disabled]){color:var(--anthrazit)}
+.standortwahl button.aktiv{background:var(--weiss);color:var(--blau);font-weight:600;
+  border:1px solid var(--linie)}
+.standortwahl button[disabled]{opacity:.4;cursor:not-allowed}
+
+/* ---------- Knoepfe ---------- */
+.btn{border:1px solid var(--linie-s);background:var(--weiss);color:var(--anthrazit);
+  padding:8px 14px;border-radius:var(--r-s);cursor:pointer;font-size:14px;
+  display:inline-flex;align-items:center;gap:7px;line-height:1.25;
+  transition:background .12s,border-color .12s,color .12s}
+.btn:hover{border-color:var(--gruen-d);color:var(--gruen-t);background:var(--gruen-wash)}
+.btn:active{transform:translateY(.5px)}
+.btn .ikon{width:15px;height:15px}
+.btn.primaer{background:var(--blau);border-color:var(--blau);color:#fff}
+.btn.primaer:hover{background:var(--blau-h);border-color:var(--blau-h);color:#fff}
+/* Gelb ist der Handlungsknopf und nur der. Dunkler Text, immer. */
+.btn.cta{background:var(--gelb);border-color:var(--gelb-linie);color:var(--anthrazit);
+  font-weight:600}
+.btn.cta:hover{background:var(--gelb-h);border-color:#96700A;color:var(--anthrazit)}
+.btn.an{background:var(--blau);border-color:var(--blau);color:#fff;font-weight:600}
+.btn.an:hover{background:var(--blau-h);border-color:var(--blau-h);color:#fff}
+.btn.klein{padding:5px 10px;font-size:13px}
+.btn.nurikon{padding:5px 7px}
+.btn.nurikon .ikon{width:16px;height:16px}
+.btn.gefahr:hover{border-color:var(--rot);color:var(--rot);background:var(--rot-bg)}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+.btn[disabled]:hover{border-color:var(--linie-s);color:var(--anthrazit);background:var(--weiss)}
+.knopfgruppe{display:inline-flex}
+.knopfgruppe .btn{border-radius:0;margin-left:-1px}
+.knopfgruppe .btn:first-child{border-radius:var(--r-s) 0 0 var(--r-s);margin-left:0}
+.knopfgruppe .btn:last-child{border-radius:0 var(--r-s) var(--r-s) 0}
+.knopfgruppe .btn.an{position:relative;z-index:1}
+
+/* ---------- Layout ---------- */
+#huelle{display:grid;grid-template-columns:230px minmax(0,1fr) 330px;align-items:start}
+#schritte{position:sticky;top:var(--kopf-h);padding:20px 12px 20px 16px;
+  max-height:calc(100vh - var(--kopf-h));overflow:auto}
+#inhalt{padding:20px 24px 40px;min-width:0}
+#panel{position:sticky;top:var(--kopf-h);padding:20px 20px 20px 0;
+  max-height:calc(100vh - var(--kopf-h));overflow:auto}
+
+/* ---------- Schrittleiste ---------- */
+.schrittstand{margin:0 0 6px;padding:0 12px;font-size:11.5px;font-weight:600;
+  letter-spacing:.05em;text-transform:uppercase;color:var(--mute-2);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.schrittbalken{height:4px;border-radius:99px;background:var(--linie);margin:0 12px 14px;
+  overflow:hidden}
+/* Die Fuellung wird gestaucht, nicht in der Breite animiert: Breite anfassen
+   heisst Layout neu rechnen, transform laeuft daneben. */
+.schrittbalken span,.balken span{display:block;height:100%;width:100%;
+  background:var(--gruen-d);border-radius:99px;transform-origin:left center;
+  transition:transform .25s ease-out}
+.balken{height:8px;border-radius:99px;background:var(--linie);margin:10px 0;
+  overflow:hidden}
+#schritte a{display:flex;align-items:flex-start;gap:9px;padding:8px 12px;
+  border-radius:var(--r-k);text-decoration:none;color:var(--mute);font-size:14px;
+  margin-bottom:2px;border-left:3px solid transparent;line-height:1.3}
+#schritte a:hover{background:var(--weiss);color:var(--anthrazit)}
+#schritte a.aktiv{background:var(--weiss);color:var(--blau);font-weight:600;
+  border-left-color:var(--gruen);border-radius:0 var(--r-k) var(--r-k) 0}
+#schritte .nr{flex:0 0 20px;display:inline-flex;align-items:center;justify-content:center;
+  height:20px;font-size:12.5px;font-weight:600;color:var(--mute-2);
+  border:1px solid var(--linie-s);border-radius:50%;margin-top:1px}
+#schritte a.aktiv .nr{color:var(--blau);border-color:var(--blau)}
+#schritte .nr.fertig{background:var(--gruen-d);border-color:var(--gruen-d);color:#fff}
+#schritte .nr .ikon{width:12px;height:12px;stroke-width:3}
+#schritte .txt{min-width:0;hyphens:none}
+.feingruppe{margin-top:14px;border-top:1px solid var(--linie);padding-top:10px}
+#schritte a.feinschalter{font-size:13px;color:var(--mute-2);gap:6px;align-items:center}
+#schritte a.feinschalter .ikon{width:12px;height:12px}
+#schritte a.fein{font-size:13.5px;padding-left:33px}
+
+/* ---------- Karten ---------- */
+.karte{background:var(--weiss);border:1px solid var(--linie);border-radius:var(--r);
+  padding:22px;margin-bottom:18px}
+.karte > h2{font-size:19px;color:var(--blau);display:flex;align-items:center;gap:10px;
+  margin-bottom:.45em}
+.karte > h2 .nr{display:inline-flex;align-items:center;justify-content:center;
+  width:26px;height:26px;border-radius:50%;background:var(--gruen-d);color:#fff;
+  font-size:13px;flex:0 0 auto;font-family:var(--schrift)}
+/* Ein leerer Kreis ist kein Ordnungszeichen, sondern ein gruener Punkt ohne
+   Aussage. Er entsteht dort, wo eine Karte keine Nummer hat. */
+.karte > h2 .nr:empty{display:none}
+/* Nur der einleitende Absatz. Ohne p greift die Regel auch auf
+   .meldung.hinweis und macht Meldungstexte grau und schmal. */
+.karte p.hinweis{color:var(--mute);font-size:13.5px;margin:-2px 0 16px;max-width:74ch}
+.karte > h3{font-size:15px;margin-top:22px}
+.karte > h3:first-child{margin-top:0}
+
+/* ---------- Fussleiste des Schritts ---------- */
+.fussleiste{display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+  padding:16px 0 90px}
+.fussleiste .fuell{flex:1}
+.fussleiste .btn{padding:10px 18px;font-size:15px}
+.fussleiste .btn.cta{padding:11px 22px}
+
+/* ---------- Formular ---------- */
+.feldreihe{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px 16px}
+label.feld{display:block;min-width:0}
+label.feld > span{display:block;font-size:13px;color:var(--mute);margin-bottom:5px}
+label.feld > span .pflicht{color:var(--rot)}
+/* Woher ein Wert stammt, wenn er nicht von Hand kam. Bewusst leise: der Wert
+   steht, er ist nur noch zu pruefen. Sobald jemand das Feld anfasst,
+   verschwindet der Hinweis. */
+label.feld .herkunft{display:block;margin-top:4px;font-size:12px;color:var(--gruen-t);
+  line-height:1.35}
+label.feld .herkunft::before{content:"\2713\00a0"}
+/* Ein Wert, den das Werkzeug angenommen hat, weil es ihn nicht lesen konnte.
+   Leise, aber sichtbar: er gilt, bis jemand widerspricht. */
+.annahme-marke{display:inline-block;margin-left:6px;padding:1px 6px;border-radius:999px;
+  font-size:11px;font-weight:600;letter-spacing:.02em;background:var(--warn-bg);
+  color:var(--warn);border:1px solid var(--warn-linie);white-space:nowrap;cursor:help}
+input[type=text],input[type=number],input[type=date],select,textarea{width:100%;
+  padding:8px 10px;border:1px solid var(--linie-s);border-radius:var(--r-s);
+  background:var(--weiss);transition:border-color .12s}
+input:hover:not([disabled]),select:hover:not([disabled]){border-color:#B8B6B9}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--blau);outline-offset:-1px;
+  border-color:var(--blau)}
+input.fehlt{border-color:var(--rot);background:var(--rot-bg)}
+.einheit{position:relative}
+.einheit .e{position:absolute;right:10px;top:50%;transform:translateY(-50%);
+  color:var(--mute-2);font-size:12px;pointer-events:none}
+.einheit input{padding-right:42px}
+
+/* ---------- Tabellen ----------
+   Viele Zeilen bleiben nur lesbar, wenn die Kopfzeile stehen bleibt. Deshalb
+   bekommt die Huelle eine Hoehengrenze; erst wenn eine Tabelle sie ueberschreitet,
+   entsteht ein eigener Rollbereich, in dem Kopf und Summe haften. Kurze
+   Tabellen merken davon nichts. */
+.tabhuelle{overflow:auto;max-height:calc(100vh - 210px);margin:0 -4px;
+  border-radius:var(--r-k)}
+/* Lieber seitlich rollen als Raumnamen auf drei Zeichen quetschen. */
+table.tab.breit{min-width:900px}
+table.tab{width:100%;border-collapse:separate;border-spacing:0;font-size:14px}
+table.tab th{text-align:left;font-weight:600;font-size:11.5px;color:var(--mute);
+  text-transform:uppercase;letter-spacing:.04em;padding:8px;background:var(--weiss);
+  border-bottom:1px solid var(--linie-s);position:sticky;top:0;z-index:2;
+  white-space:nowrap}
+table.tab th.num{text-align:right}
+table.tab td{padding:5px 6px;border-bottom:1px solid var(--linie);vertical-align:middle}
+table.tab tbody tr:nth-child(even) > td{background:var(--neutral)}
+table.tab tbody tr:hover > td{background:var(--gruen-wash)}
+table.tab input,table.tab select{padding:5px 7px;font-size:13.5px}
+/* Ein mit size gesetztes Feld soll so breit sein, wie es angesagt ist.
+   width:100% presste "15,40" in 50 px und schnitt die letzte Ziffer ab. */
+table.tab input[size]{width:auto;min-width:0}
+/* Drehpfeile an Zahlenfeldern nehmen rund 20 px und sind bei
+   Kommawerten nutzlos; die Tastatur bleibt unveraendert. */
+input[type=number]{-moz-appearance:textfield}
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+table.tab td.num{text-align:right;font-variant-numeric:tabular-nums}
+table.tab tfoot td{font-weight:600;background:var(--weiss);border-top:1px solid var(--linie-s);
+  border-bottom:0;position:sticky;bottom:0;z-index:2;padding:9px 6px}
+
+/* ---------- Meldungen ---------- */
+.meldung{border-radius:var(--r-k);padding:11px 14px;margin:10px 0;font-size:13.5px;
+  display:flex;gap:11px;align-items:flex-start;border:1px solid}
+.meldung .sym{flex:0 0 20px;height:20px;display:inline-flex;align-items:center;
+  justify-content:center;border-radius:50%;font-weight:700;font-size:12px;
+  color:#fff;margin-top:1px}
+.meldung.fehler{background:var(--rot-bg);color:#6E1329;border-color:var(--rot-linie)}
+.meldung.fehler .sym{background:var(--rot)}
+.meldung.warnung{background:var(--warn-bg);color:#6B4D00;border-color:var(--warn-linie)}
+.meldung.warnung .sym{background:var(--warn)}
+.meldung.hinweis{background:var(--blau-soft);color:var(--blau);border-color:#D3E2F0}
+.meldung.hinweis .sym{background:var(--blau)}
+.meldung.gut{background:var(--ok-bg);color:#245229;border-color:var(--ok-linie)}
+.meldung.gut .sym{background:var(--ok);font-size:10px}
+.meldung b{font-weight:600}
+
+/* ---------- Ergebnis: die Zahl, um die es geht ---------- */
+.ergebniskopf{display:flex;flex-wrap:wrap;gap:18px 26px;align-items:stretch;
+  padding:20px 22px;margin-bottom:18px;border-radius:var(--r);
+  background:var(--blau);color:#fff;border:1px solid var(--blau)}
+.ergebniszahl{flex:1 1 260px;min-width:0}
+.ergebniszahl .mark{display:block;font-size:12px;font-weight:600;letter-spacing:.07em;
+  text-transform:uppercase;color:#A9C4DD}
+.ergebniszahl b{display:block;font-family:var(--schrift-h);font-weight:600;
+  font-size:clamp(40px,6vw,58px);line-height:1.02;letter-spacing:-.025em;margin:4px 0 6px;
+  font-variant-numeric:tabular-nums}
+.ergebniszahl b small{font-size:.42em;font-weight:400;letter-spacing:0;margin-left:.12em}
+.ergebniszahl .unten{font-size:13px;color:#C6D7E7}
+/* Rechts neben der Zahl: das Urteil der Prüfung und die Handlung. */
+.ergebnisstand{flex:1 1 320px;min-width:0;display:grid;gap:12px;
+  align-content:center;padding:0 0 0 22px;
+  border-left:1px solid rgba(255,255,255,.18)}
+.ergampel{display:flex;align-items:center;gap:10px;border-radius:var(--r-k);
+  padding:10px 13px;font-size:14px;border:1px solid;text-align:left;
+  cursor:pointer;font-family:inherit;line-height:1.35}
+.ergampel .ikon{width:19px;height:19px;flex:0 0 auto}
+.ergampel.gut{background:var(--ok-bg);border-color:var(--ok-linie);color:#245229}
+.ergampel.warnung{background:var(--warn-bg);border-color:var(--warn-linie);color:#6B4D00}
+.ergampel.fehler{background:var(--rot-bg);border-color:var(--rot-linie);color:#6E1329}
+.ergknoepfe{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.ergknoepfe .btn.cta{padding:11px 20px;font-size:15px}
+.ergknoepfe .btn:not(.cta){background:transparent;color:#DCE7F1;
+  border-color:rgba(255,255,255,.35)}
+.ergknoepfe .btn:not(.cta):hover{background:rgba(255,255,255,.1);color:#fff;
+  border-color:rgba(255,255,255,.6)}
+/* Raumheizlasten: Plan und Tabelle nebeneinander */
+.ergraster{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(320px,1fr);
+  gap:16px;align-items:start}
+@media(max-width:1100px){.ergraster{grid-template-columns:1fr}}
+.ergraumknopf{border:0;background:transparent;padding:0;cursor:pointer;
+  font:inherit;color:var(--blau);text-align:left;
+  text-decoration:underline;text-underline-offset:2px;text-decoration-thickness:1px}
+tr.ergraum{cursor:pointer}
+tr.ergraum.an > td{background:#F3F8F3}
+/* Zugeklappte Technik-Abschnitte */
+details.karte.ergauf{padding:0}
+details.karte.ergauf>summary{cursor:pointer;list-style:none;padding:15px 22px;
+  font-family:var(--schrift-h);font-weight:600;font-size:16px;color:var(--blau);
+  display:flex;align-items:center;gap:10px}
+details.karte.ergauf>summary::-webkit-details-marker{display:none}
+details.karte.ergauf>summary::before{content:"";width:8px;height:8px;flex:0 0 auto;
+  border-right:2px solid var(--gruen-d);border-bottom:2px solid var(--gruen-d);
+  transform:rotate(-45deg);transition:transform .15s;margin-top:-2px}
+details.karte.ergauf[open]>summary::before{transform:rotate(45deg);margin-top:-5px}
+.ergaufinhalt{padding:0 22px 20px}
+/* Die Neurechnen-Anzeige: fest unten, unterbricht nichts */
+#neurechnen{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);
+  background:var(--blau);color:#fff;border-radius:999px;padding:9px 18px;
+  font-size:13.5px;box-shadow:0 2px 10px rgba(18,58,99,.25);z-index:70;
+  opacity:0;transition:opacity .2s;pointer-events:none;white-space:nowrap;
+  max-width:94vw;overflow:hidden;text-overflow:ellipsis}
+#neurechnen.sichtbar{opacity:1}
+
+/* Kennzahlkachel im Fliesstext */
+.kennzahl{background:var(--neutral);border:1px solid var(--linie);
+  border-radius:var(--r-k);padding:12px 14px}
+.kennzahl .mark{display:block;font-size:11.5px;color:var(--mute);text-transform:uppercase;
+  letter-spacing:.04em}
+.kennzahl b{display:block;font-family:var(--schrift-h);font-size:22px;font-weight:600;
+  font-variant-numeric:tabular-nums;margin:3px 0 1px}
+.kennzahl .unten{font-size:12px;color:var(--mute-2)}
+
+/* ---------- Leiste rechts ---------- */
+.ergebnis{background:var(--blau);color:#fff;border:1px solid var(--blau);
+  border-radius:var(--r);padding:18px;margin-bottom:14px}
+.ergebnis h3{color:#C6D7E7;font-size:12px;font-weight:600;letter-spacing:.07em;
+  text-transform:uppercase;margin-bottom:4px}
+.ergebnis .gross{font-family:var(--schrift-h);font-size:38px;font-weight:600;
+  line-height:1.02;letter-spacing:-.025em;font-variant-numeric:tabular-nums}
+.ergebnis .gross small{font-size:.42em;opacity:.8;font-weight:400}
+.ergebnis .zeile{display:flex;justify-content:space-between;gap:12px;font-size:13px;
+  padding:6px 0;border-top:1px solid rgba(255,255,255,.16);color:#DCE7F1}
+.ergebnis .zeile span:last-child{font-variant-numeric:tabular-nums;color:#fff}
+.ergebnis .zeile:first-of-type{margin-top:12px}
+.panelkarte{display:block;width:100%;text-align:left;background:var(--weiss);
+  border:1px solid var(--linie);border-radius:var(--r);padding:14px;margin-bottom:14px;
+  font-size:13.5px;color:var(--anthrazit)}
+.panelkarte h4{font-size:11.5px;text-transform:uppercase;letter-spacing:.05em;
+  color:var(--mute-2);font-weight:600;margin-bottom:8px}
+.panelkarte.leise{background:var(--neutral);color:var(--mute)}
+.panelkarte.fehler{background:var(--rot-bg);border-color:var(--rot-linie);color:#6E1329}
+.panelkarte.fehler h4{color:var(--rot)}
+/* Die Ampel traegt die Farbe ihrer Stufe: sie ist die wichtigste Aussage
+   der Leiste und muss vor allem anderen gelesen werden. */
+button.panelkarte{font:inherit;cursor:pointer;font-size:13.5px}
+.panelkarte.ampel{display:grid;gap:6px}
+.panelkarte.ampel .lage{display:flex;align-items:center;gap:8px;font-size:15px}
+.panelkarte.ampel .lage .ikon{width:18px;height:18px}
+.panelkarte.ampel .zaehl{font-size:12.5px;color:inherit;opacity:.85}
+.panelkarte.ampel .mehr{display:inline-flex;align-items:center;gap:5px;font-size:12.5px;
+  font-weight:600;text-decoration:underline;text-underline-offset:2px}
+.panelkarte.ampel .mehr .ikon{width:12px;height:12px}
+.panelkarte.ampel.gut{background:var(--ok-bg);border-color:var(--ok-linie);color:#245229}
+.panelkarte.ampel.gut h4{color:var(--ok)}
+.panelkarte.ampel.warnung{background:var(--warn-bg);border-color:var(--warn-linie);
+  color:#6B4D00}
+.panelkarte.ampel.warnung h4{color:var(--warn)}
+.panelkarte.ampel.fehler{background:var(--rot-bg);border-color:var(--rot-linie);color:#6E1329}
+.panelkarte.ampel:hover{border-color:var(--linie-s)}
+
+/* Angenommene Werte. Sie sind kein Fehler und keine Warnung, sondern eine
+   Auskunft, die man nicht uebersehen darf: die Zahl darueber steht auf
+   ihnen. Deshalb die Warnflaeche, aber ohne Ausrufezeichen-Symbolik. */
+.panelkarte.annahme-leiste{display:grid;gap:5px;background:var(--warn-bg);
+  border-color:var(--warn-linie);color:#6B4D00}
+.panelkarte.annahme-leiste h4{color:var(--warn);display:flex;align-items:center;gap:6px}
+.panelkarte.annahme-leiste h4 .ikon{width:14px;height:14px}
+.panelkarte.annahme-leiste .annahme-zeile{font-size:12.5px;line-height:1.45}
+.panelkarte.annahme-leiste .mehr{display:inline-flex;align-items:center;gap:5px;
+  font-size:12.5px;font-weight:600;text-decoration:underline;text-underline-offset:2px}
+.panelkarte.annahme-leiste .mehr .ikon{width:12px;height:12px}
+.karte.annahmenkarte{border-color:var(--warn-linie);background:var(--warn-bg)}
+.karte.annahmenkarte h2{display:flex;align-items:center;gap:8px;color:#6B4D00}
+.karte.annahmenkarte h2 .ikon{width:18px;height:18px;color:var(--warn)}
+.annahme-block{background:var(--weiss);border:1px solid var(--warn-linie);
+  border-radius:10px;padding:12px 14px;margin-top:12px}
+.annahme-block .annahme-kopf{font-weight:700;font-size:14.5px;margin-bottom:4px}
+.annahme-block .annahme-grund{font-size:13px;line-height:1.55;color:var(--mute);
+  margin:0 0 8px}
+
+/* ---------- Marken ---------- */
+.chip{display:inline-block;padding:2px 8px;border-radius:99px;font-size:11.5px;
+  background:var(--neutral);color:var(--mute);border:1px solid var(--linie)}
+.chip.annahme{background:var(--warn-bg);color:var(--warn);border-color:var(--warn-linie)}
+.chip.belegt{background:var(--ok-bg);color:var(--ok);border-color:var(--ok-linie)}
+.chip.ki{background:#EEF7F5;color:#2F8378;border-color:#D9EFEB}
+
+/* ---------- Plan ---------- */
+#planhuelle{position:relative;border:1px solid var(--linie);border-radius:var(--r-k);
+  overflow:hidden;background:#F4F4F5}
+#plancanvas{display:block;max-width:100%;cursor:crosshair;touch-action:none}
+.planleiste{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+.planstatus{font-size:13px;color:var(--mute);padding:6px 0}
+.planstatus b{color:var(--anthrazit)}
+
+/* ---------- Ablage ---------- */
+#ablage{border:2px dashed var(--linie-s);border-radius:var(--r);padding:36px 20px;
+  background:var(--neutral);cursor:pointer;transition:border-color .15s,background .15s;
+  display:grid;justify-items:center;gap:6px}
+#ablage:hover,#ablage.bereit{border-color:var(--gruen-d);background:var(--gruen-wash)}
+#ablage .ikon{width:30px;height:30px;color:var(--gruen-d);stroke-width:1.6}
+#ablage .zweit{font-size:13px;color:var(--mute)}
+
+/* ---------- Schmale Fenster ----------
+   Unter 1180 px stapelt sich alles. Vorher fuellte die Schrittleiste mit neun
+   Eintraegen den ganzen ersten Bildschirm, der Inhalt begann darunter und das
+   Ergebnis stand ganz am Ende. Jetzt steht das Ergebnis oben, die Schritte
+   liegen als schmale Leiste quer darueber. */
+@media(max-width:1180px){
+  #huelle{grid-template-columns:1fr}
+  /* Reihenfolge: wo bin ich, was ist zu tun, was kam heraus. Die Zahl steht
+     auf dem letzten Schritt ohnehin ganz oben im Inhalt. */
+  #schritte{position:sticky;top:var(--kopf-h);max-height:none;overflow:auto;order:1;
+    padding:10px 12px;background:var(--weiss);border-bottom:1px solid var(--linie);
+    z-index:20;white-space:nowrap}
+  #inhalt{order:2;padding:16px 16px 24px}
+  #panel{position:static;max-height:none;overflow:visible;order:3;padding:0 16px 24px}
+  .schrittstand,.schrittbalken{display:none}
+  #schritte a{display:inline-flex;border-left:0;border-bottom:3px solid transparent;
+    border-radius:var(--r-s);margin:0 2px 0 0;padding:7px 10px;font-size:13.5px}
+  #schritte a.aktiv{border-radius:var(--r-s);border-left:0;
+    border-bottom-color:var(--gruen);background:var(--neutral)}
+  #schritte a .txt{white-space:nowrap}
+  #schritte > a,#schritte .feingruppe{display:inline-flex;vertical-align:top}
+  .feingruppe{margin:0 0 0 8px;border-top:0;border-left:1px solid var(--linie);
+    padding:0 0 0 10px;flex-wrap:wrap;gap:2px}
+  #schritte a.fein{padding-left:10px}
+  .tabhuelle{max-height:none}
+  table.tab th{position:static}
+  table.tab tfoot td{position:static}
+  .ergebnisstand{border-left:0;border-top:1px solid rgba(255,255,255,.18);
+    padding:16px 0 0}
+  #kopf{flex-wrap:wrap;gap:10px}
+  #kopf .fuell{display:none}
+  .karte{padding:18px 16px}
+}
+@media(max-width:640px){
+  #kopf .titel small{display:none}
+  .fussleiste .btn{flex:1 1 100%;justify-content:center}
+  .fussleiste .fuell{display:none}
+  .ergebniszahl b{font-size:44px}
+}
+
+/* Wer weniger Bewegung eingestellt hat, bekommt keine. */
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
+}
+
+/* ---------- Bericht ---------- */
+/* Im Bericht rollt nichts in einem eigenen Fenster und nichts haftet: er
+   wird gelesen und gedruckt, nicht bedient. */
+#bericht .tabhuelle{max-height:none;overflow:visible}
+#bericht table.tab th,#bericht table.tab tfoot td{position:static}
+#bericht{display:none;background:#fff}
+@media print{
+  #kopf,#schritte,#panel,.keindruck,.fussleiste{display:none!important}
+  #huelle{display:block}
+  #inhalt{padding:0}
+  body{background:#fff}
+  /* Im Druck darf nichts in einem eigenen Rollbereich verschwinden. */
+  .tabhuelle{max-height:none!important;overflow:visible!important}
+  table.tab th,table.tab tfoot td{position:static!important}
+}
+</style>
+</head>
+<body>
+
+<!-- Sinnbilder. Linienstil nach dem Markenbuch (ein Strichgewicht, runde Enden,
+     24er Raster), gezeichnet statt aus Schriftzeichen zusammengesetzt: ein "x"
+     als Loeschknopf und ein "b" als Haken sind Buchstaben und werden von
+     Vorleseprogrammen als Buchstaben vorgelesen. -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+<defs>
+<symbol id="i-haken" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+<symbol id="i-haken-kreis" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8.5 12.2l2.4 2.4 4.6-4.9"/></symbol>
+<symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+<symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+<symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+<symbol id="i-pfeil-rechts" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+<symbol id="i-pfeil-links" viewBox="0 0 24 24"><path d="M19 12H5M11 18l-6-6 6-6"/></symbol>
+<symbol id="i-pfeil-unten" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol>
+<symbol id="i-warnung" viewBox="0 0 24 24"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></symbol>
+<symbol id="i-hinweis" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4M12 8h.01"/></symbol>
+<symbol id="i-blatt" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></symbol>
+<symbol id="i-ablage" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5M12 15V3"/></symbol>
+</defs>
+</svg>
+<script>
+/* Ein Sinnbild einsetzen. Der kurze Name entspricht dem Bezeichner oben. */
+window.ikon = function (name, klasse) {
+  return '<svg class="ikon' + (klasse ? " " + klasse : "") + '" aria-hidden="true"'
+    + ' focusable="false"><use href="#i-' + name + '"></use></svg>';
+};
+</script>
+
+
+<div id="kopf">
+  <img class="logo" id="kopflogo" hidden width="140" height="36"
+       alt="WERK.E Energie-Effizienz-Beratung">
+  <div class="titel">Heizlast
+    <small>raumweise nach DIN EN 12831-1 · <span id="verlabel"></span></small></div>
+  <div class="fuell"></div>
+  <div class="werkzeuge">
+    <!-- Was diese drei Ortsnamen bedeuten, war die einzige offene Frage auf
+         der Startseite: sie schalten den Briefkopf des Berichts um, nicht das
+         Klima und nicht das Objekt. Das muss dastehen, nicht nur im
+         aria-label. -->
+    <span class="standortmarke" title="Bestimmt Briefkopf, Fußzeile und Erstellerblock des Berichts. Auf Objekt, Klima und Rechnung hat die Wahl keinen Einfluss.">Briefkopf</span>
+    <div class="standortwahl" id="standortwahl" role="group"
+         aria-label="Briefkopf des Berichts: Standort wählen"></div>
+    <button class="btn klein" id="btnNeu">Neues Projekt</button>
+    <button class="btn klein" id="btnLaden">Laden</button>
+    <button class="btn klein" id="btnSpeichern">Speichern</button>
+    <button class="btn klein primaer" id="btnBericht"
+      title="Druckfassung für den Auftraggeber: ohne Bandbreite, Konfidenz, Quellen, BEG-Bewertung, offene Punkte und Prüfungen">Bericht</button>
+    <button class="btn klein" id="btnBerichtIntern"
+      title="Vollbericht für die interne Ablage: mit Herkunft jeder Zahl, Konfidenz, offenen Punkten und Prüfungen. Nicht für den Versand.">Interne Fassung</button>
+  </div>
+</div>
+
+<div id="huelle">
+  <nav id="schritte" aria-label="Ablauf"></nav>
+  <main id="inhalt"></main>
+  <aside id="panel"></aside>
+</div>
+
+<div id="bericht"></div>
+<input type="file" id="dateiLaden" accept=".json" style="display:none">
+
+<script>/* @@STANDORTE@@ */</script>
+<script>/* @@DATEN_ZONENLAGEN@@ */</script>
+<script>/* @@KERN@@ */</script>
+<script>/* @@DATEN_RAUMARTEN@@ */</script>
+<script>/* @@DATEN_KLIMA@@ */</script>
+<script>/* @@DATEN_BAUTEILE@@ */</script>
+<script>/* @@DATEN_TYPOLOGIE@@ */</script>
+<script>/* @@DATEN_BEG@@ */</script>
+<script>/* @@KERN_PRUEFUNG@@ */</script>
+<script>/* @@KERN_PLANPRUEFUNG@@ */</script>
+<script>/* @@KERN_MASSSTABSPROBE@@ */</script>
+<script>/* @@KERN_MASSSTAB@@ */</script>
+<script>/* @@KERN_MESSEN@@ */</script>
+<script>/* @@KERN_ZUSCHNITT@@ */</script>
+<script>/* @@KERN_ZUORDNUNG@@ */</script>
+<script>/* @@KERN_BANDBREITE@@ */</script>
+<script>/* @@KERN_FENSTER@@ */</script>
+<script>/* @@KERN_GEGENPROBE@@ */</script>
+<script>/* @@KERN_ANNAHMEN@@ */</script>
+<script>/* @@KERN_HUELLENDECKUNG@@ */</script>
+<script>/* @@KERN_BAUJAHRPROBE@@ */</script>
+<script>/* @@KERN_LAGE@@ */</script>
+<script>/* @@KERN_FLAECHE@@ */</script>
+<script>/* @@ASSETS@@ */</script>
+<!-- pdf.js von Mozilla, Apache-2.0. Zwei Blöcke, weil die Bibliothek beide Wege
+     können muss: über HTTPS entsteht aus der Arbeiterquelle ein echter Worker,
+     über file:// lehnt der Browser das ab und dieselbe Quelle wird als Modul im
+     Hauptthread geladen. Siehe SPEZIFIKATION_FORMATE.md Abschnitt 3.
+
+     BEIDE Blöcke sind text/plain und damit beim Laden der Seite inert:
+     pdf.js ist mit rund 1,8 MB Quelltext der größte Brocken der Datei und
+     wird erst gebraucht, wenn jemand eine Datei ablegt. Vorher als
+     type="module" eingebettet, wurde die Bibliothek bei JEDEM Öffnen
+     übersetzt und ausgeführt — auch wenn nie ein PDF kam. Geladen wird sie
+     jetzt beim ersten Bedarf über pdfjsHauptLaden(): dieselbe Quelle als
+     Blob-Modul, derselbe Weg, den der Arbeiter-Rückfall in modul_pdf.js
+     seit jeher geht (import auf eine Blob-Adresse, funktioniert über
+     https:// und file://). -->
+<script type="text/plain" id="pdfworkerquelle">/* @@PDFJS_WORKER@@ */</script>
+<script type="text/plain" id="pdfhauptquelle">/* @@PDFJS@@ */</script>
+<script>
+/* Lädt die pdf.js-Hauptbibliothek aus dem Block darüber, genau einmal.
+   Nach Erfolg steht globalThis.pdfjsLib — dieselbe Brücke, die build.py an
+   die Quelle anhängt. modul_pdf.js ruft diesen Weg in libFinden(). */
+window.pdfjsHauptLaden = function () {
+  if (globalThis.pdfjsLib && globalThis.pdfjsLib.getDocument) {
+    return Promise.resolve();
+  }
+  if (window.__pdfjsHauptLaeuft) return window.__pdfjsHauptLaeuft;
+  var el = document.getElementById("pdfhauptquelle");
+  if (!el || !el.textContent || el.textContent.length < 1000) {
+    return Promise.reject(new Error("Die PDF-Bibliothek fehlt in dieser Datei. "
+      + "Vermutlich ist die Auslieferungsdatei unvollständig kopiert worden."));
+  }
+  var adresse = URL.createObjectURL(
+    new Blob([el.textContent], { type: "text/javascript" }));
+  window.__pdfjsHauptLaeuft = import(adresse).then(function () {
+    URL.revokeObjectURL(adresse);
+  }, function (fehl) {
+    URL.revokeObjectURL(adresse);
+    window.__pdfjsHauptLaeuft = null;
+    throw fehl;
+  });
+  return window.__pdfjsHauptLaeuft;
+};
+</script>
+
+<script>/* @@MODUL_DIALOG@@ */</script>
+<script>/* @@MODUL_PDF@@ */</script>
+<script>/* @@MODUL_PLAN@@ */</script>
+<script>/* @@MODUL_KI@@ */</script>
+<script>/* @@MODUL_KONTROLLBLATT@@ */</script>
+<script>/* @@MODUL_PRUEFBLATT@@ */</script>
+<script>/* @@MODUL_BERICHTSATZ@@ */</script>
+<script>/* @@MODUL_TEILLAST@@ */</script>
+<script>/* @@MODUL_BERICHT@@ */</script>
+<script>/* @@MODUL_BEWERTUNG@@ */</script>
+<script>/* @@APP@@ */</script>
+</body>
+</html>

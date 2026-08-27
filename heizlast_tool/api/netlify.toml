@@ -1,0 +1,9 @@
+[build]
+  functions = "netlify/functions"
+  publish = "."
+
+[functions]
+  node_bundler = "esbuild"
+
+# Der Endpunkt ist danach erreichbar unter
+#   https://<name>.netlify.app/.netlify/functions/plan-auslesen

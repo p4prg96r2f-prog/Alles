@@ -1,0 +1,43 @@
+{
+  "satz": "Am Gunnebach 9, 33106 Paderborn — Umbau/Sanierung EFH + Garage (Gubitz, Gößling, 27.03.2025)",
+  "blaetter": ["12_BA 02_KG.pdf", "13_BA 03_EG.pdf", "14_BA 04_OG.pdf", "15_BA 05_DG.pdf", "16_BA 06_S AA.pdf"],
+  "warum_dieser_satz": "In keinem bisherigen Protokoll verwendet; Christuskirche schied aus (christus_kg-Artefakte frueherer Laeufe im Scratchpad).",
+  "analyse": { "dauer": "ca. 2 min 40 s", "kosten_usd": 0.70, "lesungen": 21, "baujahr_hand": 1975 },
+  "rohauslese": {
+    "raeume": 39, "flaeche_m2": 479.3, "heizlast_kW": 28.19,
+    "befunde": [
+      "7 Pseudo-Raeume aus Wohnflaechen-Anmerkungen '(WF ...)' — Flaechen doppelt",
+      "Raum 'optional Sauna' (0 m2) aus Planungsnotiz, Raumart Bad 24 Grad",
+      "Fragment 'TH' 2,55 m2 als Wohnraum",
+      "Garage 38,23 m2 als Wohnraum 20 Grad UND als unbeheizte Zone",
+      "KG-Raeume Oeltank/Schleuse/Kriechkeller dem EG zugeordnet, alle als Wohnraum 20 Grad",
+      "OG-Buero dem EG zugeordnet"
+    ]
+  },
+  "nach_bereinigung": {
+    "raeume": 28, "flaeche_m2": 322.4, "heizlast_kW": 20.59, "w_je_m2": 63.9,
+    "ampel": "Belastbar, 0 Fehler, 2 Hinweise, 17 zur Kenntnis genommen, 13 ohne Befund",
+    "summen_nachgezaehlt": "Raumliste Sigma 20.588 W / 322,8 m2 gegen Kopf 20.592 W / 322,4 m2 (Rundung) — stimmig"
+  },
+  "berichte": {
+    "druck": { "zeichen": 22814, "warnung": 0, "undefined_nan": 0, "vermerke_sichtbar": false },
+    "intern": { "zeichen": 78704, "warnung_als_status": 0, "einziger_treffer": "Wort 'Entwarnung'", "undefined_nan": 0, "gesamtzeile": "Belastbar - 0 Fehler, 2 Hinweise, 17 zur Kenntnis genommen, 13 ohne Befund", "vermerke_sichtbar": true }
+  },
+  "behoben_in_diesem_lauf": [
+    "modul_dialog.js: Sperre 'eine Rueckfrage zur Zeit' hing am Merker statt am Schirm im Dokument — nach einem Leck verpufften alle weiteren Dialoge still (tote Knoepfe 'Entscheiden und mit Vermerk bestaetigen', 'Angebaut an: Raum waehlen'). Jetzt heilt sich die Sperre, wenn kein #dlgschirm steht; 2 neue Selbsttest-Pruefungen.",
+    "modul_kontrollblatt.js: kbZoneAngebaut/kbZoneFrei brachen still ab, wenn die Zonen-Kennung der Zeile nicht mehr im Projekt stand — jetzt Meldung statt Schweigen (2 Stellen)."
+  ],
+  "offen": [
+    "Auslese erzeugt Raeume aus '(WF ...)'-Wohnflaechenanmerkungen und Notizen ('optional Sauna', 'TH') — Rueckfragen fangen es, aber ohne Ein-Klick-'Raum entfernen'",
+    "Geschosszuordnung: Raeume eines Blatts landen auf zwei Geschossen ('auf 2 Geschossen'), KG-Raeume als EG",
+    "Raumart-Vorbelegung: Keller/Oeltank/Schleuse/Garage als 'Wohn- und Schlafraum 20 Grad'",
+    "'Zone anlegen' aus der Rueckfrage laesst den gleichnamigen beheizten Raum stehen (Widerspruch wandert)",
+    "'Oeffnen und klaeren' springt zur Bauteilbibliothek statt zum betroffenen Raum",
+    "Rueckfrage 'Bauteile' nennt alten Raumnamen ('Raum 31') nach Umbenennung",
+    "Blattkopf-Lesung meldet 'EG' aus der OKFF-Zeile (falscher Geschoss-Widerspruch auf OG/DG-Blaettern)",
+    "Zwei gleichnamige Raeume (Abstell 5,37/8,51) werden als Flaechenabweichung gepaart",
+    "Schnittblatt 16_BA als 'EG' mit Raumforderung aus Schnittbeschriftungen",
+    "Zaehler 'Wir brauchen noch N Angaben' hinkt der Fragenzahl zeitweise hinterher",
+    "Raumbuch: viele Loeschungen nacheinander frieren die Seite spuerbar ein (Vollneuberechnung je Loeschung)"
+  ]
+}

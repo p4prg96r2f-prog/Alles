@@ -1,0 +1,45 @@
+{
+  "datum": "2026-08-26",
+  "thema": "Grundflaeche aus den Aussenmassen - Kette Flaeche -> Bauteil -> Umfang -> Heizlast",
+  "datei": "/Users/sebastianhund/Downloads/Bauantrag Soethe 1312.2021.pdf",
+  "werkzeug": "frisch gebaute Einzeldatei ueber http://127.0.0.1:8843, Browser Chrome",
+  "auslese": "unveraendert uebernommen aus dem Kundenlauf vom 26.08.2026, 10:20 UTC (echter Endpunktlauf); geaendert wurde allein der Rechenweg dahinter",
+  "vorher": {
+    "raeume_ohne_flaeche": 14,
+    "bauteile": 0,
+    "gebaeudeheizlast_kw": 0.0,
+    "umfangsabgleich": [
+      { "geschoss": "EG", "art": "keine", "U_soll": 0 },
+      { "geschoss": "OG", "art": "keine", "U_soll": 0 }
+    ]
+  },
+  "zwischenstand_vor_uebernahme": {
+    "bemerkung": "ohne jede Eingabe, allein durch die beiden Reihenfolgekorrekturen in kern_zuordnung",
+    "bauteile": 6,
+    "gebaeudeheizlast_kw": 0.787,
+    "umfangsabgleich_EG": "ohne_empfaenger, U_soll 38,60 m, Befund: 100 Prozent der Fassade ohne Raum"
+  },
+  "nach_uebernahme_des_vorschlags": {
+    "raeume_ohne_flaeche": 0,
+    "raumflaeche_summe_m2": 147.72,
+    "bauteile": 36,
+    "aussenwandflaeche_m2": 163.47,
+    "gebaeudeheizlast_kw": 6.35,
+    "umfangsabgleich": [
+      { "geschoss": "EG", "art": "kontur", "U_soll": 38.6, "U_roh": 31.09, "empfaenger": 6 },
+      { "geschoss": "OG", "art": "kontur", "U_soll": 37.8, "U_roh": 23.22, "empfaenger": 2 }
+    ],
+    "bandbreite": "14 Groessen der Art raumflaeche_verteilt, Beleg \"Annahme\"; die vier wirksamsten Flaechen liegen bei 102 bis 119 W Wirkung, direkt hinter dem pauschalen Waermebrueckenzuschlag (463 W)"
+  },
+  "innenflaeche_je_geschoss": {
+    "EG": { "kontur_m2": 88.5, "umfang_m": 38.6, "innen_m2": 74.83, "spanne_m2": [70.2, 79.47] },
+    "OG": { "kontur_m2": 86.24, "umfang_m": 37.8, "innen_m2": 72.87, "spanne_m2": [68.34, 77.4] },
+    "weg": "A - U*d + 4*d^2 mit der Wanddickenspanne 0,24 bis 0,50 m aus MODUL_KONTROLLBLATT.wanddicke (DIN 4172); Innenwaende sind noch enthalten"
+  },
+  "verteilte_flaechen_m2": {
+    "EG": { "Kochen": 15.64, "Wohnen/Essen": 15.29, "Windfang/Garderobe": 12.28, "Treppe (unbenannt)": 12.28, "Diele": 9.15, "Vorrat": 3.94, "Technik/HWR": 3.36, "WC": 2.9 },
+    "OG": { "Kind 1": 18.8, "Ankleide/Schlafen": 17.63, "Kind 2": 12.48, "Flur": 9.76, "Gast/Bueero": 8.65, "Bad": 5.56 }
+  },
+  "verteilregel": "Median der Raumgroesse je Raumart, gemessen an 51 Raeumen aus 8 Geschossen dreier Gebaeude (Hasenberg 10, BV 2-0887 Ziolkowski, Maelzerstrasse 59); dazu die im Blatt bemasste Fassadenlaenge als Faktor innerhalb derselben Raumart. Median des relativen Fehlers am Pruefsatz: gleichmaessig 25,7 %, nach Raumart 14,0 %.",
+  "offen": "Die Zeile treppenhaus der Groessentabelle steht auf einem einzigen Gebaeude (Mehrfamilienhaus-Treppenhaus) und faellt fuer einen Windfang zu gross aus - deshalb als unbelegt gefuehrt und mit der Spanne des ganzen Pruefsatzes versehen. Fensterzahl und Aussenwandzahl brachten am Pruefsatz keinen Gewinn; die Fensterdaten des Pruefsatzes sind dafuer zu unzuverlaessig gelesen - erneut messen, sobald der Satz waechst."
+}

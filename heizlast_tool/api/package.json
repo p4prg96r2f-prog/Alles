@@ -1,0 +1,10 @@
+{
+  "name": "werke-heizlast-endpunkt",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Ausleseendpunkt fuer das WERK.E Heizlast-Tool. Haelt den Anthropic-Schluessel serverseitig.",
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.70.0"
+  }
+}

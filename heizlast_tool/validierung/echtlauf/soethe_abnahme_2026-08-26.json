@@ -1,0 +1,54 @@
+{
+  "datum": "2026-08-26",
+  "thema": "Abnahme Soethe am zusammengefuehrten Bau: Flaeche -> Bauteil -> Umfang -> Heizlast, Vorschlagspflicht",
+  "datei": "/Users/sebastianhund/Downloads/Bauantrag Soethe 1312.2021.pdf",
+  "werkzeug": "frisch gebaute Einzeldatei WERKE_Heizlast_Tool.html ueber http://127.0.0.1:8843, Chrome",
+  "auslese": "KEIN neuer Modellaufruf. Verwendet wurde der echte Endpunktlauf des Kunden vom 26.08.2026, 10:33:56 UTC, unveraendert aus dem localStorage der Live-Seite gesichert (validierung/echtlauf/soethe_lauf_2026-08-26.json). Ein frischer Endpunktaufruf aus dem lokalen Bau war nicht moeglich: der Zugangscode liegt allein im localStorage der Live-Seite, und jeder Weg, ihn dorthin zu bringen, wurde von der Freigabestufe abgelehnt.",
+  "pdf_ablage_frisch": {
+    "seiten": 6,
+    "typen": ["vektorplan", "vektorplan", "vektorplan", "vektorplan", "mischblatt", "mischblatt"],
+    "dauer_s": 1,
+    "bezeichnung_aus_schriftfeld": "Neubau eines Einfamilienhauses"
+  },
+  "vorher": {
+    "raeume": 14, "raeume_mit_flaeche": 0, "flaeche_m2": 0,
+    "bauteile": 6, "bauteiltypen": 6,
+    "heizlast_kW": 0.79, "transmission_W": 787, "lueftung_W": 0, "spezifisch_W_m2": 0,
+    "ampel": "Nicht belastbar", "fehler": 6, "hinweise": 12,
+    "fragen": 26, "mit_wert": 4, "entscheidung": 21, "begruendete_ausnahme": 1, "ohne_vorschlag": 0,
+    "umfangsabgleich": [
+      {"geschoss": "EG", "art": "ohne_empfaenger", "U_soll_m": 38.6, "U_roh_m": 0, "empfaenger": 0},
+      {"geschoss": "OG", "art": "ohne_empfaenger", "U_soll_m": 37.8, "U_roh_m": 12.62, "empfaenger": 0}
+    ]
+  },
+  "nach_einem_klick_auf_den_flaechenvorschlag": {
+    "raeume_mit_flaeche": 14, "flaeche_m2": 147.72,
+    "bauteile": 36, "heizlast_kW": 6.35, "spezifisch_W_m2": 43.0,
+    "fragen": 18, "mit_wert": 1, "entscheidung": 17, "ohne_vorschlag": 0,
+    "umfangsabgleich": [
+      {"geschoss": "EG", "art": "kontur", "U_soll_m": 38.6, "U_roh_m": 31.09, "empfaenger": 6},
+      {"geschoss": "OG", "art": "kontur", "U_soll_m": 37.8, "U_roh_m": 23.22, "empfaenger": 2}
+    ]
+  },
+  "nach_allen_vorschlaegen": {
+    "klicks": 18, "fragen": 0, "heizlast_kW": 6.35, "flaeche_m2": 147.72,
+    "volumen_m3": 384.1, "spezifisch_W_m2": 43.0,
+    "ampel": "Belastbar", "fehler": 0, "hinweise": 2,
+    "huelle_m2": {"aussenwand": 163.47, "fenster": 33.02, "tuer": 2.16, "kellerdecke": 74.84, "dach": 72.88},
+    "u_werte": {"aussenwand": 0.27, "dach": 0.24, "kellerdecke": 0.27, "bodenplatte": 0.27, "fenster": 1.3, "tuer": 1.8},
+    "transmission_W": 4406, "lueftung_W": 1944
+  },
+  "ablehnen": {
+    "raumflaeche": {"feld_erscheint": false, "weg_stattdessen": "Im Raumbuch eintragen (Link)", "vermerk": true, "vorschlag_kehrt_wieder": false, "ruecknahme": "Doch noch einmal ansehen"},
+    "raumhoehe": {"felder_vorher": 0, "felder_nachher": 2, "platzhalter": "2,60 (Vorschlag)", "vorbelegt": false, "vorschlag_kehrt_wieder": false}
+  },
+  "regression": {
+    "ziolkowski_lauf4_fenster": {"raeume": 13, "mit_flaeche": 13, "bauteile": 32, "kW": 6.95, "A_m2": 188.0, "W_m2": 36.9, "fragen": 4},
+    "hasenberg_2026-08-25": {"raeume": 22, "mit_flaeche": 20, "bauteile": 38, "kW": 13.62, "A_m2": 280.8, "W_m2": 48.5, "fragen": 8}
+  },
+  "offen": [
+    "Die Frage 'Raumflaeche fehlt' traegt weiterhin Sebastians Wortlaut 'Fuer 14 Raeume steht keine Grundflaeche in den Unterlagen' -- jetzt aber mit Wertvorschlag daneben; nach dem Uebernehmen verschwindet sie.",
+    "Nach dem Ablehnen des Flaechenvorschlags steht kein Eingabefeld da, obwohl der Vermerk 'der Wert kommt aus dem Feld darunter' sagt. Der Weg ist der Link 'Im Raumbuch eintragen'. Entweder den Satz aendern oder ein Feld je Raum anbieten.",
+    "Kein frischer Endpunktaufruf moeglich (Zugangscode nur auf der Live-Seite). Fuer eine echte Neu-Auslese am frischen Bau muss Sebastian den Code einmal im lokalen Werkzeug eintragen."
+  ]
+}

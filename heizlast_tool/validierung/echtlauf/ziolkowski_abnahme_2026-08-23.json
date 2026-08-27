@@ -1,0 +1,25 @@
+{
+  "datum": "2026-08-23",
+  "datei": "/Users/sebastianhund/Downloads/Werkvertragsverzeichnung BV 2-0887 Ziolkowski.pdf",
+  "werkzeug": "frisch gebaute Einzeldatei ueber http://127.0.0.1:8791, Endpunkt LIVE Netlify (4x POST 200)",
+  "eingetippt": "nichts",
+  "lauf1": { "kW": 6.94, "W": 6941, "W_je_m2": 36.9, "bezugsflaeche_m2": 188.04,
+    "bandbreite_kW": [6.2, 8.0], "huelle_m2": 425.72,
+    "bauteile": { "aussenwand_inkl_kellerwand": 253.90, "fenster": 21.46, "tuer": 2.16, "decke": 74.13, "boden": 74.07 },
+    "eg": { "aussenwand_netto": 90.32, "fenster": 11.69, "tuer": 2.16 },
+    "kopf": { "fehler": 0, "warnungen": 5, "hinweise": 4, "offen": 3, "gegenproben": "10 von 12" } },
+  "lauf2": { "kW": 6.93, "W_je_m2": 36.9, "huelle_m2": 426.35,
+    "bauteile": { "aussenwand_inkl_kellerwand": 254.28, "fenster": 21.07, "tuer": 2.16, "decke": 74.13, "boden": 74.71 },
+    "eg": { "aussenwand_netto": 90.70, "fenster": 11.30, "tuer": 2.16 },
+    "kopf": { "fehler": 0, "warnungen": 5, "hinweise": 4, "offen": 3, "gegenproben": "9 von 11" } },
+  "handrechnung_eg": {
+    "quelle": "Plan Seite 1, kalibriert an 8,00 m Breite (993 px) und 12,50 m Tiefe (1545 px) bei 400 dpi",
+    "umfang_m": 41.00, "lichte_hoehe_m": 2.52, "bruttowand_m2": 103.32,
+    "oeffnungsbreiten_m": { "gast_nord": 1.88, "wc_nord": 0.67, "haustuer_nord": 1.67, "hebe_schiebe_west": 2.91, "essen_sued": 1.89, "wohnen_sued": 1.90 },
+    "oeffnungshoehe_eg_m": 2.20,
+    "oeffnungen_m2": { "vorsichtig": 21.18, "alle_bodentief": 24.02 },
+    "nettowand_m2": { "vorsichtig": 82.14, "alle_bodentief": 79.30 }
+  },
+  "handzaehlung_oeffnungen": { "KG": 0, "EG": 6, "OG": 4, "summe": 10, "davon_tueren": 2 },
+  "og_fensterbreiten_m": [1.89, 1.89, 1.99, 1.91], "og_fensterhoehe_m": 1.26
+}

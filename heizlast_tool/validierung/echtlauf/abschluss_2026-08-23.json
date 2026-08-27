@@ -1,0 +1,62 @@
+{
+  "datum": "2026-08-23",
+  "werkzeug": "frisch gebaute Einzeldatei ueber http://127.0.0.1:8791, Browser Chrome",
+  "eingetippt": "nichts",
+  "blocker": {
+    "was": "Der Ausleseendpunkt lebt, das Anthropic-Konto hat kein Guthaben.",
+    "beleg_browser": "Fehler beim Modellaufruf (400): Your credit balance is too low to access the Anthropic API.",
+    "beleg_curl": "POST auf .netlify/functions/plan-auslesen mit gueltigem Zugangscode -> 200 mit {\"fehler\":\"Fehler beim Modellaufruf (400): Your credit balance is too low ...\"}",
+    "folge": "Ein FRISCHER Auslesedurchlauf war nicht moeglich. Gerechnet wurde auf der aufgezeichneten echten Auslese vom selben Tag (validierung/echtlauf/ziolkowski_lauf4_fenster.json, 13 Raeume, alle herkunft.quelle = Planauslese), geladen ueber den Laden-Knopf des Werkzeugs."
+  },
+  "deploy": {
+    "stand": "Die oeffentliche Seite ist ein aelterer Build. Geprueft am 23.08.2026: seitenAusRaum, kern_lage, h_geschosshoehe, aussenwand_quelle, raumhoehe_geklammert kommen im ausgelieferten index.html NICHT vor.",
+    "folge": "umfang_m, aussenwand_m und ecken fragt der LIVE-Endpunkt nicht ab. Kein Raum hat sie je geliefert."
+  },
+  "ziolkowski": {
+    "datei": "/Users/sebastianhund/Downloads/Werkvertragsverzeichnung BV 2-0887 Ziolkowski.pdf",
+    "blattart": "2 Seiten, beide reiner Scan: hatTextlayer=false, pfadzahl=0, raumstempel=0, masszahlen=0",
+    "kW": 6.95, "W_je_m2": 36.9, "bezugsflaeche_m2": 188.04,
+    "bandbreite_kW": [5.9, 8.4],
+    "bandbreite_grund": "43 nicht belegte Groessen, 87 Rechenlaeufe; die Raumhoehe ist jetzt immer dabei",
+    "huelle_m2": 426.15,
+    "huelle_je_art_m2": {"aussenwand": 254.32, "decke": 74.13, "boden": 74.07, "fenster": 21.47, "tuer": 2.16},
+    "kopf": {"fehler": 0, "warnungen": 5, "hinweise": 2, "urteil": "Mit Einschraenkung belastbar",
+             "massstab": "kein Massstab beteiligt", "gegenproben": "10 von 12 bestanden", "grenzen": 13},
+    "seitenherleitung": "13 von 13 Raeumen fallen auf das Quadrat durch; kein umfang_m, kein aussenwand_m, keine ecken",
+    "pruefbildschirm": "13 Raeume erkannt, 13 ohne Ort im Plan. Das Werkzeug sagt es selbst: Scan ohne Textstand, das Modell gibt keine Koordinaten zurueck."
+  },
+  "handrechnung_eg": {
+    "quelle": "Plan Seite 1, kalibriert an 8,00 m Breite und 12,50 m Tiefe bei 400 dpi",
+    "umfang_m": 41.0, "lichte_hoehe_m": 2.52, "bruttowand_m2": 103.32,
+    "werkzeug": {"bruttowand_m2": 104.37, "abweichung_prozent": 1.0,
+                 "abgewickelte_laenge_m": 41.42, "abweichung_laenge_prozent": 1.0,
+                 "lichte_hoehe_m": 2.52, "abweichung_hoehe": 0.0}
+  },
+  "gegenproben_je_einzeln": [
+    {"probe": "alle Hoehen 0,50 m kleiner", "kW_vorher": 6.95, "kW_nachher": 5.91,
+     "vor_der_ergaenzung": "0 Fehler, 5 Warnungen, 10 von 12 — schlug NICHT an",
+     "nach_der_ergaenzung": "0 Fehler, 6 Warnungen, 10 von 13, Zeile 'Raumhoehen unter dem Mindestmass', kleinste 2,02 m",
+     "schlaegt_an": true},
+    {"probe": "Wandflaechen halbiert", "kW_nachher": 5.74,
+     "befund": "5 -> 8 Warnungen, Gegenproben 10 von 12 -> 8 von 12", "schlaegt_an": true},
+    {"probe": "Raum weg (EG WOHNEN)", "kW_nachher": 6.31,
+     "befund": "1 Fehler, Urteil 'Nicht belastbar', Gegenproben 9 von 12", "schlaegt_an": true},
+    {"probe": "Fenster weg, nur das Bauteil (3 im EG)", "kW_nachher": 6.44,
+     "befund": "2 Fehler, Gegenproben 10 von 14; Zeile 'Fenster auf dem Weg ins Raumbuch 6 von 8'", "schlaegt_an": true},
+    {"probe": "Fenster weg, Bauteil UND gelesene Zahl", "kW_nachher": 6.88,
+     "befund": "unveraendert 0 Fehler, 5 Warnungen, 10 von 12", "schlaegt_an": false,
+     "grund": "Der Gegenzaehler ist dieselbe Auslese. Uebersieht das Modell ein Fenster, faellt es nirgends auf."},
+    {"probe": "Geschoss weg (OG, 5 Raeume)", "kW_nachher": 3.71,
+     "befund": "1 Fehler, 6 Warnungen, Gegenproben 7 von 10", "schlaegt_an": true}
+  ],
+  "zweiter_plan": {
+    "datei": "/Users/sebastianhund/Downloads/260514 - Dumach 1 - Grundrisse M 1.100.pdf",
+    "erkannt": "Vektorplan A1 hoch, 16.922 Pfade, Textstand vorhanden, Massstab 1:100 belegt und belastbar, 25 Raumstempel, 206 Masszahlen, 3 Geschosstitel",
+    "eingriffe_bis_zur_raumliste": 0,
+    "endpunkt_noetig": false,
+    "ergebnis": "25 Raeume, 5,07 kW, 13,7 W/m2 — reine Lueftung, 0 Bauteile",
+    "kopf": {"fehler": 3, "warnungen": 3, "hinweise": 18, "urteil": "Nicht belastbar", "gegenproben": "1 von 3 bestanden", "offene_zeilen": 22},
+    "pruefbildschirm": "25 Raeume erkannt, alle im Plan gefunden; Marke = Ort des Flaechenstempels im Textstand",
+    "eingriffe_bis_zur_heizlast": "die Huelle fehlt vollstaendig: entweder Auslese (Guthaben noetig) oder 25 Raeume von Hand mit Bauteilen versehen. Das Werkzeug liefert dafuer keine Zahl, sondern drei Fehler."
+  }
+}

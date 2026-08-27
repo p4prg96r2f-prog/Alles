@@ -1,0 +1,29 @@
+{
+ "phi_gebaeude": 9043.94022914344,
+ "phi_raeume_summe": 9092.45533284627,
+ "phi_T_gebaeude": 6446.234935393438,
+ "phi_V_gebaeude": 2597.7052937500007,
+ "H_T": 217.77820727680532,
+ "theta_keller": 3.543742759706874,
+ "theta_dachraum": -8.215525340337246,
+ "raeume": {
+  "EG_Wohnzimmer": 750.4899176945604,
+  "EG_Schlafzimmer": 667.3959458099691,
+  "EG_Kueche": 583.7057809852006,
+  "EG_Diele": 110.86959294017728,
+  "EG_Bad": 389.8758794567144,
+  "EG_Treppenhaus": 454.91947754607764,
+  "OG_Wohnzimmer": 653.45066,
+  "OG_Schlafzimmer": 556.17304,
+  "OG_Kueche": 484.8695000000001,
+  "OG_Diele": 84.29932,
+  "OG_Bad": 370.1751479999999,
+  "OG_Treppenhaus": 263.22049499999997,
+  "DG_Wohnzimmer": 966.0473811676445,
+  "DG_Schlafzimmer": 878.9096492763695,
+  "DG_Kueche": 756.6726061179277,
+  "DG_Diele": 110.48863697451894,
+  "DG_Bad": 508.9991576701059,
+  "DG_Treppenhaus": 501.89314420700344
+ }
+}

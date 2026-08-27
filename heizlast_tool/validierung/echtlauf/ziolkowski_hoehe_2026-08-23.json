@@ -1,0 +1,59 @@
+{
+  "datum": "2026-08-23",
+  "datei": "/Users/sebastianhund/Downloads/Werkvertragsverzeichnung BV 2-0887 Ziolkowski.pdf",
+  "werkzeug": "frisch gebaute Einzeldatei ueber http://127.0.0.1:8791, Endpunkt LIVE Netlify",
+  "eingetippt": "nichts (Sabotagefall: nur die drei Geschosshoehen von Hand)",
+  "thema": "Die Hoehe: Probe laeuft immer, Hoehe in der Bandbreite, Widerspruch sperrt",
+
+  "vorher_zum_vergleich": {
+    "quelle": "Abnahmelauf 23.08.2026 vormittags, gleiche Datei, gleicher Endpunkt",
+    "bandbreite_groessen": 30,
+    "bandbreite_text": "6,9 kW, geschätzte Spanne 6,2 bis 8,0 kW",
+    "hoehe_in_der_bandbreite": false,
+    "hoehenprobe_im_browser": "lief nie (Wurf beim Kopieren des Projekts, still verschluckt)",
+    "minus_050_m": "5.912 W, Kopf zeichengleich zum sauberen Lauf, 0 Sperren"
+  },
+
+  "lauf_sauber": {
+    "W": 6335,
+    "bandbreite_text": "6,3 kW, geschätzte Spanne 5,4 bis 7,6 kW",
+    "bandbreite_groessen": 40,
+    "davon_raumhoehe_geklammert": 13,
+    "hoehenanteil_an_der_unsicherheit_prozent": 34.7,
+    "hoehenprobe_plusminus_020_m_W": [5957, 6713],
+    "hoehenprobe_prozent": [-6.0, 6.0],
+    "hoehengegenprobe": { "moeglich": true, "geprueft": 4, "befunde": 0 },
+    "sperren": 0,
+    "hoehen_m": { "KG": 2.32, "EG": 2.52, "OG": 2.52 },
+    "geschosshoehen_aus_koten_m": { "KG": 2.73, "EG": 2.91, "OG": 2.74 }
+  },
+
+  "lauf_minus_050_m": {
+    "eingriff": "geschosshoehen KG 1,82 · EG 2,02 · OG 2,02 von Hand",
+    "W": 5391,
+    "abweichung_prozent": -14.9,
+    "bandbreite_text": "5,4 kW, geschätzte Spanne 4,8 bis 7,3 kW",
+    "wahrheit_liegt_in_der_spanne": true,
+    "befunde": ["hoehe_paket_KG", "hoehe_paket_EG", "hoehe_paket_OG", "hoehe_bauwerk"],
+    "sperren": 4,
+    "sperrtitel": ["Raumhöhe · KG", "Raumhöhe · EG", "Raumhöhe · OG", "Raumhöhe"],
+    "meldung_EG": "Für EG ergibt sich aus der gerechneten lichten Höhe 2,02 m und der Geschosshöhe 2,91 m (aus den Höhenkoten des Schnitts) ein Deckenpaket von 0,89 m. Übliche Decken samt Fußbodenaufbau liegen zwischen 0,10 und 0,60 m.",
+    "meldung_bauwerk": "Der Schnitt spannt von der untersten Fußbodenebene (-2,73 m) bis über das oberste beheizte Geschoss (5,65 m), also über 8,38 m. Gerechnet wird mit lichten Höhen von zusammen 5,86 m. Dazwischen liegen 3 Geschossdecken; selbst mit 0,60 m je Decke käme das Gebäude nur auf 7,66 m."
+  },
+
+  "hinweis_streuung": "Die Modellantworten schwanken von Lauf zu Lauf. Der Punktwert dieses Laufs (6.335 W) liegt unter dem des Vormittags (6.941 W), weil die Auslese hier 7 statt 10 angenommene Fensterflaechen lieferte. Verglichen werden duerfen nur Zahlen DESSELBEN Laufs.",
+
+  "nachgestellt_am_aufgezeichneten_projekt": {
+    "quelle": "validierung/echtlauf/ziolkowski_lauf4_fenster.json, Kern in Node",
+    "zweck": "Empfindlichkeit der ungeprueften Groessen, nicht Beweis fuer das Gebaeude",
+    "basis_W": 6941,
+    "theta_i_alle_plus_1K": "+2,7 %",
+    "theta_e_plus_1K": "-2,9 %",
+    "raumflaeche_alle_plus_10_prozent": "+3,5 %",
+    "n_min_alle_plus_20_prozent": "+7,1 %",
+    "f_RH_10_W_je_m2": "+27,1 %",
+    "g_w_Grundwasser_1_15": "+1,3 %",
+    "KG_Raeume_unbeheizt_theta_i_10": "-8,4 %",
+    "n_exponiert_alle_plus_1": "0,0 % (hygienischer Mindestluftwechsel ist massgebend)"
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "anlass": "Kundenauftrag 25.08.2026: Befunde der drei Pruefungen (Hasenberg, Ziolkowski, Gunnebach) ausbuegeln",
+  "behoben": [
+    "B1 Raumhoehe: Ein-Klick uebernimmt UND quittiert annahme_hoehe (app.js hoeheBestaetigen); Browser: keine Folgefrage mehr",
+    "B2 Auftraggeber abgeschnitten ('Christina Herzog u.'): offene Frage bauherr_abgeschnitten (kern_pruefung) + Rueckfrage mit Eingabefeld; Ampel gelb bis vollstaendig",
+    "B3 Konfidenztabelle: Raummasse/Bauteilflaechen aus herkunft.flaeche_quelle der Raeume statt nie gesetztem meta.quellen (modul_bericht); Hasenberg jetzt A/B statt widerspruechlichem C",
+    "B4 Wiederherstellung ohne Abbildungen: Kapitel Planunterlagen bleibt mit Blattliste und ausdruecklichem Satz (planKapitel + kapitelPlan)",
+    "B5 'Worauf diese Zahlen stehen' ohne Frage: ortsterminSatz traegt die Frage jetzt selbst",
+    "B6a 'einzutragen.. Aus': Punkt der Begruendung wird vor Satzverkettung abgestreift (2 Stellen app.js)",
+    "B6b/Z3 '1 von 9 Absaetzen sind' -> ist/sind nach Zahl (modul_bewertung)",
+    "Z1 Dezimalpunkte in Selbstpruefungs-Texten: Komma-Normalisierung am Sammelpunkt kern_pruefung.pruefeAlles (Tausenderpunkt und Datum bleiben; Selbsttests)",
+    "Z2 ISO-Datum auf Deckblatt/Fusszeile: datumDeutsch() in modul_bericht (Selbsttests)",
+    "G1 Quelle: (WF ...)-Anmerkungen und 'optional ...'-Notizen sind keine Raumnamen (MODUL_KI.VERMASSUNG); dazu Ein-Klick 'ist kein Raum - entfernen' mit Vermerk an der Sperre 'Raumflaeche fehlt'",
+    "G3 Raumart-Vorbelegung: Oeltank/Tankraum/Brennstofflager -> nebenraum, Schleuse/TH -> treppenhaus (ARTMUSTER + Selbsttests)",
+    "G3/G4-Kernfall: Garage/Nebenbau wird auch im Auslese-Weg nicht mehr beheizter Raum (app.js, wie Stempelweg); Zone entsteht, Widerspruch entfaellt",
+    "G7 Blattkopf: 'OKFF EG'-Hoehenbezug stellt kein Blattgeschoss mehr (modul_pdf.blattkopfLesen + Selbsttests)",
+    "G8 Stempel-Paarung gleichnamiger Raeume ueber kleinste Flaechendifferenz statt Reihenfolge (app.js)",
+    "G9 Schnittblatt ('S AA', 'Schnitt', 'Ansicht') bekommt keine Grundriss-Raumforderung mehr (blattWirktGrundriss)"
+  ],
+  "nachlauf_gunnebach": {
+    "stand": "2026-08-25, frischer Bau, Origin 127.0.0.1:8452, echter Live-Endpunkt",
+    "analyse": { "lesungen": 24, "kosten_usd": 0.94 },
+    "rohauslese": { "raeume": 32, "flaeche_m2": 338.5,
+      "vorher": { "raeume": 39, "flaeche_m2": 479.3 },
+      "befunde_weg": ["keine (WF ...)-Pseudoraeume", "keine optional-Sauna", "Garage nicht als Wohnraum (Zone angelegt)", "Oeltank/Schleuse/TH mit richtiger Raumart", "Blattgeschosse KG/EG/OG/DG korrekt aus Blattkopf", "Schnittblatt als schnitt ohne Raumforderung"] },
+    "offen_geblieben": [
+      "G2-Rest: KI ordnet einzelne Raeume dem falschen Geschoss zu (Oeltank/Schleuse/Kriechkeller/Buero als EG) - Rueckfragen fangen es",
+      "G5/G6: Sprungziel 'Oeffnen und klaeren' und alter Raumname in einer Rueckfrage - nicht deterministisch nachstellbar, offen",
+      "G11: viele Loeschungen nacheinander rechnen jedes Mal voll durch (traege, nicht falsch)",
+      "Z4: Fensterauslese bleibt modellbedingt nicht deterministisch (Wirkung im Echtlauf 0,3 Prozent)"
+    ]
+  },
+  "regression_ziolkowski": "13 Raeume, 6,95 kW, 0 Fehler / 2 offene Fragen / 6 Hinweise / 10 ohne Befund - unveraendert; interne Fassung ohne ISO-Datum, ohne 'Warnung', Frage vor Antwort",
+  "regression_hasenberg": "20 Raeume, 21,07 kW unveraendert; neue Frage Auftraggeber; nach Eintrag des vollen Namens wieder Belastbar"
+}

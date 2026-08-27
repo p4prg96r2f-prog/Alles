@@ -1,0 +1,11 @@
+# --- Erzeugnisse des Baus (nie von Hand bearbeiten, nie einchecken) ---
+# Entstehen aus src/ + assets/ via `python3 build.py` bzw. api/paket_bauen.sh
+WERKE_Heizlast_Tool.html
+api/deploy/
+api/WERKE_Heizlast_Web.zip
+api/WERKE_Ausleseendpunkt.zip
+
+# --- Systemmuell / Werkzeugstaende ---
+.DS_Store
+.claude/worktrees/
+node_modules/

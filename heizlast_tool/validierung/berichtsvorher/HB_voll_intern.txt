@@ -1,0 +1,458 @@
+Norm-Heizlast nach DIN EN 12831-1
+
+### Heizlastberechnung
+Sanierung von einem WHS
+Hasenberg 10, 33100 Paderborn
+
+Baujahr | 1990 |
+Auftraggeber | Christina Herzog u. |
+Berechnungsgrundlage | DIN EN 12831-1:2017-09 in Verbindung mit DIN/TS 12831-1:2020-04 |
+Norm-Außentemperatur | -10,7 °C (PLZ 33100) |
+Stand | 25.08.2026 |
+Erstellt von | Sebastian Hund, Energieberater |
+Fassung | Freigegeben am 25.08.2026 |
+
+Norm-Heizlast des Gebäudes
+13,62kW  ·  Auslegungswert für den Wärmeerzeuger
+
+Muss vor der Bestellung noch jemand ins Haus?
+Nein. Die U-Werte dieser Rechnung sind belegt oder aus der Gebäudetypologie beziehungsweise dem Referenzgebäude angesetzt; diese Ansätze gelten. Für die Auslegung des Wärmeerzeugers ist kein weiterer Ortstermin nötig.
+WERK.E Energie-Effizienz-Beratung
+Rolandsweg 80, 33102 Paderborn
+Telefon 05251 40 29 29 1 · s.hund@werk-e.de
+Aufgestellt von
+Sebastian Hund
+Energieberater
+
+Eine zusammenfassende Liste der ausgewerteten Unterlagen ist zu diesem Bericht nicht hinterlegt. Woher jede einzelne Eingabe stammt, steht in Abschnitt 11, Angabe für Angabe. Ein Aufmaß vor Ort hat nicht stattgefunden.
+
+Norm-Heizlast Hasenberg 10, 33100 Paderborn |
+WERK.E Energie-Effizienz-Beratung · 25.08.2026 |
+
+### Inhalt
+1Ergebnis auf einen Blick
+2Objekt und Datengrundlage
+3Planunterlagen
+4Berechnungsgrundlagen
+5Bauteile und U-Werte
+6Unbeheizte Bereiche
+7Raumweise Heizlast
+8Heizlast über der Außentemperatur
+9Offene Punkte vor der Beauftragung
+10Plausibilitätsprüfungen
+11Quellen, Annahmen und Konfidenz
+Anlage 1 Bauteilweise Berechnung je Raum
+Anlage 2 Vermerke des Bearbeiters
+
+Im PDF führt jeder Eintrag per Klick zum Kapitel. Die Seitenzahl steht unten rechts.
+
+### 1 Ergebnis auf einen Blick
+13,62kW
+Norm-Heizlast des Gebäudes
+Auslegung des Wärmeerzeugers
+
+48,5W/m²
+spezifische Heizlast
+bezogen auf 280,76 m² Raumfläche
+
+-10,7°C
+Norm-Außentemperatur
+PLZ 33100
+
+Worauf diese Zahlen stehen
+Muss vor der Bestellung des Wärmeerzeugers noch jemand ins Haus? Nein. Die U-Werte dieser Rechnung sind belegt oder aus der Gebäudetypologie beziehungsweise dem Referenzgebäude angesetzt; diese Ansätze gelten. Für die Auslegung des Wärmeerzeugers ist kein weiterer Ortstermin nötig.
+Diese Berechnung steht auf einer Annahme
+Lichte Höhe 2,60 m angenommen für EG, OG. Für EG, OG gibt weder der Plan eine lichte Höhe her noch ist eine eingetragen. Angesetzt ist 2,60 m; das liegt zwischen dem Altbaumaß und dem Mindestmaß der Landesbauordnungen. Die lichte Höhe geht unmittelbar in das Luftvolumen und in jede Außenwandfläche ein; sie ist damit die wirksamste Zahl, die hier nicht auf dem Blatt steht. Ist das Geschoss höher als angenommen, liegt die wirkliche Heizlast über der gerechneten, ist es niedriger, darunter. Beide Richtungen sind möglich; die Zahl daneben sagt, wie viel es ausmacht.
+Die Angaben sind überschreibbar; mit einer belegten Angabe ist die Rechnung zu wiederholen. Alle Annahmen dieses Berichts stehen zusammen in der Annahmenliste.
+Größe | Wert | Verwendung |
+Norm-Heizlast des Gebäudes | 13,62 kW | Auslegung des Wärmeerzeugers |
+davon Transmission | 9,78 kW | 72 Prozent |
+davon Lüftung | 3,83 kW | 28 Prozent |
+Summe der Raumheizlasten | 13,62 kW | Auslegung der Heizflächen je Raum |
+Heizlast EG | 7,07 kW | 39 W/m² bei 182,60 m² Geschossfläche |
+Heizlast OG | 6,55 kW | 67 W/m² bei 98,16 m² Geschossfläche |
+
+Eine Wohnflächenangabe lag nicht vor. Die spezifische Heizlast oben ist deshalb auf die Summe der Raumflächen bezogen. Diese liegt üblicherweise über der Wohnfläche; der Kennwert fällt dadurch günstiger aus als einer je Quadratmeter Wohnfläche und ist mit solchen nicht unmittelbar vergleichbar. Raumfläche und Geschossfläche sind dabei dieselbe Größe: die 2 Geschossflächen dieser Tabelle summieren sich zu den 280,76 m², auf die sich der Kennwert oben bezieht.
+
+### 2 Objekt und Datengrundlage
+Kenngröße | Wert | Quelle |
+Baujahr, letzte Modernisierung | 1990 | Quelle nicht angegeben |
+
+Zu folgenden Kenngrößen liegt keine Angabe vor: Gebäudetyp · Außenmaße · Wandaufbau · Geschosshöhe · Drempel, Dachneigung · Oberer Abschluss · Gebäudevolumen. Sie beschreiben das Gebäude und gehen nicht in die Heizlastrechnung ein; gerechnet wird mit den Raummaßen und Bauteilflächen aus Abschnitt 7 und der Anlage. Ihr Fehlen ändert das Ergebnis nicht, macht den Bericht aber schwerer nachvollziehbar.
+Eine Wohnflächenangabe liegt nicht vor. Sie geht nicht in die Rechnung ein, ist aber die übliche Bezugsgröße der spezifischen Heizlast; diese ist in Abschnitt 1 deshalb auf die Summe der Raumflächen bezogen und nicht mit Kennwerten je Quadratmeter Wohnfläche vergleichbar.
+
+### 2.1 Woraus gerechnet wird
+Nicht die Kenngrößen oben tragen das Ergebnis, sondern das Modell darunter. Es umfasst:
+Bestandteil | Umfang | Wofür er zählt |
+Beheizte Räume | 22 Räume in 2 Geschossen | je Raum eine eigene Heizlast, siehe Abschnitt 7 |
+Unbeheizte Bereiche | Unbeheizter Keller · Unbeheizter Dachraum | eigene Temperatur, vorgegeben statt bilanziert, siehe Abschnitt 6 |
+Bauteile gegen außen, unbeheizt oder Erdreich | 38 Zeilen mit 491,9 m² | tragen den Transmissionsanteil |
+Bauteiltypen | 6 Typen | je Typ ein U-Wert, siehe Abschnitt 5 |
+
+Von diesem Modell beruhen 0 Prozent des Transmissionswärmestroms auf Bauteilen, deren Aufbau angenommen und nicht belegt ist. Welche das sind und was daraus folgt, steht in Abschnitt 9 und Abschnitt 11.
+
+### 2.2 Was nicht aus Unterlagen stammt
+Ein Aufmaß vor Ort hat nicht stattgefunden.
+
+### 3 Planunterlagen
+Grundlage der Berechnung sind die nachfolgend aufgeführten Planunterlagen.
+Die Planabbildungen lagen bei Erstellung dieses Berichts nicht mehr vor. Dieser Stand wurde aus dem Zwischenspeicher wiederhergestellt; die Auswertungsergebnisse der Blätter (Räume, Maße, Blattköpfe) sind vollständig erhalten, die Abbildungen selbst sind es nicht und sind dem Bericht deshalb nicht beigefügt. Ausgewertet wurden: „Hasenberg_10_Grundrisse_290425.pdf, Seite 1“, „Hasenberg_10_Grundrisse_290425.pdf, Seite 2“. Für einen Bericht mit Abbildungen die Blätter erneut ablegen.
+
+### 3.1 Was den Unterlagen zu entnehmen ist
+Angabe | Aus dem Plan |
+Geschosse | Erdgeschoss (lt. Plankopf); weitere Geschosse nicht dargestellt |
+Bauweise | vermutlich freistehendes Einfamilien-/Zweifamilienhaus (WHS = Wohnhaus), winkelförmiger Grundriss mit Anbau |
+Unbeheizte Bereiche | Terrasse (unbeheizt, außen), Abst. (Abstellraum, ggf. unbeheizt) |
+
+### 3.2 Aus den Unterlagen abgeleitet
+Die folgenden Angaben stehen nicht als Zahl in der Zeichnung, sondern folgen aus ihr. Die Herleitung ist jeweils genannt, damit sie nachvollziehbar bleibt.
+Thema | Ergibt sich | Herleitung | Sicherheit |
+Zwei getrennte Wohneinheiten | Das Gebäude ist im EG offenbar in zwei Wohnungen geteilt: eine große Einheit mit 193,16 m² Wohnfläche (Schlafen, Büro I, Flur, WC, Abst., Kochen/Essen, Wohnen, Spielen, Empfang, Garderobe, HWR, Bad) und eine kleinere Einheit mit 80,84 m² (Büro, Flur, Kochen/Essen/Wohnen, Bad) | Im Plan stehen zwei separate orange hinterlegte Wohnflächenangaben ('Wohnfläche: 193,16 m² zzgl. Terrasse' und 'Wohnfläche: 80,84 m² zzgl. Terrasse') für unterschiedliche, klar abgegrenzte Raumgruppen. Zusätzlich verläuft eine rot gestrichelte Linie, die die beiden Bereiche voneinander trennt, was auf zwei unabhängige Nutzungseinheiten hindeutet (WHS = vermutlich Wohn- und Hausmeisterhaus oder Mehrgenerationenhaus mit zwei Einheiten) | unsicher |
+Gebäudeform / Zuschnitt | Das Gebäude hat einen winkelförmigen bzw. leicht abgeknickten Grundriss mit einem vorspringenden Baukörper im Nordosten (schwarz umrandeter Anbau/Wintergarten-artiger Bereich) | Der nordöstliche Gebäudeteil ist mit einer dicken schwarzen Linie umrandet und abgesetzt von der restlichen, dünneren Gebäudekontur; zudem verläuft die Fassadenlinie dort abgewinkelt gegenüber dem Hauptbaukörper | unsicher |
+Gebäudetiefe Hauptbaukörper | Die Gebäudetiefe im Bereich Kochen/Essen bis zur gegenüberliegenden Fassade beträgt in etwa die Summe der Maßkette 7,50+... an der Nordseite, ca. 11-12 m Gesamttiefe | Aus der oberen Maßkette (7,50 / 20 / 17,5 / 1,60 / 17,5 / 1,67 / 17,5 / 11,44...) und den seitlichen Maßketten (14,12 m Gesamthöhe links) lässt sich die grobe Gebäudeausdehnung ableiten, exakte Tiefe ohne Maßstabsmessung aber nicht sicher bestimmbar | geraten |
+Fehlende Nordwand bzw. offener Übergang zur Terrasse | Der Wohnbereich (Kochen/Essen, Wohnen) hat eine großzügige Verglasung/offene Fassade zur Terrasse im Osten | An der Ostseite der Räume Kochen/Essen und Wohnen sind keine durchgezogenen Wandschraffuren erkennbar, stattdessen Türsymbole und die Terrassenfläche (Pflasterung) direkt angrenzend, was auf großflächige Verglasung/Fenstertüren hindeutet | unsicher |
+Unbeheizter Spitzboden/Keller nicht dargestellt | Es liegt vermutlich kein Keller vor bzw. dieser ist im vorliegenden Plan (nur EG) nicht dargestellt | Der Plan zeigt ausschließlich das Erdgeschoss ('Erdgeschoss Grundriss' im Plankopf), keine Kellergrundrisse oder Hinweise auf Unterkellerung sind vorhanden | unsicher |
+Gebäudetiefe/Ausrichtung | Das Gebäude ist ein Einfamilienhaus mit einem angebauten Nebengebäude/Terrassenüberdachung im rechten oberen Bereich (gestrichelt), das nicht Teil der beheizten Wohnfläche des Obergeschosses ist. | Rechts oben im Plan ist ein separater rechteckiger Baukörper ohne Innenausbau, Bemaßung und Raumbezeichnung dargestellt, nur mit Außenkontur - vermutlich Bestandsgebäude/Nachbarbebauung oder Nebengebäude, das an das WHS grenzt. | unsicher |
+Dachform/unbeheizter Bereich | Der Bereich rechts neben Büro II, Kind I und Kind II (schraffiert mit Lattenstruktur) stellt vermutlich eine Dachschräge oder einen unbeheizten Abstellraum/Balkon unter dem Dach dar. | Die vertikale Lattenschraffur zwischen den Räumen und der Gebäudeaußenkante ab ca. x=1385 unterscheidet sich von der Wandschraffur der Innenwände und deutet auf eine Holzverkleidung oder Dachschräge hin, wie sie im Obergeschoss unter Schrägdächern üblich ist. | geraten |
+Geschosshöhe | Eine Geschosshöhe kann aus dem vorliegenden Grundriss nicht abgeleitet werden. | Der Grundriss enthält nur Grundrissmaße (Längen in der Ebene), keine Schnittmaße oder Höhenkoten, aus denen sich eine Geschoss- oder Raumhöhe ableiten ließe. | sicher |
+Gebäudegrundfläche Obergeschoss | Die Gesamtbreite des Hauptbaukörpers beträgt in etwa 1,945 + 5,56 + 7,90 + 3,545 ≈ 18,95 m (obere Maßkette), die Gesamttiefe (linke Maßkette) beträgt ca. 2,50 + 4,095 + 8,03 ≈ ca. 14,6 m inkl. Terrasse. | Aufsummierung der oberen durchlaufenden Maßkette (1,945/5,56/7,90/3,545) sowie der linken vertikalen Maßkette (2,50/4,095/8,03), jeweils Bezugslinien am Gebäude entlang der Achsen. | unsicher |
+Nutzung des Obergeschosses | Das Obergeschoss ist als Wohn-/Schlafbereich mit Homeoffice-Nutzung konzipiert (Elternschlafzimmer, zwei Kinderzimmer, zwei Büros, Bad, Flur). | Die Raumbezeichnungen 'Eltern', 'Kind I', 'Kind II', 'Büro II', 'Bad' und 'Flur' zusammen mit den jeweiligen NGF-Angaben ergeben ein klassisches Raumprogramm eines Wohnhauses mit Arbeitszimmer. | sicher |
+Zweites Büro (Büro I) im Bestand | Es existiert vermutlich ein 'Büro I' in einem anderen Geschoss (z. B. EG oder DG), da hier nur 'Büro II' beschriftet ist. | Die Raumbezeichnung 'Büro II' legt nahe, dass es ein 'Büro I' in einem anderen Geschoss des gleichen Bauvorhabens gibt, was aus diesem Blatt allein aber nicht zu bestätigen ist. | unsicher |
+
+### 4 Berechnungsgrundlagen
+
+### 4.1 Verfahren
+Die Norm-Heizlast wird raumweise nach DIN EN 12831-1:2017-09 in Verbindung mit DIN/TS 12831-1:2020-04 berechnet. Die Raumheizlast setzt sich zusammen aus:
+Größe | Berechnung |
+Norm-Heizlast eines Raums | ΦHL,i = ΦT,i + ΦV,i + ΦRH,i |
+Transmission | ΦT,i = ∑ Ak · (Uk + ΔUWB) · (θint,i − θj,k) |
+Lüftung | ΦV,i = 0,34 · V̇i · (θint,i − θe) |
+maßgebender Volumenstrom | V̇i = max ( nmin · Vi ; 2 · Vi · n50 · ei · εi ) |
+unbeheizte Bereiche | θu = ∑ (Hn · θn) / ∑ Hn (stationäre Wärmebilanz) |
+
+### 4.2 Klima, Temperaturen und weitere Randbedingungen
+Größe | Wert | Fundstelle |
+Norm-Außentemperatur θe | -10,7 °C | BWP-Klimakarte nach DIN/TS 12831-1:2020-04 (Bundesverband Wärmepumpe e. V., waermepumpe.de), gegengeprüft an der Deutschlandkarte klimdim.de; Stand 21.08.2026, PLZ 33100 Paderborn. Zugeordnet über die Postleitzahl, siehe Fußnote. |
+Jahresmitteltemperatur θe,m | 9,4 °C | dto. |
+Lager, beheizt, Beheizter Nebenraum (Technik, Hauswirtschaft) | 15 °C | Vorschlag, keine Fundstelle. Zuordnung dieses Berichts: nutzungsbezogen zu prüfen. DIN/TS 12831-1:2020-04, Tabelle 32, Zeile 9. Zuordnung dieses Berichts: Technik-, Hauswirtschafts- und Abstellräume als beheizte Nebenräume außerhalb der Aufenthaltsräume. |
+WC ohne Dusche, Wohn- und Schlafraum, Büro, Besprechung, Flur, Diele innerhalb der Wohnung | 20 °C | Vorschlag, keine Fundstelle. Zuordnung dieses Berichts: gegen DIN/TS 12831-1 Tabelle 32 zu prüfen. DIN/TS 12831-1:2020-04, Tabelle 32, Zeile 1. Zuordnung dieses Berichts: Wohn- und Schlafräume als Daueraufenthaltsräume. Vorschlag, keine Fundstelle. Zuordnung dieses Berichts: bei Nichtwohngebäuden gilt die nutzungsbezogene Tabelle, gegen Tabelle 32 zu prüfen. Vorschlag, keine Fundstelle. Zuordnung dieses Berichts: wie Aufenthaltsraum, da innerhalb der Nutzungseinheit. Gegen Tabelle 32 zu prüfen. |
+Bad, Duschraum | 24 °C | DIN/TS 12831-1:2020-04, Tabelle 32, Zeile 7. Zuordnung dieses Berichts: Bad und Duschraum als unbekleidet genutzter Raum. |
+Höhenkorrekturfaktor ε | 1,00 (ohne Korrektur) | Voreinstellung des Rechenkerns, für alle Räume gleich. Der Faktor korrigiert die Lage eines Raums über Gelände; das Werkzeug erkennt die Höhe eines Raums nicht selbst und führt sie deshalb nicht nach. Bei Räumen in großer Höhe ist der Faktor je Raum von Hand zu setzen. |
+Aufheizleistung ΦRH | 0 W | Kein Aufheizzuschlag angesetzt. Er gilt dem Wiederaufheizen nach einer Absenkung und setzt eine vereinbarte Absenkdauer und Wiederaufheizzeit voraus. Beides ist für dieses Objekt nicht vereinbart. Wird der Betrieb abgesenkt gefahren, ist der Zuschlag nachzutragen; die Heizlast steigt dann. |
+
+Zur Herkunft der Klimawerte: die genannte Veröffentlichung gibt die Tabelle der Norm wieder, sie ist selbst keine normative Quelle. Zur Zuordnungseinheit beschreiben zwei Fachveröffentlichungen zu dieser Norm den elektronischen Anhang der DIN/TS 12831-1:2020-04 übereinstimmend als Liste von 8.199 deutschen Postleitgebieten mit Ortsname, Auslegungsaußentemperatur, Jahresmitteltemperatur und Referenzhöhe: Markert, Praxis Heizlastberechnung, Tabelle 9, und Jagnow/Wolff, Manuskript Recknagel/Sprenger 2020. Die Zuordnung über die Postleitzahl folgt diesem Befund. Auch diese beiden sind Wiedergaben und nicht der Normtext; Wert und Zuordnung sind vor Verwendung in einem Nachweis am Normtext zu bestätigen. Bis dahin führt Abschnitt 11 die Klimawerte in Klasse B und nicht in A.
+Zum Klimadatensatz: für diese Postleitzahl ist eine Referenzhöhe von 221 m ü. NN hinterlegt. Sie ist der Bezugspunkt einer möglichen Höhenkorrektur der Norm-Außentemperatur, nicht die Höhe dieses Gebäudes. Nach Markert, Praxis Heizlastberechnung, Tabelle 10, wiedergegeben aus Tabelle 30 der DIN/TS 12831-1:2020-04, wird die Korrektur erst ab einem Betrag der Höhendifferenz von 200 m angesetzt, darunter ist der Temperaturgradient null. Liegt das Gebäude weniger als 200 m über oder unter der Referenzhöhe, geht die Höhe in keinen Rechenschritt ein; deshalb steht sie nicht in der Tabelle der Randbedingungen. Liegt sie weiter auseinander, ist die Korrektur nachzutragen; dieses Werkzeug führt sie nicht selbst aus.
+
+### 4.3 Lüftung
+Der Lüftungswärmeverlust wird nach DIN EN 12831-1, Abschnitt 6.3, aus dem größeren der beiden Volumenströme aus hygienischem Mindestluftwechsel und Infiltration gebildet. Der Mindestluftwechsel beträgt für alle Räume 0,5 pro Stunde. Die Infiltration erreicht bei n50 = 3,0 pro Stunde und einem Abschirmkoeffizienten von zwischen 0,00 und 0,03 nur 0,00 bis 0,18 pro Stunde. Welche Stufe des Abschirmkoeffizienten für welchen Raum gilt, steht in der Tabelle darunter.
+Herkunft des Mindestluftwechsels: Vorschlag, keine Fundstelle. Zuordnung dieses Berichts: WC ohne Dusche: gegen DIN/TS 12831-1 Tabelle 12 zu prüfen; Lager, beheizt: nutzungsbezogen zu prüfen; Büro, Besprechung: nutzungsbezogen zu prüfen; Flur, Diele innerhalb der Wohnung: wie Daueraufenthaltsraum. Gegen Tabelle 12 zu prüfen. DIN/TS 12831-1:2020-04, Tabelle 12. Zuordnung dieses Berichts: Wohn- und Schlafraum: Daueraufenthaltsraum; Beheizter Nebenraum (Technik, Hauswirtschaft): angesetzt ist der Wert der Daueraufenthaltsräume, eine eigene Zeile für beheizte Nebenräume ist am Normtext nicht geprüft; Bad, Duschraum: Bad mit Fenster. Abschnitt 11 führt den Wert deshalb nicht in Klasse B.
+In 2 von 22 Räumen ist die Infiltration maßgebend; sie erhöht die Lüftungsheizlast dieser Räume um zusammen 0 W gegenüber dem Mindestluftwechsel.
+n50 ist eine Annahme, keine Messung.
+Stufe | e | Räume | Zuordnung |
+Anzahl exponierter Fassaden nicht eingetragen | 0,00 | 13 | EG WC, EG Abst., EG Büro I, EG Flur, EG HWR, EG Garderobe/Schrank, EG Garderobe, EG Büro, EG Empfang, EG Spielen, EG Bad und OG Flur |
+Anzahl exponierter Fassaden nicht eingetragen | 0,03 | 9 | EG Kochen/Essen, EG Wohnen, EG Schlafen, EG Kochen/Essen/Wohnen, OG Eltern, OG Bad, OG Büro II, OG Kind I und OG Kind II |
+
+e ist der Abschirmkoeffizient der Infiltration. Der Rechenkern führt drei Stufen nach der Anzahl exponierter Fassaden: 0,00 ohne, 0,02 bei einer und 0,03 bei mehreren exponierten Fassaden. Die Spalte Zuordnung nennt die Räume, für die die jeweilige Stufe gilt; gebildet hat sie der Rechenkern aus der Anzahl exponierter Fassaden, sofern nichts anderes dabeisteht. Eine Abschirmungsklasse nach der Lage im Gelände, also freistehend, in offener oder in geschlossener Bebauung, unterscheidet der Rechenkern nicht; er wertet allein die Anzahl der exponierten Fassaden. Steht das Gebäude ungewöhnlich frei oder ungewöhnlich geschützt, ist e je Raum von Hand zu setzen.
+
+### 4.4 Wärmebrücken
+Angesetzt ist der pauschale Zuschlag ΔUWB = 0,10 W/(m²·K) auf alle Bauteile gegen Außenluft und gegen unbeheizte Bereiche. Das entspricht dem Ansatz ohne gesonderten Nachweis. Der Zuschlag macht rd. 1,21 kW der Heizlast aus.
+
+### 4.5 Maßbezug
+Gerechnet wird mit Innenmaßen. Die dadurch nicht erfassten Wandanschlüsse und Ecken sind im Wärmebrückenzuschlag enthalten. Die Bauteilflächen dieses Berichts sind daher kleiner als die Außenmaßflächen.
+
+### 5 Bauteile und U-Werte
+Bauteil | U [W/(m²·K)] | Herkunft | BEG EM Anforderung | Bewertung |
+Außenwand | 0,50 | C | 0,201 | NICHT erfüllt
+sofern das Bauteil im Zuge der Maßnahme gedämmt wird |
+Dach | 0,40 | C | 0,141 | NICHT erfüllt
+sofern das Bauteil im Zuge der Maßnahme gedämmt wird |
+Kellerdecke | 0,60 | C | 0,251 | NICHT erfüllt
+sofern das Bauteil im Zuge der Maßnahme gedämmt wird |
+Fenster | 3,20 | C | 0,951 | NICHT erfüllt
+sofern das Bauteil im Zuge der Maßnahme erneuert wird |
+
+Spalte Herkunft: A aus einer Originalunterlage, B Schichtrechnung oder normativer Tabellenwert, C fachliche Annahme. Die Begründung steht für jedes Bauteil einzeln in Abschnitt 11. Auf Bauteilen der Klasse C beruhen 100 % des Transmissionswärmestroms. Die Heizlast dieses Berichts steht damit überwiegend auf Annahmen, nicht auf belegten Werten.
+Anforderungen nach Förderrichtlinie BEG Einzelmaßnahmen (BEG EM) vom 17.07.2026, Anlage Technische Mindestanforderungen (BEG EM TMA), Nummer 1.1, Spalte Wohngebäude und Zonen von Nichtwohngebäuden mit T ≥ 19 °C. Diese Fassung gilt seit 21.07.2026 und ersetzt die Richtlinie BEG EM vom 21.12.2023 (BAnz AT 29.12.2023 B1); für Anträge, die vor diesem Tag gestellt wurden, gilt die ersetzte Fassung weiter. Die Werte gelten für die Erneuerung, den Ersatz oder den erstmaligen Einbau von Bauteilen im Bestand, nicht für den Neubau. Für Baudenkmale, für sonstige besonders erhaltenswerte Bausubstanz und für einzelne Bauarten führt dieselbe Tabelle eigene Zeilen mit anderen Werten; sie sind hier nicht angewendet, weil ihre Voraussetzungen dem Werkzeug nicht vorliegen. Der Wortlaut stammt aus der Veröffentlichung des BMWE auf energiewechsel.de, Datei 20260720-beg-einzelmassnahmen.pdf; eine Fundstelle im Bundesanzeiger trägt diese Fassung noch nicht, im Dokument selbst ist die Stelle unausgefüllt geblieben. Deshalb wird sie hier nicht genannt.
+1 Die Anforderung wurde über den Bauteilnamen zugeordnet, nicht ausdrücklich gewählt. Vor Verwendung in einem Förderantrag im Kontrollblatt bestätigen.
+
+### 5.1 Ausnahmen der Technischen Mindestanforderungen
+Wird ein Anforderungswert verfehlt, heißt das nicht ohne Weiteres, dass die Maßnahme durchfällt. Die Tabelle der Technischen Mindestanforderungen führt für einen Teil der Bauteile eigene Zeilen mit milderen Werten. Sie gelten nur unter einer Voraussetzung, und ob die hier erfüllt ist, prüft dieser Bericht nicht: die Angaben dazu liegen ihm nicht vor.
+Betrifft | Wert der Ausnahme | Voraussetzung | Zeile der Tabelle |
+Außenwand | 0,45 W/(m²·K) | Baudenkmal im Sinne des § 105 GEG bei Wohn- und Nichtwohngebäuden; sonstige besonders erhaltenswerte Bausubstanz nur bei Wohngebäuden. Der Status ist mit der Denkmalbehörde zu klären. | Außenwände bei Baudenkmalen für alle Gebäude und bei sonstiger besonders erhaltenswerter Bausubstanz nur für Wohngebäude |
+Außenwand | 0,65 W/(m²·K) | Nur bei Sichtfachwerk, also Innendämmung der Fachwerkaußenwand oder Erneuerung der Ausfachungen. | Außenwände mit Sichtfachwerk (Innendämmung bei Fachwerkaußenwänden, Erneuerung der Ausfachungen) |
+Dach | λ ≤ 0,040 W/(m·K) | Baudenkmal im Sinne des § 105 GEG bei Wohn- und Nichtwohngebäuden; sonstige besonders erhaltenswerte Bausubstanz nur bei Wohngebäuden. An die Stelle des U-Werts tritt die höchstmögliche Dämmstoffdicke. Voraussetzung ist der Status des Gebäudes, nicht sein Baujahr und nicht die Dachform. | Dachflächen bei Baudenkmalen für alle Gebäude und bei sonstiger besonders erhaltenswerter Bausubstanz nur für Wohngebäude höchstmögliche Dämmstoffdicke (Flachdächer, Schrägdächer sowie dazugehörige Kehlbalkenlagen, Dachgauben oder oberste Geschossdecken) |
+Fenster | 1,30 W/(m²·K) | Nur bei Ertüchtigung des vorhandenen Fensters, nicht bei Austausch. | Ertüchtigung von Fenstern, Balkon- und Terrassentüren sowie von Kastenfenstern sowie von Fenstern mit Sonderverglasung |
+Fenster | 1,10 W/(m²·K) | Barrierearm nach den Bedienkräften der TMA oder einbruchhemmend mindestens Widerstandsklasse RC2 nach DIN EN 1627. | Barrierearme oder einbruchhemmende Fenster, Balkon- und Terrassentüren |
+Fenster | 1,10 W/(m²·K) | Nur wenn die Sonderverglasung nach Landesbauordnung oder anderen Vorschriften für den bestimmungsgemäßen Betrieb einzubauen ist. | Fenster, Balkon- und Terrassentüren mit Sonderverglasung (Verglasung zum Schall- und Brandschutz sowie Durchschuss-, Durchbruch- und Sprengwirkungshemmung) |
+Fenster | 1,40 W/(m²·K) | Baudenkmal im Sinne des § 105 GEG bei Wohn- und Nichtwohngebäuden; sonstige besonders erhaltenswerte Bausubstanz nur bei Wohngebäuden. | Fenster, Balkon- und Terrassentüren bei Baudenkmalen für alle Gebäude und bei sonstiger besonders erhaltenswerter Bausubstanz nur für Wohngebäude |
+Fenster | 1,60 W/(m²·K) | Zusätzlich zum Denkmalstatus echte glasteilende Sprossen. | Fenster, Balkon- und Terrassentüren mit echten glasteilenden Sprossen bei Baudenkmalen für alle Gebäude und bei sonstiger besonders erhaltenswerter Bausubstanz nur für Wohngebäude |
+Fenster | 1,60 W/(m²·K) | Ertüchtigung statt Austausch, dazu Denkmalstatus beziehungsweise besonders erhaltenswerte Bausubstanz. | Ertüchtigung von Fenstern, Balkon- und Terrassentüren bei Baudenkmalen für alle Gebäude und bei sonstiger besonders erhaltenswerter Bausubstanz nur für Wohngebäude |
+
+Alle Zeilen dieser Tabelle stehen im Wortlaut der unter der Bauteiltabelle genannten Fassung. Sie sind hier weder angewendet noch geprüft, sondern nachgewiesen. Über die Förderfähigkeit entscheidet die prüfende Stelle.
+Lässt sich für eine Teilfläche eines Bauteils die Anforderung aus technischen Gründen nicht einhalten, kann die Maßnahme an dieser Teilfläche dennoch mitgefördert werden, wenn der flächengewichtete mittlere U-Wert über die gesamte nachträglich gedämmte Bauteilfläche den Anforderungswert erfüllt. Dieser Bericht führt keine flächengewichteten Mittelwerte je Bauteilgruppe. Fundstelle: Liste der technischen FAQ BEG EM, Version 7.0 (06/2026), Nummer 3.12. Diese Fundstelle ist eine FAQ des Durchführers und nicht der Richtlinientext; ob sie zur Fassung vom 17.07.2026 fortgeschrieben ist, war hier nicht zu klären.
+Ohne Schichtaufbau geführt und deshalb ohne Schichtblatt: Außenwand, Dach, Kellerdecke und Fenster. Ihr U-Wert ist als ganze Zahl angesetzt, nicht aus Schichten gerechnet. Woher er stammt und wie sicher er ist, steht für jedes dieser Bauteile in Abschnitt 11.
+
+### 6 Unbeheizte Bereiche
+Unbeheizter Keller und Unbeheizter Dachraum: Die Temperatur ist vorgegeben — über die Lage des Bereichs nach DIN/TS 12831-1:2020-04 oder über den Pauschalwert f_1 — und nicht aus einer Bilanz bestimmt. Eine Bilanz ist hier auch nicht zu führen: diese Bereiche haben keine eigenen Hüllbauteile, die Bilanz bestünde allein aus den angrenzenden beheizten Räumen und ergäbe deren Raumtemperatur. Die unten aufgeführten Wärmeströme sind deshalb Bestandsaufnahme und nicht Herleitung. Sobald die Hüllbauteile des Bereichs eingetragen sind, wird bilanziert.
+Bereich | Wärmestrom nach | H [W/K] | Temperatur | Ergebnis |
+Unbeheizter Keller | beheizte Räume (20,0 °C) (EG) | 100,7 | 20,0 °C | |
+| beheizte Räume (15,0 °C) (EG) | 4,9 | 15,0 °C | |
+| beheizte Räume (24,0 °C) (EG) | 3,9 | 24,0 °C | |
+| vorgegebene Temperatur, nicht aus diesen Strömen gebildet | | | 4,7 °C |
+Unbeheizter Dachraum | beheizte Räume (20,0 °C) (OG) | 32,9 | 20,0 °C | |
+| beheizte Räume (24,0 °C) (OG) | 6,4 | 24,0 °C | |
+| vorgegebene Temperatur, nicht aus diesen Strömen gebildet | | | -7,6 °C |
+
+Temperaturkorrekturfaktoren der trennenden Bauteile, gebildet als f = (θi − θu) / (θi − θe) mit θe = -10,7 °C: Kellerdecke 0,40 bei 15 °C, 0,50 bei 20 °C und 0,56 bei 24 °C Raumtemperatur · Dach 0,90 bei 20 °C und 0,91 bei 24 °C Raumtemperatur. Weil θi im Zähler und im Nenner steht, ist f je Raumtemperatur verschieden; deshalb steht die Bezugstemperatur jeweils dabei. Die Werte folgen aus den Zonentemperaturen dieses Abschnitts und treten an die Stelle der häufig pauschal verwendeten Tabellenwerte.
+Für den unbeheizten Bereich „Unbeheizter Keller“ ist das Temperaturniveau nicht bilanziert, sondern vom Bearbeiter nach der Lage vorgegeben: Keller, unbeheizt, außen liegend, mit Fenstern oder Tür nach außen, Temperaturanpassungsfaktor f_1 = 0,5, daraus θu = 4.7 °C bei einer Bezugstemperatur von 20 °C. Fundstelle: DIN/TS 12831-1:2020-04, Tabelle 5, Zeile „Kellerräume, mit Türen/Fenstern nach außen“; wiedergegeben bei Jagnow/Wolff, Recknagel/Sprenger-Manuskript 2020, Tafel 0-6. Zum Vergleich: die stationäre Bilanz derselben Anordnung ergibt -10.7 °C. Der Zahlenwert ist über eine Sekundärquelle belegt, der Normtext lag nicht vor.
+Für den unbeheizten Bereich „Unbeheizter Dachraum“ ist das Temperaturniveau nicht bilanziert, sondern vom Bearbeiter nach der Lage vorgegeben: Dachraum, geschlossenes Dach, undicht, Temperaturanpassungsfaktor f_1 = 0,9 aus dem tabellierten Bereich 0,8 bis 0,9, daraus θu = -7.6 °C bei einer Bezugstemperatur von 20 °C. Fundstelle: DIN/TS 12831-1:2020-04, Tabelle 5, Zeile „Dachböden, Abseiten: geschlossene Dächer, undicht“, dort 0,8 bis 0,9; wiedergegeben bei Jagnow/Wolff, Recknagel/Sprenger-Manuskript 2020, Tafel 0-6. Zum Vergleich: die stationäre Bilanz derselben Anordnung ergibt -10.7 °C. Der Zahlenwert ist über eine Sekundärquelle belegt, der Normtext lag nicht vor.
+
+### 7 Raumweise Heizlast
+
+### 7.1 Raumtabelle
+Gesch. | Raum | θi | A [m²] | h [m] | V [m³] | V̇ [m³/h] | ΦT Hülle [W] | ΦT innen [W] | ΦV [W] | ΦHL [W] |
+EG | WC | 20 | 4,20 | 2,60 | 10,9 | 5,5 | 45 | 0 | 57 | 102 |
+EG | Abst. | 15 | 4,41 | 2,60 | 11,5 | 5,7 | 32 | 0 | 50 | 82 |
+EG | Kochen/Essen | 20 | 30,28 | 2,60 | 78,7 | 39,4 | 1.008 | 0 | 411 | 1.419 |
+EG | Büro I | 20 | 8,98 | 2,60 | 23,3 | 11,7 | 96 | 0 | 122 | 218 |
+EG | Flur | 20 | 12,17 | 2,60 | 31,6 | 15,8 | 131 | 0 | 165 | 296 |
+EG | Wohnen | 20 | 20,92 | 2,60 | 54,4 | 27,2 | 734 | 0 | 284 | 1.018 |
+EG | Schlafen | 20 | 14,90 | 2,60 | 38,7 | 19,4 | 551 | 0 | 202 | 753 |
+EG | HWR | 15 | 3,75 | 2,60 | 9,8 | 4,9 | 27 | 0 | 43 | 70 |
+EG | Garderobe/Schrank | 20 | 0,00 | 2,60 | 0,0 | 0,0 | 0 | 0 | 0 | 0 |
+EG | Garderobe | 20 | 0,00 | 2,60 | 0,0 | 0,0 | 0 | 0 | 0 | 0 |
+EG | Büro | 20 | 9,37 | 2,60 | 24,4 | 12,2 | 101 | 0 | 127 | 228 |
+EG | Flur | 20 | 10,78 | 2,60 | 28,0 | 14,0 | 116 | 0 | 146 | 262 |
+EG | Empfang | 20 | 6,76 | 2,60 | 17,6 | 8,8 | 73 | 0 | 92 | 164 |
+EG | Spielen | 20 | 14,04 | 2,60 | 36,5 | 18,3 | 151 | 0 | 191 | 341 |
+EG | Bad | 24 | 6,56 | 2,60 | 17,1 | 8,5 | 89 | 0 | 101 | 189 |
+EG | Kochen/Essen/Wohnen | 20 | 35,48 | 2,60 | 92,2 | 46,1 | 1.442 | 0 | 481 | 1.923 |
+OG | Eltern | 20 | 21,77 | 2,60 | 56,6 | 28,3 | 1.346 | 0 | 295 | 1.641 |
+OG | Bad | 24 | 15,96 | 2,60 | 41,5 | 20,7 | 762 | 0 | 245 | 1.006 |
+OG | Flur | 20 | 12,88 | 2,60 | 33,5 | 16,7 | 178 | 0 | 175 | 353 |
+OG | Büro II | 20 | 16,34 | 2,60 | 42,5 | 21,2 | 1.095 | 0 | 222 | 1.317 |
+OG | Kind I | 20 | 15,42 | 2,60 | 40,1 | 20,0 | 739 | 0 | 209 | 948 |
+OG | Kind II | 20 | 15,79 | 2,60 | 41,1 | 20,5 | 1.069 | 0 | 214 | 1.283 |
+Summe | 280,76 | | 730,0 | 365,0 | 9.784 | 0 | 3.832 | 13.615 |
+
+ΦT Hülle enthält die Verluste an Außenluft, an „Unbeheizter Keller“ und an „Unbeheizter Dachraum“. ΦT innen ist der Wärmeaustausch mit Räumen abweichender Temperatur innerhalb des Gebäudes; er ist für die Auslegung der Heizflächen erforderlich, hebt sich in der Gebäudebilanz aber auf. Negative Werte bedeuten, dass der Raum von Nachbarräumen Wärme erhält. Die Heizlast des Gebäudes ist deshalb nicht die Summe der Raumheizlasten, sondern 13.615 W.
+
+### 7.2 Bauteilbilanz des Gebäudes
+Bauteil | Fläche [m²] | U [W/(m²·K)] | ΦT [W] | Anteil [%] | Herk. |
+Außenwand | 181,0 | 0,50 | 3.372 | 34,5 | C |
+Fenster | 30,1 | 3,20 | 3.072 | 31,4 | C |
+Kellerdecke | 182,6 | 0,60 | 1.952 | 20,0 | C |
+Dach | 98,2 | 0,40 | 1.388 | 14,2 | C |
+Transmission gesamt | 491,9 | | 9.784 | 100,0 | |
+
+Die Flächen sind Innenmaßflächen, die U-Werte ohne Wärmebrückenzuschlag angegeben. Im Wärmestrom ist der Zuschlag von 0,10 W/(m²·K) enthalten, angesetzt allerdings nur bei den Bauteilen gegen Außenluft und gegen unbeheizte Bereiche. Spalte Herk.: Konfidenzklasse des U-Werts, A belegt, B Schichtrechnung oder Tabellenwert, C Annahme, wie in Abschnitt 5.
+
+### 8 Heizlast über der Außentemperatur
+Die Norm-Heizlast gilt für genau einen Punkt, die Norm-Außentemperatur. An allen übrigen Tagen des Jahres ist die benötigte Leistung kleiner. Die folgende Tabelle rechnet sie aus den bereits ermittelten Größen aus. Sie enthält keine Annahme über den Wärmeerzeuger und keine Empfehlung.
+
+### 8.1 Herleitung
+Transmission und Lüftung sind beide dem Unterschied zwischen Innen- und Außentemperatur proportional. Die Gebäudeheizlast ist deshalb über der Außentemperatur eine Gerade:
+Φ(θe) = Hges · (θi,bez − θe)
+Größe | Wert | Herkunft |
+Wärmeverlustkoeffizient Hges | 440,0 W/K | ΦHL,Geb / (θi,bez − θe) |
+heizlastgewichtete mittlere Norm-Innentemperatur θi,bez | 20,2 °C | aus den Räumen gerechnet |
+Norm-Außentemperatur θe | -10,7 °C | Klimadaten |
+Heizgrenztemperatur | 15,0 °C | Annahme |
+
+Das Gebäude wird nicht durchgehend auf eine Temperatur ausgelegt, angesetzt sind 15, 20, 24 °C. θi,bez ist deshalb nicht 20 °C, sondern der mit der jeweiligen Raumheizlast gewichtete Mittelwert von 20,2 °C. Bei durchgehend 20 °C ergäbe die Formel genau 20 °C.
+Die Heizgrenztemperatur ist eine Annahme dieses Berichts: Gradtagzahl-Konvention G20/15 nach VDI 2067 und DIN 4108-6; DIN EN 12831-1 kennt keine Heizgrenztemperatur, weil sie nur den Auslegungspunkt berechnet und keine Gewinne ansetzt. Der Wert bei der Heizgrenze ist der reine Wärmeverlust des Gebäudes. Ob er tatsächlich noch beheizt werden muss, hängt von inneren und solaren Gewinnen ab, die diese Berechnung nach DIN EN 12831-1 nicht ansetzt.
+
+### 8.2 Heizlast über der Außentemperatur
+Außentemperatur θe [°C] | Heizlast Φ [kW] | Anteil am Auslegungspunkt | Bemerkung |
+-10,7 | 13,62 | 100 % | Auslegungspunkt, Norm-Außentemperatur |
+-10,0 | 13,31 | 98 % | |
+-7,0 | 11,99 | 88 % | Angabepunkt A-7 nach DIN EN 14511 |
+-5,0 | 11,11 | 82 % | |
+-2,0 | 9,79 | 72 % | |
+0,0 | 8,91 | 65 % | |
+2,0 | 8,03 | 59 % | |
+5,0 | 6,71 | 49 % | |
+8,0 | 5,39 | 40 % | |
+10,0 | 4,51 | 33 % | |
+12,0 | 3,63 | 27 % | |
+15,0 | 2,31 | 17 % | Heizgrenze |
+
+### 8.3 Wofür der Auslegungswert gilt
+Alle Werte dieses Kapitels und die Norm-Heizlast des Gebäudes gelten für durchgehenden Heizbetrieb. Wird die Lieferung zeitweise unterbrochen, etwa aufgrund einer Vereinbarung über die netzorientierte Steuerung steuerbarer Verbrauchseinrichtungen nach § 14a EnWG, steht in den Sperrstunden keine Leistung zur Verfügung. Die dann ausfallende Wärme ist in den übrigen Stunden mit aufzubringen, und der Wärmeerzeuger ist entsprechend größer auszulegen als der hier ausgewiesene Wert.
+Diesen Zuschlag rechnet der Bericht nicht, und in keiner Zahl dieses Kapitels ist er enthalten. DIN EN 12831-1:2017-09 sieht ihn nicht vor: sie berechnet einen einzigen, stationären Auslegungspunkt bei ununterbrochenem Betrieb. Das einzige Glied, mit dem sie einen abweichenden Betrieb erfasst, ist die Aufheizleistung ΦRH nach DIN/TS 12831-1:2020-04. Sie gilt dem Wiederaufheizen nach einer Absenkung, setzt eine vereinbarte Absenkdauer und Wiederaufheizzeit voraus und ist in dieser Berechnung mit 0 W angesetzt. Ein Ersatz für einen Sperrzeitzuschlag ist sie nicht.
+Wie viele Sperrstunden je Tag gelten und wie sie über den Tag verteilt sind, ergibt sich aus dem Netzanschluss- und dem Lieferverhältnis und ist beim Netzbetreiber zu erfragen. Erst mit dieser Angabe lässt sich der Zuschlag bestimmen. Er gehört zur Anlagenplanung, nicht zu dieser Berechnung.
+
+### 8.4 Heizflächen und ihre Auslegungstemperatur
+Mit welcher Vorlauf- und Rücklauftemperatur die Anlage zu fahren ist, steht nicht in diesem Bericht und lässt sich aus ihm nicht ablesen. Die Berechnung ermittelt, wie viel Leistung jeder Raum braucht. Womit diese Leistung in den Raum kommt und bei welcher Übertemperatur, ist eine eigene Rechnung und nicht Gegenstand einer Heizlastberechnung.
+Dafür fehlen zwei Angaben: die vorhandenen oder geplanten Heizflächen je Raum nach Bauart und Baumaß, und ihre Norm-Wärmeleistung. Für Radiatoren und Konvektoren wird diese nach DIN EN 442-2:2015-03 „Radiatoren und Konvektoren, Teil 2: Prüfverfahren und Leistungsangabe“ bestimmt und vom Hersteller angegeben; aus der dort festgelegten Kennlinie folgt die Leistung bei jeder anderen Übertemperatur. Die Heizflächen sind am Objekt aufzunehmen, ihre Kennwerte stammen aus den Herstellerunterlagen.
+Gegenüberzustellen sind dann, Raum für Raum, die Leistung der Heizfläche und die Spalte ΦHL der Raumtabelle in Abschnitt 7. Maßgebend ist der ungünstigste Raum und nicht der Mittelwert: die Auslegungstemperatur des Gebäudes ist die niedrigste, bei der noch jeder einzelne Raum seine Heizlast abgedeckt bekommt. Diese Rechnung gehört zur Heizflächenauslegung. Dieser Bericht liefert die eine Hälfte davon, die Leistung je Raum.
+
+### 8.5 Trinkwarmwasser
+Die Trinkwassererwärmung ist nicht Bestandteil dieser Berechnung. DIN EN 12831-1:2017-09 behandelt die Raumheizlast; für die Ermittlung von Leistung und Speichervolumen der Trinkwassererwärmung gilt Teil 3 derselben Normenreihe, DIN EN 12831-3:2017-09 „Trinkwassererwärmungsanlagen, Heizlast und Bedarfsbestimmung“. Was dort herauskommt, ist gesondert zu ermitteln und zu den hier ausgewiesenen Werten hinzuzurechnen; die beiden Leistungen fallen je nach Betriebsweise nicht zwingend gleichzeitig an.
+Für diese Ermittlung fehlen dem Bericht die Eingangsgrößen: die Zahl der Personen je Wohn- oder Nutzungseinheit und das Bedarfsprofil der Warmwasserentnahme, also wann welche Menge gezapft wird. Beides ist beim Bauherrn oder beim Nutzer zu erfragen. Aus Bauteilen und Raummaßen lässt es sich nicht herleiten, und dieser Bericht schätzt es deshalb auch nicht.
+
+### 8.6 Was vor der Auslegung noch zu klären ist
+Die folgenden Angaben braucht die Anlagenplanung, dieser Bericht enthält sie nicht. Sie stehen hier, damit ihr Fehlen nicht für ein Versehen gehalten wird.
+Angabe | Warum sie hier nicht steht | Woher sie kommt |
+Aufbau der tragenden Bauteile | Die U-Werte tragen jede Zahl dieses Berichts. Welche davon belegt sind und welche eine Annahme, steht in Abschnitt 11. | Bauteilöffnung oder Endoskopie am Objekt, je eine Stelle je Bauteil. Bis dahin bleibt die Heizlast eine gerechnete Annahme. |
+Sperrzeiten des Versorgers | Die Norm rechnet ununterbrochenen Betrieb. Zahl und Lage der Sperrstunden gehen aus keiner Unterlage dieses Berichts hervor. | Netzbetreiber, über den Netzanschluss und das Lieferverhältnis. Der Zuschlag ist Sache der Anlagenplanung. |
+Auslegungstemperatur der Heizflächen | Sie folgt aus den Heizflächen, nicht aus der Heizlast. Eine Heizlastberechnung ermittelt sie nicht. | Heizflächen je Raum aufnehmen, Norm-Wärmeleistung nach DIN EN 442-2:2015-03 aus den Herstellerunterlagen, dann je Raum gegen ΦHL rechnen. |
+Personenzahl und Bedarfsprofil für Warmwasser | Trinkwassererwärmung ist nicht Gegenstand dieser Berechnung; beide Größen lassen sich nicht aus Bauteilen und Raummaßen herleiten. | Bauherr oder Nutzer. Gerechnet wird danach nach DIN EN 12831-3:2017-09. |
+Ob am Gebäude noch etwas geändert wird | Jede Änderung an einem Bauteil ändert die Heizlast und damit jede Zeile dieses Kapitels. Was offen ist und wie stark es wirkt, steht in Abschnitt 9. | Entscheidung des Bauherrn. Danach ist die Berechnung zu wiederholen; dieses Kapitel gilt für den hier gerechneten Zustand. |
+
+### 9 Offene Punkte vor der Beauftragung
+Diese Liste enthält: jede Angabe der Konfidenzklasse C, zu der eine Alternative hinterlegt ist, jedes Bauteil der Bauteiltabelle, dessen gerechneter U-Wert den dort hinterlegten Anforderungswert überschreitet, und die vom Bearbeiter eingetragenen Punkte. Sie enthält keine Maßnahme, die sich nicht aus einer dieser drei Quellen ergibt.
+Der erste Punkt steht oben, weil alle anderen unter seinem Vorbehalt stehen. Danach sind die Punkte nach ihrer Wirkung auf die Heizlast geordnet, der größte zuerst; was sich nicht beziffern lässt, steht am Ende.
+Punkt | Warum er zählt | Wirkung auf die Heizlast |
+U-Werte am Gebäude belegen, bevor über die Anforderungswerte geurteilt wird: Außenwand, Dach, Kellerdecke und Fenster | Bei diesen 4 Bauteilen (Außenwand, Dach, Kellerdecke und Fenster) liegt der angesetzte U-Wert über dem hinterlegten Anforderungswert. Der angesetzte Wert stammt in jedem dieser Fälle aus der Gebäudetypologie und nicht aus diesem Gebäude; die Gegenüberstellung sagt deshalb etwas über die Tabelle und nichts über den vorhandenen Aufbau. Eine Empfehlung, die Dämmstärke zu erhöhen, ist daraus nicht abzuleiten und steht deshalb nicht in dieser Liste. Sobald ein U-Wert belegt ist, wird der Vergleich belastbar und der Punkt erscheint hier mit seiner Wirkung. | nicht beziffert |
+
+### 10 Plausibilitätsprüfungen
+Prüfung | Ergebnis | Verglichen mit | Herkunft des Vergleichswerts | Kriterium | Status |
+Additionsprobe Anlage 1, 38 Bauteilzeilen, Lüftung und Aufheizleistung
+Ergebnis: aus den Spalten der Anlage 1 neu addiert | 13.615,09 W | 13.615,09 W | Rechenkern DIN EN 12831-1, Gesamtergebnis Φ_Gebäude | Abweichung < 0,5 W, hier 0,000 W | bestanden |
+Spezifische Heizlast je m² Raumfläche, Baualtersklasse 1984 bis 1994
+Ergebnis: Heizlast geteilt durch die Summe der Raumflächen | 48,49 W/m² | 75,00 W/m² | IWU TABULA 2015, Heizlast-Kennwert je Baualtersklasse, verbrauchskalibrierter Ist-Zustand (Klassenwert 75 W/m²), angepasst mit Faktor 1,00 aus den eingetragenen Bauteilen | Grobeinordnung, kein Nachweis. Auffällig ab 35 % Abweichung, hier -35 % | Abweichung |
+
+Die Spalte „Ergebnis“ und die Spalte „Verglichen mit“ führen in jeder Zeile zwei Größen, die auf verschiedenen Wegen entstanden sind; unter dem Namen der Prüfung steht, auf welchem. Stimmen sie überein, ist das eine Aussage und keine Selbstverständlichkeit. Die Additionsprobe schlägt an, wenn in der Anlage eine Bauteilzeile fehlt, doppelt steht oder eine ihrer Spalten nicht zur Zeile passt. Die Zonentemperatur schlägt an, wenn die Iteration des Rechenkerns nicht ausgelaufen ist oder wenn die beiden Aufstellungen der Wärmeströme nicht dieselben Bauteile führen. Eine Zeile, die eine Zahl mit sich selbst vergleicht, kann nicht anschlagen und steht deshalb nicht in dieser Tabelle.
+Zur Zeile „Spezifische Heizlast“: hier stehen zwei verschiedene Bezugsflächen nebeneinander. Gerechnet ist je Quadratmeter Raumfläche, der Kennwert der Typologie bezieht sich auf die Wohnfläche. Die Summe der Raumflächen liegt üblicherweise über der Wohnfläche, der gerechnete Wert fällt dadurch günstiger aus. Ein Vergleich der beiden Zahlen ist deshalb kein Nachweis, sondern eine Grobeinordnung, und das Toleranzband ist dafür erweitert. Solange keine Wohnfläche belegt ist, lässt sich das nicht auflösen. Abschnitt 2 sagt aus demselben Grund, dass dieses Gebäude nicht über einen Kennwert je Quadratmeter Wohnfläche zu beurteilen ist. Diese Zeile hält dem nicht entgegen; sie ordnet grob ein und trägt deshalb kein „bestanden“, sondern die Einstufung als Abweichung.
+
+### 10.1 Befunde der Selbstprüfung
+Gesamtergebnis: Belastbar
+0 Fehler, 0 Hinweise, 11 zur Kenntnis genommene Punkte und 7 Prüfungen ohne Befund.
+Belastbar heißt: keine Prüfung hat einen Befund ergeben, der offen geblieben wäre. Die Annahmen, auf denen die Rechnung beruht, bleiben davon unberührt und sind im Kapitel zu Quellen und Konfidenz einzeln aufgeführt.
+Durchgesehen und zur Kenntnis genommen
+Die Selbstprüfung hat zu diesem Projekt 11 Punkte aufgeworfen: Fragen an die Planunterlagen, gekennzeichnete Annahmen und Einordnungen einzelner Werte. Sebastian Hund hat jeden davon am 26.08.2026 geprüft und zur Kenntnis genommen. Keiner der Punkte steht der Berechnung entgegen; sie sind deshalb in diesem Bericht nicht einzeln aufgeführt. Zu 3 Punkten hat der Bearbeiter einen Vermerk hinterlegt; sie stehen in Anlage 2.
+
+### 10.2 Gegenproben des Kontrollblatts
+Jede Zeile hält eine Zahl dieser Berechnung gegen eine zweite, die auf einem anderen Weg entstanden ist. 8 Proben sind gelaufen, 8 davon ohne Beanstandung. Eine Probe, die nichts findet, ist eine Aussage und keine Selbstverständlichkeit; sie steht deshalb mit hier.
+Probe | erfasst | gegengezählt | Woher die zweite Zahl stammt | Ergebnis |
+Abschluss nach unten im Randgeschoss | 14 Räume | 16 Räume | die übrigen Räume desselben Geschosses | zur Kenntnis genommen |
+Außenwände in EG gegen den Umfang | 26 m | 71 m | äußerste Maßkette im Textstand von Hasenberg_10_Grundrisse_290425.pdf, Seite 1, 18,95 m mal 16,62 m („8,11 + 10,84 | 14,12 + 2,50“), eine kürzere Kette ist doppelt bemaßt — strittig, nur als Obergrenze zu lesen | zur Kenntnis genommen |
+Unbeheizter Bereich „Terrasse (unbeheizt, außen)“ | 0 Bereich | 1 Bereich | in den Unterlagen benannt | zur Kenntnis genommen |
+Abschluss nach oben im Randgeschoss | 6 Räume | 6 Räume | jeder Raum ohne beheizten Raum darunter oder darüber | bestanden |
+Zahl der Geschosse | 2 Ebenen | 2 Ebenen | zweite, unabhängige Lesung; sie nennt die Ebenen EG, OG | bestanden |
+Räume ohne Außenwand | 0 Räume | 0 Räume | Raumart, Raumname und Angabe im Plan | bestanden |
+Räume in EG | 16 Räume | 16 Räume | zweite, unabhängige Lesung von Hasenberg_10_Grundrisse_290425.pdf, Seite 1 („Erdgeschoss“): 16 beschriftete Räume | bestanden |
+Räume in OG | 6 Räume | 6 Räume | zweite, unabhängige Lesung von Hasenberg_10_Grundrisse_290425.pdf, Seite 2 („Obergeschoss“): 6 beschriftete Räume | bestanden |
+
+### 10.3 Was diese Berechnung nicht belegt
+Diese Punkte sind keine Beanstandungen und keine offenen Aufgaben. Es sind die Stellen, an denen den Unterlagen nichts entgegenzuhalten war: eine zweite Zahl fehlt, oder das Werkzeug hat an ihrer Stelle eine benannte Annahme gesetzt. Sie stehen hier und nicht in einer Liste zum Abarbeiten, weil weder Verfasser noch Bearbeiter sie am Bildschirm schließen können — nur eine weitere Unterlage kann das. Was genau, steht jeweils im letzten Satz.
+Punkt | Wogegen nicht geprüft werden konnte | Was die Grenze aufheben würde |
+Außenwände in OG gegen den Umfang | Der Umfang von OG ist aus der gelesenen Kontur übernommen: 55,36 m (Außenbemaßung Obergeschoss, 17,15 m mal 10,53 m („1,94+5,56+7,90+3,54 (oben) / 13,46+3,55 (unten); Tiefe 10,53“), zweite Lesung von Hasenberg_10_Grundrisse_290425.pdf, Seite 2). Aus eigener Lesung trugen die Räume 33,29 m Außenwand; die fehlenden 22,07 m Fassade sind rechnerisch auf die Räume mit Außenlage verteilt — ANNAHME des Werkzeugs, je Raum über die Außenwandlänge in der Raumzeile überschreibbar. Innenliegende Räume (WC, Abstellraum, HWR, Flur ohne Außenlage) bekommen dabei nichts, es sei denn, die Lesung nennt dort eine Außenwand. Diese Zeile ist damit keine unabhängige Gegenprobe: die Wandlängen wurden auf genau diesen Umfang verteilt. Zu tun ist hier nichts. | Wer die Verteilung ersetzen will, trägt die Außenwandlänge je Raum in der Raumzeile ein oder die Außenmaße des Geschosses unter „Objekt und Klima“; eine eigene Eingabe geht der Annahme immer vor. |
+Fenster: nicht gegengezählt | Angelegt sind 16 Fenster; die zweite Lesung derselben Grundrisse zählt 27 Fenstersymbole (zweite, unabhängige Lesung von Hasenberg_10_Grundrisse_290425.pdf, Seite 1, Hasenberg_10_Grundrisse_290425.pdf, Seite 2: 27 Fenstersymbole in 2 Grundrissen). Daraus folgt bewusst kein Urteil: an neun Lesungen desselben Blattes gemessen schwankte diese Zahl für ein einziges Geschoss zwischen vier und acht, während die Raumnamen jedes Mal dieselben waren. Ein Fenstersymbol trägt keine Beschriftung, an der es sich am Plan wiederfinden ließe. Die Fensterzahl dieses Gebäudes ist damit nicht gegengezählt. Jedes fehlende Fenster senkt die Heizlast um seine Fläche mal der Differenz der U-Werte von Fenster und Wand. | Eine Ansicht auswerten lassen — sie zeigt dieselben Öffnungen von außen und je Fassade getrennt — oder die Fenster je Fassade am Plan abzählen und hier eintragen. |
+Flächensumme EG | Die Außenkontur misst 314,95 m². Die Wanddicke steht nirgends; angesetzt sind 0,24 bis 0,50 m (ANNAHME, Baurichtmaße nach DIN 4172). Damit liegt die Fläche innerhalb der Außenwände zwischen 280,38 und 298,11 m². Belegt sind davon 182,60 m². Die Restfläche liegt damit zwischen 97,8 und 115,5 m². Erklärt sind davon höchstens 37,0 m²: Innenwände 28,7 bis 28,7 m² (15 Trennungen, höchstens 92,5 m Wandlänge, 0,115 bis 0,24 m dick nach DIN 4172), Treppenlauf 2,4 bis 8,3 m² (DIN 18065: Laufbreite ab 0,80 m, Steigung 0,14 bis 0,20 m, Auftritt 0,23 bis 0,37 m; Geschosshöhe 2,85 bis 3,00 m). Selbst mit den größten dieser Maße bleiben 60,8 m² übrig, die nichts erklärt — mehr als der kleinste erfasste Raum dieses Geschosses (0,00 m²). ABER: diese Kontur ist aus zwei Außenmaßen gebildet und damit das umschreibende Rechteck. Ein Rücksprung — L-Form, eingezogener Eingang, überbaute Terrasse — erklärt die Restfläche genauso gut wie ein fehlender Raum. Zwischen beidem entscheidet diese Unterlage nicht; deshalb steht das hier als Grenze und nicht als Beanstandung. | Die Kontur von EG im Plan umfahren oder ihre Fläche hier eintragen; dann entscheidet die Restflächenprüfung. |
+Flächensumme OG | Die Außenkontur misst 180,59 m². Die Wanddicke steht nirgends; angesetzt sind 0,24 bis 0,50 m (ANNAHME, Baurichtmaße nach DIN 4172). Damit liegt die Fläche innerhalb der Außenwände zwischen 153,91 und 167,53 m². Belegt sind davon 98,16 m². Die Restfläche liegt damit zwischen 55,8 und 69,4 m². Erklärt sind davon höchstens 17,3 m²: Innenwände 6,1 bis 8,9 m² (5 Trennungen, höchstens 37,2 m Wandlänge, 0,115 bis 0,24 m dick nach DIN 4172), Treppenlauf 2,4 bis 8,3 m² (DIN 18065: Laufbreite ab 0,80 m, Steigung 0,14 bis 0,20 m, Auftritt 0,23 bis 0,37 m; Geschosshöhe 2,85 bis 3,00 m). Selbst mit den größten dieser Maße bleiben 38,5 m² übrig, die nichts erklärt — mehr als der kleinste erfasste Raum dieses Geschosses (12,88 m²). ABER: diese Kontur ist aus zwei Außenmaßen gebildet und damit das umschreibende Rechteck. Ein Rücksprung — L-Form, eingezogener Eingang, überbaute Terrasse — erklärt die Restfläche genauso gut wie ein fehlender Raum. Zwischen beidem entscheidet diese Unterlage nicht; deshalb steht das hier als Grenze und nicht als Beanstandung. | Die Kontur von OG im Plan umfahren oder ihre Fläche hier eintragen; dann entscheidet die Restflächenprüfung. |
+Fenster | 100 Prozent der Fensterfläche des Gebäudes (30.08 von 30.08 m²) beruhen auf dem angenommenen Fensterflächenanteil des Raums, nicht auf einer im Plan gelesenen Breite. Die Annahme ist am bauordnungsrechtlichen Mindestmaß verankert und trifft deshalb eher die untere Kante. Große Öffnungen — Hebe-Schiebe-Elemente, Fenstertüren, Fensterbänder — bleiben dabei systematisch zu klein, und das Fenster hat den schlechtesten U-Wert der Hülle. Wo eine Breite im Plan steht, gehört sie eingetragen. | keine Unterlage benannt |
+Zusatzangaben unvollständig · Hasenberg_10_Grundrisse_290425.pdf, Seite 2 | Beim Blatt "Hasenberg_10_Grundrisse_290425.pdf, Seite 2" ist der Durchgang für die Zusatzangaben an seiner Grenze abgebrochen. Die RAUMLISTE ist davon nicht betroffen; es können einzelne Befunde oder Gebäudeangaben fehlen. | keine Unterlage benannt |
+Zusatzangaben unvollständig · Hasenberg_10_Grundrisse_290425.pdf, Seite 1 | Beim Blatt "Hasenberg_10_Grundrisse_290425.pdf, Seite 1" ist der Durchgang für die Zusatzangaben an seiner Grenze abgebrochen. Die RAUMLISTE ist davon nicht betroffen; es können einzelne Befunde oder Gebäudeangaben fehlen. | keine Unterlage benannt |
+Angenommenes Geschoss | Das angenommene Geschoss OG (180,59 m² Platzhalter) ist wieder aus dem Raumbuch: inzwischen liegen gelesene Räume dieses Geschosses vor, der Platzhalter hätte die Fläche doppelt gezählt. | keine Unterlage benannt |
+Unbeheizter Bereich | Für „Unbeheizter Dachraum“ ist die Lage „geschlossener, nicht luftdichter Dachraum“ angenommen (DIN/TS 12831-1:2020-04, Tabelle 5). Die Temperatur des Bereichs folgt daraus und geht in jede angrenzende Fläche ein. | Die Lage des Bereichs im Expertenmodus prüfen, oder seine eigenen Bauteile eintragen; dann wird statt der Tabelle bilanziert. |
+Unbeheizter Bereich | Für „Unbeheizter Keller“ ist die Lage „Keller mit Öffnungen nach außen“ angenommen (DIN/TS 12831-1:2020-04, Tabelle 5). Die Temperatur des Bereichs folgt daraus und geht in jede angrenzende Fläche ein. | Die Lage des Bereichs im Expertenmodus prüfen, oder seine eigenen Bauteile eintragen; dann wird statt der Tabelle bilanziert. |
+
+### 10.4 Selbsttest der Software
+Der Rechenkern prüft bei jedem Start 37 eigene Rechenbeispiele nach, deren Ergebnis von Hand gerechnet im Quelltext hinterlegt ist. Sie waren zum Zeitpunkt dieser Berechnung vollständig bestanden. Das ist eine Aussage über den Rechenweg der Software, nicht über dieses Gebäude: geprüft werden die Formeln an bekannten Beispielen, nicht die Eingaben dieses Projekts. Der Satz steht deshalb nicht in der Prüftabelle oben. Er kann an dieser Stelle auch nie negativ ausfallen, weil das Werkzeug bei gescheitertem Selbsttest überhaupt keinen Bericht ausgibt.
+
+### 11 Quellen, Annahmen und Konfidenz
+A bedeutet: aus einer Originalunterlage entnommen oder maßstäblich abgegriffen. B bedeutet: normativer Tabellenwert oder daraus abgeleitet. C bedeutet: fachliche Annahme, die vor der Ausführung zu bestätigen ist.
+Klasse | Angabe | Quelle bzw. Begründung |
+A | Geschosshöhe: Eine Geschosshöhe kann aus dem vorliegenden Grundriss nicht abgeleitet werden. | Der Grundriss enthält nur Grundrissmaße (Längen in der Ebene), keine Schnittmaße oder Höhenkoten, aus denen sich eine Geschoss- oder Raumhöhe ableiten ließe. |
+A | Nutzung des Obergeschosses: Das Obergeschoss ist als Wohn-/Schlafbereich mit Homeoffice-Nutzung konzipiert (Elternschlafzimmer, zwei Kinderzimmer, zwei Büros, Bad, Flur). | Die Raumbezeichnungen 'Eltern', 'Kind I', 'Kind II', 'Büro II', 'Bad' und 'Flur' zusammen mit den jeweiligen NGF-Angaben ergeben ein klassisches Raumprogramm eines Wohnhauses mit Arbeitszimmer. |
+B | Norm-Außentemperatur -10,7 °C, Jahresmittel 9,4 °C | BWP-Klimakarte nach DIN/TS 12831-1:2020-04 (Bundesverband Wärmepumpe e. V., waermepumpe.de), gegengeprüft an der Deutschlandkarte klimdim.de; Stand 21.08.2026, PLZ 33100 Paderborn. Zugeordnet über die Postleitzahl. Die genannte Veröffentlichung gibt die Normtabelle wieder, sie ist selbst keine normative Quelle. Dass der Anhang der DIN/TS 12831-1:2020-04 nach Postleitgebieten und nicht nach Gemeinden gegliedert ist, beschreiben zwei Fachveröffentlichungen zu dieser Norm übereinstimmend, Markert und Jagnow/Wolff; die Fundstellen stehen im Kapitel Berechnungsgrundlagen. Auch sie sind Wiedergaben. Am Normtext geprüft ist weder der Wert noch die Zuordnung. Erst diese Prüfung macht daraus Klasse A. |
+B | Norm-Innentemperaturen 20 / 15 / 24 °C | DIN/TS 12831-1:2020-04, Tabelle 32, Zeile 1. Zuordnung dieses Berichts: Wohn- und Schlafräume als Daueraufenthaltsräume. DIN/TS 12831-1:2020-04, Tabelle 32, Zeile 9. Zuordnung dieses Berichts: Technik-, Hauswirtschafts- und Abstellräume als beheizte Nebenräume außerhalb der Aufenthaltsräume. DIN/TS 12831-1:2020-04, Tabelle 32, Zeile 7. Zuordnung dieses Berichts: Bad und Duschraum als unbekleidet genutzter Raum. |
+B | Wärmebrückenzuschlag 0,10 W/(m²·K) | DIN/TS 12831-1 pauschal ohne gesonderten Nachweis |
+C | Außenwand U = 0,50 W/(m²·K) | Leitparameter dieser Berechnung: unter allen Annahmen ohne Nachweis wirkt diese am stärksten auf das Ergebnis; auf sie entfallen 34 Prozent des Transmissionswärmestroms. Wird nur ein Wert dieser Liste am Gebäude belegt, dann dieser. IWU, Deutsche Wohngebäudetypologie, 2. Auflage 2015, Anhang C.1, Reihe Einfamilienhaus, Wärmeschutz Variante 1 (Ist-Zustand), Klasse 1984 bis 1994. |
+C | Baujahr 1990 | Eingabe ohne Quellenangabe. Erst mit Fundstelle wird daraus Klasse A. |
+C | Bauteilflächen, 491,9 m² Hülle in 38 Bauteilzeilen | Ohne genannte Fundstelle eingetragen (20 von 22 Räumen tragen eine Fundstelle aus dem Plan, die übrigen nicht). Die Fläche geht linear in den Wärmestrom ein: 10 % Flächenfehler sind 10 % Fehler im Transmissionsanteil des Bauteils. Damit ist sie eine der tragenden Eingaben und nicht durch die Quelle des U-Werts belegt. Sie ist am Bau aufzumessen oder an einer bemaßten Zeichnung abzugreifen. |
+C | Raummaße, 22 Räume mit zusammen 280,8 m² Grundfläche | Ohne genannte Fundstelle eingetragen (20 von 22 Räumen tragen eine Fundstelle aus dem Plan, die übrigen nicht). Grundfläche und lichte Höhe bestimmen das Luftvolumen und damit die Lüftungsheizlast unmittelbar. Sie sind am Objekt aufzumessen oder gegen eine bemaßte Zeichnung zu prüfen. |
+C | Mindestluftwechsel n_min = 0,5 1/h für alle Räume | DIN/TS 12831-1:2020-04, Tabelle 12. Zuordnung dieses Berichts: Wohn- und Schlafraum: Daueraufenthaltsraum; Beheizter Nebenraum (Technik, Hauswirtschaft): angesetzt ist der Wert der Daueraufenthaltsräume, eine eigene Zeile für beheizte Nebenräume ist am Normtext nicht geprüft; Bad, Duschraum: Bad mit Fenster. |
+C | Dach U = 0,40 W/(m²·K)
+Kellerdecke U = 0,60 W/(m²·K)
+Fenster U = 3,20 W/(m²·K) | IWU, Deutsche Wohngebäudetypologie, 2. Auflage 2015, Anhang C.1, Reihe Einfamilienhaus, Wärmeschutz Variante 1 (Ist-Zustand), Klasse 1984 bis 1994.
+Diese Begründung gilt für alle 3 Angaben dieser Zeile gleichermaßen. Sie stehen zusammen, weil sie dieselbe Quelle haben, nicht weil sie zusammen bewertet würden. |
+C | Innentemperatur WC ohne Dusche 20 °C | Vorschlag, keine Fundstelle. Zuordnung dieses Berichts: gegen DIN/TS 12831-1 Tabelle 32 zu prüfen. |
+C | Innentemperatur Lager, beheizt 15 °C | Vorschlag, keine Fundstelle. Zuordnung dieses Berichts: nutzungsbezogen zu prüfen. |
+C | Innentemperatur Büro, Besprechung 20 °C | Vorschlag, keine Fundstelle. Zuordnung dieses Berichts: bei Nichtwohngebäuden gilt die nutzungsbezogene Tabelle, gegen Tabelle 32 zu prüfen. |
+C | Innentemperatur Flur, Diele innerhalb der Wohnung 20 °C | Vorschlag, keine Fundstelle. Zuordnung dieses Berichts: wie Aufenthaltsraum, da innerhalb der Nutzungseinheit. Gegen Tabelle 32 zu prüfen. |
+C | Luftdichtheit n50 = 3,0 1/h | Annahme. n50 ist eine Annahme, keine Messung. |
+C | Höhenkorrekturfaktor ε = 1,00 | Voreinstellung des Rechenkerns, nicht je Raum belegt; sie wirkt nur in Räumen, in denen die Infiltration maßgebend ist. Begründung bei den Randbedingungen im Kapitel Berechnungsgrundlagen. |
+C | Aufheizleistung Φ_RH = 0 W | Auf null gesetzt, weil weder Absenkdauer noch Wiederaufheizzeit vereinbart sind. Begründung und Folgen bei den Randbedingungen im Kapitel Berechnungsgrundlagen. |
+C | Zwei getrennte Wohneinheiten: Das Gebäude ist im EG offenbar in zwei Wohnungen geteilt: eine große Einheit mit 193,16 m² Wohnfläche (Schlafen, Büro I, Flur, WC, Abst., Kochen/Essen, Wohnen, Spielen, Empfang, Garderobe, HWR, Bad) und eine kleinere Einheit mit 80,84 m² (Büro, Flur, Kochen/Essen/Wohnen, Bad) | Im Plan stehen zwei separate orange hinterlegte Wohnflächenangaben ('Wohnfläche: 193,16 m² zzgl. Terrasse' und 'Wohnfläche: 80,84 m² zzgl. Terrasse') für unterschiedliche, klar abgegrenzte Raumgruppen. Zusätzlich verläuft eine rot gestrichelte Linie, die die beiden Bereiche voneinander trennt, was auf zwei unabhängige Nutzungseinheiten hindeutet (WHS = vermutlich Wohn- und Hausmeisterhaus oder Mehrgenerationenhaus mit zwei Einheiten). Im Kontrollblatt nicht mit Quelle bestätigt. |
+C | Gebäudeform / Zuschnitt: Das Gebäude hat einen winkelförmigen bzw. leicht abgeknickten Grundriss mit einem vorspringenden Baukörper im Nordosten (schwarz umrandeter Anbau/Wintergarten-artiger Bereich) | Der nordöstliche Gebäudeteil ist mit einer dicken schwarzen Linie umrandet und abgesetzt von der restlichen, dünneren Gebäudekontur; zudem verläuft die Fassadenlinie dort abgewinkelt gegenüber dem Hauptbaukörper. Im Kontrollblatt nicht mit Quelle bestätigt. |
+C | Gebäudetiefe Hauptbaukörper: Die Gebäudetiefe im Bereich Kochen/Essen bis zur gegenüberliegenden Fassade beträgt in etwa die Summe der Maßkette 7,50+... an der Nordseite, ca. 11-12 m Gesamttiefe | Aus der oberen Maßkette (7,50 / 20 / 17,5 / 1,60 / 17,5 / 1,67 / 17,5 / 11,44...) und den seitlichen Maßketten (14,12 m Gesamthöhe links) lässt sich die grobe Gebäudeausdehnung ableiten, exakte Tiefe ohne Maßstabsmessung aber nicht sicher bestimmbar. Im Kontrollblatt nicht mit Quelle bestätigt. |
+C | Fehlende Nordwand bzw. offener Übergang zur Terrasse: Der Wohnbereich (Kochen/Essen, Wohnen) hat eine großzügige Verglasung/offene Fassade zur Terrasse im Osten | An der Ostseite der Räume Kochen/Essen und Wohnen sind keine durchgezogenen Wandschraffuren erkennbar, stattdessen Türsymbole und die Terrassenfläche (Pflasterung) direkt angrenzend, was auf großflächige Verglasung/Fenstertüren hindeutet. Im Kontrollblatt nicht mit Quelle bestätigt. |
+C | Unbeheizter Spitzboden/Keller nicht dargestellt: Es liegt vermutlich kein Keller vor bzw. dieser ist im vorliegenden Plan (nur EG) nicht dargestellt | Der Plan zeigt ausschließlich das Erdgeschoss ('Erdgeschoss Grundriss' im Plankopf), keine Kellergrundrisse oder Hinweise auf Unterkellerung sind vorhanden. Im Kontrollblatt nicht mit Quelle bestätigt. |
+C | Gebäudetiefe/Ausrichtung: Das Gebäude ist ein Einfamilienhaus mit einem angebauten Nebengebäude/Terrassenüberdachung im rechten oberen Bereich (gestrichelt), das nicht Teil der beheizten Wohnfläche des Obergeschosses ist. | Rechts oben im Plan ist ein separater rechteckiger Baukörper ohne Innenausbau, Bemaßung und Raumbezeichnung dargestellt, nur mit Außenkontur - vermutlich Bestandsgebäude/Nachbarbebauung oder Nebengebäude, das an das WHS grenzt.. Im Kontrollblatt nicht mit Quelle bestätigt. |
+C | Dachform/unbeheizter Bereich: Der Bereich rechts neben Büro II, Kind I und Kind II (schraffiert mit Lattenstruktur) stellt vermutlich eine Dachschräge oder einen unbeheizten Abstellraum/Balkon unter dem Dach dar. | Die vertikale Lattenschraffur zwischen den Räumen und der Gebäudeaußenkante ab ca. x=1385 unterscheidet sich von der Wandschraffur der Innenwände und deutet auf eine Holzverkleidung oder Dachschräge hin, wie sie im Obergeschoss unter Schrägdächern üblich ist.. Im Kontrollblatt nicht mit Quelle bestätigt. |
+C | Gebäudegrundfläche Obergeschoss: Die Gesamtbreite des Hauptbaukörpers beträgt in etwa 1,945 + 5,56 + 7,90 + 3,545 ≈ 18,95 m (obere Maßkette), die Gesamttiefe (linke Maßkette) beträgt ca. 2,50 + 4,095 + 8,03 ≈ ca. 14,6 m inkl. Terrasse. | Aufsummierung der oberen durchlaufenden Maßkette (1,945/5,56/7,90/3,545) sowie der linken vertikalen Maßkette (2,50/4,095/8,03), jeweils Bezugslinien am Gebäude entlang der Achsen.. Im Kontrollblatt nicht mit Quelle bestätigt. |
+C | Zweites Büro (Büro I) im Bestand: Es existiert vermutlich ein 'Büro I' in einem anderen Geschoss (z. B. EG oder DG), da hier nur 'Büro II' beschriftet ist. | Die Raumbezeichnung 'Büro II' legt nahe, dass es ein 'Büro I' in einem anderen Geschoss des gleichen Bauvorhabens gibt, was aus diesem Blatt allein aber nicht zu bestätigen ist.. Im Kontrollblatt nicht mit Quelle bestätigt. |
+
+Diese Berechnung ersetzt keinen hydraulischen Abgleich und keine Heizflächenauslegung. Sie ist die Grundlage dafür. Sie folgt dem Verfahren nach DIN EN 12831-1; ob sie im Einzelfall den Anforderungen eines Förderprogramms oder eines Nachweises genügt, beurteilt die prüfende Stelle. Die verwendeten Annahmen sind in der Tabelle oben offengelegt, die vor einer Beauftragung zu klärenden Punkte in Abschnitt 9.
+Für keinen der offenen Punkte ließ sich die Wirkung auf die Heizlast beziffern. Dazu müsste zu jedem Punkt ein belastbarer Alternativwert vorliegen, mit dem die Rechnung ein zweites Mal geführt werden kann. Die Punkte bleiben trotzdem zu klären; ohne Zahl daneben ist nur offen, wie stark sie wirken.
+
+### Anlage 1 Bauteilweise Berechnung je Raum
+Vollständige Aufstellung aller Bauteile. f ist der Temperaturkorrekturfaktor (θi minus θj) geteilt durch (θi minus θe). Ueff enthält den Wärmebrückenzuschlag bei allen Bauteilen gegen Außenluft und gegen unbeheizte Bereiche. Bei erdberührten Bauteilen, bei Innenbauteilen und gegen ein Nachbargebäude ist er nicht angesetzt; dort steht in der Spalte Ueff derselbe Wert wie in der Spalte U.
+Raum | Bauteil | A [m²] | U | Ueff | θi | θj | f | ΦT [W] | Herk. |
+EG WC | Kellerdecke | 4,20 | 0,60 | 0,70 | 20 | 4,7 | 0,500 | 45 | C |
+EG Abst. | Kellerdecke | 4,41 | 0,60 | 0,70 | 15 | 4,7 | 0,403 | 32 | C |
+EG Kochen/Essen | Außenwand | 9,25 | 0,50 | 0,60 | 20 | -10,7 | 1,000 | 170 | C |
+| Fenster | 5,06 | 3,20 | 3,30 | 20 | -10,7 | 1,000 | 513 | C |
+| Kellerdecke | 30,28 | 0,60 | 0,70 | 20 | 4,7 | 0,500 | 325 | C |
+EG Büro I | Kellerdecke | 8,98 | 0,60 | 0,70 | 20 | 4,7 | 0,500 | 96 | C |
+EG Flur | Kellerdecke | 12,17 | 0,60 | 0,70 | 20 | 4,7 | 0,500 | 131 | C |
+EG Wohnen | Außenwand | 8,39 | 0,50 | 0,60 | 20 | -10,7 | 1,000 | 155 | C |
+| Fenster | 3,50 | 3,20 | 3,30 | 20 | -10,7 | 1,000 | 355 | C |
+| Kellerdecke | 20,92 | 0,60 | 0,70 | 20 | 4,7 | 0,500 | 225 | C |
+EG Schlafen | Außenwand | 7,56 | 0,50 | 0,60 | 20 | -10,7 | 1,000 | 139 | C |
+| Fenster | 2,48 | 3,20 | 3,30 | 20 | -10,7 | 1,000 | 251 | C |
+| Kellerdecke | 14,90 | 0,60 | 0,70 | 20 | 4,7 | 0,500 | 160 | C |
+EG HWR | Kellerdecke | 3,75 | 0,60 | 0,70 | 15 | 4,7 | 0,403 | 27 | C |
+EG Büro | Kellerdecke | 9,37 | 0,60 | 0,70 | 20 | 4,7 | 0,500 | 101 | C |
+EG Flur | Kellerdecke | 10,78 | 0,60 | 0,70 | 20 | 4,7 | 0,500 | 116 | C |
+EG Empfang | Kellerdecke | 6,76 | 0,60 | 0,70 | 20 | 4,7 | 0,500 | 73 | C |
+EG Spielen | Kellerdecke | 14,04 | 0,60 | 0,70 | 20 | 4,7 | 0,500 | 151 | C |
+EG Bad | Kellerdecke | 6,56 | 0,60 | 0,70 | 24 | 4,7 | 0,558 | 89 | C |
+EG Kochen/Essen/Wohnen | Außenwand | 25,06 | 0,50 | 0,60 | 20 | -10,7 | 1,000 | 462 | C |
+| Fenster | 5,91 | 3,20 | 3,30 | 20 | -10,7 | 1,000 | 599 | C |
+| Kellerdecke | 35,48 | 0,60 | 0,70 | 20 | 4,7 | 0,500 | 381 | C |
+OG Eltern | Außenwand | 36,71 | 0,50 | 0,60 | 20 | -10,7 | 1,000 | 676 | C |
+| Fenster | 3,64 | 3,20 | 3,30 | 20 | -10,7 | 1,000 | 369 | C |
+| Dach | 21,77 | 0,40 | 0,50 | 20 | -7,6 | 0,900 | 301 | C |
+OG Bad | Außenwand | 15,66 | 0,50 | 0,60 | 24 | -10,7 | 1,000 | 326 | C |
+| Fenster | 1,60 | 3,20 | 3,30 | 24 | -10,7 | 1,000 | 183 | C |
+| Dach | 15,96 | 0,40 | 0,50 | 24 | -7,6 | 0,912 | 252 | C |
+OG Flur | Dach | 12,88 | 0,40 | 0,50 | 20 | -7,6 | 0,900 | 178 | C |
+OG Büro II | Außenwand | 32,25 | 0,50 | 0,60 | 20 | -10,7 | 1,000 | 594 | C |
+| Fenster | 2,72 | 3,20 | 3,30 | 20 | -10,7 | 1,000 | 276 | C |
+| Dach | 16,34 | 0,40 | 0,50 | 20 | -7,6 | 0,900 | 226 | C |
+OG Kind I | Außenwand | 14,41 | 0,50 | 0,60 | 20 | -10,7 | 1,000 | 265 | C |
+| Fenster | 2,57 | 3,20 | 3,30 | 20 | -10,7 | 1,000 | 260 | C |
+| Dach | 15,42 | 0,40 | 0,50 | 20 | -7,6 | 0,900 | 213 | C |
+OG Kind II | Außenwand | 31,74 | 0,50 | 0,60 | 20 | -10,7 | 1,000 | 585 | C |
+| Fenster | 2,63 | 3,20 | 3,30 | 20 | -10,7 | 1,000 | 266 | C |
+| Dach | 15,79 | 0,40 | 0,50 | 20 | -7,6 | 0,900 | 218 | C |
+
+Spalte Herk.: Konfidenzklasse des U-Werts, A belegt, B Schichtrechnung oder Tabellenwert, C Annahme. Ein Strich heißt, dass zu diesem Bauteilnamen kein Bauteiltyp gefunden wurde. Die Begründung je Bauteil steht im Kapitel zu Quellen und Konfidenz. Die Flächen dieser Tabelle sind davon nicht erfasst; ihre Herkunft ist dort gesondert ausgewiesen.
+
+### Anlage 2 Vermerke des Bearbeiters
+Die Selbstprüfung des Werkzeugs wirft Punkte auf, die am Plan oder am Gebäude zu entscheiden sind. Zu den folgenden Punkten hat der Unterzeichner beim Durchsehen einen Vermerk hinterlegt. Der Wortlaut stammt von ihm, nicht vom Werkzeug; er ist die fachliche Begründung dafür, dass der Punkt der Berechnung nicht entgegensteht.
+Punkt | Vermerk des Bearbeiters | Aufgenommen |
+Abschluss nach unten im Randgeschoss | Am Grundriss geprüft und für diesen Bericht so übernommen. | Sebastian Hund, 26.08.2026, 13:32 Uhr |
+Außenwände in EG gegen den Umfang | Am Grundriss geprüft und für diesen Bericht so übernommen. | Sebastian Hund, 26.08.2026, 13:32 Uhr |
+Unbeheizter Bereich „Terrasse (unbeheizt, außen)“ | Am Grundriss geprüft und für diesen Bericht so übernommen. | Sebastian Hund, 26.08.2026, 13:32 Uhr |
+
+Dieser Bericht ist eine Heizlastberechnung nach DIN EN 12831-1 für den Zustand, der in Abschnitt 2 beschrieben ist. Er dient der Auslegung des Wärmeerzeugers und der Heizflächen. Ändern sich Bauteile, Nutzung oder Raumtemperaturen, ist neu zu rechnen. Ob eine Maßnahme gefördert wird, entscheidet die bewilligende Stelle; die Angaben zu den Anforderungen in Abschnitt 5 sind eine fachliche Einschätzung und keine Zusage.
+Paderborn, den 25.08.2026
+ 
+Unterschrift
+
+Sebastian Hund, Energieberater
+Name und Funktion
+
+ 
+Nummer in der Energieeffizienz-Expertenliste
+
+WERK.E Energie-Effizienz-Beratung · Telefon 05251 40 29 29 1 · s.hund@werk-e.de
+
+Erstellt mit dem WERK.E Heizlast-Werkzeug, Rechenkern Version 1.0.0-RC1. Rückfragen zu diesem Bericht beantwortet der Unterzeichner.
+
+|

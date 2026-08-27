@@ -1,0 +1,68 @@
+{
+  "datum": "2026-08-23",
+  "thema": "Umfang statt Quadrat - Beseitigung des groessten systematischen Fehlers",
+  "werkzeug": "Browser, Chrome, lokal ausgelieferte Einzeldatei ueber http://127.0.0.1:8811",
+  "endpunkt": "LIVE https://amazing-axolotl-219e82.netlify.app/.netlify/functions/plan-auslesen",
+  "wichtig": "Der Endpunkt lief in ALLEN Laeufen mit dem ALTEN Schema. Die neuen Raumfelder (umfang_m, aussenwand_m, aussenwand_quelle, ecken) sind gebaut und selbstgeprueft, aber NICHT deployt. Deshalb kamen sie in keinem Lauf zurueck.",
+  "eingetippt": "nichts",
+  "vor": "api/deploy/index.html, Bau vom 23.08.2026 11:43",
+  "nach": "WERKE_Heizlast_Tool.html, Bau vom 23.08.2026 12:30",
+  "einschraenkung": "Zwischen beiden Bauten haben auch parallele Sitzungen an src/ gearbeitet. Eindeutig dieser Aenderung zuzurechnen sind U_soll, formfaktor und die Herleitung des Seitenverhaeltnisses.",
+
+  "ziolkowski": {
+    "datei": "/Users/sebastianhund/Downloads/Werkvertragsverzeichnung BV 2-0887 Ziolkowski.pdf",
+    "raeume": 13,
+    "raeume_mit_breite_und_tiefe": 0,
+    "vor": { "kW": 6.93, "W_je_m2": 36.85, "huelle_m2": 425.71, "aussenwand_m2": 254.27,
+             "wand_je_geschoss_m2": { "KG": 69.60, "EG": 90.70, "OG": 93.97 },
+             "umfang": { "KG": { "art": "kontur", "U_roh": 13.09, "U_soll": 30.00 },
+                         "EG": { "art": "hochrechnung", "U_roh": 26.78, "U_soll": 41.33, "weg": "Raumanteil 70 % + 4*sqrt(A)" },
+                         "OG": { "art": "hochrechnung", "U_roh": 31.69, "U_soll": 41.17, "weg": "Raumanteil 70 % + 4*sqrt(A)" } },
+             "kopf": { "fehler": 0, "warnung": 5, "hinweis": 3, "offene_fragen": 8 } },
+    "nach": { "kW": 6.95, "W_je_m2": 36.94, "huelle_m2": 426.15, "aussenwand_m2": 254.32,
+              "wand_je_geschoss_m2": { "KG": 69.60, "EG": 90.51, "OG": 94.21 },
+              "umfang": { "KG": { "art": "kontur", "U_roh": 17.69, "U_soll": 30.00 },
+                          "EG": { "art": "hochrechnung", "U_roh": 32.28, "U_soll": 41.42, "formfaktor": 4.792, "weg": "k = U_kontur(KG) / sqrt(A_netto(KG)) = 30,00 / sqrt(39,19)" },
+                          "OG": { "art": "hochrechnung", "U_roh": 31.69, "U_soll": 41.26, "formfaktor": 4.792, "weg": "dieselbe gemessene Beziehung" } },
+              "seitenverhaeltnis": { "wert": 1, "art": "quadrat", "n": 0,
+                "text": "an diesem Gebaeude nicht herleitbar, weniger als zwei Raeume mit belegtem Mass; steht so im Bauteilvermerk" },
+              "kopf": { "fehler": 0, "warnung": 5, "hinweis": 3, "offene_fragen": 9 } },
+    "handrechnung_eg_umfang_m": 41.00,
+    "abweichung_eg": { "vor": "+0,8 %", "nach": "+1,0 %" },
+    "groesse_des_fehlers": "Summe der rohen Quadratumfaenge 81,66 m gegen 112,68 m verteilt = +38 %"
+  },
+
+  "dumach": {
+    "datei": "/Users/sebastianhund/Downloads/260514 - Dumach 1 - Grundrisse M 1.100.pdf",
+    "art": "Vektorzeichnung, 25 Flaechenstempel auf 3 Geschossen, 370,44 m²",
+    "raeume_mit_breite_und_tiefe": 0,
+    "stempel_mit_umfang": 0,
+    "ergebnis": "5,03 kW, aber KEINE Bauteile: das Blatt nennt kein Baujahr, ohne Baujahr keine U-Werte. Wandflaeche und Umfangsabgleich sind an diesem Blatt nicht messbar, ohne ein Baujahr zu erfinden. Das wurde nicht getan."
+  },
+
+  "cherusker": {
+    "datei": "/Users/sebastianhund/Downloads/Cheruskerstraße_23_Grundrisse_211124.pdf",
+    "art": "4 Blaetter Vektorzeichnung, Aufmass Bestandsgebaeude, 31 Raeume, 315,81 m²",
+    "raeume_mit_breite_und_tiefe": 0,
+    "stempel_mit_umfang": 0,
+    "ergebnis": "4,26 kW, ebenfalls keine Bauteile: planungsart bestand, kein Baujahr auf dem Blatt."
+  },
+
+  "ausleseausbeute_ueber_drei_echte_plaene": {
+    "raeume_gesamt": 69,
+    "mit_breite_und_tiefe": 0,
+    "mit_angeschriebenem_umfang": 0,
+    "bemerkung": "0 von 69. Solange die Auslese nicht nach dem Umfang gefragt wird, liefert sie ihn auch nicht."
+  },
+
+  "browserprobe_client": {
+    "was": "KERN_ZUORDNUNG.seitenAusRaum in der geladenen Seite, mit den echten KG-Raumflaechen und einem angenommenen Umfang von 1,30 mal 4*sqrt(A). PROBE, kein Planlauf.",
+    "KELLER_17_99_m2": { "ohne_umfang": "4,24 x 4,24 (Quadrat), Wandlaenge 8,48 m",
+                         "mit_umfang": "9,04 x 1,99, Wandlaenge 11,03 m" },
+    "FLUR_21_20_m2":   { "ohne_umfang": "4,60 x 4,60 (Quadrat), Wandlaenge 9,21 m",
+                         "mit_umfang": "9,81 x 2,16, Wandlaenge 11,97 m" },
+    "formfaktor": { "v=1": 4.0, "v=1,5625": 4.10, "v=2": 4.24 }
+  },
+
+  "offen": "Der Ausleseendpunkt ist NICHT deployt. api/WERKE_Heizlast_Web.zip ist geschnuert und wartet auf die Freigabe von Sebastian."
+}
