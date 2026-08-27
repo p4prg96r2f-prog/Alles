@@ -449,6 +449,22 @@ print(f"   OK  {res['anzahl']} Pruefungen an einem Projekt mit lebenden PDF-Seit
 #      und dann durch ihn geteilt). Teil C schickt zehn kaputte Projekte durch
 #      Pruefmodul, Teillast, Bewertung und beide Berichtsfassungen und laesst
 #      die vorhandene baustellenSuche() darueber laufen.
+# Dieselbe Zahl ueberall. Die Heizlast erscheint im Rechenergebnis, auf der
+# Ergebnisseite, in der internen Fassung und in der Druckfassung; jede Stelle
+# formatiert selbst. Eine Druckfassung, die eine andere Zahl nennt als die
+# interne, ist der Fehler, den niemand bemerkt und der beim Auftraggeber landet.
+schritt("2ja Gleichstand: dieselbe Zahl in Ergebnis, interner Fassung und Druck")
+r = subprocess.run(["node", "validierung/gleichstand_test.js"], cwd=HIER,
+                   capture_output=True, text=True)
+if not r.stdout.strip():
+    print(r.stderr[-2000:])
+    abbruch("Die Gleichstandsprobe laesst sich nicht ausfuehren.")
+res = json.loads(r.stdout.strip().splitlines()[-1])
+if not res["ok"]:
+    abbruch("Gleichstand: " + "; ".join(res["fehler"]))
+print(f"   OK  {res['anzahl']} Pruefungen: jede kW-Angabe beider Fassungen "
+      "gehoert zu einer Groesse des Rechenergebnisses")
+
 schritt("2j  Nie NaN: kaputte Eingaben faerben die Rechnung, sie stoppen sie nicht")
 r = subprocess.run(["node", "validierung/nie_nan_test.js"], cwd=HIER,
                    capture_output=True, text=True)
