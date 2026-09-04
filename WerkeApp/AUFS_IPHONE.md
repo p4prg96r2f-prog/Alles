@@ -20,9 +20,27 @@ Simulator – so sehen Sie sofort etwas.
    Skript öffnet die richtige Stelle und wartet), und den Entwicklermodus auf
    dem iPhone einschalten.
 
-Schlägt der Build fehl – beim allerersten Mal wahrscheinlich, siehe unten –,
-schreibt das Skript die Fehler nach `Mac/xcode-build.log`. **Diese Datei an
-Claude geben**, er räumt die Fehler ab; danach das Skript erneut starten.
+Schlägt der Build fehl, sammelt das Skript die Fehlerzeilen und **legt sie in
+die Zwischenablage**. Dann genügt: bei Claude ins Eingabefeld einfügen (Cmd+V)
+und abschicken. Er räumt die Fehler ab, danach das Skript erneut starten. Das
+vollständige Protokoll bleibt in `Mac/xcode-build.log`, die kurze Fassung in
+`Mac/xcode-fehler.txt`.
+
+### Noch weniger Handarbeit: Claude auf dem Mac
+
+Statt Fehler hin- und herzuschicken, kann Claude direkt auf Ihrem Mac
+arbeiten – dort sieht er Xcode selbst und schließt die Schleife aus Bauen,
+Lesen, Beheben allein. Drei Zeilen im **Terminal**:
+
+```
+curl -fsSL https://claude.ai/install.sh | bash
+git clone --branch claude/werke-app-features-tb48qq https://github.com/p4prg96r2f-prog/Alles.git ~/WerkeApp && cd ~/WerkeApp
+claude "Bring die WERK.E App auf mein angeschlossenes iPhone. Folge der CLAUDE.md und behebe alle Build-Fehler selbstständig, bis die App läuft."
+```
+
+Die Datei `CLAUDE.md` im Wurzelverzeichnis liest diese Sitzung von selbst –
+darin stehen Auftrag, Fahrplan und Spielregeln. Die drei Handgriffe aus
+Punkt 3 oben bleiben trotzdem Ihre.
 
 Für die Kollegen später: **`Mac/testflight.command`** baut das Archiv und
 öffnet den Organizer – dort bleibt ein Klick („Distribute App“).

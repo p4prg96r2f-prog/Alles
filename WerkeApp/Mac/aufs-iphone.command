@@ -21,6 +21,7 @@ SKRIPTORDNER="$(cd "$(dirname "$0")" && pwd)"
 PROJEKT="$SKRIPTORDNER/../App/WerkeApp.xcodeproj"
 ABLAGE="$SKRIPTORDNER/../.build-iphone"
 LOG="$SKRIPTORDNER/xcode-build.log"
+FEHLER="$SKRIPTORDNER/xcode-fehler.txt"
 BUENDEL="de.werk-e.app"
 
 sag()    { printf '\n\033[1m%s\033[0m\n' "$1"; }
@@ -154,19 +155,35 @@ if ! bauen; then
 fi
 
 if ! grep -q "BUILD SUCCEEDED" "$LOG"; then
-    warn "Der Build ist fehlgeschlagen. Die ersten Fehler:"
+    # Das ganze Protokoll ist ein paar tausend Zeilen lang und zu 99 % Rauschen.
+    # Was Claude braucht, sind die Fehlerzeilen – die schreiben wir gesondert
+    # heraus und legen sie gleich in die Zwischenablage. Dann ist die Antwort
+    # auf „was ist schiefgegangen?" ein einziges Einfügen.
+    grep -E "error:|warning: .*will never be executed" "$LOG" \
+        | sed "s|$SKRIPTORDNER/../||g" \
+        | sort -u > "$FEHLER"
+    ANZAHL="$(wc -l < "$FEHLER" | tr -d ' ')"
+
+    warn "Der Build ist fehlgeschlagen – $ANZAHL Fehlerzeile(n). Die ersten:"
     echo
-    grep -E "error:" "$LOG" | head -12 | sed 's/^/    /'
+    head -12 "$FEHLER" | sed 's/^/    /'
     echo
     punkt "Das ist der erwartete erste-Build-Moment: Der Rechenkern ist mit"
     punkt "331 Testfällen bewiesen, aber die Oberfläche konnte bis jetzt nie"
     punkt "vollständig übersetzt werden – das kann nur Xcode."
     punkt ""
-    punkt "→ Die Datei  Mac/xcode-build.log  an Claude geben."
+    if command -v pbcopy >/dev/null 2>&1 && pbcopy < "$FEHLER" 2>/dev/null; then
+        gut "Die Fehlerliste liegt in der Zwischenablage."
+        punkt "→ Einfach bei Claude ins Eingabefeld einfügen (Cmd+V) und abschicken."
+    else
+        punkt "→ Die Datei  Mac/xcode-fehler.txt  an Claude geben."
+    fi
     punkt "  Er räumt die Fehler ab; danach dieses Skript erneut starten."
+    punkt "  (Das vollständige Protokoll bleibt in Mac/xcode-build.log.)"
     open "$PROJEKT"
     exit 1
 fi
+rm -f "$FEHLER"
 gut "Build erfolgreich."
 
 # ── 5 · Installieren und starten ────────────────────────────────────────────

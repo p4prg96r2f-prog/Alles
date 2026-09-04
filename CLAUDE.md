@@ -47,6 +47,23 @@ sie iterativ: bauen, ersten Fehler lesen, minimal korrigieren, erneut
 bauen. Ändere dabei die Fachlogik nicht – Fehler in Ansichten werden in
 den Ansichten behoben.
 
+Ein Abgleich aller Ansichten gegen die Kern-Schnittstelle ist bereits
+gelaufen (Argumentnamen, Optionals, Enum-Fälle, `Identifiable`,
+Symbolnamen, doppelte Typnamen) – die bekannten Stolpersteine sind
+ausgeräumt. Was bleibt, sind Fehler, die nur der echte Typprüfer sieht.
+
+### Das Sprachmodell ist abgeschaltet – mit Absicht
+
+`App/WerkeApp/Dienste/Erklaerer.swift` kann Erklärtexte über
+`FoundationModels` (iOS 26) vereinfachen. Dieser Zweig steht hinter
+`#if canImport(FoundationModels) && WERKE_SPRACHMODELL` und ist **aus**,
+weil seine Signaturen nie gegen ein echtes SDK geprüft werden konnten.
+Ohne ihn erscheint der kuratierte Text – vollständig, nur nicht
+vereinfacht. **Erst wenn die App auf dem iPhone läuft**, darfst du ihn
+versuchsweise einschalten (`-DWERKE_SPRACHMODELL` in „Other Swift
+Flags“). Übersetzt er nicht auf Anhieb: wieder ausschalten, nicht
+herumraten.
+
 ## Spielregeln
 
 - **Branch:** Entwickelt, committet und gepusht wird ausschließlich auf

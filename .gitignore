@@ -11,5 +11,12 @@ xcuserdata/
 *.xccheckout
 build/
 
+# Ergebnisse der Mac-Skripte (bleiben auf dem Rechner, der sie erzeugt hat)
+.build-iphone/
+WerkeApp/Mac/xcode-build.log
+WerkeApp/Mac/xcode-archiv.log
+WerkeApp/Mac/xcode-fehler.txt
+WerkeApp/Mac/WerkeApp.xcarchive/
+
 # macOS
 .DS_Store

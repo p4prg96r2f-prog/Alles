@@ -1,7 +1,17 @@
 import Foundation
 import Combine
 
-#if canImport(FoundationModels)
+// Das Sprachmodell auf dem Gerät ist ein Zusatz, kein Fundament: Ohne es
+// erscheint der kuratierte Text, und der ist vollständig. Deshalb ist der
+// Zugriff hinter einen eigenen Schalter gelegt und standardmäßig **aus**.
+//
+// Grund: Die Schnittstelle von `FoundationModels` konnte bisher gegen kein
+// echtes SDK geprüft werden. Ein unbewiesener Zusatznutzen darf den Bau der
+// ganzen App nicht gefährden.
+//
+// Einschalten, sobald es sich am Mac übersetzen lässt: im Ziel WerkeApp unter
+// Build Settings → „Other Swift Flags“ ein `-DWERKE_SPRACHMODELL` ergänzen.
+#if canImport(FoundationModels) && WERKE_SPRACHMODELL
 import FoundationModels
 #endif
 
@@ -25,7 +35,7 @@ final class Erklaerer: ObservableObject {
 
     /// Steht ein Sprachmodell auf diesem Gerät zur Verfügung?
     static var modellVerfuegbar: Bool {
-        #if canImport(FoundationModels)
+        #if canImport(FoundationModels) && WERKE_SPRACHMODELL
         if #available(iOS 26.0, *) {
             return SystemLanguageModel.default.isAvailable
         }
@@ -40,7 +50,7 @@ final class Erklaerer: ObservableObject {
         arbeitet = true
         defer { arbeitet = false }
 
-        #if canImport(FoundationModels)
+        #if canImport(FoundationModels) && WERKE_SPRACHMODELL
         if #available(iOS 26.0, *) {
             let anweisung = """
             Du formulierst Texte einer Energieberatung für Hauseigentümer um.
