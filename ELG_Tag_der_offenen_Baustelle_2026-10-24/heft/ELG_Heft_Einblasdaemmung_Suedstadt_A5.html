@@ -1,0 +1,435 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Dämmung zum Zuschauen. Heft zum Tag der offenen Baustelle, 24. Oktober 2026</title>
+<style>
+@font-face{font-family:'Source Sans 3';src:url('assets/SourceSans-var-latin.woff2') format('woff2');font-weight:200 900;font-style:normal;font-display:block}
+@page{size:148mm 210mm;margin:0}
+:root{--blau:#1874cd;--blau-dunkel:#134d88;--blau-tief:#0d5387;--blau-hell:#cce7fa;--gruen:#699429;--gruen-dunkel:#4f7020;--gruen-hell:#eaf2dd;--grau:#f0f0f0;--grau-tief:#e4e4e4;--linie:#d5d5d5;--ink:#333333;--text:#444444;--weiss:#ffffff;--orange:#e08214;--rot:#b2182b}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{font-family:'Source Sans 3','Source Sans Pro',Carlito,'Liberation Sans',sans-serif;color:var(--text);font-size:9.6pt;line-height:1.42;-webkit-print-color-adjust:exact;print-color-adjust:exact;background:#9a9a9a}
+@media print{body{background:#fff}}
+.seite{width:148mm;height:210mm;background:#fff;position:relative;overflow:hidden;break-after:page;page-break-after:always;margin:0 auto}
+.seite.letzte{break-after:auto;page-break-after:auto}
+@media screen{.seite{margin:6mm auto;box-shadow:0 2px 14px rgba(0,0,0,.35)}}
+.inhalt{padding:9mm 11mm 13mm 11mm}
+p{margin:0 0 2.2mm 0}
+h1,h2,h3{margin:0;color:var(--blau-dunkel);line-height:1.15}
+h2{font-size:17pt;font-weight:700;padding-bottom:1.6mm;border-bottom:.5mm solid var(--blau-dunkel);margin-bottom:3.2mm}
+h3{font-size:10.5pt;font-weight:700;margin-bottom:1mm;color:var(--blau-dunkel)}
+.kicker{font-size:8.3pt;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--gruen-dunkel);margin-bottom:1.2mm}
+.fuss{position:absolute;left:11mm;right:11mm;bottom:6mm;font-size:7.2pt;color:#777;display:flex;justify-content:space-between;border-top:.25mm solid var(--linie);padding-top:1.4mm}
+.quelle{font-size:7pt;color:#6a6a6a;line-height:1.3;margin-top:1.4mm}
+.box{border:.3mm solid var(--blau-dunkel);border-radius:1.2mm;padding:3mm 3.4mm;margin:2.6mm 0}
+.box.hell{background:var(--blau-hell);border-color:var(--blau-hell)}
+.box.gruen{background:var(--gruen-hell);border-color:var(--gruen-hell)}
+.box.warn{background:#fbeee6;border-color:#fbeee6}
+.box h3{margin-bottom:1.4mm}
+ul{margin:0;padding-left:4.2mm}
+li{margin:0 0 1mm 0}
+ul.haken{list-style:none;padding-left:0}
+ul.haken li{position:relative;padding-left:5mm;margin-bottom:1.2mm}
+ul.haken li::before{content:"";position:absolute;left:0;top:.9mm;width:2.6mm;height:1.4mm;border-left:.55mm solid var(--gruen);border-bottom:.55mm solid var(--gruen);transform:rotate(-45deg)}
+ul.kasten{list-style:none;padding-left:0}
+ul.kasten li{position:relative;padding-left:6mm;margin-bottom:1.1mm}
+ul.kasten li::before{content:"";position:absolute;left:0;top:.6mm;width:3.4mm;height:3.4mm;border:.4mm solid var(--blau-dunkel);border-radius:.5mm;background:#fff}
+.kacheln{display:grid;grid-template-columns:repeat(3,1fr);gap:2.4mm;margin:2.6mm 0}
+.kachel{background:var(--grau);padding:2.6mm 2.8mm 2.4mm;border-radius:1mm}
+.kachel b{display:block;font-size:19pt;font-weight:700;color:var(--gruen-dunkel);line-height:1.05;margin-bottom:.8mm}
+.kachel span{font-size:7.9pt;line-height:1.3;display:block;color:var(--ink)}
+.zwei{display:grid;grid-template-columns:1fr 1fr;gap:4mm}
+.schritte{counter-reset:s;list-style:none;padding:0;margin:0}
+.schritte li{counter-increment:s;position:relative;padding-left:9mm;margin-bottom:1.8mm;min-height:7mm}
+.schritte li::before{content:counter(s);position:absolute;left:0;top:.2mm;width:6.4mm;height:6.4mm;border-radius:50%;background:var(--gruen-dunkel);color:#fff;font-weight:700;font-size:10pt;text-align:center;line-height:6.4mm}
+.schritte b{color:var(--blau-dunkel)}
+.tipps{list-style:none;padding:0;margin:0;columns:2;column-gap:4mm}
+.tipps li{break-inside:avoid;margin-bottom:2.3mm;padding-left:7.4mm;position:relative;font-size:8.9pt;line-height:1.36}
+.tipps li .nr{position:absolute;left:0;top:.3mm;width:5.6mm;height:5.6mm;border-radius:50%;background:var(--blau-dunkel);color:#fff;font-weight:700;font-size:9pt;text-align:center;line-height:5.6mm}
+.tipps b{color:var(--blau-dunkel)}
+.tag{display:inline-block;font-size:6.8pt;font-weight:600;color:var(--gruen-dunkel);background:var(--gruen-hell);padding:0 1.2mm;border-radius:.6mm;margin-left:.6mm;vertical-align:middle}
+.tag.fach{color:var(--blau-dunkel);background:var(--blau-hell)}
+.bild{width:100%;display:block;object-fit:cover}
+.bu{font-size:7.2pt;color:#6a6a6a;margin-top:1mm;line-height:1.3}
+.kopf{display:flex;justify-content:space-between;align-items:center;padding:7mm 11mm 4mm}
+.kopf .marke{width:64mm;height:auto}
+.kopf .stadt{height:16mm;width:auto}
+.streifen{display:block;width:100%;height:7mm}
+.streifen svg{width:100%;height:100%;display:block}
+.hero{background:var(--gruen-dunkel);color:#fff;padding:7mm 11mm 7mm}
+.hero .kicker{color:#dff0c9}
+.hero h1{color:#fff;font-size:27pt;font-weight:700;margin:0 0 2.4mm}
+.hero p{font-size:11pt;line-height:1.35;margin:0}
+.datum{display:flex;align-items:center;gap:4mm;margin:0 0 3mm}
+.datum .badge{background:var(--blau-dunkel);color:#fff;border-radius:1.2mm;width:17mm;height:17mm;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1;flex:none}
+.datum .badge small{font-size:7.5pt;font-weight:700;letter-spacing:.05em}
+.datum .badge b{font-size:19pt;font-weight:700}
+.datum .text{font-size:9.5pt;line-height:1.35;color:var(--ink)}
+.datum .text b{color:var(--blau-dunkel)}
+.balken{margin:1.2mm 0 1.6mm}
+.balken .zeile{display:grid;grid-template-columns:24mm 1fr 16mm;align-items:center;gap:2mm;margin-bottom:1.6mm;font-size:8.6pt}
+.balken .bar{height:6mm;border-radius:.8mm;background:var(--rot)}
+.balken .bar.gut{background:var(--gruen)}
+.balken .wert{font-weight:700;color:var(--ink);text-align:right}
+.drei{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2.6mm}
+.drei .sp{background:var(--grau);padding:2.6mm 2.6mm 2.2mm;border-radius:1mm;font-size:8.4pt;line-height:1.35}
+.drei .sp h3{font-size:9.6pt;margin-bottom:1.2mm}
+.drei .sp b.gross{display:block;font-size:15pt;color:var(--gruen-dunkel);line-height:1.1;margin-bottom:.8mm}
+.reihe{display:grid;grid-template-columns:repeat(4,1fr);gap:1.8mm;margin:1.6mm 0 1mm}
+.reihe div{background:var(--blau-hell);border-radius:1mm;padding:2mm 2mm 1.8mm;font-size:7.8pt;line-height:1.3}
+.reihe div b{display:block;color:var(--blau-dunkel);font-size:9pt;margin-bottom:.5mm}
+.reihe div i{display:block;font-style:normal;color:var(--gruen-dunkel);font-weight:700;font-size:11pt;line-height:1;margin-bottom:.8mm}
+.footer{position:absolute;left:0;right:0;bottom:0;background:var(--blau-tief);color:#fff;padding:5mm 11mm 6mm;font-size:7.4pt;line-height:1.35}
+.footer .logos{display:flex;align-items:center;gap:6mm;margin-bottom:3mm}
+.footer .logos img.werke{height:8.5mm;width:auto}
+.footer .logos img.stadt{height:13mm;width:auto;background:#fff;padding:.8mm;border-radius:.6mm}
+.footer p{margin:0 0 1mm}
+.kontakt{display:grid;grid-template-columns:1fr 1fr;gap:3mm}
+.kontakt .k{background:var(--blau-hell);border-radius:1mm;padding:2.8mm 3mm;font-size:8.6pt;line-height:1.38}
+.kontakt .k h3{font-size:9.6pt}
+.kontakt .k.gruen{background:var(--gruen-hell)}
+.gross{font-size:11pt;font-weight:700;color:var(--blau-dunkel)}
+.klein{font-size:8.2pt}
+.abs{font-size:8.9pt}
+.linien{height:24mm;background:repeating-linear-gradient(to bottom,transparent 0 6.6mm,#c9c9c9 6.6mm 6.9mm)}
+.hinweis{font-size:8.2pt;color:var(--ink);background:var(--grau);padding:2mm 2.6mm;border-radius:1mm;margin-top:2mm}
+</style>
+</head>
+<body>
+
+<!-- SEITE 1: TITEL -->
+<section class="seite">
+  <div class="kopf">
+    <svg class="marke" viewBox="0 0 360 104" role="img" aria-label="Energiesparen leicht gemacht, eine Kampagne der Stadt Paderborn">
+      <rect x="0" y="6" width="92" height="92" fill="#4f7020"/>
+      <path d="M46 26 78 54h-9v26H23V54h-9L46 26Z" fill="#ffffff"/>
+      <path d="M41 62h10v18H41z" fill="#4f7020"/>
+      <text x="112" y="44" font-family="'Source Sans 3',sans-serif" font-size="30" font-weight="600" fill="#333333">Energiesparen</text>
+      <text x="112" y="76" font-family="'Source Sans 3',sans-serif" font-size="30" font-weight="400" fill="#4f7020">leicht gemacht</text>
+      <text x="112" y="97" font-family="'Source Sans 3',sans-serif" font-size="14" fill="#5c5c5c">Eine Aktion der Stadt Paderborn</text>
+    </svg>
+    <img class="stadt" src="assets/stadt-paderborn.png" alt="Stadt Paderborn, Paderborn überzeugt.">
+  </div>
+  <div class="streifen"><svg class="streifen" viewBox="0 0 100 100" preserveAspectRatio="none" role="img" aria-label="Erwärmungsstreifen: farbige Balken von Blau nach Rot, das Motiv der Klimaseiten der Stadt Paderborn."><rect x="0.0000" y="0" width="2.5000" height="100" fill="#08306b"/><rect x="2.5000" y="0" width="2.5000" height="100" fill="#08519c"/><rect x="5.0000" y="0" width="2.5000" height="100" fill="#2171b5"/><rect x="7.5000" y="0" width="2.5000" height="100" fill="#4292c6"/><rect x="10.0000" y="0" width="2.5000" height="100" fill="#6baed6"/><rect x="12.5000" y="0" width="2.5000" height="100" fill="#9ecae1"/><rect x="15.0000" y="0" width="2.5000" height="100" fill="#c6dbef"/><rect x="17.5000" y="0" width="2.5000" height="100" fill="#deebf7"/><rect x="20.0000" y="0" width="2.5000" height="100" fill="#d1e5f0"/><rect x="22.5000" y="0" width="2.5000" height="100" fill="#92c5de"/><rect x="25.0000" y="0" width="2.5000" height="100" fill="#4393c3"/><rect x="27.5000" y="0" width="2.5000" height="100" fill="#2166ac"/><rect x="30.0000" y="0" width="2.5000" height="100" fill="#4393c3"/><rect x="32.5000" y="0" width="2.5000" height="100" fill="#92c5de"/><rect x="35.0000" y="0" width="2.5000" height="100" fill="#d1e5f0"/><rect x="37.5000" y="0" width="2.5000" height="100" fill="#f7f7f7"/><rect x="40.0000" y="0" width="2.5000" height="100" fill="#fddbc7"/><rect x="42.5000" y="0" width="2.5000" height="100" fill="#f4a582"/><rect x="45.0000" y="0" width="2.5000" height="100" fill="#d6604d"/><rect x="47.5000" y="0" width="2.5000" height="100" fill="#b2182b"/><rect x="50.0000" y="0" width="2.5000" height="100" fill="#f4a582"/><rect x="52.5000" y="0" width="2.5000" height="100" fill="#fddbc7"/><rect x="55.0000" y="0" width="2.5000" height="100" fill="#f7f7f7"/><rect x="57.5000" y="0" width="2.5000" height="100" fill="#d1e5f0"/><rect x="60.0000" y="0" width="2.5000" height="100" fill="#92c5de"/><rect x="62.5000" y="0" width="2.5000" height="100" fill="#fddbc7"/><rect x="65.0000" y="0" width="2.5000" height="100" fill="#f4a582"/><rect x="67.5000" y="0" width="2.5000" height="100" fill="#d6604d"/><rect x="70.0000" y="0" width="2.5000" height="100" fill="#b2182b"/><rect x="72.5000" y="0" width="2.5000" height="100" fill="#e08214"/><rect x="75.0000" y="0" width="2.5000" height="100" fill="#d6604d"/><rect x="77.5000" y="0" width="2.5000" height="100" fill="#b2182b"/><rect x="80.0000" y="0" width="2.5000" height="100" fill="#a50f15"/><rect x="82.5000" y="0" width="2.5000" height="100" fill="#cb181d"/><rect x="85.0000" y="0" width="2.5000" height="100" fill="#ef3b2c"/><rect x="87.5000" y="0" width="2.5000" height="100" fill="#a50f15"/><rect x="90.0000" y="0" width="2.5000" height="100" fill="#67000d"/><rect x="92.5000" y="0" width="2.5000" height="100" fill="#a50f15"/><rect x="95.0000" y="0" width="2.5000" height="100" fill="#cb181d"/><rect x="97.5000" y="0" width="2.5000" height="100" fill="#67000d"/></svg></div>
+  <img class="bild" src="assets/maelzerstrasse59.jpg" alt="Das Haus Mälzerstraße 59 in der Paderborner Südstadt, Baujahr 1936, mit verputzter zweischaliger Außenwand" style="height:107mm;object-position:50% 62%">
+  <div class="hero" style="position:absolute;left:0;right:0;bottom:0;height:66mm">
+    <div class="kicker">Tag der offenen Baustelle · Samstag, 24. Oktober 2026</div>
+    <h1>Dämmung zum Zuschauen.</h1>
+    <p>Einblasdämmung live an einem Haus von 1936 in der Südstadt. Was Sie heute sehen, was es bringt und wie Sie bei Ihrem eigenen Haus anfangen.</p>
+    <p style="font-size:8.6pt;color:#dff0c9;position:absolute;left:11mm;bottom:6mm;margin:0">Zum Mitnehmen · Mälzerstraße 59, 33098 Paderborn · elg-pb.de</p>
+  </div>
+</section>
+
+<!-- SEITE 2: WILLKOMMEN -->
+<section class="seite">
+  <div class="inhalt">
+    <div class="kicker">Willkommen auf der Baustelle</div>
+    <h2>Schön, dass Sie da sind.</h2>
+    <p>Liebe Nachbarinnen und Nachbarn, heute wird in der Mälzerstraße 59 eine Hauswand gedämmt, und Sie können dabei zuschauen. Das Haus ist von 1936 und steht für viele Gebäude in der Südstadt: Seine Außenwand besteht aus zwei Mauerschalen mit einer Luftschicht dazwischen. Ein Fachbetrieb füllt diese Luftschicht heute von außen mit Dämmstoff.</p>
+    <p>Dieses Heft fasst zusammen, was Sie sehen, was die Maßnahme bringt und wie Sie bei Ihrem eigenen Haus vorgehen können. Fragen Sie die Fachleute vor Ort, dafür sind sie da.</p>
+
+    <div class="datum">
+      <div class="badge"><small>SA</small><b>24</b><small>OKT</small></div>
+      <div class="text"><b>10 bis 12 Uhr, Mälzerstraße 59</b><br>Eintritt frei, keine Anmeldung nötig. Gezeigt wird alles von außen. Die Wohnungen sind bewohnt und bleiben geschlossen.</div>
+    </div>
+
+    <div class="box hell">
+      <h3>Ablauf heute</h3>
+      <ul class="haken">
+        <li><b>10:00 Uhr</b> Begrüßung durch die Stadt Paderborn, vertreten durch den stellvertretenden Bürgermeister Siemensmeyer</li>
+        <li><b>anschließend</b> Einblasdämmung live, Schritt für Schritt erklärt</li>
+        <li><b>bis 12:00 Uhr</b> offene Fragerunde: Dämmung, Fenster, Heizung, Förderung</li>
+      </ul>
+    </div>
+
+    <div class="kacheln">
+      <div class="kachel"><b>1936</b><span>Baujahr des Hauses. Zweischalige Außenwand mit Luftschicht, wie bei vielen Häusern in der Südstadt.</span></div>
+      <div class="kachel"><b>3</b><span>Wohnungen bleiben während der Arbeiten bewohnt. Gedämmt wird komplett von außen.</span></div>
+      <div class="kachel"><b>2 Std.</b><span>Zeit für Ihre Fragen an Fachleute aus Energieberatung, Planung und Handwerk.</span></div>
+    </div>
+
+    <h3>Wer heute vor Ort ist</h3>
+    <p class="abs">Das Amt für Umweltschutz und Grünflächen der Stadt Paderborn, das Team der Aktion „Energiesparen leicht gemacht“, der ausführende Dämm-Fachbetrieb sowie Energieberaterinnen und Energieberater aus dem Verein EnergieXperten Paderborn. Alle beantworten Ihre Fragen neutral und unverbindlich.</p>
+
+    <div class="hinweis">Es ist eine Baustelle: Bitte festes Schuhwerk, Kinder an die Hand. Die Einblasmaschine ist an diesem Vormittag zu hören, danach ist es wieder ruhig.</div>
+  </div>
+  <div class="fuss"><span>Energiesparen leicht gemacht · Tag der offenen Baustelle</span><span>2</span></div>
+</section>
+
+<!-- SEITE 3: VERFAHREN -->
+<section class="seite">
+  <div class="inhalt">
+    <div class="kicker">Das Verfahren</div>
+    <h2>So kommt die Dämmung in die Wand.</h2>
+
+    <svg viewBox="0 0 126 58" width="104mm" height="48mm" role="img" aria-label="Querschnitt einer zweischaligen Außenwand vor und nach der Einblasdämmung" style="display:block;margin:0 auto 1.5mm">
+      <defs>
+        <pattern id="ziegel" width="6" height="3" patternUnits="userSpaceOnUse"><rect width="6" height="3" fill="#d9916a"/><path d="M0 1.5H6M3 0V1.5M0 1.5V3M6 1.5V3" stroke="#b86d47" stroke-width=".35" fill="none"/></pattern>
+        <pattern id="flocken" width="3" height="3" patternUnits="userSpaceOnUse"><rect width="3" height="3" fill="#eaf2dd"/><circle cx="1" cy="1" r=".7" fill="#699429"/><circle cx="2.3" cy="2.2" r=".55" fill="#4f7020"/></pattern>
+      </defs>
+      <!-- VORHER -->
+      <text x="4" y="5" font-size="4.2" font-weight="700" fill="#134d88">Vorher</text>
+      <text x="4" y="10" font-size="3" fill="#555">innen, warm</text>
+      <text x="44" y="10" font-size="3" fill="#555" text-anchor="end">außen, kalt</text>
+      <rect x="4" y="12" width="2" height="34" fill="#f3e9d8"/>
+      <rect x="6" y="12" width="12" height="34" fill="url(#ziegel)"/>
+      <rect x="18" y="12" width="6" height="34" fill="#dbe9f5"/>
+      <rect x="24" y="12" width="12" height="34" fill="url(#ziegel)"/>
+      <rect x="36" y="12" width="2" height="34" fill="#e8e3dc"/>
+      <path d="M21 16c-1.5 3 1.5 6 0 9s1.5 6 0 9 1.5 6 0 9" stroke="#1874cd" stroke-width=".7" fill="none"/>
+      <path d="M20.2 42.4 21 44l.8-1.6" stroke="#1874cd" stroke-width=".7" fill="none"/>
+      <path d="M8 20h30M8 29h30M8 38h30" stroke="#b2182b" stroke-width=".8" fill="none" stroke-dasharray="1.6 1.2"/>
+      <path d="M36 18.6 39 20l-3 1.4M36 27.6 39 29l-3 1.4M36 36.6 39 38l-3 1.4" fill="#b2182b"/>
+      <text x="21" y="50.5" font-size="2.7" fill="#134d88" text-anchor="middle">Luftschicht</text>
+      <text x="21" y="55.5" font-size="3.4" font-weight="700" fill="#b2182b" text-anchor="middle">U-Wert ca. 1,4</text>
+      <!-- NACHHER -->
+      <text x="66" y="5" font-size="4.2" font-weight="700" fill="#134d88">Nachher</text>
+      <text x="66" y="10" font-size="3" fill="#555">innen, warm</text>
+      <text x="106" y="10" font-size="3" fill="#555" text-anchor="end">außen, kalt</text>
+      <rect x="66" y="12" width="2" height="34" fill="#f3e9d8"/>
+      <rect x="68" y="12" width="12" height="34" fill="url(#ziegel)"/>
+      <rect x="80" y="12" width="6" height="34" fill="url(#flocken)"/>
+      <rect x="86" y="12" width="12" height="34" fill="url(#ziegel)"/>
+      <rect x="98" y="12" width="2" height="34" fill="#e8e3dc"/>
+      <path d="M70 29h12" stroke="#b2182b" stroke-width=".8" fill="none" stroke-dasharray="1.6 1.2"/>
+      <path d="M82 27.6 85 29l-3 1.4" fill="#b2182b"/>
+      <!-- Bohrloch und Schlauch -->
+      <rect x="98" y="20" width="4" height="2.6" fill="#8d6e5a"/>
+      <path d="M100 21.3c6 0 8 2 12 2s5 6 8 6" stroke="#333" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+      <circle cx="84" cy="21.3" r="1.1" fill="#4f7020"/>
+      <path d="M86 21.3h12" stroke="#4f7020" stroke-width="1.3" stroke-linecap="round"/>
+      <rect x="110" y="30" width="12" height="9" rx="1.2" fill="#555"/>
+      <circle cx="113" cy="41" r="1.8" fill="#222"/><circle cx="119" cy="41" r="1.8" fill="#222"/>
+      <text x="116" y="47" font-size="2.6" fill="#555" text-anchor="middle">Einblas-</text>
+      <text x="116" y="50" font-size="2.6" fill="#555" text-anchor="middle">maschine</text>
+      <text x="83" y="50.5" font-size="2.7" fill="#4f7020" text-anchor="middle">Dämmstoff</text>
+      <text x="83" y="55.5" font-size="3.4" font-weight="700" fill="#4f7020" text-anchor="middle">U-Wert ca. 0,4</text>
+    </svg>
+    <p class="quelle" style="margin-top:0">U-Wert in W/(m²K): Rechenwerte für eine typische Wand aus zwei Ziegelschalen mit 6 cm Luftschicht, nachher gefüllt mit Dämmstoff der Wärmeleitstufe 035. Ihr Haus kann abweichen. Verfahren nach dem Dämmatlas (IPEG-Institut, Paderborn); Lochgrößen und Raster: Erfahrungswerte aus Angeboten regionaler Fachbetriebe, 2026.</p>
+
+    <ol class="schritte" style="margin-top:2.4mm">
+      <li><b>Prüfen.</b> Ein Endoskop schaut durch wenige 8 mm kleine Löcher in die Hohlschicht: frei, trocken, mindestens 2,5 cm breit? Fugen und Sockel in Ordnung? Die Voruntersuchung kostet oft rund 300 € und wird bei Auftrag gutgeschrieben.</li>
+      <li><b>Bohren.</b> Von außen werden Einblaslöcher von etwa 2 bis 3 cm Durchmesser gesetzt, im Raster von rund einem Meter. Im Haus passiert nichts.</li>
+      <li><b>Einblasen.</b> Eine Maschine bläst den Dämmstoff durch einen Schlauch in die Hohlschicht, bis sie lückenlos und setzungssicher gefüllt ist. Zugelassen sind nur wasserabweisende Dämmstoffe wie Glas- oder Steinwolleflocken oder EPS-Granulat.</li>
+      <li><b>Verschließen.</b> Die Löcher werden mit Mörtel geschlossen und sind bald kaum zu sehen. Die Fachunternehmererklärung des Betriebs brauchen Sie für die Förderung.</li>
+    </ol>
+
+    <div class="box gruen" style="margin-top:1.2mm">
+      <h3>Gut zu wissen</h3>
+      <ul class="haken">
+        <li>Hohlschichten unter 2,5 cm lassen sich nicht dämmen. Mörtelbrocken im Hohlraum mindern die Wirkung.</li>
+        <li>Feuchte Stellen am Sockel vorher beheben, sonst wandert Feuchtigkeit später nach innen.</li>
+        <li>Vor einer Außendämmung (WDVS) muss die Luftschicht ohnehin gefüllt werden, sonst wirkt sie kaum.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="fuss"><span>Energiesparen leicht gemacht · Tag der offenen Baustelle</span><span>3</span></div>
+</section>
+
+<!-- SEITE 4: SÜDSTADT -->
+<section class="seite">
+  <div class="inhalt">
+    <div class="kicker">Südstadt</div>
+    <h2>Warum das hier besonders gut passt.</h2>
+    <div class="zwei" style="grid-template-columns:1fr 50mm">
+      <div>
+        <p>Viele Häuser in der Südstadt stammen aus den Jahrzehnten vor und nach dem Zweiten Weltkrieg und wurden zweischalig gemauert: innen die tragende Wand, außen eine zweite Schale, dazwischen eine Luftschicht von wenigen Zentimetern. Sie sollte Schlagregen abhalten.</p>
+        <p>Heute ist diese Luftschicht der größte Schwachpunkt der Wand. Die Luft darin bewegt sich und ist über Fugen mit der Außenluft verbunden, viel Heizwärme entweicht. Die Folgen: hohe Heizkosten, kalte Wände, Schimmelgefahr.</p>
+        <p>Die gute Nachricht: Genau diese Wände lassen sich mit wenig Aufwand nachträglich dämmen. Die Fassade bleibt, wie sie ist, alles passiert von außen an einem Arbeitstag.</p>
+      </div>
+      <div>
+        <img class="bild" src="assets/thermografie.jpg" alt="Wärmebild aus einer Drohnen-Thermografie über Wohnhäusern: gelbe und rote Flächen zeigen Wärmeverluste" style="height:40mm;border-radius:1mm">
+        <p class="bu">Wärmebild einer Drohnen-Thermografie: Gelbe und rote Flächen zeigen, wo Wärme entweicht.</p>
+      </div>
+    </div>
+
+    <div class="kacheln">
+      <div class="kachel"><b>30 %</b><span>der Außenwände in Deutschland sind zweischalig gebaut.</span></div>
+      <div class="kachel"><b>26 %</b><span>der 500 Häuser aus Runde 1 der Aktion: Einblasdämmung möglich.</span></div>
+      <div class="kachel"><b>74 %</b><span>der beratenen Haushalte in Paderborn heizen mit Gas.</span></div>
+    </div>
+    <p class="quelle">Quellen: Dämmatlas (IPEG-Institut, Paderborn); Ergebnisse der ersten Runde „Energiesparen leicht gemacht“, elg-pb.de/ergebnisse.</p>
+
+    <div class="box hell">
+      <h3>Passt das zu meinem Haus?</h3>
+      <ul class="kasten">
+        <li>Baujahr vor etwa 1980, danach wurde die Hohlschicht meist schon beim Bau gedämmt.</li>
+        <li>Zwei Mauerschalen mit Hohlraum hinter Putz oder Klinker. Sicherheit gibt die Endoskopie.</li>
+        <li>Hohlschicht mindestens 2,5 cm breit, trocken und noch ungedämmt.</li>
+        <li>Fugen dicht, Sockel ohne Feuchteschäden.</li>
+      </ul>
+      <p class="klein" style="margin:1mm 0 0">In der Beratung der Aktion gibt es bei zweischaligem Mauerwerk auf Wunsch eine Probebohrung. Fachbetriebe bieten die Endoskopie ebenfalls an.</p>
+    </div>
+  </div>
+  <div class="fuss"><span>Energiesparen leicht gemacht · Tag der offenen Baustelle</span><span>4</span></div>
+</section>
+
+<!-- SEITE 5: WIRTSCHAFTLICHKEIT -->
+<section class="seite">
+  <div class="inhalt">
+    <div class="kicker">Wirtschaftlichkeit</div>
+    <h2>Was es kostet und was es bringt.</h2>
+
+    <h3>Wärmeverlust durch die Außenwand</h3>
+    <div class="balken">
+      <div class="zeile"><span>ohne Dämmung</span><div class="bar" style="width:100%"></div><span class="wert">U ≈ 1,4</span></div>
+      <div class="zeile"><span>mit Dämmung</span><div class="bar gut" style="width:29%"></div><span class="wert">U ≈ 0,4</span></div>
+    </div>
+    <p class="abs">Der U-Wert in W/(m²K) sagt, wie viel Wärme durch einen Quadratmeter Wand verloren geht. Nach der Einblasdämmung sinkt der Verlust durch die Wand rechnerisch um rund 70 Prozent. Spürbar sofort: wärmere Wandoberflächen, weniger Zugluft, weniger Schimmelrisiko.</p>
+
+    <div class="drei" style="margin-top:2.6mm">
+      <div class="sp">
+        <h3>Kosten</h3>
+        <b class="gross">30 bis 40 €</b>
+        je m² Außenwand inkl. MwSt., je nach Dämmstoff und Hohlraumdicke.<br><br>
+        Beispiel 150 m² Wand: <b>4.500 bis 6.000 €</b>, meist an einem Arbeitstag.
+      </div>
+      <div class="sp">
+        <h3>Förderung</h3>
+        <b class="gross">15 %</b>
+        Zuschuss vom BAFA auf die förderfähigen Kosten (Bundesförderung BEG). Mit Sanierungsfahrplan unter weiteren Voraussetzungen <b>bis zu 20 %</b>. Energieberatung und Baubegleitung: <b>50 %</b>.
+      </div>
+      <div class="sp">
+        <h3>Ersparnis</h3>
+        <b class="gross">ca. 5 Jahre</b>
+        bis sich die Dämmung bezahlt gemacht hat (mit Förderung). Eines der wirtschaftlichsten Dämmverfahren überhaupt. Danach spart sie Jahr für Jahr.
+      </div>
+    </div>
+    <p class="quelle">Kosten: Erfahrungswert aus aktuellen Angeboten regionaler Fachbetriebe, 2026. Förderung: BEG-Richtlinie Einzelmaßnahmen, Stand Oktober 2026, es gelten die aktuellen Bedingungen von BAFA und KfW, keine Bewilligungszusage. Amortisation: Dämmatlas (IPEG-Institut).</p>
+
+    <div class="box gruen">
+      <h3>Beispiel aus der Südstadt</h3>
+      <p class="abs" style="margin:0">Ein Mehrfamilienhaus von 1915 hat als erstes Paket aus seinem Sanierungsfahrplan die Einblasdämmung und eine neue Haustür umgesetzt. Ergebnis der Berechnung: <b>32 Prozent weniger Heizwärmebedarf.</b> Gefördert wurden die Kosten damals mit 20 Prozent vom BAFA.</p>
+      <p class="quelle">Anonymisiertes Beratungsprojekt in Paderborn, Berechnung nach Sanierungsfahrplan, 2023.</p>
+    </div>
+
+    <div class="box" style="border-color:var(--rot);margin-top:2mm">
+      <h3 style="color:var(--rot)">Wichtig: Erst der Antrag, dann der Auftrag.</h3>
+      <p class="abs" style="margin:0">Wer vor der Förderzusage einen Vertrag unterschreibt, verliert den Zuschuss. Also zuerst den Antrag stellen oder den Vertrag mit aufschiebender Bedingung schließen („gilt erst mit Förderzusage“). Alternative: der Steuerbonus nach § 35c EStG, nicht mit dem Zuschuss kombinierbar. Fragen Sie Ihre Steuerberatung.</p>
+    </div>
+  </div>
+  <div class="fuss"><span>Energiesparen leicht gemacht · Tag der offenen Baustelle</span><span>5</span></div>
+</section>
+
+<!-- SEITE 6: KLIMA UND HEIZUNG -->
+<section class="seite">
+  <div class="inhalt">
+    <div class="kicker">Klima und Heizung</div>
+    <h2>Gut fürs Klima, gut für die nächste Heizung.</h2>
+
+    <div class="zwei">
+      <div>
+        <h3>CO₂: so rechnen Sie es für Ihr Haus</h3>
+        <p class="abs">Jede Kilowattstunde Erdgas, die nicht verbrannt wird, vermeidet rund 0,2 kg CO₂. Spart ein Haus durch die Einblasdämmung zum Beispiel 5.000 kWh Gas im Jahr, sind das <b>rund 1 Tonne CO₂ pro Jahr</b> und bei einem Gaspreis von 12 Cent je kWh rund <b>600 € im Jahr</b>.</p>
+        <p class="abs">Ob es bei Ihrem Haus 3.000 oder 8.000 kWh sind, hängt von Wandfläche, Luftschicht und Heizverhalten ab. Eine Energieberatung rechnet das für Ihr Haus durch.</p>
+        <p class="quelle">Rechenbeispiel mit Annahmen; eigenen Gaspreis einsetzen. Emissionsfaktor Erdgas: Umweltbundesamt.</p>
+      </div>
+      <div>
+        <div class="kachel" style="margin-bottom:2.4mm"><b>bis zu 325.000 kWh</b><span>sparen die 500 Haushalte aus Runde 1 der Aktion jedes Jahr durch umgesetzte und fest geplante Maßnahmen.</span></div>
+        <div class="kachel"><b>bis zu 71 t CO₂</b><span>weniger pro Jahr. Das entspricht dem Gasverbrauch von rund 15 Einfamilienhäusern.</span></div>
+        <p class="quelle">Evaluation der ersten Runde, vorgestellt am 27. August 2025 im Ausschuss für Umwelt, Klima und Mobilität; elg-pb.de/ergebnisse.</p>
+      </div>
+    </div>
+
+    <h3 style="margin-top:3mm">Die Reihenfolge entscheidet</h3>
+    <p class="abs">Drei von vier beratenen Haushalten in Paderborn heizen mit Gas. Irgendwann steht der Heizungstausch an. Wer vorher die Hülle dämmt, braucht weniger Wärme und kommt mit niedrigeren Vorlauftemperaturen aus. Genau das braucht eine Wärmepumpe. Wer zuerst die Heizung tauscht, kauft sie oft zu groß und zahlt zweimal.</p>
+    <div class="reihe">
+      <div><i>1</i><b>Bedarf senken</b>Einblasdämmung, oberste Geschossdecke, Kellerdecke, Fenster und Türen abdichten</div>
+      <div><i>2</i><b>Technik einstellen</b>Heizkurve, hydraulischer Abgleich, effiziente Pumpe, Rohre dämmen</div>
+      <div><i>3</i><b>Wärme erzeugen</b>Heizung passend zum gesenkten Bedarf, etwa eine Wärmepumpe</div>
+      <div><i>4</i><b>Strom koppeln</b>Photovoltaik, Speicher, Wallbox, wenn der Rest stimmt</div>
+    </div>
+
+    <div class="box hell" style="margin-top:3mm">
+      <h3>Neu in Runde 2: der Wärmepumpen-Check</h3>
+      <p class="abs" style="margin:0">Die Beratung der Aktion prüft im selben Termin, ob Ihr Haus für eine Wärmepumpe geeignet ist: Heizlast, Heizkörper, Dämmstand, Platz für die Außeneinheit, Stromanschluss. Das Ergebnis gibt es als Ampel, ohne zweiten Besuch und ohne Zusatzkosten. „Energiesparen leicht gemacht“ ist eine Maßnahme aus dem Klima-Aktionsplan der Stadt Paderborn.</p>
+    </div>
+  </div>
+  <div class="fuss"><span>Energiesparen leicht gemacht · Tag der offenen Baustelle</span><span>6</span></div>
+</section>
+
+<!-- SEITE 7: TIPPS -->
+<section class="seite">
+  <div class="inhalt">
+    <div class="kicker">Sofort umsetzbar</div>
+    <h2>Neun Tipps, die schon diesen Winter wirken.</h2>
+    <ul class="tipps">
+      <li><span class="nr">1</span><b>Heizkörper entlüften.</b> Gluckert es, ist Luft im System. Entlüften und den Druck am Manometer prüfen. <span class="tag">selbst, wenige Euro</span></li>
+      <li><span class="nr">2</span><b>Thermostate richtig einstellen.</b> Wohnräume etwa Stufe 3 (rund 20 Grad), Schlafzimmer niedriger. Faustregel: ein Grad weniger spart rund 6 Prozent Heizkosten. <span class="tag">kostet nichts</span></li>
+      <li><span class="nr">3</span><b>Heizungsrohre im Keller dämmen.</b> Geschlitzte Dämmschläuche, Stöße verkleben. In Runde 1 der Tipp mit der höchsten Umsetzungsquote. <span class="tag">selbst, wenige Euro</span></li>
+      <li><span class="nr">4</span><b>Türen und Fenster abdichten.</b> Dichtband in die Falz, Bürstendichtung an die Haustür. Undichte Stellen findet der Handrücken. <span class="tag">selbst, wenige Euro</span></li>
+      <li><span class="nr">5</span><b>Dachbodenluke dämmen und abdichten.</b> Dämmhaube oder selbst gebaute Kiste, dazu Dichtband. Erst abdichten, dann dämmen. <span class="tag">selbst, wenige Euro</span></li>
+      <li><span class="nr">6</span><b>Oberste Geschossdecke dämmen.</b> Die günstigste größere Maßnahme am Haus, wenn der Dachboden nicht bewohnt ist. <span class="tag fach">selbst oder Fachbetrieb</span></li>
+      <li><span class="nr">7</span><b>Heizung einstellen lassen.</b> Heizkurve, Vorlauftemperatur, Absenk- und Warmwasserzeiten anpassen, danach einige Tage beobachten. <span class="tag fach">Fachbetrieb, wenige Euro</span></li>
+      <li><span class="nr">8</span><b>Hydraulischen Abgleich machen lassen.</b> Jeder Heizkörper bekommt die richtige Wassermenge. Voraussetzung für eine effiziente Wärmepumpe, wird oft gefördert. <span class="tag fach">Fachbetrieb</span></li>
+      <li><span class="nr">9</span><b>Warmwasser im Blick.</b> Sparduschkopf einbauen, Zirkulationspumpe auf die Nutzungszeiten begrenzen. <span class="tag">selbst, wenige Euro</span></li>
+    </ul>
+
+    <div class="zwei" style="margin-top:2.6mm;grid-template-columns:1fr 36mm">
+      <div class="box warn" style="margin:0">
+        <h3 style="color:#a33a12">Vorsicht bei diesen Ratschlägen</h3>
+        <ul class="haken">
+          <li>Heizung nachts nicht ganz ausschalten, eine leichte Absenkung reicht.</li>
+          <li>Fenster nicht dauerhaft kippen, lieber mehrmals täglich kurz und weit öffnen.</li>
+          <li>Möbel und Vorhänge nicht vor den Heizkörper.</li>
+          <li>Innendämmung nicht selbst anbringen, vorher prüfen lassen.</li>
+        </ul>
+      </div>
+      <div>
+        <img class="bild" src="assets/thermostat.jpg" alt="Heizkörper mit digitalem Thermostat" style="height:30mm;border-radius:1mm">
+        <p class="bu">Digitale Thermostate heizen nach Zeitplan. In Runde 1 bei 16 Prozent der Haushalte empfohlen.</p>
+      </div>
+    </div>
+    <p class="quelle">Alle Tipps ausführlich: elg-pb.de/spartipps. Umsetzungsquoten: Nachbefragung zur ersten Runde, elg-pb.de/ergebnisse.</p>
+  </div>
+  <div class="fuss"><span>Energiesparen leicht gemacht · Tag der offenen Baustelle</span><span>7</span></div>
+</section>
+
+<!-- SEITE 8: RÜCKSEITE -->
+<section class="seite letzte" style="display:flex;flex-direction:column">
+  <div class="inhalt" style="padding-bottom:0;flex:1 1 auto;min-height:0;display:flex;flex-direction:column">
+    <div class="kicker">Wie es weitergeht</div>
+    <h2>Vier Schritte bis zur gedämmten Wand.</h2>
+    <ol class="schritte">
+      <li><b>Eignung prüfen lassen.</b> Endoskopie oder Probebohrung durch einen Fachbetrieb oder im Rahmen einer Energieberatung. Dabei gleich die anderen Schwachstellen des Hauses ansehen: oberste Geschossdecke, Kellerdecke, Fenster, Heizung.</li>
+      <li><b>Angebote einholen.</b> Von zertifizierten Fachbetrieben, mit zugelassenem Dämmstoff und Fachunternehmererklärung. Zwei bis drei Angebote vergleichen.</li>
+      <li><b>Förderung vor dem Auftrag beantragen.</b> Antrag beim BAFA mit einer Energieeffizienz-Expertin oder einem -Experten (Liste: energie-effizienz-experten.de). Vertrag erst nach der Zusage oder mit aufschiebender Bedingung.</li>
+      <li><b>Dämmen lassen, Nachweis einreichen, Zuschuss erhalten.</b> Die Arbeiten dauern meist einen Tag. Rechnung und Fachunternehmererklärung aufbewahren.</li>
+    </ol>
+
+    <div class="kontakt" style="margin-top:2.6mm">
+      <div class="k">
+        <h3>Energiesparen leicht gemacht</h3>
+        Kostenlose Energieberatung zu Hause, eine Aktion der Stadt Paderborn.<br>
+        <span class="gross">elg-pb.de</span><br>
+        Telefon 05251 5088611<br>
+        info@elg-pb.de<br>
+        <span class="klein">Die Beratungsplätze dieser Runde sind fast vollständig vergeben. Ob noch Termine frei sind, steht auf elg-pb.de.</span>
+      </div>
+      <div class="k gruen">
+        <h3>Weiterführende Beratung</h3>
+        EnergieXperten, Kompetenznetzwerk Paderborn e. V.: Energieberaterinnen und Energieberater, Planerinnen und Planer aus Paderborn.<br>
+        <span class="gross">energie-xperten.de</span><br>
+        Telefon 05251 1478557<br>
+        info@energie-xperten.de<br>
+        <span class="klein">Dämmverfahren im Detail: Dämmatlas, verlinkt auf elg-pb.de/spartipps.</span>
+      </div>
+    </div>
+    <div class="box" style="margin:3mm 0 4mm;border-color:var(--linie);flex:1 1 auto;min-height:0;display:flex;flex-direction:column">
+      <h3 style="margin-bottom:0">Ihre Fragen an die Fachleute heute</h3>
+      <div class="linien" style="flex:1 1 auto;height:auto;min-height:8mm"></div>
+    </div>
+  </div>
+  <div class="footer" style="position:static;flex:none">
+    <div class="logos">
+      <img class="stadt" src="assets/stadt-paderborn.png" alt="Stadt Paderborn, Paderborn überzeugt.">
+      <img class="werke" src="assets/werke-logo-white.png" alt="WERK.E Energie-Effizienz-Beratung">
+    </div>
+    <p>„Energiesparen leicht gemacht“ ist eine Aktion der Stadt Paderborn. Auftraggeberin: Stadt Paderborn, Amt für Umweltschutz und Grünflächen, Klimaschutz, Am Hoppenhof 33, 33104 Paderborn. Durchführung: WERK.E Energie-Effizienz-Beratungs GmbH &amp; Co. KG, Rolandsweg 80, 33102 Paderborn.</p>
+    <p>Stand: 22. Oktober 2026. Förderangaben ohne Gewähr, maßgeblich sind die jeweils aktuellen Richtlinien und Merkblätter von BAFA und KfW. Kostenangaben sind Erfahrungswerte, verbindlich ist nur ein Angebot für Ihr Haus. Fotos: WERK.E.</p>
+  </div>
+</section>
+
+</body>
+</html>
