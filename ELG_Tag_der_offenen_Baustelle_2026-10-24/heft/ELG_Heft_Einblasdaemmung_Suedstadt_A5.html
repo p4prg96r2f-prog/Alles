@@ -32,6 +32,9 @@ li{margin:0 0 1mm 0}
 ul.haken{list-style:none;padding-left:0}
 ul.haken li{position:relative;padding-left:5mm;margin-bottom:1.2mm}
 ul.haken li::before{content:"";position:absolute;left:0;top:.9mm;width:2.6mm;height:1.4mm;border-left:.55mm solid var(--gruen);border-bottom:.55mm solid var(--gruen);transform:rotate(-45deg)}
+ul.kreuz{list-style:none;padding-left:0}
+ul.kreuz li{position:relative;padding-left:5mm;margin-bottom:1.2mm}
+ul.kreuz li::before{content:"×";position:absolute;left:0;top:-.6mm;color:var(--rot);font-weight:700;font-size:12pt;line-height:1}
 ul.kasten{list-style:none;padding-left:0}
 ul.kasten li{position:relative;padding-left:6mm;margin-bottom:1.1mm}
 ul.kasten li::before{content:"";position:absolute;left:0;top:.6mm;width:3.4mm;height:3.4mm;border:.4mm solid var(--blau-dunkel);border-radius:.5mm;background:#fff}
@@ -396,12 +399,12 @@ ul.kasten li::before{content:"";position:absolute;left:0;top:.6mm;width:3.4mm;he
 
     <div class="zwei" style="margin-top:2.6mm;grid-template-columns:1fr 36mm">
       <div class="box warn" style="margin:0">
-        <h3 style="color:#a33a12">Vorsicht bei diesen Ratschlägen</h3>
-        <ul class="haken">
-          <li>Heizung nachts nicht ganz ausschalten, eine leichte Absenkung reicht.</li>
-          <li>Fenster nicht dauerhaft kippen, lieber mehrmals täglich kurz und weit öffnen.</li>
-          <li>Möbel und Vorhänge nicht vor den Heizkörper.</li>
-          <li>Innendämmung nicht selbst anbringen, vorher prüfen lassen.</li>
+        <h3 style="color:#a33a12">Oft gehört, trotzdem falsch</h3>
+        <ul class="kreuz" style="font-size:8.4pt;line-height:1.32">
+          <li><b>„Nachts die Heizung ganz aus.“</b> Besser leicht absenken, sonst kühlen die Wände aus.</li>
+          <li><b>„Kippen lüftet am besten.“</b> Nein: mehrmals am Tag kurz und weit öffnen.</li>
+          <li><b>„Sofa oder Vorhang vor dem Heizkörper stört nicht.“</b> Doch, beides staut die Wärme.</li>
+          <li><b>„Innendämmung mache ich selbst.“</b> Ohne Prüfung droht Schimmel. Vorher beraten lassen.</li>
         </ul>
       </div>
       <div>
