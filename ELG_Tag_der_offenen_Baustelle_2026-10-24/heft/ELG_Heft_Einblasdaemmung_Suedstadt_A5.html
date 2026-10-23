@@ -93,6 +93,12 @@ ul.kasten li::before{content:"";position:absolute;left:0;top:.6mm;width:3.4mm;he
 .klein{font-size:8.2pt}
 .abs{font-size:8.9pt}
 .linien{height:24mm;background:repeating-linear-gradient(to bottom,transparent 0 6.6mm,#c9c9c9 6.6mm 6.9mm)}
+.tab{width:100%;border-collapse:collapse;font-size:7.2pt;line-height:1.26;margin:1.4mm 0 .8mm}
+.tab th{text-align:left;color:var(--blau-dunkel);font-weight:700;padding:1mm 1.2mm;border-bottom:.4mm solid var(--blau-dunkel);vertical-align:bottom;font-size:7.4pt}
+.tab td{padding:1.1mm 1.2mm;border-bottom:.25mm solid var(--linie);vertical-align:top}
+.tab tr.heute td{background:var(--grau)}
+.tab td b{color:var(--blau-dunkel)}
+.tab td .gr{color:var(--gruen-dunkel);font-weight:700}
 .hinweis{font-size:8.2pt;color:var(--ink);background:var(--grau);padding:2mm 2.6mm;border-radius:1mm;margin-top:2mm}
 </style>
 </head>
@@ -131,28 +137,28 @@ ul.kasten li::before{content:"";position:absolute;left:0;top:.6mm;width:3.4mm;he
 
     <div class="datum">
       <div class="badge"><small>SA</small><b>24</b><small>OKT</small></div>
-      <div class="text"><b>10 bis 12 Uhr, Mälzerstraße 59</b><br>Eintritt frei, keine Anmeldung nötig. Gezeigt wird alles von außen. Die Wohnungen sind bewohnt und bleiben geschlossen.</div>
+      <div class="text"><b>Tag der offenen Baustelle, Mälzerstraße 59</b><br>Gezeigt wird alles von außen. Die Wohnungen sind bewohnt und bleiben geschlossen. Fachleute beantworten Ihre Fragen zu Dämmung, Fenstern, Heizung und Förderung.</div>
     </div>
 
     <div class="box hell">
-      <h3>Ablauf heute</h3>
+      <h3>Das Haus heute</h3>
       <ul class="haken">
-        <li><b>10:00 Uhr</b> Begrüßung durch die Stadt Paderborn, vertreten durch den stellvertretenden Bürgermeister Siemensmeyer</li>
-        <li><b>anschließend</b> Einblasdämmung live, Schritt für Schritt erklärt</li>
-        <li><b>bis 12:00 Uhr</b> offene Fragerunde: Dämmung, Fenster, Heizung, Förderung</li>
+        <li>Baujahr 1936, drei Wohnungen, Gas-Zentralheizung im Keller, Energieeffizienzklasse <b>H</b>, die schlechteste Stufe im Energieausweis.</li>
+        <li>Außenwand 30 cm, zweischalig: zwei Ziegelschalen, dazwischen <b>6 cm Luftschicht</b>. Genau diese wird heute mit Dämmstoff gefüllt.</li>
+        <li>Danach folgen oberste Geschossdecke, Kellerdecke, Fenster und eine Wärmepumpe (Seite 6).</li>
       </ul>
     </div>
 
     <div class="kacheln">
       <div class="kachel"><b>1936</b><span>Baujahr des Hauses. Zweischalige Außenwand mit Luftschicht, wie bei vielen Häusern in der Südstadt.</span></div>
-      <div class="kachel"><b>3</b><span>Wohnungen bleiben während der Arbeiten bewohnt. Gedämmt wird komplett von außen.</span></div>
-      <div class="kachel"><b>2 Std.</b><span>Zeit für Ihre Fragen an Fachleute aus Energieberatung, Planung und Handwerk.</span></div>
+      <div class="kachel"><b>6 cm</b><span>Luftschicht in der Außenwand. Heute wird sie von außen mit Dämmstoff gefüllt, die Wohnungen bleiben bewohnt.</span></div>
+      <div class="kachel"><b>H → B</b><span>Effizienzklasse heute und Ziel nach allen Schritten. Der Weg dahin steht auf Seite 6.</span></div>
     </div>
 
     <h3>Wer heute vor Ort ist</h3>
     <p class="abs">Das Amt für Umweltschutz und Grünflächen der Stadt Paderborn, das Team der Aktion „Energiesparen leicht gemacht“, der ausführende Dämm-Fachbetrieb sowie Energieberaterinnen und Energieberater aus dem Verein EnergieXperten Paderborn. Alle beantworten Ihre Fragen neutral und unverbindlich.</p>
 
-    <div class="hinweis">Es ist eine Baustelle: Bitte festes Schuhwerk, Kinder an die Hand. Die Einblasmaschine ist an diesem Vormittag zu hören, danach ist es wieder ruhig.</div>
+    <div class="hinweis">Es ist eine Baustelle: Bitte festes Schuhwerk, Kinder an die Hand.</div>
   </div>
   <div class="fuss"><span>Energiesparen leicht gemacht · Tag der offenen Baustelle</span><span>2</span></div>
 </section>
@@ -209,7 +215,7 @@ ul.kasten li::before{content:"";position:absolute;left:0;top:.6mm;width:3.4mm;he
     <p class="quelle" style="margin-top:0">U-Wert in W/(m²K): Rechenwerte für eine typische Wand aus zwei Ziegelschalen mit 6 cm Luftschicht, nachher gefüllt mit Dämmstoff der Wärmeleitstufe 035. Ihr Haus kann abweichen. Verfahren nach dem Dämmatlas (IPEG-Institut, Paderborn); Lochgrößen und Raster: Erfahrungswerte aus Angeboten regionaler Fachbetriebe, 2026.</p>
 
     <ol class="schritte" style="margin-top:2.4mm">
-      <li><b>Prüfen.</b> Ein Endoskop schaut durch wenige 8 mm kleine Löcher in die Hohlschicht: frei, trocken, mindestens 2,5 cm breit? Fugen und Sockel in Ordnung? Die Voruntersuchung kostet oft rund 300 € und wird bei Auftrag gutgeschrieben.</li>
+      <li><b>Prüfen.</b> Ein Endoskop schaut durch wenige 8 mm kleine Löcher in die Hohlschicht: Ist sie frei und trocken, wie breit ist sie? Sind Fugen und Sockel in Ordnung? Die Voruntersuchung kostet oft rund 300 € und wird bei Auftrag gutgeschrieben.</li>
       <li><b>Bohren.</b> Von außen werden Einblaslöcher von etwa 2 bis 3 cm Durchmesser gesetzt, im Raster von rund einem Meter. Im Haus passiert nichts.</li>
       <li><b>Einblasen.</b> Eine Maschine bläst den Dämmstoff durch einen Schlauch in die Hohlschicht, bis sie lückenlos und setzungssicher gefüllt ist. Zugelassen sind nur wasserabweisende Dämmstoffe wie Glas- oder Steinwolleflocken oder EPS-Granulat.</li>
       <li><b>Verschließen.</b> Die Löcher werden mit Mörtel geschlossen und sind bald kaum zu sehen. Die Fachunternehmererklärung des Betriebs brauchen Sie für die Förderung.</li>
@@ -218,7 +224,7 @@ ul.kasten li::before{content:"";position:absolute;left:0;top:.6mm;width:3.4mm;he
     <div class="box gruen" style="margin-top:1.2mm">
       <h3>Gut zu wissen</h3>
       <ul class="haken">
-        <li>Hohlschichten unter 2,5 cm lassen sich nicht dämmen. Mörtelbrocken im Hohlraum mindern die Wirkung.</li>
+        <li>Auch schmale Hohlschichten lassen sich dämmen, mit speziellen Dämmstoffen sogar unter 2,5 cm. Dieses Haus hat 6 cm, ideal zum Einblasen.</li>
         <li>Feuchte Stellen am Sockel vorher beheben, sonst wandert Feuchtigkeit später nach innen.</li>
         <li>Vor einer Außendämmung (WDVS) muss die Luftschicht ohnehin gefüllt werden, sonst wirkt sie kaum.</li>
       </ul>
@@ -256,7 +262,7 @@ ul.kasten li::before{content:"";position:absolute;left:0;top:.6mm;width:3.4mm;he
       <ul class="kasten">
         <li>Baujahr vor etwa 1980, danach wurde die Hohlschicht meist schon beim Bau gedämmt.</li>
         <li>Zwei Mauerschalen mit Hohlraum hinter Putz oder Klinker. Sicherheit gibt die Endoskopie.</li>
-        <li>Hohlschicht mindestens 2,5 cm breit, trocken und noch ungedämmt.</li>
+        <li>Hohlschicht vorhanden, trocken und noch ungedämmt. Schon wenige Zentimeter lohnen sich, dieses Haus hat 6 cm.</li>
         <li>Fugen dicht, Sockel ohne Feuchteschäden.</li>
       </ul>
       <p class="klein" style="margin:1mm 0 0">In der Beratung der Aktion gibt es bei zweischaligem Mauerwerk auf Wunsch eine Probebohrung. Fachbetriebe bieten die Endoskopie ebenfalls an.</p>
@@ -288,7 +294,7 @@ ul.kasten li::before{content:"";position:absolute;left:0;top:.6mm;width:3.4mm;he
       <div class="sp">
         <h3>Förderung</h3>
         <b class="gross">15 %</b>
-        Zuschuss vom BAFA auf die förderfähigen Kosten (Bundesförderung BEG). Mit Sanierungsfahrplan unter weiteren Voraussetzungen <b>bis zu 20 %</b>. Energieberatung und Baubegleitung: <b>50 %</b>.
+        Zuschuss vom BAFA (BEG). Bei <b>5.000 €</b> Kerndämmung wie hier: <b>750 € Zuschuss</b>, es bleiben 4.250 €. Beratung und Baubegleitung: <b>50 %</b>. Mit Sanierungsfahrplan bei Paketen ab 30.000 € <b>bis zu 20 %</b>.
       </div>
       <div class="sp">
         <h3>Ersparnis</h3>
@@ -306,7 +312,7 @@ ul.kasten li::before{content:"";position:absolute;left:0;top:.6mm;width:3.4mm;he
 
     <div class="box" style="border-color:var(--rot);margin-top:2mm">
       <h3 style="color:var(--rot)">Wichtig: Erst der Antrag, dann der Auftrag.</h3>
-      <p class="abs" style="margin:0">Wer vor der Förderzusage einen Vertrag unterschreibt, verliert den Zuschuss. Also zuerst den Antrag stellen oder den Vertrag mit aufschiebender Bedingung schließen („gilt erst mit Förderzusage“). Alternative: der Steuerbonus nach § 35c EStG, nicht mit dem Zuschuss kombinierbar. Fragen Sie Ihre Steuerberatung.</p>
+      <p class="abs" style="margin:0">Wer vor der Förderzusage einen Vertrag unterschreibt, verliert den Zuschuss. Also zuerst den Antrag stellen oder den Vertrag mit aufschiebender Bedingung schließen („gilt erst mit Förderzusage“). Alternative für selbst genutztes Wohneigentum: der Steuerbonus nach § 35c EStG (nicht kombinierbar). Fragen Sie Ihre Steuerberatung.</p>
     </div>
   </div>
   <div class="fuss"><span>Energiesparen leicht gemacht · Tag der offenen Baustelle</span><span>5</span></div>
@@ -316,17 +322,17 @@ ul.kasten li::before{content:"";position:absolute;left:0;top:.6mm;width:3.4mm;he
 <section class="seite">
   <div class="inhalt">
     <div class="kicker">Der Plan für dieses Haus</div>
-    <h2>Vom G-Haus zum B-Haus.</h2>
-    <p class="abs">Für die Mälzerstraße 59 wurde durchgerechnet, wie das Haus Schritt für Schritt vom Energiefresser zum sparsamen Gebäude wird. Die Reihenfolge ist kein Zufall: erst die Hülle, dann die Technik.</p>
+    <h2>Vom H-Haus zum B-Haus.</h2>
+    <p class="abs">Für die Mälzerstraße 59 wurde durchgerechnet, wie das Haus Schritt für Schritt vom Energiefresser zum sparsamen Gebäude wird. Erst die Hülle, dann die Technik: Jede Dämmung senkt die Heizlast, die Wärmepumpe wird kleiner.</p>
 
-    <svg viewBox="0 0 126 31" width="126mm" height="31mm" role="img" aria-label="Skala der Energieeffizienzklassen A+ bis H mit den Stufen dieses Hauses: heute G, nach der Dämmung E, Ziel B" style="display:block;margin:1.5mm 0 0">
-      <path d="M105 6.5 C 100 .5, 82 .5, 77 6.5" stroke="#134d88" stroke-width=".6" fill="none" stroke-dasharray="1.2 1"/>
+    <svg viewBox="0 0 126 31" width="114mm" height="28mm" role="img" aria-label="Skala der Energieeffizienzklassen A+ bis H mit den Stufen dieses Hauses: heute H, nach der Außenwand E, Ziel B" style="display:block;margin:.5mm auto 0">
+      <path d="M119 6.5 C 112 .5, 84 .5, 77 6.5" stroke="#134d88" stroke-width=".6" fill="none" stroke-dasharray="1.2 1"/>
       <path d="M77 6.5 C 70 .2, 42 .2, 35 6.5" stroke="#4f7020" stroke-width=".6" fill="none" stroke-dasharray="1.2 1"/>
       <g font-family="'Source Sans 3',sans-serif" font-size="3.1" font-weight="700" text-anchor="middle">
-        <rect x="96" y="6.5" width="18" height="5.2" rx=".8" fill="#134d88"/><text x="105" y="10.2" fill="#fff">heute: G</text>
-        <rect x="60" y="6.5" width="34" height="5.2" rx=".8" fill="#134d88"/><text x="77" y="10.2" fill="#fff">nach der Dämmung: E</text>
+        <rect x="108" y="6.5" width="18" height="5.2" rx=".8" fill="#134d88"/><text x="117" y="10.2" fill="#fff">heute: H</text>
+        <rect x="59" y="6.5" width="36" height="5.2" rx=".8" fill="#134d88"/><text x="77" y="10.2" fill="#fff">nach der Außenwand: E</text>
         <rect x="27" y="6.5" width="16" height="5.2" rx=".8" fill="#4f7020"/><text x="35" y="10.2" fill="#fff">Ziel: B</text>
-        <path d="M103.5 11.7 105 13.6 106.5 11.7Z M75.5 11.7 77 13.6 78.5 11.7Z" fill="#134d88"/>
+        <path d="M117.5 11.7 119 13.6 120.5 11.7Z M75.5 11.7 77 13.6 78.5 11.7Z" fill="#134d88"/>
         <path d="M33.5 11.7 35 13.6 36.5 11.7Z" fill="#4f7020"/>
       </g>
       <g font-family="'Source Sans 3',sans-serif" font-size="4.4" font-weight="700" text-anchor="middle">
@@ -345,22 +351,27 @@ ul.kasten li::before{content:"";position:absolute;left:0;top:.6mm;width:3.4mm;he
         <text x="126" y="30.6" text-anchor="end">Endenergie in kWh je m² und Jahr</text>
       </g>
     </svg>
-    <p class="quelle">Energieeffizienzklassen nach dem Gebäudeenergiegesetz (Anlage 10), wie im Energieausweis. Einstufung dieses Hauses: Berechnung für die Mälzerstraße 59, Stand Oktober 2026.</p>
 
-    <ol class="schritte" style="margin-top:2.4mm">
-      <li><b>Heute: Außenwand einblasen.</b> Rund 5.000 € für die Kerndämmung. Das Haus springt von Klasse G auf Klasse E, und die Heizlast sinkt spürbar.</li>
-      <li><b>Als Nächstes: oberste Geschossdecke und Kellerdecke.</b> Beide werden ebenfalls eingeblasen. Die Heizlast sinkt weiter, die Heizung muss noch weniger leisten.</li>
-      <li><b>Dann: Fenster und Luft-Wasser-Wärmepumpe.</b> Neue Fenster schließen die letzte große Lücke in der Hülle. Die Wärmepumpe wird passend zum gesunkenen Bedarf ausgelegt, also kleiner und günstiger, und läuft mit niedrigen Vorlauftemperaturen effizient. Ergebnis: <b>Klasse B.</b></li>
-    </ol>
+    <table class="tab">
+      <thead><tr>
+        <th style="width:27mm">Schritt</th>
+        <th style="width:21mm">Kosten · Zuschuss</th>
+        <th style="width:30mm">Energie</th>
+        <th style="width:24mm">Heizkosten je Wohnung und Jahr</th>
+        <th>CO₂ je Wohnung und Jahr</th>
+      </tr></thead>
+      <tbody>
+        <tr class="heute"><td><b>Heute</b><br>Gas-Zentralheizung, ungedämmt</td><td>–</td><td><b>Klasse H</b>: über 250 kWh Gas je m², fürs Haus über 66.000 kWh</td><td>über 2.600 €</td><td>über 4,4 t</td></tr>
+        <tr><td><b>1 · Außenwand einblasen</b><br>jetzt</td><td>rund 5.000 €<br><span class="gr">750 € Zuschuss</span></td><td><b>Klasse E</b>: höchstens 160 kWh je m², mindestens ein Drittel weniger Gas</td><td>höchstens 1.700 €<br><span class="gr">spart über 950 €</span></td><td>höchstens 2,8 t<br><span class="gr">spart über 1,6 t</span></td></tr>
+        <tr><td><b>2 · Oberste Geschossdecke und Kellerdecke einblasen</b><br>Winter 2026/27</td><td>rund 18.000 €<br><span class="gr">2.700 € Zuschuss</span></td><td>mit der Wand zusammen rund 40 % weniger Wärmebedarf als heute</td><td>rund 1.600 €<br><span class="gr">spart über 1.000 €</span></td><td>rund 2,6 t<br><span class="gr">spart rund 1,8 t</span></td></tr>
+        <tr><td><b>3 · Fenster und Haustür</b><br>2027</td><td>rund 30.000 €<br><span class="gr">4.500 € Zuschuss</span></td><td>überschlägig rund 55 % weniger als heute, <b>Klasse D</b></td><td>rund 1.200 €<br><span class="gr">spart rund 1.400 €</span></td><td>rund 2,0 t<br><span class="gr">spart rund 2,4 t</span></td></tr>
+        <tr><td><b>4 · Luft-Wasser-Wärmepumpe</b><br>2027, ausgelegt auf die gesunkene Heizlast</td><td>rund 55.000 €<br><span class="gr">16.500 € Zuschuss</span></td><td><b>Klasse B</b>: höchstens 75 kWh Strom je m², weniger als ein Drittel von heute, kein Erdgas mehr</td><td>je nach Stromtarif rund 1.200 bis 2.000 €, kein Gas-Grundpreis, kein CO₂-Preis</td><td>höchstens 2,4 t, Tendenz sinkend, weil der Strom sauberer wird</td></tr>
+      </tbody>
+    </table>
+    <p class="quelle">Rechenwerte nach Energiebedarf (264 m² Gebäudenutzfläche nach GEG, drei Wohnungen im Mittel). Klassen nach GEG Anlage 10; heute, nach der Außenwand und Ziel aus der Berechnung für dieses Haus (Oktober 2026), Schritt 2 nach der Heizlastberechnung (August 2026), Schritt 3 überschlägig aus den U-Werten. Preise 12 ct Gas, 30 ct Strom je kWh. CO₂ 0,2 kg je kWh Gas, 0,36 kg je kWh Strom (Umweltbundesamt). Zuschüsse 15 % Hülle, 30 % Wärmepumpe (BEG, Stand Oktober 2026, ohne Gewähr). Der reale Verbrauch liegt in alten Häusern meist unter dem Rechenwert, die Prozentzahlen übertragen sich auf Ihre Abrechnung.</p>
 
-    <div class="box hell" style="margin-top:1.6mm">
-      <h3>Warum diese Reihenfolge</h3>
-      <p class="abs" style="margin:0">Jede Dämmmaßnahme senkt die Heizlast, also die Leistung, die die Heizung am kältesten Tag bringen muss. Wer zuerst die Heizung tauscht, kauft sie zu groß und zahlt zweimal. Den Plan dafür erstellt eine Energieberaterin oder ein Energieberater aus der <b>Energieeffizienz-Expertenliste des Bundes</b> (energie-effizienz-experten.de) als individuellen Sanierungsfahrplan, der ebenfalls gefördert wird.</p>
-    </div>
-
-    <div class="kacheln" style="grid-template-columns:1fr 1fr;margin-bottom:0">
-      <div class="kachel"><b>0,2 kg CO₂</b><span>vermeidet jede Kilowattstunde Erdgas, die nicht verbrannt wird. 5.000 kWh weniger im Jahr sind rund 1 Tonne CO₂ und bei 12 Cent je kWh rund 600 €. Annahmen, eigenen Tarif einsetzen. Emissionsfaktor: Umweltbundesamt.</span></div>
-      <div class="kachel"><b>bis zu 71 t CO₂</b><span>pro Jahr sparen die 500 Haushalte aus Runde 1 der Aktion mit umgesetzten und fest geplanten Maßnahmen, bis zu 325.000 kWh. Evaluation vom 27.08.2025, elg-pb.de/ergebnisse.</span></div>
+    <div class="box hell" style="margin-top:1.2mm;padding:2.2mm 3mm">
+      <p class="klein" style="margin:0"><b style="color:var(--blau-dunkel)">Wer den Plan macht:</b> eine Energieberaterin oder ein Energieberater aus der <b>Energieeffizienz-Expertenliste des Bundes</b> (energie-effizienz-experten.de), als geförderter individueller Sanierungsfahrplan. Für dieses Haus: rund 24.500 € Zuschuss auf rund 108.000 € Investition, dazu 50 % auf Beratung und Baubegleitung.</p>
     </div>
   </div>
   <div class="fuss"><span>Energiesparen leicht gemacht · Tag der offenen Baustelle</span><span>6</span></div>
