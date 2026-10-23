@@ -103,10 +103,10 @@ ul.kasten li::before{content:"";position:absolute;left:0;top:.6mm;width:3.4mm;he
 .tab td b{color:var(--blau-dunkel)}
 .tab td .gr{color:var(--gruen-dunkel);font-weight:700}
 .qrreihe{display:grid;grid-template-columns:1fr;gap:3mm;margin:3mm 0 0}
-.qrbox{border-radius:1.2mm;padding:2.8mm 3.4mm;display:grid;grid-template-columns:27mm 1fr;gap:3.6mm;align-items:center}
+.qrbox{border-radius:1.2mm;padding:2.8mm 3.4mm;display:grid;grid-template-columns:24mm 1fr;gap:3.6mm;align-items:center}
 .qrbox.gruen{background:var(--gruen-hell)}
 .qrbox.blau{background:var(--blau-hell)}
-.qrbox img{width:27mm;height:27mm;display:block;background:#fff;border-radius:.8mm;padding:.9mm}
+.qrbox img{width:24mm;height:24mm;display:block;background:#fff;border-radius:.8mm;padding:.9mm}
 .qrbox h3{font-size:11.5pt;line-height:1.15;margin:0 0 1.2mm}
 .qrbox p{font-size:8.6pt;line-height:1.32;margin:0 0 1.4mm}
 .qrbox .url{display:block;font-size:10pt;font-weight:700;color:var(--blau-dunkel);white-space:nowrap;margin:0}
@@ -115,6 +115,26 @@ ul.kasten li::before{content:"";position:absolute;left:0;top:.6mm;width:3.4mm;he
 .qrstreifen p{margin:0;font-size:8.4pt;line-height:1.32}
 .qrstreifen .url{font-weight:700;color:var(--blau-dunkel)}
 .hinweis{font-size:8.2pt;color:var(--ink);background:var(--grau);padding:2mm 2.6mm;border-radius:1mm;margin-top:2mm}
+
+/* Rückseite als Umschlag */
+.rueck{display:flex;flex-direction:column}
+.rueck-hero{background:var(--gruen-dunkel);color:#fff;padding:8mm 11mm 6mm;flex:none}
+.rueck-hero .kicker{color:#dff0c9}
+.rueck-hero h1{color:#fff;font-size:25pt;font-weight:700;line-height:1.1;margin:0 0 2.4mm}
+.rueck-hero p.lead{font-size:10.5pt;line-height:1.35;margin:0 0 3.4mm;color:#fff}
+.rueck-hero .schritte{display:grid;grid-template-columns:1fr 1fr;gap:2.2mm 5mm;font-size:8.5pt;line-height:1.34;color:#eef5e4}
+.rueck-hero .schritte li{margin:0;padding-left:8.4mm;min-height:6.4mm}
+.rueck-hero .schritte li::before{background:#fff;color:var(--gruen-dunkel)}
+.rueck-hero .schritte b{color:#fff}
+.rueck-mitte{flex:1 1 auto;min-height:0;padding:5mm 11mm 4mm;display:flex;flex-direction:column;justify-content:center}
+.rueck-mitte .qrreihe{margin:0}
+.rueck-unten{flex:none}
+.rueck-footer{position:static;padding:4.5mm 11mm 5.5mm}
+.rueck-footer .oben{display:flex;align-items:center;gap:7mm;margin-bottom:3mm}
+.rueck-footer .logos{margin:0;flex:none}
+.rueck-footer .kontakt-f{font-size:8.4pt;line-height:1.38;color:#fff}
+.rueck-footer .kontakt-f b{font-size:9.6pt}
+.rueck-footer .kontakt-f span{display:block;font-size:7.4pt;color:#d6e6f5;margin-top:.6mm}
 </style>
 </head>
 <body>
@@ -433,23 +453,26 @@ ul.kasten li::before{content:"";position:absolute;left:0;top:.6mm;width:3.4mm;he
 </section>
 
 <!-- SEITE 8: RÜCKSEITE -->
-<section class="seite letzte" style="display:flex;flex-direction:column">
-  <div class="inhalt" style="padding-bottom:0;flex:1 1 auto;min-height:0;display:flex;flex-direction:column">
+<section class="seite letzte rueck">
+  <div class="rueck-hero">
     <div class="kicker">Wie es weitergeht</div>
-    <h2>Vier Schritte bis zur gedämmten Wand.</h2>
-    <ol class="schritte" style="font-size:8.9pt">
-      <li><b>Eignung prüfen lassen.</b> Endoskopie oder Probebohrung durch einen Fachbetrieb oder in der Energieberatung, dabei gleich Decken, Fenster und Heizung mit ansehen.</li>
-      <li><b>Angebote einholen.</b> Zertifizierte Fachbetriebe, zugelassener Dämmstoff, Fachunternehmererklärung. Zwei bis drei Angebote vergleichen.</li>
-      <li><b>Förderung vor dem Auftrag beantragen.</b> Mit einer Expertin oder einem Experten aus der Liste unten. Vertrag erst nach der Zusage oder mit aufschiebender Bedingung.</li>
+    <h1>Und jetzt Sie.</h1>
+    <p class="lead">Was Sie heute gesehen haben, geht bei vielen Häusern in der Südstadt genauso. In vier Schritten zur gedämmten Wand:</p>
+    <ol class="schritte">
+      <li><b>Eignung prüfen lassen.</b> Endoskopie oder Probebohrung, dabei Decken, Fenster und Heizung gleich mit ansehen.</li>
+      <li><b>Angebote einholen.</b> Zwei bis drei Fachbetriebe, zugelassener Dämmstoff, Fachunternehmererklärung.</li>
+      <li><b>Förderung vor dem Auftrag beantragen.</b> Mit Beratung aus der Liste unten. Vertrag erst nach der Zusage.</li>
       <li><b>Dämmen lassen, Nachweis einreichen, Zuschuss erhalten.</b> Rechnung und Fachunternehmererklärung aufbewahren.</li>
     </ol>
+  </div>
 
+  <div class="rueck-mitte">
     <div class="qrreihe">
       <div class="qrbox gruen">
         <img src="assets/qr_daemmatlas.svg" alt="QR-Code zum Dämmatlas der Stadt Paderborn">
         <div>
           <h3>Dämmatlas der Stadt Paderborn</h3>
-          <p>Alle Dämmverfahren im Detail, von der Hohlschicht bis zur Kellerdecke, mit Aufbau, Dämmstoffen, typischen Fehlern und Wirtschaftlichkeit.</p>
+          <p>Alle Dämmverfahren im Detail, von der Hohlschicht bis zur Kellerdecke: Aufbau, Dämmstoffe, typische Fehler, Wirtschaftlichkeit.</p>
           <span class="url">paderborn.daemmatlas.de</span>
         </div>
       </div>
@@ -462,18 +485,21 @@ ul.kasten li::before{content:"";position:absolute;left:0;top:.6mm;width:3.4mm;he
         </div>
       </div>
     </div>
-
-    <div class="hinweis" style="margin:2.8mm 0 3mm;font-size:8.3pt;line-height:1.35">
-      <p style="margin:0"><b style="color:var(--blau-dunkel)">Energiesparen leicht gemacht:</b> elg-pb.de · 05251 5088611 · info@elg-pb.de. Die Beratungsplätze dieser Runde sind fast vergeben, der aktuelle Stand steht auf elg-pb.de.</p>
-    </div>
   </div>
-  <div class="footer" style="position:static;flex:none">
-    <div class="logos">
-      <img class="stadt" src="assets/stadt-paderborn.png" alt="Stadt Paderborn, Paderborn überzeugt.">
-      <img class="werke" src="assets/werke-logo-white.png" alt="WERK.E Energie-Effizienz-Beratung">
+
+  <div class="rueck-unten">
+    <div class="streifen"><svg class="streifen" viewBox="0 0 100 100" preserveAspectRatio="none" role="img" aria-label="Erwärmungsstreifen: farbige Balken von Blau nach Rot, das Motiv der Klimaseiten der Stadt Paderborn."><rect x="0.0000" y="0" width="2.5000" height="100" fill="#08306b"/><rect x="2.5000" y="0" width="2.5000" height="100" fill="#08519c"/><rect x="5.0000" y="0" width="2.5000" height="100" fill="#2171b5"/><rect x="7.5000" y="0" width="2.5000" height="100" fill="#4292c6"/><rect x="10.0000" y="0" width="2.5000" height="100" fill="#6baed6"/><rect x="12.5000" y="0" width="2.5000" height="100" fill="#9ecae1"/><rect x="15.0000" y="0" width="2.5000" height="100" fill="#c6dbef"/><rect x="17.5000" y="0" width="2.5000" height="100" fill="#deebf7"/><rect x="20.0000" y="0" width="2.5000" height="100" fill="#d1e5f0"/><rect x="22.5000" y="0" width="2.5000" height="100" fill="#92c5de"/><rect x="25.0000" y="0" width="2.5000" height="100" fill="#4393c3"/><rect x="27.5000" y="0" width="2.5000" height="100" fill="#2166ac"/><rect x="30.0000" y="0" width="2.5000" height="100" fill="#4393c3"/><rect x="32.5000" y="0" width="2.5000" height="100" fill="#92c5de"/><rect x="35.0000" y="0" width="2.5000" height="100" fill="#d1e5f0"/><rect x="37.5000" y="0" width="2.5000" height="100" fill="#f7f7f7"/><rect x="40.0000" y="0" width="2.5000" height="100" fill="#fddbc7"/><rect x="42.5000" y="0" width="2.5000" height="100" fill="#f4a582"/><rect x="45.0000" y="0" width="2.5000" height="100" fill="#d6604d"/><rect x="47.5000" y="0" width="2.5000" height="100" fill="#b2182b"/><rect x="50.0000" y="0" width="2.5000" height="100" fill="#f4a582"/><rect x="52.5000" y="0" width="2.5000" height="100" fill="#fddbc7"/><rect x="55.0000" y="0" width="2.5000" height="100" fill="#f7f7f7"/><rect x="57.5000" y="0" width="2.5000" height="100" fill="#d1e5f0"/><rect x="60.0000" y="0" width="2.5000" height="100" fill="#92c5de"/><rect x="62.5000" y="0" width="2.5000" height="100" fill="#fddbc7"/><rect x="65.0000" y="0" width="2.5000" height="100" fill="#f4a582"/><rect x="67.5000" y="0" width="2.5000" height="100" fill="#d6604d"/><rect x="70.0000" y="0" width="2.5000" height="100" fill="#b2182b"/><rect x="72.5000" y="0" width="2.5000" height="100" fill="#e08214"/><rect x="75.0000" y="0" width="2.5000" height="100" fill="#d6604d"/><rect x="77.5000" y="0" width="2.5000" height="100" fill="#b2182b"/><rect x="80.0000" y="0" width="2.5000" height="100" fill="#a50f15"/><rect x="82.5000" y="0" width="2.5000" height="100" fill="#cb181d"/><rect x="85.0000" y="0" width="2.5000" height="100" fill="#ef3b2c"/><rect x="87.5000" y="0" width="2.5000" height="100" fill="#a50f15"/><rect x="90.0000" y="0" width="2.5000" height="100" fill="#67000d"/><rect x="92.5000" y="0" width="2.5000" height="100" fill="#a50f15"/><rect x="95.0000" y="0" width="2.5000" height="100" fill="#cb181d"/><rect x="97.5000" y="0" width="2.5000" height="100" fill="#67000d"/></svg></div>
+    <div class="footer rueck-footer">
+      <div class="oben">
+        <div class="logos">
+          <img class="stadt" src="assets/stadt-paderborn.png" alt="Stadt Paderborn, Paderborn überzeugt.">
+          <img class="werke" src="assets/werke-logo-white.png" alt="WERK.E Energie-Effizienz-Beratung">
+        </div>
+        <div class="kontakt-f"><b>Energiesparen leicht gemacht</b><br>elg-pb.de · 05251 5088611 · info@elg-pb.de<span>Die Beratungsplätze dieser Runde sind fast vergeben, der aktuelle Stand steht auf elg-pb.de.</span></div>
+      </div>
+      <p>„Energiesparen leicht gemacht“ ist eine Aktion der Stadt Paderborn. Auftraggeberin: Stadt Paderborn, Amt für Umweltschutz und Grünflächen, Klimaschutz, Am Hoppenhof 33, 33104 Paderborn. Durchführung: WERK.E Energie-Effizienz-Beratungs GmbH &amp; Co. KG, Rolandsweg 80, 33102 Paderborn.</p>
+      <p>Stand: 23. Oktober 2026. Förderangaben ohne Gewähr, maßgeblich sind die jeweils aktuellen Richtlinien und Merkblätter von BAFA und KfW. Kostenangaben sind Erfahrungswerte, verbindlich ist nur ein Angebot für Ihr Haus. Fotos: WERK.E.</p>
     </div>
-    <p>„Energiesparen leicht gemacht“ ist eine Aktion der Stadt Paderborn. Auftraggeberin: Stadt Paderborn, Amt für Umweltschutz und Grünflächen, Klimaschutz, Am Hoppenhof 33, 33104 Paderborn. Durchführung: WERK.E Energie-Effizienz-Beratungs GmbH &amp; Co. KG, Rolandsweg 80, 33102 Paderborn.</p>
-    <p>Stand: 23. Oktober 2026. Förderangaben ohne Gewähr, maßgeblich sind die jeweils aktuellen Richtlinien und Merkblätter von BAFA und KfW. Kostenangaben sind Erfahrungswerte, verbindlich ist nur ein Angebot für Ihr Haus. Fotos: WERK.E.</p>
   </div>
 </section>
 
