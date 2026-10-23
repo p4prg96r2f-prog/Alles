@@ -48,7 +48,7 @@ ul.kasten li::before{content:"";position:absolute;left:0;top:.6mm;width:3.4mm;he
 .schritte li::before{content:counter(s);position:absolute;left:0;top:.2mm;width:6.4mm;height:6.4mm;border-radius:50%;background:var(--gruen-dunkel);color:#fff;font-weight:700;font-size:10pt;text-align:center;line-height:6.4mm}
 .schritte b{color:var(--blau-dunkel)}
 .tipps{list-style:none;padding:0;margin:0;columns:2;column-gap:4mm}
-.tipps li{break-inside:avoid;margin-bottom:2.3mm;padding-left:7.4mm;position:relative;font-size:8.9pt;line-height:1.36}
+.tipps li{break-inside:avoid;margin-bottom:2.1mm;padding-left:7.4mm;position:relative;font-size:8.7pt;line-height:1.34}
 .tipps li .nr{position:absolute;left:0;top:.3mm;width:5.6mm;height:5.6mm;border-radius:50%;background:var(--blau-dunkel);color:#fff;font-weight:700;font-size:9pt;text-align:center;line-height:5.6mm}
 .tipps b{color:var(--blau-dunkel)}
 .tag{display:inline-block;font-size:6.8pt;font-weight:600;color:var(--gruen-dunkel);background:var(--gruen-hell);padding:0 1.2mm;border-radius:.6mm;margin-left:.6mm;vertical-align:middle}
@@ -102,6 +102,18 @@ ul.kasten li::before{content:"";position:absolute;left:0;top:.6mm;width:3.4mm;he
 .tab tr.heute td{background:var(--grau)}
 .tab td b{color:var(--blau-dunkel)}
 .tab td .gr{color:var(--gruen-dunkel);font-weight:700}
+.qrreihe{display:grid;grid-template-columns:1fr 1fr;gap:3mm;margin:2.6mm 0 0}
+.qrbox{border-radius:1.2mm;padding:3mm 3mm 2.6mm;display:grid;grid-template-columns:24mm 1fr;gap:2.6mm;align-items:start}
+.qrbox.gruen{background:var(--gruen-hell)}
+.qrbox.blau{background:var(--blau-hell)}
+.qrbox img{width:24mm;height:24mm;display:block;background:#fff;border-radius:.8mm;padding:.8mm}
+.qrbox h3{font-size:10.5pt;line-height:1.15;margin:0 0 1.2mm}
+.qrbox p{font-size:7.9pt;line-height:1.3;margin:0}
+.qrbox .url{display:block;grid-column:1 / -1;font-size:9.2pt;font-weight:700;color:var(--blau-dunkel);white-space:nowrap;margin-top:.4mm}
+.qrstreifen{display:grid;grid-template-columns:16mm 1fr;gap:3mm;align-items:center;background:var(--gruen-hell);border-radius:1.2mm;padding:2.2mm 3mm;margin-top:2.4mm}
+.qrstreifen img{width:16mm;height:16mm;display:block;background:#fff;border-radius:.6mm;padding:.5mm}
+.qrstreifen p{margin:0;font-size:8.4pt;line-height:1.32}
+.qrstreifen .url{font-weight:700;color:var(--blau-dunkel)}
 .hinweis{font-size:8.2pt;color:var(--ink);background:var(--grau);padding:2mm 2.6mm;border-radius:1mm;margin-top:2mm}
 </style>
 </head>
@@ -412,7 +424,10 @@ ul.kasten li::before{content:"";position:absolute;left:0;top:.6mm;width:3.4mm;he
         <p class="bu">Digitale Thermostate heizen nach Zeitplan. In Runde 1 bei 16 Prozent der Haushalte empfohlen.</p>
       </div>
     </div>
-    <p class="quelle">Alle Tipps ausführlich: elg-pb.de/spartipps. Umsetzungsquoten: Nachbefragung zur ersten Runde, elg-pb.de/ergebnisse.</p>
+    <div class="qrstreifen">
+      <img src="assets/qr_daemmatlas.svg" alt="QR-Code zum Dämmatlas der Stadt Paderborn">
+      <p><b>Jede Dämmmaßnahme Schritt für Schritt erklärt:</b> Aufbau, Dämmstoffe, typische Fehler, Wirtschaftlichkeit. Dämmatlas der Stadt Paderborn, <span class="url">paderborn.daemmatlas.de</span><br><span class="quelle" style="margin:0">Alle neun Tipps ausführlich: elg-pb.de/spartipps</span></p>
+    </div>
   </div>
   <div class="fuss"><span>Energiesparen leicht gemacht · Tag der offenen Baustelle</span><span>7</span></div>
 </section>
@@ -422,32 +437,36 @@ ul.kasten li::before{content:"";position:absolute;left:0;top:.6mm;width:3.4mm;he
   <div class="inhalt" style="padding-bottom:0;flex:1 1 auto;min-height:0;display:flex;flex-direction:column">
     <div class="kicker">Wie es weitergeht</div>
     <h2>Vier Schritte bis zur gedämmten Wand.</h2>
-    <ol class="schritte">
-      <li><b>Eignung prüfen lassen.</b> Endoskopie oder Probebohrung durch einen Fachbetrieb oder im Rahmen einer Energieberatung. Dabei gleich die anderen Schwachstellen des Hauses ansehen: oberste Geschossdecke, Kellerdecke, Fenster, Heizung.</li>
-      <li><b>Angebote einholen.</b> Von zertifizierten Fachbetrieben, mit zugelassenem Dämmstoff und Fachunternehmererklärung. Zwei bis drei Angebote vergleichen.</li>
-      <li><b>Förderung vor dem Auftrag beantragen.</b> Antrag beim BAFA mit einer Energieeffizienz-Expertin oder einem -Experten (Liste siehe unten). Vertrag erst nach der Zusage oder mit aufschiebender Bedingung.</li>
-      <li><b>Dämmen lassen, Nachweis einreichen, Zuschuss erhalten.</b> Die Arbeiten dauern meist einen Tag. Rechnung und Fachunternehmererklärung aufbewahren.</li>
+    <ol class="schritte" style="font-size:8.9pt">
+      <li><b>Eignung prüfen lassen.</b> Endoskopie oder Probebohrung durch einen Fachbetrieb oder in der Energieberatung, dabei gleich Decken, Fenster und Heizung mit ansehen.</li>
+      <li><b>Angebote einholen.</b> Zertifizierte Fachbetriebe, zugelassener Dämmstoff, Fachunternehmererklärung. Zwei bis drei Angebote vergleichen.</li>
+      <li><b>Förderung vor dem Auftrag beantragen.</b> Mit einer Expertin oder einem Experten aus der Liste unten. Vertrag erst nach der Zusage oder mit aufschiebender Bedingung.</li>
+      <li><b>Dämmen lassen, Nachweis einreichen, Zuschuss erhalten.</b> Rechnung und Fachunternehmererklärung aufbewahren.</li>
     </ol>
 
-    <div class="kontakt" style="margin-top:2.6mm">
-      <div class="k">
-        <h3>Energiesparen leicht gemacht</h3>
-        Kostenlose Energieberatung zu Hause, eine Aktion der Stadt Paderborn.<br>
-        <span class="gross">elg-pb.de</span><br>
-        Telefon 05251 5088611<br>
-        info@elg-pb.de<br>
-        <span class="klein">Die Beratungsplätze dieser Runde sind fast vollständig vergeben. Ob noch Termine frei sind, steht auf elg-pb.de.</span>
+    <div class="qrreihe">
+      <div class="qrbox gruen">
+        <img src="assets/qr_daemmatlas.svg" alt="QR-Code zum Dämmatlas der Stadt Paderborn">
+        <div>
+          <h3>Dämmatlas der Stadt Paderborn</h3>
+          <p>Alle Dämmverfahren im Detail, von der Hohlschicht bis zur Kellerdecke, mit Aufbau, Dämmstoffen und Wirtschaftlichkeit.</p>
+        </div>
+        <span class="url">paderborn.daemmatlas.de</span>
       </div>
-      <div class="k gruen">
-        <h3>Weiterführende Beratung</h3>
-        EnergieXperten, Kompetenznetzwerk Paderborn e. V.: Energieberaterinnen und Energieberater, Planerinnen und Planer aus Paderborn.<br>
-        <span class="gross">energie-xperten.de</span><br>
-        Telefon 05251 1478557<br>
-        info@energie-xperten.de<br>
-        <span class="klein">Alle Dämmverfahren im Detail, von der Hohlschicht bis zur Kellerdecke: Dämmatlas der Stadt Paderborn, <b>paderborn.daemmatlas.de</b></span>
+      <div class="qrbox blau">
+        <img src="assets/qr_expertenliste.svg" alt="QR-Code zur Energieeffizienz-Expertenliste des Bundes">
+        <div>
+          <h3>Energieeffizienz-Expertenliste des Bundes</h3>
+          <p>Geprüfte Energieberaterinnen und Energieberater für Sanierungsfahrplan, Förderantrag und Baubegleitung. Suche nach Postleitzahl.</p>
+        </div>
+        <span class="url">energie-effizienz-experten.de</span>
       </div>
     </div>
-    <div class="hinweis" style="margin-top:2.6mm"><b style="color:var(--blau-dunkel)">Energieeffizienz-Expertenliste des Bundes: energie-effizienz-experten.de.</b> Dort finden Sie geprüfte Energieberaterinnen und Energieberater für Sanierungsfahrplan, Förderantrag und Baubegleitung, mit Suche nach Postleitzahl.</div>
+
+    <div class="hinweis" style="margin:3mm 0 3.5mm;font-size:8.3pt;line-height:1.35">
+      <p style="margin:0 0 1mm"><b style="color:var(--blau-dunkel)">Energiesparen leicht gemacht:</b> elg-pb.de · 05251 5088611 · info@elg-pb.de. Die Beratungsplätze dieser Runde sind fast vergeben, der aktuelle Stand steht auf elg-pb.de.</p>
+      <p style="margin:0"><b style="color:var(--blau-dunkel)">Weiterführende Beratung:</b> EnergieXperten, Kompetenznetzwerk Paderborn e. V. · energie-xperten.de · 05251 1478557 · info@energie-xperten.de</p>
+    </div>
   </div>
   <div class="footer" style="position:static;flex:none">
     <div class="logos">
